@@ -1,0 +1,59 @@
+<nz-layout>
+  <nz-header>
+    <app-header-logo></app-header-logo>
+
+    <div class="header-info">
+      <div class="header-info-item">
+        <a nzType="link" nzGhost  nzTooltipTitle="搜索" nzTooltipPlacement="bottom" nz-button nz-tooltip>
+          <i nz-icon nzType="search" nzTheme="outline"></i>
+        </a>
+      </div>
+      <div class="header-info-item">
+        <a nzType="link" nzGhost  nzTooltipTitle="用户" nzTooltipPlacement="bottom" nz-button nz-tooltip>
+          <i nz-icon nzType="user" nzTheme="outline"></i>
+        </a>
+      </div>
+      <div class="header-info-item">
+        <a nzType="link"
+           nzGhost
+           nzTooltipTitle="登出"
+           nzTooltipPlacement="bottom"
+           nz-button
+           nz-tooltip
+        >
+          <i nz-icon nzType="logout" nzTheme="outline"></i>
+        </a>
+      </div>
+    </div>
+
+    <ul nz-menu nzTheme="dark" nzMode="horizontal" class="header-menu">
+
+    </ul>
+  </nz-header>
+  <nz-content class="outer-content">
+    <nz-breadcrumb>
+    </nz-breadcrumb>
+    <nz-layout class="inner-layout">
+      <nz-sider nzWidth="200px" nzTheme="light">
+        <ul nz-menu nzMode="inline" class="sider-menu">
+          <li nz-submenu nzOpen nzTitle="课程" nzIcon="project">
+            <ul>
+              <li  [nzSelected]="option=='course_list'" nz-menu-item [routerLink]="['/','teacher','course_list']" >课程列表</li>
+              <li  [nzSelected]="option=='course_add'" nz-menu-item  [routerLink]="['/','teacher','course_add']">开设新课程</li>
+            </ul>
+          </li>
+          <li nz-submenu nzOpen nzTitle="项目" nzIcon="project">
+            <ul>
+              <li  [nzSelected]="option=='project_list'" nz-menu-item [routerLink]="['/','teacher','project_list']" >项目列表</li>
+              <li  [nzSelected]="option=='project_add'" nz-menu-item  [routerLink]="['/','teacher','project_add']">开设新项目</li>
+            </ul>
+          </li>
+        </ul>
+      </nz-sider>
+      <nz-content class="inner-content">
+        <router-outlet></router-outlet>
+      </nz-content>
+    </nz-layout>
+    <nz-footer><app-footer-content></app-footer-content></nz-footer>
+  </nz-content>
+</nz-layout>
