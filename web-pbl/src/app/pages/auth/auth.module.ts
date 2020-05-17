@@ -10,6 +10,8 @@ import { StudentLoginComponent } from './student-login/student-login.component';
 import { StudentSignupComponent } from './student-signup/student-signup.component';
 import { TeacherLoginComponent } from './teacher-login/teacher-login.component';
 import { ManagerLoginComponent } from './manager-login/manager-login.component';
+import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -22,6 +24,8 @@ import { ManagerLoginComponent } from './manager-login/manager-login.component';
     CommonModule,
     DemoNgZorroAntdModule,
     AppShareModule,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class AuthModule { }

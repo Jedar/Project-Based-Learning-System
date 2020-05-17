@@ -1,0 +1,79 @@
+<nz-layout>
+    <nz-header>
+      <app-header-logo></app-header-logo>
+
+      <div class="header-info">
+        <div class="header-info-item">
+          <a nzType="link" nzGhost  nzTooltipTitle="搜索" nzTooltipPlacement="bottom" nz-button nz-tooltip>
+            <i nz-icon nzType="search" nzTheme="outline"></i>
+          </a>
+        </div>
+        <div class="header-info-item">
+          <a nzType="link" nzGhost  nzTooltipTitle="用户" nzTooltipPlacement="bottom" nz-button nz-tooltip>
+            <i nz-icon nzType="user" nzTheme="outline"></i>
+          </a>
+        </div>
+        <div class="header-info-item">
+          <a nzType="link" 
+            nzGhost 
+            nzTooltipTitle="登出" 
+            nzTooltipPlacement="bottom" 
+            nz-button 
+            nz-tooltip
+            >
+            <i nz-icon nzType="logout" nzTheme="outline"></i>
+          </a>
+        </div>
+      </div>
+
+      <ul nz-menu nzTheme="dark" nzMode="horizontal" class="header-menu">
+        <li nz-menu-item [routerLink]="['/','teacher','course_list']">课程列表</li>
+        <li nz-menu-item [routerLink]="['/','teacher','course_add']">开设课程</li>
+        <li nz-menu-item [routerLink]="['/','teacher','project_add']">新建项目</li>
+      </ul>
+    </nz-header>
+    <nz-content class="outer-content">
+      <nz-breadcrumb>
+          <nz-breadcrumb-item>教师</nz-breadcrumb-item>
+          <nz-breadcrumb-item>项目</nz-breadcrumb-item>
+      </nz-breadcrumb>
+      <nz-layout class="inner-layout">
+        <nz-sider nzWidth="200px" nzTheme="light">
+          <ul nz-menu nzMode="inline" class="sider-menu">
+            <li nz-menu-item
+                [routerLink]="['/','project','student','info']">
+                <i nz-icon nzType="home" nzTheme="outline"></i>
+                项目信息
+            </li>
+            
+            <li nz-submenu nzOpen nzTitle="任务" nzIcon="list">
+              <ul>
+                <li nz-menu-item [routerLink]="['/','project','student','all_task']">任务总览</li>
+                <li nz-menu-item  [routerLink]="['/','project','student','manage_task']">管理任务</li>
+              </ul>
+            </li>
+            <li nz-menu-item
+                [routerLink]="['/','project','student','discuss']">
+                <i nz-icon nzType="setting" nzTheme="outline"></i>
+                项目讨论
+            </li>
+            <li nz-menu-item
+                [routerLink]="['/','project','student','file']">
+                <i nz-icon nzType="setting" nzTheme="outline"></i>
+                项目资源
+            </li>
+            <li nz-menu-item
+                [routerLink]="['/','project','student','mark_score']">
+                <i nz-icon nzType="home" nzTheme="outline"></i>
+                打分
+            </li>
+          </ul>
+        </nz-sider>
+        <nz-content class="inner-content">
+            <router-outlet></router-outlet>
+        </nz-content>
+      </nz-layout>
+      <nz-footer><app-footer-content></app-footer-content></nz-footer>
+    </nz-content>
+  </nz-layout>
+
