@@ -1,0 +1,12 @@
+.logo {
+    width: 240px;
+    height: 31px;
+    /* background: rgba(226, 225, 225, 0.2); */
+    margin: 16px 28px 16px 0;
+    padding: 3px;
+    float: left;
+    color: #fff;
+    text-align:center;
+    font-size:1.875em;
+    line-height:100%;
+}

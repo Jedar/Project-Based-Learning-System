@@ -1,0 +1,68 @@
+<nz-layout>
+    <nz-header>
+      <app-header-logo></app-header-logo>
+
+      <div class="header-info">
+        <div class="header-info-item">
+          <a nzType="link" nzGhost  nzTooltipTitle="搜索" nzTooltipPlacement="bottom" nz-button nz-tooltip>
+            <i nz-icon nzType="search" nzTheme="outline"></i>
+          </a>
+        </div>
+        <div class="header-info-item">
+          <a nzType="link" nzGhost  nzTooltipTitle="用户" nzTooltipPlacement="bottom" nz-button nz-tooltip>
+            <i nz-icon nzType="user" nzTheme="outline"></i>
+          </a>
+        </div>
+        <div class="header-info-item">
+          <a nzType="link" 
+            nzGhost 
+            nzTooltipTitle="登出" 
+            nzTooltipPlacement="bottom" 
+            nz-button 
+            nz-tooltip
+            >
+            <i nz-icon nzType="logout" nzTheme="outline"></i>
+          </a>
+        </div>
+      </div>
+
+      <ul nz-menu nzTheme="dark" nzMode="horizontal" class="header-menu">
+        <li [nzSelected]="option=='teacher_list'" nz-menu-item [routerLink]="['/','manager','teacher']">教师管理</li>
+        <li [nzSelected]="option=='student_list'" nz-menu-item [routerLink]="['/','manager','student']">学生管理</li>
+        <li [nzSelected]="option=='class_list'" nz-menu-item [routerLink]="['/','manager','class']">课程管理</li>
+      </ul>
+    </nz-header>
+    <nz-content class="outer-content">
+      <nz-breadcrumb>
+      </nz-breadcrumb>
+      <nz-layout class="inner-layout">
+        <nz-sider nzWidth="200px" nzTheme="light">
+          <ul nz-menu nzMode="inline" class="sider-menu">
+            <li nz-submenu nzOpen nzTitle="教师管理" nzIcon="user">
+              <ul>
+                <li  [nzSelected]="option=='teacher_list'" nz-menu-item [routerLink]="['/','manager','teacher_list']" >教师列表</li>
+                <li  [nzSelected]="option=='teacher_create'" nz-menu-item  [routerLink]="['/','manager','teacher_create']">新增教师</li>
+              </ul>
+            </li>
+            <li nz-submenu nzTitle="学生管理" nzIcon="laptop">
+              <ul>
+                <li  [nzSelected]="option=='student_list'" nz-menu-item [routerLink]="['/','manager','student_list']">学生列表</li>
+                <li  [nzSelected]="option=='student_create'" nz-menu-item [routerLink]="['/','manager','student_create']">新增学生</li>
+              </ul>
+            </li>
+            <li nz-submenu nzTitle="课程管理" nzIcon="notification">
+              <ul>
+                <li  [nzSelected]="option=='class_list'" nz-menu-item [routerLink]="['/','manager','class_list']">课程列表</li>
+                <li  [nzSelected]="option=='class_create'" nz-menu-item [routerLink]="['/','manager','class_create']">新增课程</li>
+              </ul>
+            </li>
+            <li  [nzSelected]="option=='system'" nz-menu-item [routerLink]="['/','manager','system']"><i nz-icon nzType="setting" nzTheme="outline"></i>系统信息</li>
+          </ul>
+        </nz-sider>
+        <nz-content class="inner-content">
+            <router-outlet></router-outlet>
+        </nz-content>
+      </nz-layout>
+      <nz-footer><app-footer-content></app-footer-content></nz-footer>
+    </nz-content>
+  </nz-layout>

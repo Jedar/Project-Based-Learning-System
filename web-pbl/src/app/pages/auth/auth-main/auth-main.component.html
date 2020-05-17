@@ -1,3 +1,27 @@
-<p>父组件</p>
+<nz-layout>
+    <nz-header>
+        <app-header-logo></app-header-logo>
+        <ul nz-menu nzTheme="dark" nzMode="horizontal">
+        <li nzMatchRouter nz-menu-item><a [routerLink]="['/','auth','student','login']">我是学生</a> </li>
+        <li nzMatchRouter nz-menu-item><a [routerLink]="['/','auth','teacher','login']">我是老师</a></li>
+        <li nzMatchRouter nz-menu-item><a [routerLink]="['/','auth','manager','login']">我是管理员</a></li>
+        </ul>
+    </nz-header>
+    <nz-content>
+        <nz-breadcrumb>
+        <!-- <nz-breadcrumb-item>登陆</nz-breadcrumb-item> -->
+        </nz-breadcrumb>
+        <div class="inner-content">
+            <div nz-row nzGutter="16">
+                <div nz-col nzSpan="16">
+                    <img class="auth-image" src="/assets/image/pbl.jpg"/>
+                </div>
 
-<router-outlet></router-outlet>
+                <div nz-col nzSpan="8">
+                    <router-outlet></router-outlet>
+                </div>
+            </div>
+        </div>
+    </nz-content>
+    <nz-footer><app-footer-content></app-footer-content></nz-footer>
+</nz-layout>

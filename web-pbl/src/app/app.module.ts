@@ -10,21 +10,25 @@ import { NZ_I18N } from 'ng-zorro-antd/i18n';
 import { zh_CN } from 'ng-zorro-antd/i18n';
 import { registerLocaleData } from '@angular/common';
 import zh from '@angular/common/locales/zh';
+import { DemoNgZorroAntdModule } from './ng-zorro-antd.module';
 import { PageErrorComponent } from './components/page-error/page-error.component';
+import { AppShareModule } from './app-share.module';
 
 registerLocaleData(zh);
 
 @NgModule({
   declarations: [
     AppComponent,
-    PageErrorComponent
+    PageErrorComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    DemoNgZorroAntdModule,
+    AppShareModule,
   ],
   providers: [{ provide: NZ_I18N, useValue: zh_CN }],
   bootstrap: [AppComponent]
