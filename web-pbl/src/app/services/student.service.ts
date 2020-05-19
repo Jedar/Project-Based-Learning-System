@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+
 /* 引入包 */
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 /* 可能用到的操作符 */
@@ -6,7 +7,7 @@ import {catchError,map,tap} from 'rxjs/operators';
 /* 回调对象 */
 import {Observable,of, ObservableInput} from "rxjs";
 
-import { Result } from '../share/common.model';
+import { Student } from "../share/student.model";
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -17,13 +18,15 @@ const httpOptions = {
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
+export class StudentService {
 
-  constructor(
-    private http:HttpClient/* 依赖注入 */
-  ) { }
+  constructor(private http:HttpClient/* 依赖注入 */) { }
 
-  login(data):Observable<Result>{
-    return this.http.get<Result>("/assets/data/login.json").pipe();
+  getStudentInfo():Observable<Student>{
+    return this.http.get<Student>("/assets/data/studentdemo.json").pipe();
+  }
+
+  getStudentsOfProject(project_id:number):Observable<Student[]>{
+    return this.http.get<Student[]>("/assets/data/students.json").pipe();
   }
 }

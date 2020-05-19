@@ -15,13 +15,17 @@ import { DemoNgZorroAntdModule } from './ng-zorro-antd.module';
 import { PageErrorComponent } from './components/page-error/page-error.component';
 import { AppShareModule } from './app-share.module';
 import { AuthService } from './services/auth.service';
+import { TaskService } from './services/task.service';
+import { StudentService } from './services/student.service';
+import { ProjectService } from './services/project.service';
+import { NzModalService } from 'ng-zorro-antd/modal';
 
 registerLocaleData(zh);
 
 @NgModule({
   declarations: [
     AppComponent,
-    PageErrorComponent,
+    PageErrorComponent
   ],
   imports: [
     BrowserModule,
@@ -31,11 +35,15 @@ registerLocaleData(zh);
     BrowserAnimationsModule,
     DemoNgZorroAntdModule,
     AppShareModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   providers: [
     { provide: NZ_I18N, useValue: zh_CN },
     AuthService,
+    TaskService,
+    StudentService,
+    NzModalService,
+    ProjectService,
   ],
   bootstrap: [AppComponent]
 })

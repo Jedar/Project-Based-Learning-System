@@ -12,6 +12,8 @@ import { PjManageTaskComponent } from './pj-manage-task/pj-manage-task.component
 import { PjMyScoreComponent } from './pj-my-score/pj-my-score.component';
 import { PjMarkScoreComponent } from './pj-mark-score/pj-mark-score.component';
 import { PjMarkMateComponent } from './pj-mark-mate/pj-mark-mate.component';
+import { PjEditTaskComponent } from './pj-edit-task/pj-edit-task.component' ;
+import { PjModifyTaskComponent } from './pj-modify-task/pj-modify-task.component' ;
 
 
 const routes: Routes = [
@@ -22,6 +24,7 @@ const routes: Routes = [
     {path:'file',component:PjFileComponent},
     {path:'all_task',component:PjAllTaskComponent},
     {path:'manage_task',component:PjManageTaskComponent},
+    {path:'modify_task',component:PjModifyTaskComponent},
     {path:'mark_score',component:PjMarkScoreComponent},
     {path:'**',redirectTo:'info'}
   ]},
@@ -32,6 +35,8 @@ const routes: Routes = [
     {path:'all_task',component:PjAllTaskComponent},
     {path:'my_task',component:PjMyTaskComponent},
     {path:'manage_task',component:PjManageTaskComponent},
+    {path:'modify_task',component:PjModifyTaskComponent},
+    {path:'edit_task',component:PjEditTaskComponent},
     {path:'my_score',component:PjMyScoreComponent},
     {path:'mark_mate',component:PjMarkMateComponent},
     {path:'**',redirectTo:'info'}

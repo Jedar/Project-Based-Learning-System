@@ -1,1 +1,27 @@
-<p>pj-my-task works!</p>
+<nz-page-header class="site-page-header" nzTitle="我的任务" nzSubtitle="">
+</nz-page-header>
+<nz-divider></nz-divider>
+
+<nz-table #sortTable [nzData]="tasks" nzTableLayout="fixed" [nzPageSize]="10">
+<thead>
+    <tr>
+    <th *ngFor="let column of listOfColumn" [nzSortFn]="column.compare" [nzSortPriority]="column.priority">{{ column.title }}</th>
+    </tr>
+</thead>
+<tbody>
+    <tr *ngFor="let data of sortTable.data">
+    <td>{{ data.task_name }}</td>
+    <td>{{ data.start_time }}</td>
+    <td>{{ data.end_time }}</td>
+    <td>{{ data.state }}%</td>
+    <td>{{ data.content }}</td>
+    <td><nz-tag [nzColor]="'green'">
+        <a 
+        [routerLink]="['/','project','student','edit_task']" 
+        [queryParams]="{'projectId':data.project_id,'taskId':data.task_id}">
+        <i nz-icon nzType="edit" nzTheme="outline"></i>编辑进度</a>
+      </nz-tag></td>
+    </tr>
+</tbody>
+</nz-table>
+

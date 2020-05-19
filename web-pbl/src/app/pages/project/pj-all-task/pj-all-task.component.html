@@ -1,1 +1,29 @@
-<p>pj-all-task works!</p>
+<nz-page-header class="site-page-header" nzTitle="任务概览" nzSubtitle="">
+</nz-page-header>
+<nz-divider></nz-divider>
+<nz-tabset>
+    <nz-tab nzTitle="甘特图">
+        <div style="height:300px;">
+            <ng-gantt [options]="editorOptions" [data]="data" #editor></ng-gantt>
+        </div>
+    </nz-tab>
+    <nz-tab nzTitle="表格视图">
+        <nz-table #sortTable [nzData]="tasks" nzTableLayout="fixed" [nzPageSize]="10">
+            <thead>
+              <tr>
+                <th *ngFor="let column of listOfColumn" [nzSortFn]="column.compare" [nzSortPriority]="column.priority">{{ column.title }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let data of sortTable.data">
+                <td>{{ data.task_name }}</td>
+                <td>{{ data.user_name }}</td>
+                <td>{{ data.start_time }}</td>
+                <td>{{ data.end_time }}</td>
+                <td>{{ data.state }}%</td>
+                <td>{{ data.content }}</td>
+              </tr>
+            </tbody>
+          </nz-table>
+    </nz-tab>
+</nz-tabset>
