@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {Course} from "../../../share/course.model";
+import {CourseService} from "../../../services/course.service";
 
 @Component({
   selector: 'app-course-join',
@@ -7,9 +9,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CourseJoinComponent implements OnInit {
 
-  constructor() { }
+
+  searchCoursesResult: Course[] = [];
+  searchCoursesPagination = {
+    pageIndex: 1
+  };
+
+  operation = 1;
+  constructor(
+    private courseService: CourseService
+  ) { }
 
   ngOnInit(): void {
   }
 
+  searchCourses(): void {
+    this.courseService.searchCourse('')
+      .subscribe(result => {
+        this.searchCoursesResult = result;
+      })
+  }
 }

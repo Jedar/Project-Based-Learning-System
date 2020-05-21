@@ -19,6 +19,7 @@ import { TaskService } from './services/task.service';
 import { StudentService } from './services/student.service';
 import { ProjectService } from './services/project.service';
 import { NzModalService } from 'ng-zorro-antd/modal';
+import {NzMessageService} from "ng-zorro-antd";
 
 registerLocaleData(zh);
 
@@ -43,6 +44,7 @@ registerLocaleData(zh);
     TaskService,
     StudentService,
     NzModalService,
+    NzMessageService,
     ProjectService,
   ],
   bootstrap: [AppComponent]

@@ -1,1 +1,22 @@
-<p>course-join works!</p>
+<h4>搜索课程</h4>
+
+<nz-input-group style="width: 500px" nzSearch [nzAddOnAfter]="suffixIconButton">
+  <input type="text" nz-input placeholder="输入课程信息（名称、简介、教师），支持模糊匹配" />
+</nz-input-group>
+<ng-template #suffixIconButton>
+  <button nz-button nzType="default" nzSearch (click)="searchCourses()"><i nz-icon nzType="search"></i> 搜索课程</button>
+</ng-template>
+
+<h4>搜索结果</h4>
+
+<div>
+  <div nz-row [nzGutter]="8">
+    <div nz-col nzFlex="300px" [nzSpan]="8"
+         *ngFor="let course of searchCoursesResult.slice((searchCoursesPagination.pageIndex - 1) * 3,
+         searchCoursesPagination.pageIndex * 3)">
+      <app-course-card [course]="course" [operation]="operation"></app-course-card>
+    </div>
+  </div>
+
+  <nz-pagination [(nzPageIndex)]="searchCoursesPagination.pageIndex" [nzPageSize]="3" [nzTotal]="searchCoursesResult.length" (nzPageIndexChange)="searchCourses()"></nz-pagination>
+</div>

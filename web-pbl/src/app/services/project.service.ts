@@ -1,19 +1,19 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 
 /* 引入包 */
-import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpErrorResponse} from '@angular/common/http';
 /* 可能用到的操作符 */
-import {catchError,map,tap} from 'rxjs/operators';
+import {catchError, map, tap} from 'rxjs/operators';
 /* 回调对象 */
-import {Observable,of, ObservableInput} from "rxjs";
+import {Observable, of, ObservableInput} from "rxjs";
 
-import { Project } from '../share/project.model';
+import {Project} from '../share/project.model';
 
-import { Result } from '../share/common.model';
+import {Result} from '../share/common.model';
 
 const httpOptions = {
   headers: new HttpHeaders({
-    'Content-Type':  'application/json',
+    'Content-Type': 'application/json',
   })
 };
 
@@ -22,9 +22,35 @@ const httpOptions = {
 })
 export class ProjectService {
 
-  constructor(private http:HttpClient/* 依赖注入 */) { }
+  constructor(private http: HttpClient/* 依赖注入 */) {
+  }
 
-  getProjectOf(project_id:number):Observable<Project>{
+  getProjectOf(project_id: number): Observable<Project> {
     return this.http.get<Project>("/assets/data/project.json").pipe();
   }
+
+  getAllStudentProjects(studentId: number): Observable<Project[]> {
+    return this.http.get<Project[]>("/assets/data/projects.json").pipe();
+  }
+
+  getAllTeacherProjects(teacherId: number): Observable<Project[]> {
+    return this.http.get<Project[]>("/assets/data/projects.json").pipe();
+  }
+
+  dropProjectOfStudent(studentId: number, project_id: number): Observable<Result> {
+    return this.http.get<Result>("").pipe();
+  }
+
+  getAllProjects(courseId: number): Observable<Project[]> {
+    return this.http.get<Project[]>("/assets/data/projects.json").pipe();
+  }
+
+  joinProject(studentId: number, project_id: number): Observable<Result> {
+    return this.http.get<Result>("").pipe();
+  }
+
+  deleteProject(teacherId: number, project_id: number): Observable<Result> {
+    return this.http.get<Result>("").pipe();
+  }
+
 }

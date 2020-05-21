@@ -1,1 +1,18 @@
-<p>project-join works!</p>
+<h4>所有项目</h4>
+
+<nz-list>
+  <nz-list-item *ngFor="let project of allProjects">
+    <ng-container>
+      <nz-list-item-meta
+        nzTitle="{{project.project_name}}"
+        nzDescription="{{project.start_time}} --- {{project.end_time}}">
+      </nz-list-item-meta>
+      项目主题：{{project.theme}}
+      <ul nz-list-item-actions>
+        <nz-list-item-action><a (click)="joinProject(project.project_id)"><i nz-icon nzType="login"></i> 加入项目</a></nz-list-item-action>
+      </ul>
+    </ng-container>
+  </nz-list-item>
+</nz-list>
+
+<nz-pagination [(nzPageIndex)]="pagination.pageIndex" [nzPageSize]="3" [nzTotal]="allProjects.length" (nzPageIndexChange)="getAllProjects()"></nz-pagination>

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-project-add',
@@ -7,9 +8,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProjectAddComponent implements OnInit {
 
-  constructor() { }
+  validateForm!: FormGroup;
+
+  constructor(
+    private fb: FormBuilder,
+  ) { }
 
   ngOnInit(): void {
+    this.validateForm = this.fb.group({
+      name: [null, [Validators.required]],
+      theme: [null, [Validators.required]],
+      timeRange: [null, [Validators.required]],
+    });
   }
 
+  addProject(): void {
+
+  }
 }
