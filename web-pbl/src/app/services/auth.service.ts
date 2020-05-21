@@ -6,11 +6,7 @@ import {catchError,map,tap} from 'rxjs/operators';
 /* 回调对象 */
 import {Observable,of, ObservableInput} from "rxjs";
 
-<<<<<<< HEAD
 import {Result, UniqueUsername} from '../share/common.model';
-=======
-import { Result } from '../share/common.model';
->>>>>>> 30f1f9d034b10907f79a1242529dc7c473ed2018
 
 const httpOptions = {
   headers: new HttpHeaders({
