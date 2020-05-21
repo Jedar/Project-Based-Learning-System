@@ -40,31 +40,31 @@
       <nz-layout class="inner-layout">
         <nz-sider nzWidth="200px" nzTheme="light">
           <ul nz-menu nzMode="inline" class="sider-menu">
-            <li nz-menu-item
-                [routerLink]="['/','project','student','info']">
+            <li nz-menu-item [nzSelected]="option=='info'"
+                [routerLink]="['/','project','teacher','info']">
                 <i nz-icon nzType="home" nzTheme="outline"></i>
                 项目信息
             </li>
             
-            <li nz-submenu nzOpen nzTitle="任务" nzIcon="list">
+            <li nz-submenu nzOpen nzTitle="任务" nzIcon="bars">
               <ul>
-                <li nz-menu-item [routerLink]="['/','project','student','all_task']">任务总览</li>
-                <li nz-menu-item  [routerLink]="['/','project','student','manage_task']">管理任务</li>
+                <li [nzSelected]="option=='all_task'" nz-menu-item [routerLink]="['/','project','teacher','all_task']">任务总览</li>
+                <li [nzSelected]="option=='manage_task'" nz-menu-item  [routerLink]="['/','project','teacher','manage_task']">管理任务</li>
               </ul>
             </li>
-            <li nz-menu-item
-                [routerLink]="['/','project','student','discuss']">
-                <i nz-icon nzType="setting" nzTheme="outline"></i>
+            <li nz-menu-item [nzSelected]="option=='discuss'"
+                [routerLink]="['/','project','teacher','discuss']">
+                <i nz-icon nzType="message" nzTheme="outline"></i>
                 项目讨论
             </li>
-            <li nz-menu-item
-                [routerLink]="['/','project','student','file']">
-                <i nz-icon nzType="setting" nzTheme="outline"></i>
+            <li nz-menu-item [nzSelected]="option=='file'"
+                [routerLink]="['/','project','teacher','file']">
+                <i nz-icon nzType="file-text" nzTheme="outline"></i>
                 项目资源
             </li>
-            <li nz-menu-item
-                [routerLink]="['/','project','student','mark_score']">
-                <i nz-icon nzType="home" nzTheme="outline"></i>
+            <li nz-menu-item [nzSelected]="option=='mark_score'"
+                [routerLink]="['/','project','teacher','mark_score']">
+                <i nz-icon nzType="file-text" nzTheme="outline"></i>
                 打分
             </li>
           </ul>

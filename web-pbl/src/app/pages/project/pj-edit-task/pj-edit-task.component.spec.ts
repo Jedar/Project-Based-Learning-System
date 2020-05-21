@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PjAllTaskComponent } from './pj-all-task.component';
+import { PjEditTaskComponent } from './pj-edit-task.component';
 
-describe('PjAllTaskComponent', () => {
-  let component: PjAllTaskComponent;
-  let fixture: ComponentFixture<PjAllTaskComponent>;
+describe('PjEditTaskComponent', () => {
+  let component: PjEditTaskComponent;
+  let fixture: ComponentFixture<PjEditTaskComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PjAllTaskComponent ]
+      declarations: [ PjEditTaskComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PjAllTaskComponent);
+    fixture = TestBed.createComponent(PjEditTaskComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

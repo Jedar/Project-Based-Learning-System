@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PjMyTaskComponent } from './pj-my-task.component';
+import { PjModifyTaskComponent } from './pj-modify-task.component';
 
-describe('PjMyTaskComponent', () => {
-  let component: PjMyTaskComponent;
-  let fixture: ComponentFixture<PjMyTaskComponent>;
+describe('PjModifyTaskComponent', () => {
+  let component: PjModifyTaskComponent;
+  let fixture: ComponentFixture<PjModifyTaskComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PjMyTaskComponent ]
+      declarations: [ PjModifyTaskComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PjMyTaskComponent);
+    fixture = TestBed.createComponent(PjModifyTaskComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
