@@ -6,10 +6,10 @@ import { DemoNgZorroAntdModule } from './ng-zorro-antd.module';
 @NgModule({
   declarations: [
     HeaderLogoComponent,
-    FooterContentComponent
+    FooterContentComponent,
   ],
   imports: [
-    DemoNgZorroAntdModule
+    DemoNgZorroAntdModule,
   ],
   exports: [
     HeaderLogoComponent,

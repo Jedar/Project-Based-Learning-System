@@ -16,7 +16,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
-    ExampleComponent, 
+    ExampleComponent,
     AuthMainComponent, StudentLoginComponent, StudentSignupComponent, TeacherLoginComponent, ManagerLoginComponent,
   ],
   imports: [

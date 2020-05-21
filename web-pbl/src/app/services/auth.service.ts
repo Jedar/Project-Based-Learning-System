@@ -6,15 +6,14 @@ import {catchError,map,tap} from 'rxjs/operators';
 /* 回调对象 */
 import {Observable,of, ObservableInput} from "rxjs";
 
-import { User, Restaurant, AuthData} from "../share/auth.model";
-
-import { Result } from '../share/common.model';
+import {Result, UniqueUsername} from '../share/common.model';
 
 const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type':  'application/json',
   })
 };
+const projectUrl = "localhost:8080";
 
 @Injectable({
   providedIn: 'root'
@@ -24,8 +23,19 @@ export class AuthService {
   constructor(
     private http:HttpClient/* 依赖注入 */
   ) { }
-
+  //登陆
   login(data):Observable<Result>{
     return this.http.get<Result>("/assets/data/login.json").pipe();
+  }
+  //注册时判断用户名是否已存在
+  isUniqueUsername(data):Observable<UniqueUsername>{
+    return this.http.get<UniqueUsername>("/assets/data/unique-username.json").pipe();
+  }
+  //注册
+  signUp(data):Observable<Result>{
+    return this.http.get<Result>("/assets/data/sign-up.json").pipe()
+  }
+  checkCode(data):Observable<Result>{
+    return this.http.get<Result>("/assets/data/check-code.json").pipe()
   }
 }

@@ -4,8 +4,26 @@ export interface Result{
 }
 
 export interface User{
-    user_id:number;
+    user_id:number,
     username:string,
-    gender:string,
     role:number,
+}
+export interface UserOfTeacher {
+  t_id: number,
+  username: string,
+  gender: string,
+  school: string
+}
+
+export interface UserOfStudent {
+  s_id: number,
+  username: string,
+  gender: string,
+  school: string
+}
+
+
+
+export interface UniqueUsername {
+    result:boolean
 }

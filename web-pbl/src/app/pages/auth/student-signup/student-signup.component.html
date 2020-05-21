@@ -1,1 +1,65 @@
-<p>student-signup works!</p>
+<div class="sign-up-title">学生用户注册</div>
+<form nz-form [nzAutoTips]="autoTips" [formGroup]="validateForm" (ngSubmit)="submitForm()">
+
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="username" nzRequired>
+          <span>
+            用户名
+            <i nz-icon nz-tooltip nzTitle="你想要别人怎么称呼你" nzType="question-circle" nzTheme="outline"></i>
+          </span>
+    </nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请输入您的用户名">
+      <input nz-input id="username" formControlName="username" />
+    </nz-form-control>
+  </nz-form-item>
+
+
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="school" nzRequired>学校</nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请输入您的学校">
+      <input nz-input id="school" formControlName="school" />
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="gender" nzRequired>性别</nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请输入您的性别">
+      <nz-select id="gender" formControlName="gender">
+        <nz-option nzValue="男" nzLabel="男"></nz-option>
+        <nz-option nzValue="女" nzLabel="女"></nz-option>
+      </nz-select>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="password" nzRequired>密码</nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请输入您的密码!">
+      <input nz-input type="password" id="password" formControlName="password" (ngModelChange)="updateConfirmValidator()" />
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="checkPassword" nzRequired>确认密码</nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="errorTpl">
+      <input nz-input type="password" formControlName="checkPassword" id="checkPassword" />
+      <ng-template #errorTpl let-control>
+        <ng-container *ngIf="control.hasError('required')">
+          请确认您的密码!
+        </ng-container>
+        <ng-container *ngIf="control.hasError('confirm')">
+          两次输入密码不一致!
+        </ng-container>
+      </ng-template>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item nz-row class="register-area">
+    <nz-form-control [nzSpan]="14" [nzOffset]="6">
+      <label nz-checkbox formControlName="agree">
+        <span>我已经阅读过<a>相关协议</a></span>
+      </label>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item nz-row class="register-area" id="sign-up-button">
+    <nz-form-control [nzSpan]="14" [nzOffset]="6">
+      <button nz-button nzType="primary">立即注册</button>
+    </nz-form-control>
+  </nz-form-item>
+</form>

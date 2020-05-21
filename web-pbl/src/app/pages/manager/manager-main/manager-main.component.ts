@@ -18,13 +18,13 @@ export class ManagerMainComponent implements OnInit {
 
   ngOnInit(): void {
     let res = this.route;
-    
-    this.route.parent.url.subscribe(url => {
-      res.children[0].url.subscribe(u => {
-        this.option = u[0].path;
-      });
-      
-    });
+
+    // this.route.parent.url.subscribe(url => {
+    //   res.children[0].url.subscribe(u => {
+    //     this.option = u[0].path;
+    //   });
+    //
+    // });
   }
 
 }

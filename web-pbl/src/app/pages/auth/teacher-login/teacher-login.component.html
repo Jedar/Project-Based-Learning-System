@@ -1,1 +1,36 @@
-<p>Hello world</p>
+<div class="login-title"><i nz-icon nzType="user" nzTheme="outline"></i>老师登陆</div>
+<form nz-form [nzAutoTips]="autoTips" [formGroup]="validateForm" class="login-form" (ngSubmit)="submitForm()">
+  <nz-form-item>
+    <nz-form-control nzErrorTip="Please input your username!">
+      <nz-input-group nzPrefixIcon="user">
+        <input type="text" nz-input formControlName="userID" placeholder="UserID" />
+      </nz-input-group>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-control nzErrorTip="Please input your Password!">
+      <nz-input-group nzPrefixIcon="lock">
+        <input type="password" nz-input formControlName="password" placeholder="Password" />
+      </nz-input-group>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-control >
+      <nz-input-group nzPrefixIcon="safety">
+        <input  type="text" nz-input formControlName="checkCode" placeholder="验证码">
+        &nbsp;<img id="check-code-img" src="" width="95px" height="36px">
+      </nz-input-group>
+    </nz-form-control>
+  </nz-form-item>
+  <div nz-row class="login-form-margin">
+    <div nz-col [nzSpan]="12">
+      <label nz-checkbox formControlName="remember">
+        <span>记住密码</span>
+      </label>
+    </div>
+    <div nz-col [nzSpan]="12">
+      <a class="login-form-forgot">忘记密码？</a>
+    </div>
+  </div>
+  <button nz-button class="login-form-button login-form-margin" [nzType]="'primary'">登陆</button>
+</form>
