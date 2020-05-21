@@ -13,6 +13,7 @@ import { ManagerSystemComponent } from './manager-system/manager-system.componen
 import { ManagerTeacherCreateComponent } from './manager-teacher-create/manager-teacher-create.component';
 import { ManagerStudentCreateComponent } from './manager-student-create/manager-student-create.component';
 import { ManagerClassCreateComponent } from './manager-class-create/manager-class-create.component';
+import {FormsModule} from "@angular/forms";
 
 
 @NgModule({
@@ -22,6 +23,7 @@ import { ManagerClassCreateComponent } from './manager-class-create/manager-clas
     ManagerRoutingModule,
     DemoNgZorroAntdModule,
     AppShareModule,
+    FormsModule,
   ]
 })
 export class ManagerModule { }

@@ -1,1 +1,48 @@
-<p>modify-info works!</p>
+<form style="max-width: 600px;" nz-form [formGroup]="validateForm" (ngSubmit)="modifyInfo()">
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="username">用户名</nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请输入姓名！">
+      <input nz-input formControlName="username" id="username" />
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="password">密码</nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请输入密码！">
+      <input nz-input formControlName="password" id="password" />
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="gender">性别</nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请输入性别！">
+      <nz-select ngModel='男' formControlName="gender" id="gender">
+        <nz-option nzValue="男" nzLabel="男"></nz-option>
+        <nz-option nzValue="女" nzLabel="女"></nz-option>
+      </nz-select>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="avatar">头像</nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="照片不合法！">
+      <nz-upload
+        class="avatar-uploader"
+        nzAction="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+        nzName="avatar"
+        nzListType="picture-card"
+        [nzShowUploadList]="false"
+        [nzBeforeUpload]="beforeUpload"
+        (nzChange)="handleChange($event)"
+      >
+        <ng-container *ngIf="!avatarUrl">
+          <i class="upload-icon" nz-icon [nzType]="loading ? 'loading' : 'plus'"></i>
+          <div class="ant-upload-text">上传图片</div>
+        </ng-container>
+        <img *ngIf="avatarUrl" [src]="avatarUrl" style="width: 100%" />
+      </nz-upload>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item nz-row class="register-area">
+    <nz-form-control [nzSpan]="14" [nzOffset]="6">
+      <button nz-button nzType="primary">提交</button>
+    </nz-form-control>
+  </nz-form-item>
+</form>

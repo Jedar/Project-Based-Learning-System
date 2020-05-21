@@ -1,0 +1,22 @@
+<nz-card *ngIf="operation === 0"
+         nzSize="small" [nzCover]="coverTemplate" [nzHoverable]="true" [nzActions]="[getInto, drop]">
+  <nz-card-meta nzTitle="{{course.name + '(' + course.teacher + ')'}}" nzDescription="{{course.description}}"></nz-card-meta>
+</nz-card>
+
+<nz-card *ngIf="operation === 1"
+         nzSize="small" [nzCover]="coverTemplate" [nzHoverable]="true" [nzActions]="[join]">
+  <nz-card-meta nzTitle="{{course.name + '(' + course.teacher + ')'}}" nzDescription="{{course.description}}"></nz-card-meta>
+</nz-card>
+
+<ng-template #coverTemplate>
+  <img alt="example" src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"/>
+</ng-template>
+<ng-template #getInto>
+  <a (click)="getIntoCourseProject(course.id)"><i nz-icon nzType="login"></i> 进入课程项目</a>
+</ng-template>
+<ng-template #drop>
+  <a (click)="dropCourse(course.id)"><i nz-icon nzType="delete"></i> 退课</a>
+</ng-template>
+<ng-template #join>
+  <a (click)="joinCourse(course.id)"><i nz-icon nzType="plus"></i> 加入课程</a>
+</ng-template>

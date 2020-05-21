@@ -1,0 +1,18 @@
+
+nz-table th{
+  background: #A7C942;
+}
+nz-table {
+  width:100%;
+  border-collapse:collapse;
+}
+nz-table td, nz-table th{
+  border:1px solid #98bf21;
+  padding:3px 7px 2px 7px;
+}
+nz-table th   {
+  padding-top:5px;
+  padding-bottom:4px;
+  background:#A7C942;
+}
+

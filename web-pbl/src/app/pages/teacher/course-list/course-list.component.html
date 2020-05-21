@@ -1,1 +1,42 @@
-<p>course-list works!</p>
+<h2>我开设的课程</h2>
+
+<div nz-row [nzGutter]="8">
+  <div nz-col nzFlex="300px" [nzSpan]="8"
+       *ngFor="let course of courses.slice((pagination.pageIndex - 1) * 6,
+         (pagination.pageIndex) * 6 - 3)">
+    <nz-card nzSize="small" [nzCover]="coverTemplate" [nzHoverable]="true" [nzActions]="[getInto, drop]">
+      <nz-card-meta nzTitle="{{course.name + '(' + course.teacher + ')'}}"
+                    nzDescription="{{course.description}}"></nz-card-meta>
+    </nz-card>
+    <ng-template #getInto>
+      <a (click)="getIntoCourseProject(course.id)"><i nz-icon nzType="login"></i> 进入课程项目</a>
+    </ng-template>
+    <ng-template #drop>
+      <a (click)="deleteCourse(course.id)"><i nz-icon nzType="delete"></i> 解散课程</a>
+    </ng-template>
+  </div>
+</div>
+
+<div nz-row [nzGutter]="8">
+  <div nz-col nzFlex="300px" [nzSpan]="8" *ngFor="let course of courses.slice((pagination.pageIndex) * 6 - 3,
+         (pagination.pageIndex) * 6)">
+    <nz-card nzSize="small" [nzCover]="coverTemplate" [nzHoverable]="true" [nzActions]="[getInto, drop]">
+      <nz-card-meta nzTitle="{{course.name + '(' + course.teacher + ')'}}"
+                    nzDescription="{{course.description}}"></nz-card-meta>
+    </nz-card>
+    <ng-template #getInto>
+      <a (click)="getIntoCourseProject(course.id)"><i nz-icon nzType="login"></i> 进入课程项目</a>
+    </ng-template>
+    <ng-template #drop>
+      <a (click)="deleteCourse(course.id)"><i nz-icon nzType="delete"></i> 解散课程</a>
+    </ng-template>
+  </div>
+</div>
+
+<nz-pagination [(nzPageIndex)]="pagination.pageIndex" [nzPageSize]="6" [nzTotal]="courses.length"
+               (nzPageIndexChange)="getAllCourses()"></nz-pagination>
+
+<ng-template #coverTemplate>
+  <img alt="example" src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"/>
+</ng-template>
+

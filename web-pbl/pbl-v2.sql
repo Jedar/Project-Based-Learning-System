@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50728
 File Encoding         : 65001
 
-Date: 2020-05-17 20:46:00
+Date: 2020-05-18 15:19:26
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -96,6 +96,18 @@ CREATE TABLE `project` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
+-- Table structure for student
+-- ----------------------------
+DROP TABLE IF EXISTS `student`;
+CREATE TABLE `student` (
+  `s_id` int(11) NOT NULL,
+  `gender` varchar(2) NOT NULL,
+  `school` varchar(40) NOT NULL,
+  PRIMARY KEY (`s_id`),
+  CONSTRAINT `student_ibfk_1` FOREIGN KEY (`s_id`) REFERENCES `user` (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
 -- Table structure for take
 -- ----------------------------
 DROP TABLE IF EXISTS `take`;
@@ -142,6 +154,18 @@ CREATE TABLE `teach` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
+-- Table structure for teacher
+-- ----------------------------
+DROP TABLE IF EXISTS `teacher`;
+CREATE TABLE `teacher` (
+  `t_id` int(11) NOT NULL,
+  `gender` varchar(2) NOT NULL,
+  `school` varchar(40) NOT NULL,
+  PRIMARY KEY (`t_id`),
+  CONSTRAINT `teacher_ibfk_1` FOREIGN KEY (`t_id`) REFERENCES `user` (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
 -- Table structure for user
 -- ----------------------------
 DROP TABLE IF EXISTS `user`;
@@ -149,7 +173,6 @@ CREATE TABLE `user` (
   `user_id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(10) NOT NULL,
   `password` varchar(16) NOT NULL,
-  `gender` varchar(2) NOT NULL,
   `role` int(1) NOT NULL COMMENT '0表示管理员 1表示老师 2表示学生',
   PRIMARY KEY (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

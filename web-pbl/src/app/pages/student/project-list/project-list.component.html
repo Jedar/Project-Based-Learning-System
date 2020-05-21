@@ -1,1 +1,17 @@
-<p>project-list works!</p>
+<nz-list>
+  <nz-list-item *ngFor="let project of projects">
+    <ng-container>
+      <nz-list-item-meta
+        nzTitle="{{project.project_name}}"
+        nzDescription="{{project.start_time}} --- {{project.end_time}}">
+      </nz-list-item-meta>
+      项目主题：{{project.theme}}
+      <ul nz-list-item-actions>
+        <nz-list-item-action><a (click)="getIntoProject(project.project_id)"><i nz-icon nzType="login"></i> 进入项目</a></nz-list-item-action>
+        <nz-list-item-action><a (click)="dropProject(project.project_id)"><i nz-icon nzType="delete"></i> 退出项目</a></nz-list-item-action>
+      </ul>
+    </ng-container>
+  </nz-list-item>
+</nz-list>
+
+<nz-pagination [(nzPageIndex)]="pagination.pageIndex" [nzPageSize]="6" [nzTotal]="projects.length" (nzPageIndexChange)="getAllProjects()"></nz-pagination>

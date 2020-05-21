@@ -1,1 +1,45 @@
-<p>course-add works!</p>
+<form style="max-width: 600px;" nz-form [formGroup]="validateForm" (ngSubmit)="addCourse()">
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="name">课程名称</nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="必填项">
+      <input nz-input formControlName="name" id="name" />
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="description">课程描述</nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="必填项">
+      <textarea rows="2" nz-input formControlName="description" id="description" ></textarea>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="maxStudentNumber">最大选课人数</nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="必填项">
+      <nz-input-number [nzMin]="1" [nzStep]="1" formControlName="maxStudentNumber" id="maxStudentNumber" ></nz-input-number>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="avatar">课程图片</nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="照片不合法！">
+      <nz-upload
+        class="avatar-uploader"
+        nzAction="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+        nzName="avatar"
+        nzListType="picture-card"
+        [nzShowUploadList]="false"
+        [nzBeforeUpload]="beforeUpload"
+        (nzChange)="handleChange($event)"
+      >
+        <ng-container *ngIf="!avatarUrl">
+          <i class="upload-icon" nz-icon [nzType]="loading ? 'loading' : 'plus'"></i>
+          <div class="ant-upload-text">上传图片</div>
+        </ng-container>
+        <img *ngIf="avatarUrl" [src]="avatarUrl" style="width: 100%" />
+      </nz-upload>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item nz-row class="register-area">
+    <nz-form-control [nzSpan]="14" [nzOffset]="6">
+      <button nz-button nzType="primary">提交</button>
+    </nz-form-control>
+  </nz-form-item>
+</form>
