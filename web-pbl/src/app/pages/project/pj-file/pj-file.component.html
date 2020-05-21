@@ -1,1 +1,65 @@
-<p>pj-file works!</p>
+<nz-page-header class="site-page-header" nzTitle="项目公共资源">
+</nz-page-header>
+<nz-divider></nz-divider>
+
+<nz-tabset>
+    <nz-tab nzTitle="资源列表">
+        <nz-table #basicTable [nzData]="listOfData">
+            <thead>
+              <tr>
+                <th>文件名</th>
+                <th>上传时间</th>
+                <th>上传者</th>
+                <th>操作</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let data of basicTable.data">
+                <td>{{ data.file_name }}</td>
+                <td>{{ data.upload_time }}</td>
+                <td>{{ data.uploader }}</td>
+                <td>
+                    <nz-tag nzColor="green">
+                        <a (click)="onDownload(data.path)">下载</a>
+                    </nz-tag>
+                    <nz-tag nzColor="red">
+                        <a (click)="onDelete(data.file_id)">删除</a>
+                    </nz-tag>
+                </td>
+              </tr>
+            </tbody>
+        </nz-table>        
+    </nz-tab>
+    <nz-tab nzTitle="上传资源">
+        <nz-row>
+            <nz-col [nzOffset]="4" [nzSpan]="12">
+                
+                <nz-card style="width:600px;" nzTitle="资料上传">
+                    <div nz-form>
+                        <nz-form-item>
+                            <nz-form-label [nzSpan]="7" nzRequired>文件名称</nz-form-label>
+                            <nz-form-control [nzSpan]="8">
+                              <input nz-input [(ngModel)]="fileName"/>
+                            </nz-form-control>
+                          </nz-form-item>
+                        <nz-form-item>
+                          <nz-form-label [nzSpan]="7" nzRequired>资源</nz-form-label>
+                          <nz-form-control [nzSpan]="8">
+                            <nz-upload nzAction="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+                                [nzFileList]="fileList" (nzChange)="handleChange($event)">
+                                <button nz-button><i nz-icon nzType="upload"></i>Upload</button>
+                            </nz-upload>
+                          </nz-form-control>
+                        </nz-form-item>
+                        <nz-form-item>
+                            <nz-form-control [nzOffset]="7" [nzSpan]="8">
+                                <button (click)="onSubmit()" nz-button  nzType="primary">提交</button>  
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>
+                </nz-card>
+            </nz-col>
+        </nz-row>
+    </nz-tab>
+</nz-tabset>
+

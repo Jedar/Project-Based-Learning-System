@@ -1,0 +1,42 @@
+[
+    {
+        "file_id":100,
+        "project_id":123,
+        "file_name":"Test File 1",
+        "path":"/data/file/myfile1.txt",
+        "uploader":"Mike",
+        "upload_time":"2020-05-20"
+    },
+    {
+        "file_id":101,
+        "project_id":123,
+        "file_name":"Test File 2",
+        "path":"/data/file/myfile2.txt",
+        "uploader":"Mike",
+        "upload_time":"2020-05-20"
+    },
+    {
+        "file_id":102,
+        "project_id":123,
+        "file_name":"Test File 3",
+        "path":"/data/file/myfile3.txt",
+        "uploader":"Mike",
+        "upload_time":"2020-05-20"
+    },
+    {
+        "file_id":103,
+        "project_id":123,
+        "file_name":"Test File 4",
+        "path":"/data/file/myfile4.txt",
+        "uploader":"Mike",
+        "upload_time":"2020-05-20"
+    },
+    {
+        "file_id":104,
+        "project_id":123,
+        "file_name":"Test File 5",
+        "path":"/data/file/myfile5.txt",
+        "uploader":"Mike",
+        "upload_time":"2020-05-20"
+    }
+]

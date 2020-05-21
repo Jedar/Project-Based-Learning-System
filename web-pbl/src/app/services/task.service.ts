@@ -36,6 +36,11 @@ export class TaskService {
     return this.http.get<Task>("/assets/data/task_edit.json")
   }
 
+  getTaskMessageOfUser(taskId:number):Observable<TaskMessage>{
+    console.log(taskId);
+    return this.http.get<TaskMessage>("/assets/data/task_modify.json")
+  }
+
   editTaskState(message:EditTaskMessage ):Observable<Result>{
     return this.http.get<Result>("/assets/data/success.json").pipe();
   }
@@ -45,6 +50,11 @@ export class TaskService {
   }
 
   addTask(task:TaskMessage):Observable<Result>{
+    console.log(task);
+    return this.http.get<Result>("/assets/data/success.json").pipe();
+  }
+
+  modifyTask(task:TaskMessage):Observable<Result>{
     console.log(task);
     return this.http.get<Result>("/assets/data/success.json").pipe();
   }
