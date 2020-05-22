@@ -4,7 +4,8 @@ import {Discussion} from "../../../share/dicussion.model";
 import {DiscussionService} from "../../../services/discussion.service";
 import {ActivatedRoute} from "@angular/router";
 import {Student} from "../../../share/student.model";
-import { ElementRef} from '@angular/core';
+import {ElementRef} from '@angular/core';
+import {NzModalService} from "ng-zorro-antd/modal";
 
 
 @Component({
@@ -14,10 +15,10 @@ import { ElementRef} from '@angular/core';
 })
 export class PjDiscussComponent implements OnInit {
   projectId: number;
-  discussion: Discussion = null;
   discussions: Discussion[] = [];
   authors: Student[] = [];
-  isShow:number = 0;
+  isShow: number = 0;
+  discussionContent: string;
 
   like(discussion_id: number): void {
     for (let items of this.discussions) {
@@ -27,18 +28,14 @@ export class PjDiscussComponent implements OnInit {
     }
   }
 
-  showReply(discussion_id:number): void {
-    let s = ".ReplyController"+discussion_id;
+  showReply(discussion_id: number): void {
+    let s = ".ReplyController" + discussion_id;
     if (this.isShow % 2 == 0) {
       this.el.nativeElement.querySelector(s).style.display = "block";
-    }else {
+    } else {
       this.el.nativeElement.querySelector(s).style.display = "none";
     }
     this.isShow++;
-  }
-
-  publish() {
-
   }
 
   getAuthor(author_id: number): string {
@@ -52,7 +49,8 @@ export class PjDiscussComponent implements OnInit {
   constructor(
     private discussionService: DiscussionService,
     private activatedRoute: ActivatedRoute,
-    private el:ElementRef,
+    private modal: NzModalService,
+    private el: ElementRef,
   ) {
     activatedRoute.params.subscribe(params => {
       this.projectId = params['projectId'];
@@ -67,6 +65,33 @@ export class PjDiscussComponent implements OnInit {
     this.discussionService.getAuthorsOfDiscussions().subscribe(result => {
       this.authors = result;
     })
+
+  }
+
+  publish() {
+    if(this.discussionContent.length<=0){
+      this.modal.error({
+        nzTitle: '发布失败',
+        nzContent: "发布内容不能为空",
+      });
+      return;
+    }
+    this.discussionService.publishDiscussion().subscribe(result => {
+      if (result.state == "true") {
+        this.modal.success({
+          nzTitle: '发布讨论',
+          nzContent: '发布成功',
+        })
+      } else {
+        this.modal.error({
+          nzTitle: '发布失败',
+          nzContent: result.message,
+        });
+      }
+    })
+  }
+
+  reply() {
 
   }
 }

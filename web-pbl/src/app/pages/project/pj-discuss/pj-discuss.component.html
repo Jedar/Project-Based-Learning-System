@@ -6,7 +6,7 @@
   <nz-list [nzItemLayout]="'horizontal'">
     <nz-card *ngFor="let data of discussions">
       <nz-comment [nzAuthor]="getAuthor(data.user_id)" [nzDatetime]="data.time">
-        <nz-avatar nz-comment-avatar nzIcon="user"
+        <nz-avatar nzSize="large" nz-comment-avatar nzIcon="user"
                    nzSrc="//zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"></nz-avatar>
         <nz-comment-content>
           <p>{{ data.content }}</p>
@@ -16,7 +16,11 @@
              (click)="like(data.discussion_id)"></i>
           <span class="count like">{{ data.likes }}</span>
         </nz-comment-action>
-        <nz-comment-action><span (click)="showReply(data.discussion_id)">Reply to</span></nz-comment-action>
+        <nz-comment-action>
+          <i nz-icon nzType="message" nzTheme="outline"></i>
+          <span (click)="showReply(data.discussion_id)"> Reply to</span>
+        </nz-comment-action>
+
       </nz-comment>
       <div class="ReplyController{{data.discussion_id}}" style="display: none">
         <nz-comment>
@@ -27,7 +31,7 @@
                 <textarea placeholder="回复讨论" nz-input rows="4"></textarea>
             </nz-form-item>
             <nz-form-item>
-              <button nz-button nzType="primary">
+              <button nz-button nzType="primary" (click)="reply()">
                 回复
               </button>
             </nz-form-item>
@@ -41,7 +45,7 @@
                    nzSrc="//zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"></nz-avatar>
         <nz-comment-content>
           <nz-form-item>
-              <textarea placeholder="发布讨论" nz-input rows="4"></textarea>
+              <textarea placeholder="发布讨论" nz-input rows="4" [(ngModel)]="discussionContent"></textarea>
           </nz-form-item>
           <nz-form-item>
             <button nz-button nzType="primary" (click)="publish()">

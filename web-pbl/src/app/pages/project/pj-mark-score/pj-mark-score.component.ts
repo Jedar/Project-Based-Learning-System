@@ -4,6 +4,7 @@ import {StudentService} from "../../../services/student.service";
 import {ActivatedRoute} from "@angular/router";
 import {Participate} from "../../../share/participate.model";
 import {ScoreService} from "../../../services/score.service";
+import {NzModalService} from "ng-zorro-antd/modal";
 
 @Component({
   selector: 'app-pj-mark-score',
@@ -19,6 +20,7 @@ export class PjMarkScoreComponent implements OnInit {
     private studentService:StudentService,
     private activatedRoute: ActivatedRoute,
     private scoreService:ScoreService,
+    private modal: NzModalService,
   ) {
     activatedRoute.params.subscribe(params => {
     this.projectId = params['projectId'];
@@ -36,7 +38,19 @@ export class PjMarkScoreComponent implements OnInit {
   }
 
   onSubmit(){
-
+    this.scoreService.submitScore().subscribe(result=>{
+      if (result.state == "true") {
+        this.modal.success({
+          nzTitle: '提交互评',
+          nzContent: '提交成功',
+        })
+      }else {
+        this.modal.error({
+          nzTitle: '提交失败',
+          nzContent: result.message,
+        });
+      }
+    })
   }
 
 }

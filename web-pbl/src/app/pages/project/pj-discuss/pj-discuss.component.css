@@ -8,5 +8,10 @@ nz-content {
 
 nz-card{
   margin: 15px;
+  background: #ECECEC;
 }
 
+.ant-comment-content-author-name{
+  font-size: large;
+  font-weight: bold;
+}

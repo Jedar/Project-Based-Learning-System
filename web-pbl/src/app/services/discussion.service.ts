@@ -7,6 +7,7 @@ import {Observable} from "rxjs";
 
 import {Discussion} from "../share/dicussion.model";
 import {Student} from "../share/student.model";
+import {Result} from "../share/common.model";
 
 @Injectable({
   providedIn: 'root'
@@ -21,5 +22,13 @@ export class DiscussionService {
 
   getAuthorsOfDiscussions():Observable<Student[]>{
     return this.http.get<Student[]>("/assets/data/students.json").pipe();
+  }
+
+  publishDiscussion():Observable<Result>{
+    return this.http.get<Result>("/assets/data/success.json").pipe();
+  }
+
+  replyDiscussion():Observable<Result>{
+    return this.http.get<Result>("/assets/data/success.json").pipe();
   }
 }
