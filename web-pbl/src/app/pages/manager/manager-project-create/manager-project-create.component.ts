@@ -6,6 +6,7 @@ import {Router} from "@angular/router";
 import {NzModalService} from "ng-zorro-antd";
 import {CommonValidators} from "../../../share/CommonValidator";
 import {HttpParams} from "@angular/common/http";
+import {ManagerCourse} from "../../../share/common.model";
 
 @Component({
   selector: 'app-manager-project-create',
@@ -14,7 +15,7 @@ import {HttpParams} from "@angular/common/http";
 })
 export class ManagerProjectCreateComponent implements OnInit {
 
-  courseList: Course[];
+  courseList: ManagerCourse[];
   validateForm!: FormGroup;
   autoTips: Record<string, Record<string, string>> = {
     'zh-cn': {
