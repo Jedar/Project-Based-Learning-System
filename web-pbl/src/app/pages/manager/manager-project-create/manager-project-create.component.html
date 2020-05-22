@@ -4,7 +4,7 @@
     <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="必填项">
       <nz-select formControlName="course" id="course" >
         <nz-option *ngFor="let course of courseList"
-                   [nzValue]="course.id" [nzLabel]="course.id+''">
+                   [nzValue]="course.course_id" [nzLabel]="course.course_id+''">
         </nz-option>
       </nz-select>
     </nz-form-control>
