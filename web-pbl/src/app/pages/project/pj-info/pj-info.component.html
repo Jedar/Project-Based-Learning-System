@@ -1,1 +1,30 @@
-<p>pj-info works!</p>
+<nz-card>
+  <nz-table [nzData]="[{}]" [nzShowPagination]="false">
+    <tbody>
+    <tr>
+      <th>项目名称：</th>
+      <td>{{ project.project_name }}</td>
+    </tr>
+    <tr>
+      <th>项目主题：</th>
+      <td>{{ project.theme}}</td>
+    </tr>
+    <tr>
+      <th>组长：</th>
+      <td>{{ leader.user_name }}</td>
+    </tr>
+    <tr>
+      <th>组员:</th>
+      <td><span *ngFor="let data of student">{{data.user_name}}   </span></td>
+    </tr>
+    <tr>
+      <th>开始时间-结束时间:</th>
+      <td>{{project.start_time}}-{{project.end_time}}</td>
+    </tr>
+    <tr>
+      <th>项目介绍：</th>
+      <td>{{project.description}}</td>
+    </tr>
+    </tbody>
+  </nz-table>
+</nz-card>

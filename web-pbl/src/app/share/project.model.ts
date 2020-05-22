@@ -4,5 +4,6 @@ export interface Project{
     'theme':string,
     'leader_id':number,
     'start_time':string,
-    'end_time':string
+    'end_time':string,
+    'description':string,
 }

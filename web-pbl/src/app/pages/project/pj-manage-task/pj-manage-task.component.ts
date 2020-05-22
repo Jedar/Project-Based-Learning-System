@@ -35,7 +35,8 @@ export class PjManageTaskComponent implements OnInit {
     "theme":"",
     "leader_id":0,
     "start_time":"2020-05-20",
-    "end_time":"2020-05-20"
+    "end_time":"2020-05-20",
+    "description":"",
   };
 
   startDate:Date;

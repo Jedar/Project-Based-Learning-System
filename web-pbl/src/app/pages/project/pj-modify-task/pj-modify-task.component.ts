@@ -42,7 +42,8 @@ export class PjModifyTaskComponent implements OnInit {
     "theme":"",
     "leader_id":0,
     "start_time":"2020-05-20",
-    "end_time":"2020-05-20"
+    "end_time":"2020-05-20",
+    "description":"",
   };
 
   startDate:Date;
@@ -95,12 +96,12 @@ export class PjModifyTaskComponent implements OnInit {
           this.students=result;
         });
       });
-      
+
     });
   }
 
   ngOnInit(): void {
-    
+
   }
 
   onBack(){

@@ -1,1 +1,57 @@
-<p>pj-mark-mate works!</p>
+<nz-page-header class="site-page-header" nzTitle="分数评价">
+</nz-page-header>
+<nz-divider></nz-divider>
+
+<nz-tabset>
+  <nz-tab nzTitle="自评">
+    <nz-row>
+      <nz-col [nzOffset]="4" [nzSpan]="12">
+        <nz-card style="margin-top: 50px">
+          <div class="nz-form">
+            <nz-form-item>
+              <nz-form-label [nzSpan]="7" nzRequired>分数</nz-form-label>
+              <nz-form-control [nzSpan]="8">
+                <label>
+                  <input nz-input [(ngModel)]="selfEva"/>
+                </label>
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-control [nzOffset]="7" [nzSpan]="8">
+                <button (click)="onSubmit()" nz-button nzType="primary">提交</button>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+        </nz-card>
+      </nz-col>
+    </nz-row>
+  </nz-tab>
+  <nz-tab nzTitle="互评">
+    <nz-card>
+      <nz-table nzTableLayout="fixed" [nzData]="students" [nzShowPagination]="false">
+        <tbody>
+        <tr>
+          <td>学生</td>
+          <td>评分</td>
+        </tr>
+        <tr *ngFor="let data of participates,">
+          <td>{{data.user_id}}</td>
+          <td>
+            <nz-form-control [nzSpan]="8">
+              <label>
+                <input placeholder="0" nz-input [(ngModel)]="data.value"/>
+              </label>
+            </nz-form-control>
+          </td>
+        </tr>
+        </tbody>
+      </nz-table>
+      <nz-form-item style="margin: 20px">
+        <nz-form-control [nzOffset]="20">
+          <button (click)="onSubmit()" nz-button nzType="primary">提交</button>
+        </nz-form-control>
+      </nz-form-item>
+    </nz-card>
+  </nz-tab>
+</nz-tabset>
+

@@ -1,1 +1,29 @@
-<p>pj-my-score works!</p>
+<nz-page-header class="site-page-header" nzTitle="我的分数">
+</nz-page-header>
+<nz-divider></nz-divider>
+<nz-card>
+  <div style="background: #ECECEC;padding:30px;">
+    <div nz-row [nzGutter]="8">
+      <div nz-col [nzOffset]="2" [nzSpan]="8">
+        <nz-card nzTitle="互评">
+          <p>{{mutEva}}</p>
+        </nz-card>
+      </div>
+      <div nz-col [nzOffset]="4" [nzSpan]="8">
+        <nz-card nzTitle="自评">
+          <p>{{selfEva}}</p>
+        </nz-card>
+      </div>
+      <div nz-col [nzOffset]="2" [nzSpan]="8" style="margin-top: 10px">
+        <nz-card nzTitle="教师评价">
+          <p>{{teacherEva}}</p>
+        </nz-card>
+      </div>
+      <div nz-col [nzOffset]="4" [nzSpan]="8" style="margin-top: 10px">
+        <nz-card nzTitle="总评">
+          <p>{{totalScore}}</p>
+        </nz-card>
+      </div>
+    </div>
+  </div>
+</nz-card>

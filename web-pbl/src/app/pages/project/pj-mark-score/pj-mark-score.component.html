@@ -1,1 +1,29 @@
-<p>pj-mark-score works!</p>
+<nz-page-header class="site-page-header" nzTitle="分数评价">
+</nz-page-header>
+<nz-divider></nz-divider>
+
+<nz-card>
+  <nz-table nzTableLayout="fixed" [nzData]="students" [nzShowPagination]="false">
+    <tbody>
+    <tr>
+      <td>学生</td>
+      <td>评分</td>
+    </tr>
+    <tr *ngFor="let data of participates,">
+      <td>{{data.user_id}}</td>
+      <td>
+        <nz-form-control [nzSpan]="8">
+          <label>
+            <input nz-input placeholder="0" [(ngModel)]="data.value"/>
+          </label>
+        </nz-form-control>
+      </td>
+    </tr>
+    </tbody>
+  </nz-table>
+  <nz-form-item style="margin: 20px">
+    <nz-form-control [nzOffset]="20">
+      <button (click)="onSubmit()" nz-button nzType="primary">提交</button>
+    </nz-form-control>
+  </nz-form-item>
+</nz-card>
