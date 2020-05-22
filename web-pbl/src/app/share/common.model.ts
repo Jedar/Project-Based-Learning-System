@@ -12,7 +12,7 @@ export interface UserOfTeacher {
   t_id: number,
   username: string,
   gender: string,
-  school: string
+  school: string,
 }
 
 export interface UserOfStudent {
@@ -26,4 +26,12 @@ export interface UserOfStudent {
 
 export interface UniqueUsername {
     result:boolean
+}
+
+export interface ManagerCourse {
+  course_id: number,
+  course_name: string,
+  teacherName: string,
+  description: string,
+  maxStudentNumber: number
 }

@@ -1,6 +1,7 @@
 [
   {
     "project_id":123,
+    "course_id": 1,
     "project_name":"ProjectTest",
     "theme":"Adv Web",
     "leader_id":123,
@@ -9,6 +10,7 @@
   },
   {
     "project_id":456,
+    "course_id": 1,
     "project_name":"ProjectTest2",
     "theme":"VR",
     "leader_id":456,
@@ -17,6 +19,7 @@
   },
   {
     "project_id":789,
+    "course_id": 2,
     "project_name":"ProjectTest3",
     "theme":"Blockly",
     "leader_id":789,

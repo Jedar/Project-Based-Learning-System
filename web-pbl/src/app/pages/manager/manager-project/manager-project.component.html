@@ -1,0 +1,54 @@
+
+<nz-table #basicTable nzSize="small" nzBordered [nzData]="listOfData" [nzPageSize]="pageSize">
+  <thead>
+  <tr>
+    <th *ngFor="let column of listOfColumn"
+        [nzSortFn]="column.compare" [nzSortPriority]="column.priority" [nzWidth]="column.width">
+      {{ column.title }}
+    </th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let data of basicTable.data">
+    <ng-container *ngIf="!editCache[data.project_id].edit; else editTemplate">
+      <td>{{ data.project_id }}</td>
+      <td>{{ data.course_id }}</td>
+      <td>{{ data.project_name }}</td>
+      <td>{{ data.theme }}</td>
+      <td>{{ data.start_time}}&nbsp;<i nz-icon nzType="swap-right" nzTheme="outline"></i>&nbsp;{{data.end_time }}</td>
+      <td>
+        <button nz-button (click)="startEdit(data.project_id)">
+          <i nz-icon nzType="edit" nzTheme="outline"></i>
+        </button>&nbsp;
+        <button nz-button nz-popconfirm nzPopconfirmTitle="确认删除?" (nzOnConfirm)="deleteRow(data.project_id)">
+          <i nz-icon nzType="delete" nzTheme="outline"></i>
+        </button>
+
+      </td>
+    </ng-container>
+    <ng-template #editTemplate>
+      <td>{{data.project_id}}</td>
+      <td>
+        <nz-select [(ngModel)]="editCache[data.project_id].data.course_id" >
+          <nz-option *ngFor="let course of courseList"
+                     [nzValue]="course.course_id" [nzLabel]="course.course_id+''">
+          </nz-option>
+        </nz-select>
+      </td>
+      <td><input type="text" nz-input [(ngModel)]="editCache[data.project_id].data.project_name" /></td>
+      <td><input type="text" nz-input [(ngModel)]="editCache[data.project_id].data.theme" /></td>
+      <td>
+        <nz-range-picker [(ngModel)]="timeRange" nzFormat="yyyy-MM-dd" id="timeRange"></nz-range-picker>
+      </td>
+      <td>
+        <button nz-button nz-popconfirm nzPopconfirmTitle="确认保存?" (nzOnConfirm)="saveEdit(data.project_id)">
+          <i nz-icon nzType="check" nzTheme="outline"></i>
+        </button>&nbsp;
+        <button nz-button (click)="cancelEdit(data.project_id)" >
+          <i nz-icon nzType="close" nzTheme="outline"></i>
+        </button>
+      </td>
+    </ng-template>
+  </tr>
+  </tbody>
+</nz-table>

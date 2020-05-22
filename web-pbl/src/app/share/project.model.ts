@@ -1,5 +1,6 @@
 export interface Project{
     'project_id':number,
+    "course_id":number,
     'project_name':string,
     'theme':string,
     'leader_id':number,

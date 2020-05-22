@@ -13,17 +13,22 @@ import { ManagerSystemComponent } from './manager-system/manager-system.componen
 import { ManagerTeacherCreateComponent } from './manager-teacher-create/manager-teacher-create.component';
 import { ManagerStudentCreateComponent } from './manager-student-create/manager-student-create.component';
 import { ManagerClassCreateComponent } from './manager-class-create/manager-class-create.component';
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {TeacherModule} from "../teacher/teacher.module";
+import { ManagerProjectComponent } from './manager-project/manager-project.component';
+import { ManagerProjectCreateComponent } from './manager-project-create/manager-project-create.component';
 
 
 @NgModule({
-  declarations: [ManagerMainComponent, ManagerTeacherComponent, ManagerStudentComponent, ManagerClassComponent, ManagerSystemComponent, ManagerTeacherCreateComponent, ManagerStudentCreateComponent, ManagerClassCreateComponent],
-  imports: [
-    CommonModule,
-    ManagerRoutingModule,
-    DemoNgZorroAntdModule,
-    AppShareModule,
-    FormsModule,
-  ]
+  declarations: [ManagerMainComponent, ManagerTeacherComponent, ManagerStudentComponent, ManagerClassComponent, ManagerSystemComponent, ManagerTeacherCreateComponent, ManagerStudentCreateComponent, ManagerClassCreateComponent, ManagerProjectComponent, ManagerProjectCreateComponent],
+    imports: [
+        CommonModule,
+        ManagerRoutingModule,
+        DemoNgZorroAntdModule,
+        AppShareModule,
+        FormsModule,
+        ReactiveFormsModule,
+        TeacherModule,
+    ]
 })
 export class ManagerModule { }

@@ -31,6 +31,7 @@ export class PjManageTaskComponent implements OnInit {
   /* 临时的项目信息，实际不会使用，仅仅为了防止空指针 */
   project:Project={
     "project_id":0,
+    "course_id":0,
     "project_name":"",
     "theme":"",
     "leader_id":0,

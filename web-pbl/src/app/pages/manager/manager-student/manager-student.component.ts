@@ -66,8 +66,8 @@ export class ManagerStudentComponent implements OnInit {
         this.listOfData = this.listOfData.filter(item => item.s_id !== s_id);
       }else{
         this.modal.error({
-          nzTitle: "",
-          nzContent: "删除失败"
+          nzTitle: "删除失败",
+          nzContent: result.message
         });
       }
     });
@@ -86,28 +86,36 @@ export class ManagerStudentComponent implements OnInit {
   //TODO: 更改学生信息
   saveEdit(s_id): void {
     var data = this.editCache[s_id].data;
-    var params = new HttpParams()
-      .set("s_id", data.s_id+"")
-      .set("username", data.username)
-      .set("gender", data.gender)
-      .set("school",data.school);
-    console.log(params);
-    this.managerService.saveStudentInformation(params).subscribe(result=>{
-      if (result.state=="success"){
-        this.modal.success({
-          nzTitle: "",
-          nzContent: "保存成功"
-        });
-        const index = this.listOfData.findIndex(item => item.s_id === s_id);
-        Object.assign(this.listOfData[index], this.editCache[s_id].data);
-      }else{
-        this.modal.error({
-          nzTitle: "",
-          nzContent: "保存失败"
-        });
-      }
-    });
-    this.editCache[s_id].edit = false;
+    if (data.username!=""&&data.school!=""){//输入不为空
+      var params = new HttpParams()
+        .set("s_id", data.s_id+"")
+        .set("username", data.username)
+        .set("gender", data.gender)
+        .set("school",data.school);
+      console.log(params);
+      this.managerService.saveStudentInformation(params).subscribe(result=>{
+        if (result.state=="success"){
+          this.modal.success({
+            nzTitle: "",
+            nzContent: "保存成功"
+          });
+          const index = this.listOfData.findIndex(item => item.s_id === s_id);
+          Object.assign(this.listOfData[index], this.editCache[s_id].data);
+        }else{
+          this.modal.error({
+            nzTitle: "",
+            nzContent: "保存失败"
+          });
+        }
+      });
+      this.editCache[s_id].edit = false;
+    }else{
+      this.modal.info({
+        nzTitle:"",
+        nzContent: "输入不能为空"
+      })
+    }
+
   }
 
   updateEditCache(): void {
