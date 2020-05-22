@@ -14,11 +14,11 @@
           </a>
         </div>
         <div class="header-info-item">
-          <a nzType="link" 
-            nzGhost 
-            nzTooltipTitle="登出" 
-            nzTooltipPlacement="bottom" 
-            nz-button 
+          <a nzType="link"
+            nzGhost
+            nzTooltipTitle="登出"
+            nzTooltipPlacement="bottom"
+            nz-button
             nz-tooltip
             >
             <i nz-icon nzType="logout" nzTheme="outline"></i>
@@ -30,6 +30,7 @@
         <li [nzSelected]="option=='teacher_list'" nz-menu-item [routerLink]="['/','manager','teacher']">教师管理</li>
         <li [nzSelected]="option=='student_list'" nz-menu-item [routerLink]="['/','manager','student']">学生管理</li>
         <li [nzSelected]="option=='class_list'" nz-menu-item [routerLink]="['/','manager','class']">课程管理</li>
+        <li [nzSelected]="option=='class_list'" nz-menu-item [routerLink]="['/','manager','project']">项目管理</li>
       </ul>
     </nz-header>
     <nz-content class="outer-content">
@@ -44,16 +45,22 @@
                 <li  [nzSelected]="option=='teacher_create'" nz-menu-item  [routerLink]="['/','manager','teacher_create']">新增教师</li>
               </ul>
             </li>
-            <li nz-submenu nzTitle="学生管理" nzIcon="laptop">
+            <li nz-submenu nzTitle="学生管理" nzIcon="user">
               <ul>
                 <li  [nzSelected]="option=='student_list'" nz-menu-item [routerLink]="['/','manager','student_list']">学生列表</li>
                 <li  [nzSelected]="option=='student_create'" nz-menu-item [routerLink]="['/','manager','student_create']">新增学生</li>
               </ul>
             </li>
-            <li nz-submenu nzTitle="课程管理" nzIcon="notification">
+            <li nz-submenu nzTitle="课程管理" nzIcon="read">
               <ul>
                 <li  [nzSelected]="option=='class_list'" nz-menu-item [routerLink]="['/','manager','class_list']">课程列表</li>
                 <li  [nzSelected]="option=='class_create'" nz-menu-item [routerLink]="['/','manager','class_create']">新增课程</li>
+              </ul>
+            </li>
+            <li nz-submenu nzTitle="项目管理" nzIcon="project">
+              <ul>
+                <li  [nzSelected]="option=='project_list'" nz-menu-item [routerLink]="['/','manager','project_list']">项目列表</li>
+                <li  [nzSelected]="option=='project_create'" nz-menu-item [routerLink]="['/','manager','project_create']">新增项目</li>
               </ul>
             </li>
             <li  [nzSelected]="option=='system'" nz-menu-item [routerLink]="['/','manager','system']"><i nz-icon nzType="setting" nzTheme="outline"></i>系统信息</li>

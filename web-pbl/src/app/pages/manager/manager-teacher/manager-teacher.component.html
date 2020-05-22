@@ -26,7 +26,7 @@
       </td>
     </ng-container>
     <ng-template #editTemplate>
-      <td><input type="text" nz-input [(ngModel)]="editCache[data.t_id].data.t_id" /></td>
+      <td>{{data.t_id}}</td>
       <td><input type="text" nz-input [(ngModel)]="editCache[data.t_id].data.username" /></td>
       <td><nz-select [(ngModel)]="editCache[data.t_id].data.gender">
         <nz-option nzValue="男" nzLabel="男"></nz-option>
@@ -35,7 +35,7 @@
       </td>
       <td><input type="text" nz-input [(ngModel)]="editCache[data.t_id].data.school" /></td>
       <td>
-        <button nz-button nz-popconfirm nzTitle="确认保存?" (nzOnConfirm)="saveEdit(data.t_id)">
+        <button nz-button nz-popconfirm nzPopconfirmTitle="确认保存?" (nzOnConfirm)="saveEdit(data.t_id)">
           <i nz-icon nzType="check" nzTheme="outline"></i>
         </button>&nbsp;
         <button nz-button (click)="cancelEdit(data.t_id)" >

@@ -51,7 +51,7 @@ export class ManagerTeacherComponent implements OnInit {
     })
   }
 
-  //TODO: 删除学生信息
+  //TODO: 删除教师信息
   deleteRow(t_id){
     console.log(typeof t_id);
     var params = new HttpParams()
@@ -66,8 +66,8 @@ export class ManagerTeacherComponent implements OnInit {
         this.listOfData = this.listOfData.filter(item => item.t_id !== t_id);
       }else{
         this.modal.error({
-          nzTitle: "",
-          nzContent: "删除失败"
+          nzTitle: "删除失败",
+          nzContent: result.message
         });
       }
     });
@@ -83,32 +83,40 @@ export class ManagerTeacherComponent implements OnInit {
       edit: false
     };
   }
-  //TODO: 更改学生信息
+  //TODO: 更改教师信息
   saveEdit(t_id): void {
     var data = this.editCache[t_id].data;
-    var params = new HttpParams()
-      .set("t_id", data.t_id+"")
-      .set("username", data.username)
-      .set("gender", data.gender)
-      .set("school",data.school);
-    console.log(params);
-    this.managerService.saveTeacherInformation(params).subscribe(
-      result=>{
-      if (result.state=="success"){
-        this.modal.success({
-          nzTitle: "",
-          nzContent: "保存成功"
+    if (data.username!=""&&data.school!=""){//输入不能为空
+      var params = new HttpParams()
+        .set("t_id", data.t_id+"")
+        .set("username", data.username)
+        .set("gender", data.gender)
+        .set("school",data.school);
+      console.log(params);
+      this.managerService.saveTeacherInformation(params).subscribe(
+        result=>{
+          if (result.state=="success"){
+            this.modal.success({
+              nzTitle: "",
+              nzContent: "保存成功"
+            });
+            const index = this.listOfData.findIndex(item => item.t_id === t_id);
+            Object.assign(this.listOfData[index], this.editCache[t_id].data);
+          }else{
+            this.modal.error({
+              nzTitle: "",
+              nzContent: "保存失败"
+            });
+          }
         });
-        const index = this.listOfData.findIndex(item => item.t_id === t_id);
-        Object.assign(this.listOfData[index], this.editCache[t_id].data);
-      }else{
-        this.modal.error({
-          nzTitle: "",
-          nzContent: "保存失败"
-        });
-      }
-    });
-    this.editCache[t_id].edit = false;
+      this.editCache[t_id].edit = false;
+    }else{
+      this.modal.info({
+        nzTitle: "",
+        nzContent: "输入不能为空"
+      })
+    }
+
   }
 
   updateEditCache(): void {

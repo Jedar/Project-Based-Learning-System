@@ -22,30 +22,33 @@ import {ReactiveFormsModule} from "@angular/forms";
 
 
 @NgModule({
-  declarations: [TeacherMainComponent, CourseListComponent, CourseAddComponent, ProjectListComponent, ProjectAddComponent, InfoComponent, ModifyInfoComponent],
-  imports: [
-    CommonModule,
-    TeacherRoutingModule,
-    NzLayoutModule,
-    AppShareModule,
-    NzButtonModule,
-    NzToolTipModule,
-    NzIconModule,
-    NzMenuModule,
-    NzBreadCrumbModule,
-    NzDropDownModule,
-    NzGridModule,
-    NzCardModule,
-    NzPaginationModule,
-    ReactiveFormsModule,
-    NzInputModule,
-    NzFormModule,
-    NzUploadModule,
-    NzInputNumberModule,
-    NzListModule,
-    NzDatePickerModule,
-    NzDescriptionsModule,
-    NzSelectModule
-  ]
+    declarations: [TeacherMainComponent, CourseListComponent, CourseAddComponent, ProjectListComponent, ProjectAddComponent, InfoComponent, ModifyInfoComponent],
+    exports: [
+        CourseAddComponent
+    ],
+    imports: [
+        CommonModule,
+        TeacherRoutingModule,
+        NzLayoutModule,
+        AppShareModule,
+        NzButtonModule,
+        NzToolTipModule,
+        NzIconModule,
+        NzMenuModule,
+        NzBreadCrumbModule,
+        NzDropDownModule,
+        NzGridModule,
+        NzCardModule,
+        NzPaginationModule,
+        ReactiveFormsModule,
+        NzInputModule,
+        NzFormModule,
+        NzUploadModule,
+        NzInputNumberModule,
+        NzListModule,
+        NzDatePickerModule,
+        NzDescriptionsModule,
+        NzSelectModule
+    ]
 })
 export class TeacherModule { }

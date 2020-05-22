@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50728
 File Encoding         : 65001
 
-Date: 2020-05-18 15:19:26
+Date: 2020-05-22 16:03:00
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -24,6 +24,7 @@ CREATE TABLE `course` (
   `course_name` varchar(20) NOT NULL,
   `description` varchar(200) DEFAULT NULL,
   `max_student_number` int(11) NOT NULL,
+  `picture` varchar(100) NOT NULL,
   PRIMARY KEY (`course_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -57,9 +58,13 @@ CREATE TABLE `file` (
   `project_id` int(11) NOT NULL,
   `file_name` varchar(20) NOT NULL,
   `path` varchar(25) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `time` date NOT NULL,
   PRIMARY KEY (`file_id`),
   KEY `project_id` (`project_id`),
-  CONSTRAINT `file_ibfk_1` FOREIGN KEY (`project_id`) REFERENCES `project` (`project_id`)
+  KEY `user_id` (`user_id`),
+  CONSTRAINT `file_ibfk_1` FOREIGN KEY (`project_id`) REFERENCES `project` (`project_id`),
+  CONSTRAINT `file_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -89,10 +94,16 @@ CREATE TABLE `project` (
   `project_id` int(11) NOT NULL AUTO_INCREMENT,
   `project_name` varchar(40) NOT NULL,
   `theme` varchar(100) DEFAULT NULL,
-  `leader_id` int(11) NOT NULL,
+  `leader_id` int(11) DEFAULT NULL,
+  `start_time` date NOT NULL,
+  `end_time` date NOT NULL,
+  `description` varchar(1000) DEFAULT NULL,
+  `course_id` int(11) NOT NULL,
   PRIMARY KEY (`project_id`),
   KEY `project_ibfk_1_idx` (`leader_id`),
-  CONSTRAINT `project_ibfk_1` FOREIGN KEY (`leader_id`) REFERENCES `user` (`user_id`)
+  KEY `course_id` (`course_id`),
+  CONSTRAINT `project_ibfk_1` FOREIGN KEY (`leader_id`) REFERENCES `user` (`user_id`),
+  CONSTRAINT `project_ibfk_2` FOREIGN KEY (`course_id`) REFERENCES `course` (`course_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -103,6 +114,7 @@ CREATE TABLE `student` (
   `s_id` int(11) NOT NULL,
   `gender` varchar(2) NOT NULL,
   `school` varchar(40) NOT NULL,
+  `profile` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`s_id`),
   CONSTRAINT `student_ibfk_1` FOREIGN KEY (`s_id`) REFERENCES `user` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -131,8 +143,9 @@ CREATE TABLE `task` (
   `user_id` int(11) DEFAULT NULL,
   `start_time` date NOT NULL,
   `end_time` date NOT NULL,
-  `contnet` text NOT NULL,
-  `state` int(1) DEFAULT '0' COMMENT '0表示未分配，1表示已分配未完成，2表示已完成',
+  `content` text NOT NULL,
+  `state` int(3) DEFAULT '0',
+  `comment` text,
   PRIMARY KEY (`task_id`),
   KEY `project_id` (`project_id`),
   KEY `task_ibfk_2_idx` (`user_id`),
@@ -161,6 +174,7 @@ CREATE TABLE `teacher` (
   `t_id` int(11) NOT NULL,
   `gender` varchar(2) NOT NULL,
   `school` varchar(40) NOT NULL,
+  `profile` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`t_id`),
   CONSTRAINT `teacher_ibfk_1` FOREIGN KEY (`t_id`) REFERENCES `user` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -171,8 +185,8 @@ CREATE TABLE `teacher` (
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
   `user_id` int(11) NOT NULL AUTO_INCREMENT,
-  `username` varchar(10) NOT NULL,
-  `password` varchar(16) NOT NULL,
+  `username` varchar(20) NOT NULL,
+  `password` varchar(64) NOT NULL,
   `role` int(1) NOT NULL COMMENT '0表示管理员 1表示老师 2表示学生',
   PRIMARY KEY (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10000 DEFAULT CHARSET=utf8;

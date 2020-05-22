@@ -9,6 +9,8 @@ import { ManagerSystemComponent } from './manager-system/manager-system.componen
 import { ManagerTeacherCreateComponent } from './manager-teacher-create/manager-teacher-create.component';
 import { ManagerStudentCreateComponent } from './manager-student-create/manager-student-create.component';
 import { ManagerClassCreateComponent } from './manager-class-create/manager-class-create.component';
+import {ManagerProjectCreateComponent} from "./manager-project-create/manager-project-create.component";
+import {ManagerProjectComponent} from "./manager-project/manager-project.component";
 
 const routes: Routes = [
   {path:'', component: ManagerMainComponent, children:[
@@ -19,6 +21,9 @@ const routes: Routes = [
     {path:'student',redirectTo:'student_list'},
     {path:'student_create',component:ManagerStudentCreateComponent},
     {path:'student_list',component:ManagerStudentComponent},
+    {path:'project',redirectTo:'project_list'},
+    {path:'project_create',component:ManagerProjectCreateComponent},
+    {path:'project_list',component:ManagerProjectComponent},
     {path:'class',redirectTo:'class_list'},
     {path:'class_create',component:ManagerClassCreateComponent},
     {path:'class_list',component:ManagerClassComponent},

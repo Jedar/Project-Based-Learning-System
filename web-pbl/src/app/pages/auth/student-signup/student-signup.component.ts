@@ -44,7 +44,7 @@ export class StudentSignupComponent implements OnInit {
         .set("username", formValue["username"])
         .set("school", formValue["school"])
         .set("gender", formValue["gender"])
-        .set("gender", md5Value);
+        .set("password", md5Value);
       //然后把输入框中的内容替换
       // this.validateForm.controls["password"].setValue(md5Value);
       // this.validateForm.controls["checkPassword"].setValue(md5Value);
