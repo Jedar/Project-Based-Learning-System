@@ -38,4 +38,28 @@ export class AuthService {
   checkCode(data):Observable<Result>{
     return this.http.get<Result>("/assets/data/check-code.json").pipe()
   }
+
+
+  // LocalStorage设置数据
+  saveUserIdAndPassword(role: string ,userId: string, password: string){
+    localStorage.setItem(role+"pbl_userId", userId);
+    localStorage.setItem(role+"pbl_password", password)
+  }
+  // 获取数据   pbl_userId or  pbl_password
+  getLocalStorage(role: string, key: string){
+    return localStorage.getItem(role + key);
+  }
+  // 删除数据
+  removeAllLocal(role: string){
+    localStorage.removeItem(role + "pbl_userId");
+    localStorage.removeItem(role + "pbl_password");
+  }
+
+  isLocalStorageSupported(): boolean{
+    if (window.localStorage){
+      return true
+    }else{
+      return false;
+    }
+  }
 }
