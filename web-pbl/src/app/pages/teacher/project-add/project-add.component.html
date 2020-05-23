@@ -5,12 +5,14 @@
       <input nz-input formControlName="name" id="name" />
     </nz-form-control>
   </nz-form-item>
+
   <nz-form-item>
     <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="theme">项目主题</nz-form-label>
     <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="必填项">
       <input nz-input formControlName="theme" id="theme" />
     </nz-form-control>
   </nz-form-item>
+
   <nz-form-item>
     <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="timeRange">项目起止时间</nz-form-label>
     <nz-form-control [nzSm]="16" [nzXs]="24" nzErrorTip="必填项">
@@ -18,6 +20,18 @@
     </nz-form-control>
   </nz-form-item>
 
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="scoreInfo">项目评分设置</nz-form-label>
+    <nz-form-control [nzSm]="16" [nzXs]="24">
+      拖动滑块设置相应比例，从左到右依次为师评、互评、自评
+      <nz-slider nzRange [nzTipFormatter]="formatter" formControlName="scoreInfo" id="scoreInfo" (nzOnAfterChange)="onRangeChange()"></nz-slider>
+      师评比例：<nz-input-number [nzMin]="1" [nzMax]="100" [nzStep]="1" [ngStyle]="{ marginLeft: '16px' }" [ngModel]="value1" [ngModelOptions]="{standalone: true}"></nz-input-number>%
+      <br><br>
+      互评比例：<nz-input-number [nzMin]="1" [nzMax]="100" [nzStep]="1" [ngStyle]="{ marginLeft: '16px' }" [ngModel]="value2" [ngModelOptions]="{standalone: true}"></nz-input-number>%
+      <br><br>
+      自评比例：<nz-input-number [nzMin]="1" [nzMax]="100" [nzStep]="1" [ngStyle]="{ marginLeft: '16px' }" [ngModel]="value3" [ngModelOptions]="{standalone: true}"></nz-input-number>%
+    </nz-form-control>
+  </nz-form-item>
   <nz-form-item nz-row class="register-area">
     <nz-form-control [nzSpan]="14" [nzOffset]="6">
       <button nz-button nzType="primary">提交</button>
