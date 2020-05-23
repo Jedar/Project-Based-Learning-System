@@ -1,0 +1,31 @@
+[
+    {
+        "user_id":173020,
+        "user_name":"User1",
+        "role":1,
+        "gender":"男",
+        "school":"复旦大学"
+    },
+    {
+        "user_id":173021,
+        "user_name":"User2",
+        "role":1,
+        "gender":"男",
+        "school":"复旦大学"
+    },
+    {
+        "user_id":173022,
+        "user_name":"User3",
+        "role":1,
+        "gender":"男",
+        "school":"复旦大学"
+    },
+    {
+        "user_id":173023,
+        "user_name":"User4",
+        "role":1,
+        "gender":"男",
+        "school":"复旦大学"
+    }
+                
+]

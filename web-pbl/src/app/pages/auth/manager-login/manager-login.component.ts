@@ -16,6 +16,9 @@ import {NzModalService} from "ng-zorro-antd";
 })
 export class ManagerLoginComponent implements OnInit {
 
+  localUserID;
+  localPassword;
+  isRemember = false;
   validateForm!: FormGroup;
   checkCodeUrl = "http://localhost:8080/getVerify";
   checkCodePass = false;
@@ -49,17 +52,23 @@ export class ManagerLoginComponent implements OnInit {
             nzContent: "验证码错误"
           });
         }else{
-          var md5Password = Md5.hashStr(formValue["password"]).toString();
+          var md5Password;
+          if (this.isRemember&&formValue["password"]==this.localPassword)  //如果本地记住密码且用户没有作出修改
+            md5Password = this.localPassword;
+          else
+            md5Password = Md5.hashStr(formValue["password"]).toString();
           const params = new HttpParams()
             .set("userID", formValue["userID"])
             .set("password", md5Password);
           console.log(params);
           this.authService.login(params).subscribe(result=>{
               if (result.state=="success"){//登陆成功
-                // if (formValue["remember"]){//记住密码
-                //
-                // }
 
+                if (formValue["remember"]){ //用户选择记住密码
+                  this.authService.saveUserIdAndPassword("manager",formValue["userID"], md5Password);
+                }else{
+                  this.authService.removeAllLocal("manager");
+                }
                 this.router.navigate(['/manager']);
               }else{
                 this.modal.error({
@@ -83,7 +92,6 @@ export class ManagerLoginComponent implements OnInit {
 
   getVerify():void{
     //为url时间戳
-    alert("checkcode");
     var getTimestamp = new Date().getTime();
     if (this.checkCodeUrl.indexOf("?") > -1) {
       this.checkCodeUrl = this.checkCodeUrl + "&timestamp=" + getTimestamp
@@ -102,13 +110,21 @@ export class ManagerLoginComponent implements OnInit {
 
   ngOnInit(): void {
     // this.getVerify();
+    this.localUserID = this.authService.getLocalStorage("manager","pbl_userId");
+    this.localPassword = this.authService.getLocalStorage("manager","pbl_password");
+    if (this.authService.isLocalStorageSupported()){//浏览器支持localStorage
+      if (this.localUserID!=null&&this.localPassword!=null){//用户名密码存在
+        this.isRemember = true;
+      }
+    }
     const { required, maxLength, minLength, email, mobile, max, min } = CommonValidators;
     this.validateForm = this.fb.group({
       userID: [null, [required]],
       password: [null, [required]],
       checkCode:[null,[required]],
-      remember: [true]
+      remember: [this.isRemember]
     });
+    this.validateForm.controls["userID"].setValue(this.localUserID);
+    this.validateForm.controls["password"].setValue(this.localPassword);
   }
-
 }

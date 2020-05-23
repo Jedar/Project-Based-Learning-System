@@ -25,7 +25,6 @@ export class ManagerService {
       day = "0" + day; // 补零
     return year+"-"+month+"-"+day;
   }
-
   studentList():Observable<UserOfStudent[]>{
     return this.http.get<UserOfStudent[]>("/assets/data/student-list.json").pipe()
   }
