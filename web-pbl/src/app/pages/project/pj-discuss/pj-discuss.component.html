@@ -2,63 +2,177 @@
 </nz-page-header>
 <nz-divider></nz-divider>
 
-<nz-content>
-  <nz-list [nzItemLayout]="'horizontal'">
-    <nz-card *ngFor="let data of discussions">
-      <nz-comment [nzAuthor]="getAuthor(data.user_id)" [nzDatetime]="data.time">
-        <nz-avatar nzSize="large" nz-comment-avatar nzIcon="user"
-                   nzSrc="//zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"></nz-avatar>
-        <nz-comment-content>
-          <p>{{ data.content }}</p>
-        </nz-comment-content>
-        <nz-comment-action>
-          <i nz-tooltip nzTitle="Like" nz-icon nzType="like" [nzTheme]="data.likes > 0 ? 'twotone' : 'outline'"
-             (click)="like(data.discussion_id)"></i>
-          <span class="count like">{{ data.likes }}</span>
-        </nz-comment-action>
-        <nz-comment-action>
-          <i nz-icon nzType="message" nzTheme="outline"></i>
-          <span (click)="showReply(data.discussion_id)"> Reply to</span>
-        </nz-comment-action>
+<nz-tabset>
+  <nz-tab nzTitle="全部讨论">
+    <nz-content>
+      <nz-list [nzItemLayout]="'horizontal'">
+        <nz-card *ngFor="let data of discussions">
+          <nz-comment>
+            <nz-avatar nz-comment-avatar nzSize="large" nzIcon="user" style="background-color:#87d068;"></nz-avatar>
+            <!--            <nz-avatar nzSize="large" nz-comment-avatar nzIcon="user"-->
+            <!--                       nzSrc="//zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"></nz-avatar>-->
+            <nz-comment-content>
+              <div class="ant-comment-content-author-name">
+                {{getAuthor(data.user_id)}}
+                <span class="ant-comment-content-author-time">{{data.time}}</span></div>
+              <p>{{ data.content }}</p>
+            </nz-comment-content>
+            <nz-comment-action>
+              <span class="action">
+              <i nz-tooltip nzTitle="Like" nz-icon nzType="like" [nzTheme]="data.likes > 0 ? 'twotone' : 'outline'"
+                 (click)="like(data.discussion_id)"></i>
+              <span class="count like">{{ data.likes }}</span>
+              </span>
+            </nz-comment-action>
+            <nz-comment-action class="action-reply">
+              <span class="action">
+              <i nz-icon nz-tooltip nzType="message" nzTheme="twotone"></i>
+              <span (click)="showReply(data.discussion_id)"> Reply to</span>
+              </span>
+            </nz-comment-action>
 
-      </nz-comment>
-      <div class="ReplyController{{data.discussion_id}}" style="display: none">
-        <nz-comment>
-          <nz-avatar nz-comment-avatar nzIcon="user"
-                     nzSrc="//zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"></nz-avatar>
-          <nz-comment-content>
-            <nz-form-item>
-                <textarea placeholder="回复讨论" nz-input rows="4"></textarea>
-            </nz-form-item>
-            <nz-form-item>
-              <button nz-button nzType="primary" (click)="reply()">
-                回复
-              </button>
-            </nz-form-item>
-          </nz-comment-content>
-        </nz-comment>
-      </div>
-    </nz-card>
-    <nz-card>
-      <nz-comment>
-        <nz-avatar nz-comment-avatar nzIcon="user"
-                   nzSrc="//zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"></nz-avatar>
-        <nz-comment-content>
-          <nz-form-item>
-              <textarea placeholder="发布讨论" nz-input rows="4" [(ngModel)]="discussionContent"></textarea>
-          </nz-form-item>
-          <nz-form-item>
-            <button nz-button nzType="primary" (click)="publish()">
-              发布
-            </button>
-          </nz-form-item>
-        </nz-comment-content>
-      </nz-comment>
-    </nz-card>
-  </nz-list>
-  <nz-pagination class="ant-table-pagination ant-table-pagination-right" [nzPageSize]="3" [nzPageIndex]="1"
-                 [nzTotal]="discussions.length"></nz-pagination>
-</nz-content>
+            <div class="ReplyController{{data.discussion_id}}" style="display: none">
+              <nz-comment>
+                <nz-avatar nz-comment-avatar nzSize="large" nzIcon="user" style="background-color:#87d068;"></nz-avatar>
+                <!--              <nz-avatar nz-comment-avatar nzIcon="user"-->
+                <!--                         nzSrc="//zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"></nz-avatar>-->
+                <nz-comment-content>
+                  <nz-form-item>
+                    <textarea placeholder="回复讨论" nz-input rows="4" [(ngModel)]="replyContent" ></textarea>
+                  </nz-form-item>
+                  <nz-form-item>
+                    <button nz-button nzType="primary" (click)="reply(data.discussion_id)">
+                      回复
+                    </button>
+                  </nz-form-item>
+                </nz-comment-content>
+              </nz-comment>
+            </div>
+<!--            子讨论-->
+            <div *ngIf="discussionChildren.size">
+              <nz-card *ngFor="let child of discussionChildren.get(data.discussion_id)">
+                <nz-comment>
+                  <nz-avatar nz-comment-avatar nzSize="large" nzIcon="user"
+                             style="background-color:#87d068;"></nz-avatar>
+                  <nz-comment-content>
+                    <div class="ant-comment-content-author-name">
+                      {{getAuthor(child.user_id)}}
+                      <span class="ant-comment-content-author-time">{{child.time}}</span></div>
+                    <p>{{ child.content }}</p>
+                  </nz-comment-content>
+                  <nz-comment-action>
+              <span class="action">
+              <i nz-tooltip nzTitle="Like" nz-icon nzType="like" [nzTheme]="child.likes > 0 ? 'twotone' : 'outline'"
+                 (click)="like(child.discussion_id)"></i>
+              <span class="count like">{{ child.likes }}</span>
+              </span>
+                  </nz-comment-action>
+                  <nz-comment-action class="action-reply">
+                      <span class="action">
+                          <i nz-icon nz-tooltip nzType="message" nzTheme="twotone"></i>
+                          <span (click)="showReply(child.discussion_id)"> Reply to</span>
+                       </span>
+                  </nz-comment-action>
+
+                  <div class="ReplyController{{child.discussion_id}}" style="display: none">
+                    <nz-comment>
+                      <nz-avatar nz-comment-avatar nzSize="large" nzIcon="user"
+                                 style="background-color:#87d068;"></nz-avatar>
+                      <!--              <nz-avatar nz-comment-avatar nzIcon="user"-->
+                      <!--                         nzSrc="//zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"></nz-avatar>-->
+                      <nz-comment-content>
+                        <nz-form-item>
+                          <textarea placeholder="回复讨论" nz-input rows="4" [(ngModel)]="replyContent"></textarea>
+                        </nz-form-item>
+                        <nz-form-item>
+                          <button nz-button nzType="primary" (click)="reply(child.discussion_id)">
+                            回复
+                          </button>
+                        </nz-form-item>
+                      </nz-comment-content>
+                    </nz-comment>
+                  </div>
+                </nz-comment>
+              </nz-card>
+            </div>
+          </nz-comment>
+        </nz-card>
+<!--        子讨论-->
+
+        <nz-card>
+          <nz-comment>
+            <nz-avatar nz-comment-avatar nzSize="large" nzIcon="user" style="background-color:#87d068;"></nz-avatar>
+            <!--            <nz-avatar nz-comment-avatar nzIcon="user"-->
+            <!--                       nzSrc="//zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"></nz-avatar>-->
+            <nz-comment-content>
+              <nz-form-item>
+                <textarea placeholder="发布讨论" nz-input rows="4" [(ngModel)]="discussionContent"></textarea>
+              </nz-form-item>
+              <nz-form-item>
+                <button nz-button nzType="primary" (click)="publish()">
+                  发布
+                </button>
+              </nz-form-item>
+            </nz-comment-content>
+          </nz-comment>
+        </nz-card>
+      </nz-list>
+      <nz-pagination class="ant-table-pagination ant-table-pagination-right" [nzPageSize]="3" [nzPageIndex]="1"
+                     [nzTotal]="discussions.length"></nz-pagination>
+    </nz-content>
+  </nz-tab>
+  <nz-tab nzTitle="我的讨论">
+    <nz-content>
+      <nz-list [nzItemLayout]="'horizontal'">
+        <nz-card *ngFor="let data of discussions">
+          <nz-comment>
+            <nz-avatar nz-comment-avatar nzSize="large" nzIcon="user" style="background-color:#87d068;"></nz-avatar>
+            <!--            <nz-avatar nzSize="large" nz-comment-avatar nzIcon="user"-->
+            <!--                       nzSrc="//zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"></nz-avatar>-->
+            <nz-comment-content>
+              <div class="ant-comment-content-author-name">
+                {{getAuthor(data.user_id)}}
+                <span class="ant-comment-content-author-time">{{data.time}}</span></div>
+              <p>{{ data.content }}</p>
+            </nz-comment-content>
+            <nz-comment-action>
+              <span class="action">
+              <i nz-tooltip nzTitle="Like" nz-icon nzType="like" [nzTheme]="data.likes > 0 ? 'twotone' : 'outline'"
+                 (click)="like(data.discussion_id)"></i>
+              <span class="count like">{{ data.likes }}</span>
+              </span>
+            </nz-comment-action>
+            <nz-comment-action class="action-reply">
+              <span class="action">
+              <i nz-icon nz-tooltip nzType="message" nzTheme="twotone"></i>
+              <span (click)="showReply(data.discussion_id)"> Reply to</span>
+              </span>
+            </nz-comment-action>
+          </nz-comment>
+
+          <div class="ReplyController{{data.discussion_id}}" style="display: none">
+            <nz-comment>
+              <nz-avatar nz-comment-avatar nzSize="large" nzIcon="user" style="background-color:#87d068;"></nz-avatar>
+              <!--              <nz-avatar nz-comment-avatar nzIcon="user"-->
+              <!--                         nzSrc="//zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"></nz-avatar>-->
+              <nz-comment-content>
+                <nz-form-item>
+                  <textarea placeholder="回复讨论" nz-input rows="4"></textarea>
+                </nz-form-item>
+                <nz-form-item>
+                  <button nz-button nzType="primary" (click)="reply(data.discussion_id)">
+                    回复
+                  </button>
+                </nz-form-item>
+              </nz-comment-content>
+            </nz-comment>
+          </div>
+
+        </nz-card>
+      </nz-list>
+    </nz-content>
+  </nz-tab>
+</nz-tabset>
 
 
 

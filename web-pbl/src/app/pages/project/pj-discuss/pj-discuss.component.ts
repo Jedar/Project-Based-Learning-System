@@ -17,25 +17,33 @@ export class PjDiscussComponent implements OnInit {
   projectId: number;
   discussions: Discussion[] = [];
   authors: Student[] = [];
-  isShow: number = 0;
+  isShow: boolean = true;
   discussionContent: string;
+  replyContent:string;
+  discussionChildren: Map<number, Discussion[]> = new Map<number, Discussion[]>();
 
   like(discussion_id: number): void {
     for (let items of this.discussions) {
       if (items.discussion_id == discussion_id) {
         items.likes++;
       }
+      for (let child of this.discussionChildren.get(items.discussion_id)) {
+        if (child.discussion_id == discussion_id) {
+          child.likes++;
+        }
+      }
     }
+
   }
 
   showReply(discussion_id: number): void {
     let s = ".ReplyController" + discussion_id;
-    if (this.isShow % 2 == 0) {
+    if (this.isShow) {
       this.el.nativeElement.querySelector(s).style.display = "block";
     } else {
       this.el.nativeElement.querySelector(s).style.display = "none";
     }
-    this.isShow++;
+    this.isShow = !this.isShow;
   }
 
   getAuthor(author_id: number): string {
@@ -60,6 +68,11 @@ export class PjDiscussComponent implements OnInit {
   ngOnInit(): void {
     this.discussionService.getDiscussionList(this.projectId).subscribe(result => {
       this.discussions = result;
+      for (let discussion of this.discussions) {
+        this.discussionService.getDiscussionChildren(discussion.discussion_id).subscribe(res => {
+              this.discussionChildren.set(discussion.discussion_id,res);
+        });
+      }
     });
 
     this.discussionService.getAuthorsOfDiscussions().subscribe(result => {
@@ -69,7 +82,7 @@ export class PjDiscussComponent implements OnInit {
   }
 
   publish() {
-    if(this.discussionContent.length<=0){
+    if (this.discussionContent.length <= 0) {
       this.modal.error({
         nzTitle: '发布失败',
         nzContent: "发布内容不能为空",
@@ -91,7 +104,26 @@ export class PjDiscussComponent implements OnInit {
     })
   }
 
-  reply() {
-
+  reply(parent_id: number) {
+    if (this.replyContent.length <= 0) {
+      this.modal.error({
+        nzTitle: '回复失败',
+        nzContent: "回复内容不能为空",
+      });
+      return;
+    }
+    this.discussionService.replyDiscussion().subscribe(result => {
+      if (result.state == "true") {
+        this.modal.success({
+          nzTitle: '回复讨论',
+          nzContent: '回复成功',
+        })
+      } else {
+        this.modal.error({
+          nzTitle: '回复失败',
+          nzContent: result.message,
+        });
+      }
+    })
   }
 }

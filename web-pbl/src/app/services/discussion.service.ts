@@ -28,6 +28,9 @@ export class DiscussionService {
     return this.http.get<Result>("/assets/data/success.json").pipe();
   }
 
+  getDiscussionChildren(discussion_id:number):Observable<Discussion[]>{
+    return this.http.get<Discussion[]>("/assets/data/discussionChildren.json").pipe();
+  }
   replyDiscussion():Observable<Result>{
     return this.http.get<Result>("/assets/data/success.json").pipe();
   }
