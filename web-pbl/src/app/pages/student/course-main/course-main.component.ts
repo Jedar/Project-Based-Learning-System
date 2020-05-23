@@ -2,14 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
-  selector: 'app-teacher-main',
-  templateUrl: './teacher-main.component.html',
-  styleUrls: ['./teacher-main.component.css']
+  selector: 'app-course-main',
+  templateUrl: './course-main.component.html',
+  styleUrls: ['./course-main.component.css']
 })
-export class TeacherMainComponent implements OnInit {
+export class CourseMainComponent implements OnInit {
 
   option:string;
-
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -22,7 +21,6 @@ export class TeacherMainComponent implements OnInit {
       res.children[0].url.subscribe(u => {
         this.option = u[0].path;
       });
-
     });
   }
 

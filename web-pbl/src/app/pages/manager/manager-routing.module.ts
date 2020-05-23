@@ -14,7 +14,7 @@ import {ManagerProjectComponent} from "./manager-project/manager-project.compone
 
 const routes: Routes = [
   {path:'', component: ManagerMainComponent, children:[
-    {path:'', redirectTo:''},
+    {path:'', redirectTo:'teacher_list'},
     {path:'teacher',redirectTo:'teacher_list'},
     {path:'teacher_create',component:ManagerTeacherCreateComponent},
     {path:'teacher_list',component:ManagerTeacherComponent},

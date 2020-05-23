@@ -27,7 +27,7 @@ export class CourseCardComponent implements OnInit {
   }
 
   getIntoCourseProject(courseId: number): void {
-    this.router.navigate(['student/project_list']);
+    this.router.navigate(['student/course']);
   }
 
   dropCourse(courseId: number): void {
