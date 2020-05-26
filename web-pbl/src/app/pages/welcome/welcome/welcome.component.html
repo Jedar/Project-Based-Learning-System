@@ -1,1 +1,42 @@
-<p>welcome works!</p>
+
+<div style="width: 50%;align-content: center;margin: 50px;">
+    <p>剩余比例：{{total}}</p>
+    <span>教师评价：</span>
+    <nz-input-number
+      [(ngModel)]="val1"
+      [nzMin]="1"
+      [nzMax]="100"
+      [nzStep]="1"
+      [nzFormatter]="formatterPercent"
+      [nzParser]="parserPercent"
+    ></nz-input-number>
+    <button nz-button (click)="increase1()">增加</button>
+    <button nz-button (click)="decrease1()">减少</button>
+
+    <br>
+    <span>学生自评：</span>
+    <nz-input-number
+      [(ngModel)]="val2"
+      [nzMin]="1"
+      [nzMax]="100"
+      [nzStep]="1"
+      [nzFormatter]="formatterPercent"
+      [nzParser]="parserPercent"
+    ></nz-input-number>
+    <button nz-button (click)="increase2()">增加</button>
+    <button nz-button (click)="decrease2()">减少</button>
+
+    <br>
+    <span>学生互评：</span>
+    <nz-input-number
+      [(ngModel)]="val3"
+      [nzMin]="1"
+      [nzMax]="100"
+      [nzStep]="1"
+      [nzFormatter]="formatterPercent"
+      [nzParser]="parserPercent"
+    ></nz-input-number>
+    <button nz-button (click)="increase3()">增加</button>
+    <button nz-button (click)="decrease3()">减少</button>
+</div>
+

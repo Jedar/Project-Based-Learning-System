@@ -43,6 +43,7 @@ export class ManagerTeacherCreateComponent implements OnInit {
         .set("school", formValue["school"])
         .set("gender", formValue["gender"])
         .set("password", md5Value);
+      console.log(params);
       //然后把输入框中的内容替换
       // this.validateForm.controls["password"].setValue(md5Value);
       // this.validateForm.controls["checkPassword"].setValue(md5Value);

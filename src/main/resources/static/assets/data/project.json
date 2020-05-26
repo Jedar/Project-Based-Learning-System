@@ -1,0 +1,10 @@
+{
+    "project_id":123,
+    "course_id": 1,
+    "project_name":"ProjectTest",
+    "theme":"Adv Web",
+    "leader_id":123,
+    "start_time":"2020-05-12",
+    "end_time":"2020-05-20",
+    "description": "PBL（Project-Based Learning，项目式学习）是一种教学方法，即学生通过一段时间内对真实的、复 杂的问题进行探究，并从中获得知识和技能。 \n\nPBL System该系统结合项目是学习的有关研究，将项目与课程相结合，学生通过在线课程学习，自由 组队，并从感兴趣的项目出发，而不只是单调的听课，来激发学习兴趣，并锻炼动手能力、团队协作能 力。 "
+}

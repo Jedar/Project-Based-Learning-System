@@ -16,7 +16,8 @@
     <nz-descriptions-item nzTitle="任务描述" [nzSpan]="3">
         {{task.content}}
     </nz-descriptions-item>
-    <nz-descriptions-item *ngIf="!isOutOfTime&&!isNotStart" nzTitle="编辑进度" [nzSpan]="3">
+    <!-- *ngIf="!isOutOfTime&&!isNotStart" -->
+    <nz-descriptions-item nzTitle="编辑进度" [nzSpan]="3">
         <nz-form-item>
             <nz-form-label>项目新增进展</nz-form-label>
             <nz-slider [nzMin]="task.state" [(ngModel)]="stateInput" style="width: 100%;" [nzTipFormatter]="formatter"></nz-slider>

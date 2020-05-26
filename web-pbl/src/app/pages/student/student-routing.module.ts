@@ -11,7 +11,7 @@ import {ModifyInfoComponent} from "./modify-info/modify-info.component";
 
 const routes: Routes = [
   {path:'', component: StudentMainComponent, children:[
-      {path:'', redirectTo:''},
+      {path:'', redirectTo:'course_list'},
       {path: 'course', redirectTo: 'course_list'},
       {path: 'course_list', component: CourseListComponent},
       {path: 'course_join', component: CourseJoinComponent},
