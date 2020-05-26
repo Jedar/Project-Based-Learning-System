@@ -17,6 +17,10 @@ export class ManagerProjectCreateComponent implements OnInit {
 
   courseList: ManagerCourse[];
   validateForm!: FormGroup;
+  range = [30, 70];
+  value1 = 30;
+  value2 = 40;
+  value3 = 30;
   autoTips: Record<string, Record<string, string>> = {
     'zh-cn': {
       required: '必填项'
@@ -39,6 +43,7 @@ export class ManagerProjectCreateComponent implements OnInit {
       name: [null, [required]],
       theme: [null, [required]],
       timeRange: [null, [required]],
+      scoreInfo: [[30, 70]]
     });
     this.managerService.courseList().subscribe(result=>{
       this.courseList = result;
@@ -62,7 +67,10 @@ export class ManagerProjectCreateComponent implements OnInit {
         .set("project_name", formValue["name"])
         .set("theme", formValue["theme"])
         .set("start_time", start_time)  //TODO: 这里传的时间是yyyy-MM-dd 类型的字符串
-        .set("end_time", end_time);
+        .set("end_time", end_time)
+        .set("teacher_score", this.value1+"")
+        .set("mutual_score", this.value2+"")
+        .set("self_score", this.value3+"");
       console.log(params);
       this.managerService.createProject(params).subscribe(result=>{
         if (result.state=="success"){
@@ -80,6 +88,15 @@ export class ManagerProjectCreateComponent implements OnInit {
         }
       })
     }
+  }
+  formatter(value: number): string {
+    return `${value}%`;
+  }
+  onRangeChange(): void {
+    const scoreInfo = this.validateForm.controls.scoreInfo.value;
+    this.value1 = scoreInfo[0];
+    this.value2 = scoreInfo[1] - scoreInfo[0];
+    this.value3 = 100 - scoreInfo[1];
   }
   cleanFormValue(){
     for (const i in this.validateForm.controls) {

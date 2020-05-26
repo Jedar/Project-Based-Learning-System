@@ -1,0 +1,14 @@
+<nz-tabset>
+  <nz-tab [nzTitle]="titleTemplate1">
+    <ng-template #titleTemplate1> <i nz-icon nzType="info-circle"></i> 课程信息</ng-template>
+    <app-course-info></app-course-info>
+  </nz-tab>
+  <nz-tab [nzTitle]="titleTemplate2">
+    <ng-template #titleTemplate2> <i nz-icon nzType="unordered-list"></i> 课程项目列表</ng-template>
+    <app-project-list></app-project-list>
+  </nz-tab>
+  <nz-tab [nzTitle]="titleTemplate3">
+    <ng-template #titleTemplate3> <i nz-icon nzType="appstore-add"></i> 加入新项目</ng-template>
+    <app-project-join></app-project-join>
+  </nz-tab>
+</nz-tabset>

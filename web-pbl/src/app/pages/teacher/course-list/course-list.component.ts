@@ -37,7 +37,7 @@ export class CourseListComponent implements OnInit {
   }
 
   getIntoCourseProject(courseId: number): void {
-    this.router.navigate(['teacher/project_list']);
+    this.router.navigate(['teacher/course']);
   }
 
   deleteCourse(courseId: number): void {

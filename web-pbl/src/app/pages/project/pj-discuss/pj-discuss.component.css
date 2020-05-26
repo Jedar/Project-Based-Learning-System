@@ -8,10 +8,33 @@ nz-content {
 
 nz-card{
   margin: 15px;
-  background: #ECECEC;
+  /*background: #ECECEC;*/
+}
+
+nz-comment-content{
+  margin-left: 10px;
+}
+
+nz-comment-action{
+  color: #98bf21;
+  margin-left: 10px;
 }
 
 .ant-comment-content-author-name{
+  margin-top: -10px;
   font-size: large;
-  font-weight: bold;
+  color: #98bf21;
 }
+
+.ant-comment-content-author-time{
+  margin-left: 10px;
+  font-size: small;
+}
+
+.action{
+  margin-left: 10px;
+  color: #98bf21;
+}
+
+
+

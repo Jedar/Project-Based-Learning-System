@@ -1,0 +1,20 @@
+[
+  {
+    "discussion_id": 1003,
+    "project_id": 123,
+    "content": "this is a discussion demo",
+    "time": "2020-5-18",
+    "user_id": 173023,
+    "likes": 10,
+    "parents_id": 1002
+  },
+  {
+    "discussion_id": 1004,
+    "project_id": 123,
+    "content": "this is another discussion demo",
+    "time": "2020-5-18",
+    "user_id": 173021,
+    "likes": 10,
+    "parents_id": 1002
+  }
+]

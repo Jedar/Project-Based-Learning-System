@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {NzMessageService, UploadFile} from "ng-zorro-antd";
 import {Observable, Observer} from "rxjs";
 import {UploadFileService} from "../../../services/upload-file.service";
+import {CommonValidators} from "../../../share/CommonValidator";
 
 @Component({
   selector: 'app-modify-info',
@@ -24,13 +25,33 @@ export class ModifyInfoComponent implements OnInit {
   ngOnInit(): void {
     this.validateForm = this.fb.group({
       username: [null, [Validators.required]],
-      password: [null, [Validators.required]],
+      password: [null, [Validators.required, CommonValidators.minLengthPassword(6), CommonValidators.maxLengthPassword(16)]],
+      checkPassword: [null, this.confirmationValidator],
       gender: [null, [Validators.required]]
     });
   }
 
-  modifyInfo(): void {
+  updateConfirmValidator(): void {
+    /** wait for refresh value */
+    Promise.resolve().then(() => this.validateForm.controls.checkPassword.updateValueAndValidity());
+  }
 
+  confirmationValidator = (control: FormControl): { [s: string]: boolean } => {
+    if (!control.value) {
+      return { required: true };
+    } else if (control.value !== this.validateForm.controls.password.value) {
+      return { confirm: true, error: true };
+    }
+    return {};
+  };
+
+  modifyInfo(): void {
+    var formValue = {};
+    for (const i in this.validateForm.controls) {
+      this.validateForm.controls[i].markAsDirty();
+      this.validateForm.controls[i].updateValueAndValidity();
+      formValue[i] = this.validateForm.controls[i].value;
+    }
   }
 
   beforeUpload = this.uploadFileService.beforeUpload;
