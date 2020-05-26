@@ -4,6 +4,7 @@ import edu.fudan.projectbasedlearning.dao.UserMapper;
 import edu.fudan.projectbasedlearning.pojo.User;
 import edu.fudan.projectbasedlearning.service.UserService;
 import edu.fudan.projectbasedlearning.core.AbstractService;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

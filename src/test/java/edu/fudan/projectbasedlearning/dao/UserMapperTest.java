@@ -26,4 +26,14 @@ public class UserMapperTest extends Tester {
         HashMap<String,String> hash = userMapper.getTeacher(10000);
         System.out.println(hash);
     }
+
+    @Test
+    public void update(){
+        User user = userMapper.selectByPrimaryKey(10000);
+        System.out.println(user);
+        user.setUsername("asd");
+        userMapper.updateByPrimaryKey(user);
+        user = userMapper.selectByPrimaryKey(10000);
+        System.out.println(user);
+    }
 }

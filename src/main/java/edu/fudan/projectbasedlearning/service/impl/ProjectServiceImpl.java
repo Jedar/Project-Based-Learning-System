@@ -4,6 +4,8 @@ import edu.fudan.projectbasedlearning.dao.ProjectMapper;
 import edu.fudan.projectbasedlearning.pojo.Project;
 import edu.fudan.projectbasedlearning.service.ProjectService;
 import edu.fudan.projectbasedlearning.core.AbstractService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
