@@ -1,10 +1,11 @@
-package edu.fudan.projectbasedlearning.web;
+package edu.fudan.projectbasedlearning.controller;
 import edu.fudan.projectbasedlearning.core.Result;
 import edu.fudan.projectbasedlearning.core.ResultGenerator;
 import edu.fudan.projectbasedlearning.pojo.Project;
 import edu.fudan.projectbasedlearning.service.ProjectService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,7 +20,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/project")
 public class ProjectController {
-    @Resource
+    @Autowired
     private ProjectService projectService;
 
     @PostMapping("/add")
