@@ -1,5 +1,5 @@
 
-<div style="width: 50%;align-content: center;margin: 50px;">
+<!-- <div style="width: 50%;align-content: center;margin: 50px;">
     <p>剩余比例：{{total}}</p>
     <span>教师评价：</span>
     <nz-input-number
@@ -38,5 +38,14 @@
     ></nz-input-number>
     <button nz-button (click)="increase3()">增加</button>
     <button nz-button (click)="decrease3()">减少</button>
-</div>
+</div> -->
 
+
+<div style="width: 50%;align-content: center;margin: 50px;">
+  <a nz-button nzType="link" nzBlock [routerLink]="['/','auth']">登陆页面</a>
+  <a nz-button nzType="link" nzBlock [routerLink]="['/','manager']">管理员页面</a>
+  <a nz-button nzType="link" nzBlock [routerLink]="['/','student']">学生页面</a>
+  <a nz-button nzType="link" nzBlock [routerLink]="['/','teacher']">教师页面</a>
+  <a nz-button nzType="link" nzBlock [routerLink]="['/','project','student','info']">学生项目页面</a>
+  <a nz-button nzType="link" nzBlock [routerLink]="['/','project','teacher','info']">教师项目页面</a>
+</div>

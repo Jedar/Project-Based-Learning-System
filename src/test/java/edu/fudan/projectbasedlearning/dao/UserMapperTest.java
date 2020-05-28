@@ -26,6 +26,7 @@ public class UserMapperTest extends Tester {
         HashMap<String,String> hash = userMapper.getTeacher(10000);
         System.out.println(hash);
     }
+
     @Test
     public void testFindByUserNameAndPassword(){
         User user = new User();
@@ -45,11 +46,20 @@ public class UserMapperTest extends Tester {
         System.out.println(userList);
     }
     @Test
-    public void testSave(){
+    public void testSave() {
         User user = new User();
         user.setUsername("jxy123");
         user.setPassword("123456");
         user.setRole(2);
         System.out.println(userMapper.insertSelective(user));
+    }
+    @Test
+    public void update(){
+        User user = userMapper.selectByPrimaryKey(10000);
+        System.out.println(user);
+        user.setUsername("asd");
+        userMapper.updateByPrimaryKey(user);
+        user = userMapper.selectByPrimaryKey(10000);
+        System.out.println(user);
     }
 }
