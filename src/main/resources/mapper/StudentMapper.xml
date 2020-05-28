@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.fudan.projectbasedlearning.dao.StudentMapper">
+  <resultMap id="BaseResultMap" type="edu.fudan.projectbasedlearning.pojo.Student">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="s_id" jdbcType="INTEGER" property="sId" />
+    <result column="gender" jdbcType="VARCHAR" property="gender" />
+    <result column="school" jdbcType="VARCHAR" property="school" />
+    <result column="profile" jdbcType="VARCHAR" property="profile" />
+    <association property="user" javaType="edu.fudan.projectbasedlearning.pojo.User">
+        <id property="userId" jdbcType="INTEGER" column="user_id"/>
+        <result property="username" jdbcType="VARCHAR" column="username"/>
+        <result property="password" jdbcType="VARCHAR" column="password"/>
+        <result property="role" jdbcType="INTEGER" column="role"/>
+    </association>
+  </resultMap>
+
+</mapper>

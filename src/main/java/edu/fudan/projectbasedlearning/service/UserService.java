@@ -7,5 +7,6 @@ import edu.fudan.projectbasedlearning.core.Service;
  * Created by CodeGenerator on 2020/05/26.
  */
 public interface UserService extends Service<User> {
+    User findByUsernameAndPassword(String username, String password);
 
 }

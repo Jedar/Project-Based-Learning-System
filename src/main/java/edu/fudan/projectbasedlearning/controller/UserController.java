@@ -1,4 +1,4 @@
-package edu.fudan.projectbasedlearning.web;
+package edu.fudan.projectbasedlearning.controller;
 import edu.fudan.projectbasedlearning.core.Result;
 import edu.fudan.projectbasedlearning.core.ResultGenerator;
 import edu.fudan.projectbasedlearning.pojo.User;

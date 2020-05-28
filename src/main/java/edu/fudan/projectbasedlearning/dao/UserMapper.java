@@ -7,5 +7,7 @@ import java.util.HashMap;
 
 public interface UserMapper extends Mapper<User> {
 
-    public HashMap<String,String> getTeacher(Integer id);
+    HashMap<String,String> getTeacher(Integer id);
+    User findByUserNameAndPassword(User user);
+    int insertUser(User user);
 }

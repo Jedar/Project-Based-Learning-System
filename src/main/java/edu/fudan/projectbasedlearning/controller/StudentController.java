@@ -1,8 +1,8 @@
 package edu.fudan.projectbasedlearning.web;
 import edu.fudan.projectbasedlearning.core.Result;
 import edu.fudan.projectbasedlearning.core.ResultGenerator;
-import edu.fudan.projectbasedlearning.pojo.Project;
-import edu.fudan.projectbasedlearning.service.ProjectService;
+import edu.fudan.projectbasedlearning.pojo.Student;
+import edu.fudan.projectbasedlearning.service.StudentService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,42 +14,42 @@ import javax.annotation.Resource;
 import java.util.List;
 
 /**
-* Created by CodeGenerator on 2020/05/26.
+* Created by CodeGenerator on 2020/05/27.
 */
 @RestController
-@RequestMapping("/project")
-public class ProjectController {
+@RequestMapping("/student")
+public class StudentController {
     @Resource
-    private ProjectService projectService;
+    private StudentService studentService;
 
     @PostMapping("/add")
-    public Result add(Project project) {
-        projectService.save(project);
+    public Result add(Student student) {
+        studentService.save(student);
         return ResultGenerator.genSuccessResult();
     }
 
     @PostMapping("/delete")
     public Result delete(@RequestParam Integer id) {
-        projectService.deleteById(id);
+        studentService.deleteById(id);
         return ResultGenerator.genSuccessResult();
     }
 
     @PostMapping("/update")
-    public Result update(Project project) {
-        projectService.update(project);
+    public Result update(Student student) {
+        studentService.update(student);
         return ResultGenerator.genSuccessResult();
     }
 
     @PostMapping("/detail")
     public Result detail(@RequestParam Integer id) {
-        Project project = projectService.findById(id);
-        return ResultGenerator.genSuccessResult(project);
+        Student student = studentService.findById(id);
+        return ResultGenerator.genSuccessResult(student);
     }
 
     @PostMapping("/list")
     public Result list(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "0") Integer size) {
         PageHelper.startPage(page, size);
-        List<Project> list = projectService.findAll();
+        List<Student> list = studentService.findAll();
         PageInfo pageInfo = new PageInfo(list);
         return ResultGenerator.genSuccessResult(pageInfo);
     }

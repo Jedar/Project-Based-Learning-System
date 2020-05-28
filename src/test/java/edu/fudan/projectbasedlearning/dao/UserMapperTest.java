@@ -3,13 +3,13 @@ package edu.fudan.projectbasedlearning.dao;
 import edu.fudan.projectbasedlearning.Tester;
 import edu.fudan.projectbasedlearning.pojo.User;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.List;
 
 public class UserMapperTest extends Tester {
-    @Resource
+    @Autowired
     private UserMapper userMapper;
 
     @Test
@@ -25,5 +25,31 @@ public class UserMapperTest extends Tester {
     public void teacher(){
         HashMap<String,String> hash = userMapper.getTeacher(10000);
         System.out.println(hash);
+    }
+    @Test
+    public void testFindByUserNameAndPassword(){
+        User user = new User();
+        user.setUsername("11111");
+        user.setPassword("111111");
+        User result =  userMapper.findByUserNameAndPassword(user);
+        System.out.println(result);
+    }
+    @Test
+    public void testIsUserNameUnique(){
+        User user = new User();
+        user.setUsername("11111");
+        List<User> userList = userMapper.select(user);
+        for(User user1: userList){
+            System.out.println(user1);
+        }
+        System.out.println(userList);
+    }
+    @Test
+    public void testSave(){
+        User user = new User();
+        user.setUsername("jxy123");
+        user.setPassword("123456");
+        user.setRole(2);
+        System.out.println(userMapper.insertSelective(user));
     }
 }

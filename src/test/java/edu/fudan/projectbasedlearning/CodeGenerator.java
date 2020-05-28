@@ -41,8 +41,8 @@ public class CodeGenerator {
     public static void main(String[] args) {
 //        genCode("输入表名");
 //        genCode("user");
-        genCode("project");
-//        genCode("project");
+//        genCode("score_distribute");
+        genCode("course");
         //genCodeByCustomModelName("输入表名","输入自定义Model名称");
     }
 
