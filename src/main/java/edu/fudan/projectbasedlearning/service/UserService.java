@@ -8,5 +8,4 @@ import edu.fudan.projectbasedlearning.core.Service;
  */
 public interface UserService extends Service<User> {
     User findByUsernameAndPassword(String username, String password);
-
 }

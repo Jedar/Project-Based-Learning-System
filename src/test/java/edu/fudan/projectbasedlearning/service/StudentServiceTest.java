@@ -22,7 +22,6 @@ public class StudentServiceTest extends Tester {
         user.setPassword("123456");
         user.setRole(2);
         Student student = new Student();
-        student.setsId(10010);
         student.setGender("男");
         student.setSchool("复旦大学");
         student.setUser(user);

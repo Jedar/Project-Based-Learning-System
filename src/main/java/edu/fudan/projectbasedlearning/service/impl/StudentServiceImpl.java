@@ -31,10 +31,8 @@ public class StudentServiceImpl extends AbstractService<Student> implements Stud
     public int saveStudent(Student student){
         int result;
         result = userMapper.insertUser(student.getUser());
-        System.out.println(result);
-        System.out.println(student.getUser().getUserId());
+        student.setsId(student.getUser().getUserId());
         result = studentMapper.insertSelective(student);
-        System.out.println(result);
         return result;
     }
 }

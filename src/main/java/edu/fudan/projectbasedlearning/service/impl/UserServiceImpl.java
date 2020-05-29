@@ -30,4 +30,5 @@ public class UserServiceImpl extends AbstractService<User> implements UserServic
         user.setPassword(password);
         return userMapper.findByUserNameAndPassword(user);
     }
+
 }

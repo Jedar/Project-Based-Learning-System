@@ -17,4 +17,9 @@ public class UserServiceTest extends Tester {
         User user =  userService.findByUsernameAndPassword("jxy123", "123456");
         System.out.println(user);
     }
+    @Test
+    public void testIsUniqueUsername(){
+        User user = userService.findBy("username", "11111");
+        System.out.println(user);
+    }
 }

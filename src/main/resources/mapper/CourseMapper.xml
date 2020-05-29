@@ -1,30 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="edu.fudan.projectbasedlearning.dao.ProjectMapper">
-  <resultMap id="BaseResultMap" type="edu.fudan.projectbasedlearning.pojo.Project">
+<mapper namespace="edu.fudan.projectbasedlearning.dao.CourseMapper">
+  <resultMap id="BaseResultMap" type="edu.fudan.projectbasedlearning.pojo.Course">
     <!--
       WARNING - @mbg.generated
     -->
-    <id column="project_id" jdbcType="INTEGER" property="projectId" />
-    <result column="project_name" jdbcType="VARCHAR" property="projectName" />
-    <result column="theme" jdbcType="VARCHAR" property="theme" />
-    <result column="leader_id" jdbcType="INTEGER" property="leaderId" />
-    <result column="start_time" jdbcType="DATE" property="startTime" />
-    <result column="end_time" jdbcType="DATE" property="endTime" />
+    <id column="course_id" jdbcType="INTEGER" property="courseId" />
+    <result column="course_name" jdbcType="VARCHAR" property="courseName" />
     <result column="description" jdbcType="VARCHAR" property="description" />
-    <result column="course_id" jdbcType="INTEGER" property="courseId" />
+    <result column="max_student_number" jdbcType="INTEGER" property="maxStudentNumber" />
+    <result column="picture" jdbcType="VARCHAR" property="picture" />
   </resultMap>
-  <insert id="insertScoreDistribute">
-    insert into score_distribute(project_id, type, distribute)
-        values (#{projectId}, #{type}, #{distribute})
-  </insert>
-  <select id="findStudentListOfProject" resultMap ="StudentListOfCourseMap">
-    select * from user natural join student natural join participate where project_id = #{projectId}
+  <select id="findStudentListOfCourse" resultMap ="StudentListOfCourseMap">
+    select * from user natural join student natural join take where course_id = #{courseId}
   </select>
   <resultMap id="StudentListOfCourseMap" type="edu.fudan.projectbasedlearning.pojo.Student">
-    <!--
-      WARNING - @mbg.generated
-    -->
+  <!--
+    WARNING - @mbg.generated
+  -->
     <id column="s_id" jdbcType="INTEGER" property="sId" />
     <result column="gender" jdbcType="VARCHAR" property="gender" />
     <result column="school" jdbcType="VARCHAR" property="school" />

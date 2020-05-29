@@ -28,6 +28,17 @@ public class Project {
     private Integer courseId;
 
     /**
+     * 用来联系user
+     */
+    @Transient
+    private User user;
+
+    /**
+     * 用来联系course
+     */
+    @Transient
+    private Course course;
+    /**
      * @return project_id
      */
     public Integer getProjectId() {
@@ -137,5 +148,21 @@ public class Project {
      */
     public void setCourseId(Integer courseId) {
         this.courseId = courseId;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Course getCourse() {
+        return course;
+    }
+
+    public void setCourse(Course course) {
+        this.course = course;
     }
 }
