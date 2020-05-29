@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.fudan.projectbasedlearning.dao.FileMapper">
+  <resultMap id="BaseResultMap" type="edu.fudan.projectbasedlearning.pojo.File">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="file_id" jdbcType="INTEGER" property="fileId" />
+    <result column="project_id" jdbcType="INTEGER" property="projectId" />
+    <result column="file_name" jdbcType="VARCHAR" property="fileName" />
+    <result column="path" jdbcType="VARCHAR" property="path" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="time" jdbcType="DATE" property="time" />
+  </resultMap>
+
+  <select id="getFilesByProject" parameterType="int" resultType="edu.fudan.projectbasedlearning.pojo.File">
+    select file_id as fileId,project_id as projectId,file_name as fileName,path,user_id as userId,time from file where project_id = #{projectId}
+  </select>
+
+  <select id="getFileInfoByProject" parameterType="int" resultType="hashmap">
+    select * from file natural join user where project_id = #{projectId}
+  </select>
+</mapper>

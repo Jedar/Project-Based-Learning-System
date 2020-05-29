@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.fudan.projectbasedlearning.dao.TaskMapper">
+  <resultMap id="BaseResultMap" type="edu.fudan.projectbasedlearning.pojo.Task">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="task_id" jdbcType="INTEGER" property="taskId" />
+    <result column="task_name" jdbcType="VARCHAR" property="taskName" />
+    <result column="project_id" jdbcType="INTEGER" property="projectId" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="start_time" jdbcType="DATE" property="startTime" />
+    <result column="end_time" jdbcType="DATE" property="endTime" />
+    <result column="state" jdbcType="INTEGER" property="state" />
+    <result column="content" jdbcType="LONGVARCHAR" property="content" />
+    <result column="comment" jdbcType="LONGVARCHAR" property="comment" />
+  </resultMap>
+
+
+  <select id="getTasksByProject" parameterType="int" resultType="edu.fudan.projectbasedlearning.pojo.Task">
+    select * from task where project_id=#{projectId}
+  </select>
+
+  <select id="getTaskInfoByProject" parameterType="int" resultType="hashmap">
+    select * from task natural join user where project_id=#{projectId}
+  </select>
+  
+  <select id="getTasksByUser" parameterType="int" resultType="edu.fudan.projectbasedlearning.pojo.Task">
+    select * from task where user_id=#{userId}
+  </select>
+
+  <update id="modifyTask">
+    update task set state=#{state},comment=#{comment} where task_id=#{taskId}
+  </update>
+
+
+</mapper>
