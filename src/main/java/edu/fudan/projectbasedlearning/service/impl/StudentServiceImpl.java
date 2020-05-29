@@ -20,21 +20,5 @@ import javax.annotation.Resource;
 public class StudentServiceImpl extends AbstractService<Student> implements StudentService {
     @Resource
     private StudentMapper studentMapper;
-    @Resource
-    private UserMapper userMapper;
 
-    /**
-     * 同时插入user 和 student
-     * @param student
-     * @return
-     */
-    public int saveStudent(Student student){
-        int result;
-        result = userMapper.insertUser(student.getUser());
-        System.out.println(result);
-        System.out.println(student.getUser().getUserId());
-        result = studentMapper.insertSelective(student);
-        System.out.println(result);
-        return result;
-    }
 }

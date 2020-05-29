@@ -10,10 +10,10 @@
     <result column="password" jdbcType="VARCHAR" property="password" />
     <result column="role" jdbcType="INTEGER" property="role" />
   </resultMap>
+  <!-- 向user表中插入，会自动将生成的user_id填充到user对象中 -->
   <insert id="insertUser" useGeneratedKeys="true" keyProperty="userId" keyColumn="user_id">
         insert into user(username, password, role) values(#{username}, #{password}, #{role})
   </insert>
-
   <select id="getStudent" parameterType="int" resultType="hashmap">
         SELECT * FROM user inner join student on user.user_id = student.s_id WHERE s_id = #{studentId}
   </select>
@@ -21,6 +21,7 @@
   <select id="getTeacher" parameterType="int" resultType="hashmap">
         SELECT * FROM user inner join teacher on user.user_id = teacher.t_id WHERE t_id = #{teacherId}
   </select>
+  <!-- 登陆通过用户名密码查血 -->
     <select id="findByUserNameAndPassword" resultType="edu.fudan.projectbasedlearning.pojo.User">
         select * from user where username = #{username} and password = #{password}
     </select>

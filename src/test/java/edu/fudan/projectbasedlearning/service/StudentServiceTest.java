@@ -15,17 +15,5 @@ import javax.annotation.Resource;
 public class StudentServiceTest extends Tester {
     @Autowired
     private StudentService studentService;
-    @Test
-    public void testSaveStudent(){
-        User user = new User();
-        user.setUsername("jxy123");
-        user.setPassword("123456");
-        user.setRole(2);
-        Student student = new Student();
-        student.setsId(10010);
-        student.setGender("男");
-        student.setSchool("复旦大学");
-        student.setUser(user);
-        studentService.saveStudent(student);
-    }
+
 }

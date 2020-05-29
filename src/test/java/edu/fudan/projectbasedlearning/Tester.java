@@ -12,8 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = ProjectBasedLearningApplication.class)
-@Transactional
-@Rollback
+//@Transactional
+//@Rollback
 public abstract class Tester {}
 
 

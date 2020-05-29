@@ -15,6 +15,32 @@
     <result column="course_id" jdbcType="INTEGER" property="courseId" />
   </resultMap>
 
+  <!-- 新建项目的时候将评分规则插入表中 -->
+  <insert id="insertScoreDistribute">
+    insert into score_distribute(project_id, type, distribute)
+        values (#{projectId}, #{type}, #{distribute})
+  </insert>
+  <!-- 选了一个课程的所有学生 -->
+  <select id="findStudentListOfProject" resultMap ="StudentListOfCourseMap">
+    select * from user natural join student natural join participate where project_id = #{projectId}
+  </select>
+  <resultMap id="StudentListOfCourseMap" type="edu.fudan.projectbasedlearning.pojo.Student">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="s_id" jdbcType="INTEGER" property="sId" />
+    <result column="gender" jdbcType="VARCHAR" property="gender" />
+    <result column="school" jdbcType="VARCHAR" property="school" />
+    <result column="profile" jdbcType="VARCHAR" property="profile" />
+    <association property="user" javaType="edu.fudan.projectbasedlearning.pojo.User">
+      <id property="userId" jdbcType="INTEGER" column="user_id"/>
+      <result property="username" jdbcType="VARCHAR" column="username"/>
+      <result property="password" jdbcType="VARCHAR" column="password"/>
+      <result property="role" jdbcType="INTEGER" column="role"/>
+    </association>
+  </resultMap>
+
+
   <!-- 查询某门课程的所有项目 -->
   <select id="selectAllProjectsOfCourse" resultMap="BaseResultMap">
     select * from project where course_id = #{courseId}
@@ -34,4 +60,5 @@
   <insert id="studentJoinProject">
     insert into participate (project_id, user_id) values (#{projectId}, #{studentId})
   </insert>
+
 </mapper>
