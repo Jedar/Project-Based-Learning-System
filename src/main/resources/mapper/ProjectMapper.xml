@@ -14,4 +14,24 @@
     <result column="description" jdbcType="VARCHAR" property="description" />
     <result column="course_id" jdbcType="INTEGER" property="courseId" />
   </resultMap>
+
+  <!-- 查询某门课程的所有项目 -->
+  <select id="selectAllProjectsOfCourse" resultMap="BaseResultMap">
+    select * from project where course_id = #{courseId}
+  </select>
+
+  <!-- 查询某个学生在某门课程下参与的所有项目 -->
+  <select id="selectAllProjectsOfStudentInCourse" resultMap="BaseResultMap">
+    select * from project where course_id = #{courseId} and project_id in (select project_id from participate where user_id = #{studentId})
+  </select>
+
+  <!-- 学生退出项目 -->
+  <delete id="studentDropProject">
+    delete from participate where project_id = #{projectId} and user_id = #{studentId}
+  </delete>
+
+  <!-- 学生加入新项目 -->
+  <insert id="studentJoinProject">
+    insert into participate (project_id, user_id) values (#{projectId}, #{studentId})
+  </insert>
 </mapper>

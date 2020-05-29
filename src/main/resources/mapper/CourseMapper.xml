@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.fudan.projectbasedlearning.dao.CourseMapper">
+  <resultMap id="BaseResultMap" type="edu.fudan.projectbasedlearning.pojo.Course">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="course_id" jdbcType="INTEGER" property="courseId" />
+    <result column="course_name" jdbcType="VARCHAR" property="courseName" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="max_student_number" jdbcType="INTEGER" property="maxStudentNumber" />
+    <result column="picture" jdbcType="VARCHAR" property="picture" />
+  </resultMap>
+
+  <!-- 查询某个学生已选的所有课程 -->
+  <select id="selectStudentCourses" resultType="hashmap">
+    select course_id, user_id as teacher_id, username as teacher_name, course_name, description, max_student_number, picture from user, course
+        where course_id in (select course_id from take where user_id = #{studentId}) and (user_id, course_id) in (select * from teach)
+  </select>
+
+  <!-- 根据关键词搜索课程 -->
+  <select id="searchCourses" resultType="hashmap">
+    select course_id, user_id as teacher_id, username as teacher_name, course_name, description, max_student_number, picture from user, course
+     where (course_name like "%"#{keyword}"%" or description like "%"#{keyword}"%" or username like "%"#{keyword}"%")
+     and (user_id, course_id) in (select * from teach)
+  </select>
+
+  <!-- 学生选课（将数据插入take表） -->
+  <insert id="studentChooseCourse">
+    insert into take (user_id, course_id) values (#{studentId}, #{courseId})
+  </insert>
+
+  <!-- 学生退课（从take表中删除数据） -->
+  <delete id="studentDropCourse">
+    delete from take where user_id = #{studentId} and course_id = #{courseId}
+  </delete>
+
+  <!-- 查询某个教师开设的所有课程 -->
+  <select id="selectTeacherCourses" resultMap="BaseResultMap">
+    select * from course where course_id in (select course_id from teach where user_id = #{teacherId})
+  </select>
+</mapper>
