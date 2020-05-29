@@ -1,4 +1,5 @@
 package edu.fudan.projectbasedlearning.service;
+import edu.fudan.projectbasedlearning.pojo.Student;
 import edu.fudan.projectbasedlearning.pojo.User;
 import edu.fudan.projectbasedlearning.core.Service;
 
@@ -8,4 +9,6 @@ import edu.fudan.projectbasedlearning.core.Service;
  */
 public interface UserService extends Service<User> {
     User findByUsernameAndPassword(String username, String password);
+    int saveStudent(Student student);
+
 }

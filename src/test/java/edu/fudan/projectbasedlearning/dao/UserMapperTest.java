@@ -62,4 +62,48 @@ public class UserMapperTest extends Tester {
         user = userMapper.selectByPrimaryKey(10000);
         System.out.println(user);
     }
+
+    @Test
+    public void getStudentInfo() {
+        HashMap<String, String> hash = userMapper.getStudentInfo(10009);
+        System.out.println(hash);
+    }
+
+    @Test
+    public void modifyStudentInfo() {
+        System.out.println(userMapper.getStudent(10009));
+
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("studentId", 10009);
+        hashMap.put("username", "aaa");
+        hashMap.put("password", "bbb");
+        hashMap.put("gender", "女");
+        hashMap.put("profile", "ccc");
+
+        userMapper.modifyStudentInfo(hashMap);
+
+        System.out.println(userMapper.getStudent(10009));
+    }
+
+    @Test
+    public void getTeacherInfo() {
+        HashMap<String, String> hash = userMapper.getTeacherInfo(10000);
+        System.out.println(hash);
+    }
+
+    @Test
+    public void modifyTeacherInfo() {
+        System.out.println(userMapper.getTeacher(10000));
+
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("teacherId", 10000);
+        hashMap.put("username", "aaa");
+        hashMap.put("password", "bbb");
+        hashMap.put("gender", "女");
+        hashMap.put("profile", "ccc");
+
+        userMapper.modifyTeacherInfo(hashMap);
+
+        System.out.println(userMapper.getTeacher(10000));
+    }
 }

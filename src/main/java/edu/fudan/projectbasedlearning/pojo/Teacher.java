@@ -1,7 +1,11 @@
 package edu.fudan.projectbasedlearning.pojo;
 
+import javax.persistence.*;
+
 public class Teacher {
-    private User user;
+    @Id
+    @Column(name = "t_id")
+    private Integer tId;
 
     private String gender;
 
@@ -9,26 +13,58 @@ public class Teacher {
 
     private String profile;
 
+    /**
+     * @return t_id
+     */
+    public Integer gettId() {
+        return tId;
+    }
+
+    /**
+     * @param tId
+     */
+    public void settId(Integer tId) {
+        this.tId = tId;
+    }
+
+    /**
+     * @return gender
+     */
     public String getGender() {
         return gender;
     }
 
+    /**
+     * @param gender
+     */
     public void setGender(String gender) {
         this.gender = gender;
     }
 
+    /**
+     * @return school
+     */
     public String getSchool() {
         return school;
     }
 
+    /**
+     * @param school
+     */
     public void setSchool(String school) {
         this.school = school;
     }
 
+    /**
+     * @return profile
+     */
     public String getProfile() {
         return profile;
     }
 
+    /**
+     * @param profile
+     */
     public void setProfile(String profile) {
         this.profile = profile;
     }

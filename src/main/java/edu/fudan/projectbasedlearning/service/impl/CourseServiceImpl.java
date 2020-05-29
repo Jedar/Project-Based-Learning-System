@@ -21,7 +21,6 @@ import java.util.List;
 public class CourseServiceImpl extends AbstractService<Course> implements CourseService {
     @Resource
     private CourseMapper courseMapper;
-
     @Override
     public List<Student> findUserListOfCourse(int courseId) {
         return courseMapper.findStudentListOfCourse(courseId);

@@ -42,7 +42,7 @@ public class CodeGenerator {
 //        genCode("输入表名");
 //        genCode("user");
 //        genCode("score_distribute");
-        genCode("course");
+        genCode("teacher");
         //genCodeByCustomModelName("输入表名","输入自定义Model名称");
     }
 

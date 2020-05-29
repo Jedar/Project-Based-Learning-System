@@ -1,6 +1,8 @@
 package edu.fudan.projectbasedlearning.service.impl;
 
+import edu.fudan.projectbasedlearning.dao.StudentMapper;
 import edu.fudan.projectbasedlearning.dao.UserMapper;
+import edu.fudan.projectbasedlearning.pojo.Student;
 import edu.fudan.projectbasedlearning.pojo.User;
 import edu.fudan.projectbasedlearning.service.UserService;
 import edu.fudan.projectbasedlearning.core.AbstractService;
@@ -20,9 +22,22 @@ import javax.annotation.Resource;
 public class UserServiceImpl extends AbstractService<User> implements UserService {
 
     @Resource
+    private StudentMapper studentMapper;
+    @Resource
     private UserMapper userMapper;
 
-
+    /**
+     * 同时插入user 和 student
+     * @param student
+     * @return
+     */
+    public int saveStudent(Student student){
+        int result;
+        result = userMapper.insertUser(student.getUser());
+        student.setsId(student.getUser().getUserId());
+        result = studentMapper.insertSelective(student);
+        return result;
+    }
     @Override
     public User findByUsernameAndPassword(String username, String password) {
         User user = new User();
