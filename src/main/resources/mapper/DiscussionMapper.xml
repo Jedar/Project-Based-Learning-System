@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.fudan.projectbasedlearning.dao.DiscussionMapper">
+  <resultMap id="BaseResultMap" type="edu.fudan.projectbasedlearning.pojo.Discussion">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="discussion_id" jdbcType="INTEGER" property="discussionId" />
+    <result column="project_id" jdbcType="INTEGER" property="projectId" />
+    <result column="time" jdbcType="TIMESTAMP" property="time" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="likes" jdbcType="INTEGER" property="likes" />
+    <result column="parents_id" jdbcType="INTEGER" property="parentsId" />
+    <result column="content" jdbcType="LONGVARCHAR" property="content" />
+  </resultMap>
+
+  <select id="getDiscussionsByProjectId"  parameterType="int" resultType="edu.fudan.projectbasedlearning.pojo.Discussion">
+    select discussion_id as discussionId,project_id as projectId,content,time,user_id as userId,likes,
+     parents_id as parentId from discussion where project_id = #{projectId} ;
+  </select>
+</mapper>
