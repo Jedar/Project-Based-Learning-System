@@ -10,6 +10,12 @@ export interface Task{
     comment:string,
 }
 
+export interface TaskListMessage{
+    "code":number,
+    "message":string,
+    "data":Task[]
+}
+
 
 export interface EditTaskMessage{
     project_id:number,
