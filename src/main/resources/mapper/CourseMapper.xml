@@ -11,6 +11,9 @@
     <result column="max_student_number" jdbcType="INTEGER" property="maxStudentNumber" />
     <result column="picture" jdbcType="VARCHAR" property="picture" />
   </resultMap>
+  <update id="modifyCourseInfo">
+
+  </update>
   <select id="findStudentListOfCourse" resultMap ="StudentListOfCourseMap">
     select * from user natural join student natural join take where course_id = #{courseId}
   </select>
@@ -52,9 +55,22 @@
   <delete id="studentDropCourse">
     delete from take where user_id = #{studentId} and course_id = #{courseId}
   </delete>
+  <delete id="deleteCourse">
+    delete from teach where course_id = #{courseId};
+    delete from score_distribute where courseId = #{courseId};
+    delete from score where courseId = #{courseId};
+    delete from file where courseId = #{courseId};
+    delete from discussion where courseId = #{courseId};
+    delete from project where courseId = #{courseId};
+    delete from course where courseId = #{courseId}
+  </delete>
 
   <!-- 查询某个教师开设的所有课程 -->
   <select id="selectTeacherCourses" resultMap="BaseResultMap">
     select * from course where course_id in (select course_id from teach where user_id = #{teacherId})
+  </select>
+  <select id="selectAllCourses" resultType="hashmap">
+    select course_id, user_id as teacher_id, username as teacher_name, course_name,
+           description, max_student_number, picture from user natural join course natural join teach
   </select>
 </mapper>

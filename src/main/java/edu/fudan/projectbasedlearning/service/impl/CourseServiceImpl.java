@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -25,4 +26,10 @@ public class CourseServiceImpl extends AbstractService<Course> implements Course
     public List<Student> findUserListOfCourse(int courseId) {
         return courseMapper.findStudentListOfCourse(courseId);
     }
+
+    @Override
+    public List<HashMap<String, String>> selectAllCourses() {
+        return courseMapper.selectAllCourses();
+    }
+
 }
