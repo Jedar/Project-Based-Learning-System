@@ -3,6 +3,7 @@ import {ManagerService} from "../../../services/manager.service";
 import {UserOfStudent} from "../../../share/common.model";
 import {HttpParams} from "@angular/common/http";
 import {NzModalService} from "ng-zorro-antd";
+import {Student} from "../../../share/student.model";
 
 @Component({
   selector: 'app-manager-student',
@@ -10,19 +11,19 @@ import {NzModalService} from "ng-zorro-antd";
   styleUrls: ['./manager-student.component.css']
 })
 export class ManagerStudentComponent implements OnInit {
-  listOfData: UserOfStudent[];
-  editCache: { [key: string]: { edit: boolean; data: UserOfStudent } } = {};
+  listOfData: Student[];
+  editCache: { [key: string]: { edit: boolean; data: Student } } = {};
   pageSize = 10;
   listOfColumn = [
     {
       title: 'ID',
-      compare: (a: UserOfStudent, b: UserOfStudent) => a.s_id - b.s_id,
+      compare: (a: Student, b: Student) => a.sId - b.sId,
       priority: 2,
       width: '10%'
     },
     {
       title: '用户名',
-      compare: (a: UserOfStudent, b: UserOfStudent) => a.username.localeCompare(b.username),
+      compare: (a: Student, b: Student) => a.username.localeCompare(b.username),
       priority: 1,
       width: '10%'
     },
@@ -63,7 +64,7 @@ export class ManagerStudentComponent implements OnInit {
           nzTitle: "",
           nzContent: "删除成功"
         });
-        this.listOfData = this.listOfData.filter(item => item.s_id !== s_id);
+        this.listOfData = this.listOfData.filter(item => item.sId !== s_id);
       }else{
         this.modal.error({
           nzTitle: "删除失败",
@@ -77,7 +78,7 @@ export class ManagerStudentComponent implements OnInit {
   }
 
   cancelEdit(s_id): void {
-    const index = this.listOfData.findIndex(item => item.s_id === s_id);
+    const index = this.listOfData.findIndex(item => item.sId === s_id);
     this.editCache[s_id] = {
       data: { ...this.listOfData[index] },
       edit: false
@@ -88,7 +89,7 @@ export class ManagerStudentComponent implements OnInit {
     var data = this.editCache[s_id].data;
     if (data.username!=""&&data.school!=""){//输入不为空
       var params = new HttpParams()
-        .set("s_id", data.s_id+"")
+        .set("s_id", data.sId+"")
         .set("username", data.username)
         .set("gender", data.gender)
         .set("school",data.school);
@@ -99,7 +100,7 @@ export class ManagerStudentComponent implements OnInit {
             nzTitle: "",
             nzContent: "保存成功"
           });
-          const index = this.listOfData.findIndex(item => item.s_id === s_id);
+          const index = this.listOfData.findIndex(item => item.sId === s_id);
           Object.assign(this.listOfData[index], this.editCache[s_id].data);
         }else{
           this.modal.error({
@@ -120,7 +121,7 @@ export class ManagerStudentComponent implements OnInit {
 
   updateEditCache(): void {
     this.listOfData.forEach(item => {
-      this.editCache[item.s_id] = {
+      this.editCache[item.sId] = {
         edit: false,
         data: { ...item }
       };

@@ -1,5 +1,5 @@
 export interface Teacher{
-  sId:number,
+  tId:number,
   username:string,
   gender:string,
   school:string,

@@ -1,60 +1,60 @@
 [{
-  "s_id": 1,
+  "sId": 1,
   "username": "John1",
   "gender": "男",
   "school": "复旦大学"
 }, {
-  "s_id": 2,
+  "sId": 2,
   "username": "Lucy1",
   "gender": "女",
   "school": "复旦大学"
 }, {
-  "s_id": 3,
+  "sId": 3,
   "username": "JXY1",
   "gender": "男",
   "school": "复旦大学"
 },{
-  "s_id": 4,
+  "sId": 4,
   "username": "John2",
   "gender": "男",
   "school": "复旦大学"
 }, {
-  "s_id": 5,
+  "sId": 5,
   "username": "Lucy2",
   "gender": "女",
   "school": "复旦大学"
 }, {
-  "s_id": 6,
+  "sId": 6,
   "username": "JXY2",
   "gender": "男",
   "school": "复旦大学"
 },{
-  "s_id": 7,
+  "sId": 7,
   "username": "John3",
   "gender": "男",
   "school": "复旦大学"
 }, {
-  "s_id": 8,
+  "sId": 8,
   "username": "Lucy3",
   "gender": "女",
   "school": "复旦大学"
 }, {
-  "s_id": 9,
+  "sId": 9,
   "username": "JXY3",
   "gender": "男",
   "school": "复旦大学"
 },{
-  "s_id": 10,
+  "sId": 10,
   "username": "John4",
   "gender": "男",
   "school": "复旦大学"
 }, {
-  "s_id": 11,
+  "sId": 11,
   "username": "Lucy4",
   "gender": "女",
   "school": "复旦大学"
 }, {
-  "s_id": 12,
+  "sId": 12,
   "username": "JXY4",
   "gender": "男",
   "school": "复旦大学"
