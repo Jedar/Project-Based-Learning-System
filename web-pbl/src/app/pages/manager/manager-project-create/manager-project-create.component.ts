@@ -15,7 +15,7 @@ import {ManagerCourse} from "../../../share/common.model";
 })
 export class ManagerProjectCreateComponent implements OnInit {
 
-  courseList: ManagerCourse[];
+  courseList: Course[];
   validateForm!: FormGroup;
   range = [30, 70];
   value1 = 30;

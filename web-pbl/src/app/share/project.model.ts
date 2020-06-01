@@ -3,8 +3,8 @@ export interface Project{
   projectName: string,
   theme: string,
   leaderId: number,
-  startTime: Date,
-  endTime: Date
+  startTime: string,
+  endTime: string,
   description: string,
   courseId: number
 }

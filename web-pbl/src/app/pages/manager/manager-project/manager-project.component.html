@@ -10,41 +10,41 @@
   </thead>
   <tbody>
   <tr *ngFor="let data of basicTable.data">
-    <ng-container *ngIf="!editCache[data.project_id].edit; else editTemplate">
-      <td>{{ data.project_id }}</td>
-      <td>{{ data.course_id }}</td>
-      <td>{{ data.project_name }}</td>
+    <ng-container *ngIf="!editCache[data.projectId].edit; else editTemplate">
+      <td>{{ data.projectId }}</td>
+      <td>{{ data.courseId }}</td>
+      <td>{{ data.projectName }}</td>
       <td>{{ data.theme }}</td>
-      <td>{{ data.start_time}}&nbsp;<i nz-icon nzType="swap-right" nzTheme="outline"></i>&nbsp;{{data.end_time }}</td>
+      <td>{{ data.startTime}}&nbsp;<i nz-icon nzType="swap-right" nzTheme="outline"></i>&nbsp;{{data.endTime }}</td>
       <td>
-        <button nz-button (click)="startEdit(data.project_id)">
+        <button nz-button (click)="startEdit(data.projectId)">
           <i nz-icon nzType="edit" nzTheme="outline"></i>
         </button>&nbsp;
-        <button nz-button nz-popconfirm nzPopconfirmTitle="确认删除?" (nzOnConfirm)="deleteRow(data.project_id)">
+        <button nz-button nz-popconfirm nzPopconfirmTitle="确认删除?" (nzOnConfirm)="deleteRow(data.projectId)">
           <i nz-icon nzType="delete" nzTheme="outline"></i>
         </button>
 
       </td>
     </ng-container>
     <ng-template #editTemplate>
-      <td>{{data.project_id}}</td>
+      <td>{{data.projectId}}</td>
       <td>
-        <nz-select [(ngModel)]="editCache[data.project_id].data.course_id" >
+        <nz-select [(ngModel)]="editCache[data.projectId].data.courseId" >
           <nz-option *ngFor="let course of courseList"
                      [nzValue]="course.course_id" [nzLabel]="course.course_id+''">
           </nz-option>
         </nz-select>
       </td>
-      <td><input type="text" nz-input [(ngModel)]="editCache[data.project_id].data.project_name" /></td>
-      <td><input type="text" nz-input [(ngModel)]="editCache[data.project_id].data.theme" /></td>
+      <td><input type="text" nz-input [(ngModel)]="editCache[data.projectId].data.projectName" /></td>
+      <td><input type="text" nz-input [(ngModel)]="editCache[data.projectId].data.theme" /></td>
       <td>
         <nz-range-picker [(ngModel)]="timeRange" nzFormat="yyyy-MM-dd" id="timeRange"></nz-range-picker>
       </td>
       <td>
-        <button nz-button nz-popconfirm nzPopconfirmTitle="确认保存?" (nzOnConfirm)="saveEdit(data.project_id)">
+        <button nz-button nz-popconfirm nzPopconfirmTitle="确认保存?" (nzOnConfirm)="saveEdit(data.projectId)">
           <i nz-icon nzType="check" nzTheme="outline"></i>
         </button>&nbsp;
-        <button nz-button (click)="cancelEdit(data.project_id)" >
+        <button nz-button (click)="cancelEdit(data.projectId)" >
           <i nz-icon nzType="close" nzTheme="outline"></i>
         </button>
       </td>

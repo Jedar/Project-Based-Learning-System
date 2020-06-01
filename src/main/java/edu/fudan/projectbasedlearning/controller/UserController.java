@@ -20,6 +20,16 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @PostMapping("login")
+    public Result login(String username, String password){
+        User user = userService.findByUsernameAndPassword(username, password);
+        if (user==null)
+            return ResultGenerator.genFailResult("用户名或密码错误");
+        else
+            return ResultGenerator.genSuccessResult();
+    }
+    @GetMapping("")
+
     @PostMapping("/add")
     public Result add(User user) {
         userService.save(user);

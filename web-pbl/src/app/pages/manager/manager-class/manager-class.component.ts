@@ -3,6 +3,8 @@ import {ManagerCourse, UserOfTeacher} from "../../../share/common.model";
 import {ManagerService} from "../../../services/manager.service";
 import {NzModalService} from "ng-zorro-antd";
 import {HttpParams} from "@angular/common/http";
+import {Teacher} from "../../../share/teacher.model";
+import {Course} from "../../../share/course.model";
 
 @Component({
   selector: 'app-manager-class',
@@ -10,9 +12,9 @@ import {HttpParams} from "@angular/common/http";
   styleUrls: ['./manager-class.component.css']
 })
 export class ManagerClassComponent implements OnInit {
-  teacherList: UserOfTeacher[];
-  listOfData: ManagerCourse[];
-  editCache: { [key: string]: { edit: boolean; data: ManagerCourse } } = {};
+  teacherList: Teacher[];
+  listOfData: Course[];
+  editCache: { [key: string]: { edit: boolean; data: Course } } = {};
   pageSize = 10;
   listOfColumn = [
     {
@@ -99,9 +101,9 @@ export class ManagerClassComponent implements OnInit {
     var params = new HttpParams()
       .set("course_id", data.course_id + "")
       .set("course_name", data.course_name)
-      .set("teacherName", data.teacherName)
+      .set("teacherName", data.teacher_name)
       .set("description", data.description)
-      .set("maxStudentNumber", data.maxStudentNumber + "");
+      .set("maxStudentNumber", data.max_student_number + "");
     console.log(params);
     this.managerService.saveClassInformation(params).subscribe(result=>{
       if (result.state=="success"){

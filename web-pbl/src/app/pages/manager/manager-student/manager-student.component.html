@@ -10,35 +10,35 @@
   </thead>
   <tbody>
   <tr *ngFor="let data of basicTable.data">
-    <ng-container *ngIf="!editCache[data.s_id].edit; else editTemplate">
-      <td>{{ data.s_id }}</td>
+    <ng-container *ngIf="!editCache[data.sId].edit; else editTemplate">
+      <td>{{ data.sId }}</td>
       <td>{{ data.username }}</td>
       <td>{{ data.gender }}</td>
       <td>{{ data.school }}</td>
       <td>
-        <button nz-button (click)="startEdit(data.s_id)">
+        <button nz-button (click)="startEdit(data.sId)">
           <i nz-icon nzType="edit" nzTheme="outline"></i>
         </button>&nbsp;
-        <button nz-button nz-popconfirm nzPopconfirmTitle="确认删除?" (nzOnConfirm)="deleteRow(data.s_id)">
+        <button nz-button nz-popconfirm nzPopconfirmTitle="确认删除?" (nzOnConfirm)="deleteRow(data.sId)">
         <i nz-icon nzType="delete" nzTheme="outline"></i>
       </button>
 
       </td>
     </ng-container>
     <ng-template #editTemplate>
-      <td>{{data.s_id}}</td>
-      <td><input type="text" nz-input [(ngModel)]="editCache[data.s_id].data.username" /></td>
-      <td><nz-select [(ngModel)]="editCache[data.s_id].data.gender">
+      <td>{{data.sId}}</td>
+      <td><input type="text" nz-input [(ngModel)]="editCache[data.sId].data.username" /></td>
+      <td><nz-select [(ngModel)]="editCache[data.sId].data.gender">
         <nz-option nzValue="男" nzLabel="男"></nz-option>
         <nz-option nzValue="女" nzLabel="女"></nz-option>
           </nz-select>
       </td>
-      <td><input type="text" nz-input [(ngModel)]="editCache[data.s_id].data.school" /></td>
+      <td><input type="text" nz-input [(ngModel)]="editCache[data.sId].data.school" /></td>
       <td>
-        <button nz-button nz-popconfirm nzPopconfirmTitle="确认保存?" (nzOnConfirm)="saveEdit(data.s_id)">
+        <button nz-button nz-popconfirm nzPopconfirmTitle="确认保存?" (nzOnConfirm)="saveEdit(data.sId)">
           <i nz-icon nzType="check" nzTheme="outline"></i>
         </button>&nbsp;
-        <button nz-button (click)="cancelEdit(data.s_id)" >
+        <button nz-button (click)="cancelEdit(data.sId)" >
           <i nz-icon nzType="close" nzTheme="outline"></i>
         </button>
       </td>

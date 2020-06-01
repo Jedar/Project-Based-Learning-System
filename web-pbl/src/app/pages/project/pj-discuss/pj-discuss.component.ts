@@ -48,8 +48,8 @@ export class PjDiscussComponent implements OnInit {
 
   getAuthor(author_id: number): string {
     for (let item of this.authors) {
-      if (item.user_id == author_id) {
-        return item.user_name;
+      if (item.sId == author_id) {
+        return item.username;
       }
     }
   }

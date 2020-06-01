@@ -4,6 +4,7 @@ import {NzModalService} from "ng-zorro-antd";
 import {HttpParams} from "@angular/common/http";
 import {Project} from "../../../share/project.model";
 import {ManagerCourse} from "../../../share/common.model";
+import {Course} from "../../../share/course.model";
 
 @Component({
   selector: 'app-manager-project',
@@ -12,26 +13,26 @@ import {ManagerCourse} from "../../../share/common.model";
 })
 export class ManagerProjectComponent implements OnInit {
   listOfData: Project[];
-  courseList: ManagerCourse[];
+  courseList: Course[];
   timeRange: Date[];
   editCache: { [key: string]: { edit: boolean; data: Project } } = {};
   pageSize = 10;
   listOfColumn = [
     {
       title: '项目ID',
-      compare: (a: Project, b: Project) => a.project_id - b.project_id,
+      compare: (a: Project, b: Project) => a.projectId - b.projectId,
       priority: 2,
       width: '10%'
     },
     {
       title: '课程ID',
-      compare: (a: Project, b: Project) => a.project_id - b.project_id,
+      compare: (a: Project, b: Project) => a.courseId - b.courseId,
       priority: 2,
       width: '10%'
     },
     {
       title: '项目名称',
-      compare: (a: Project, b: Project) => a.project_name.localeCompare(b.project_name),
+      compare: (a: Project, b: Project) => a.projectName.localeCompare(b.projectName),
       priority: 1,
       width: '15%'
     },
@@ -75,7 +76,7 @@ export class ManagerProjectComponent implements OnInit {
           nzTitle: "",
           nzContent: "删除成功"
         });
-        this.listOfData = this.listOfData.filter(item => item.project_id !== id);
+        this.listOfData = this.listOfData.filter(item => item.projectName !== id);
       }else{
         this.modal.error({
           nzTitle: "删除失败",
@@ -89,7 +90,7 @@ export class ManagerProjectComponent implements OnInit {
   }
 
   cancelEdit(id): void {
-    const index = this.listOfData.findIndex(item => item.project_id === id);
+    const index = this.listOfData.findIndex(item => item.projectName === id);
     this.editCache[id] = {
       data: { ...this.listOfData[index] },
       edit: false
@@ -98,13 +99,13 @@ export class ManagerProjectComponent implements OnInit {
   //TODO: 更改项目信息
   saveEdit(id): void {
     var data = this.editCache[id].data;
-    if (data.project_name!=""&&data.theme!=""&&this.timeRange!=null){
+    if (data.projectName!=""&&data.theme!=""&&this.timeRange!=null){
       var start_time = this.managerService.UTCTODateString(this.timeRange[0]);
       var end_time = this.managerService.UTCTODateString(this.timeRange[1]);
       var params = new HttpParams()
-        .set("project_id", data.project_id+"")
-        .set("course_id", data.course_id+"")
-        .set("project_name", data.project_name)
+        .set("project_id", data.projectId+"")
+        .set("course_id", data.courseId+"")
+        .set("project_name", data.projectName)
         .set("theme",data.theme)
         .set("start_time", start_time)
         .set("end_time", end_time);
@@ -115,10 +116,10 @@ export class ManagerProjectComponent implements OnInit {
             nzTitle: "",
             nzContent: "保存成功"
           });
-          const index = this.listOfData.findIndex(item => item.project_id === id);
+          const index = this.listOfData.findIndex(item => item.projectId === id);
           Object.assign(this.listOfData[index], this.editCache[id].data);
-          this.listOfData[index].start_time = start_time;
-          this.listOfData[index].end_time = end_time;
+          this.listOfData[index].startTime = start_time;
+          this.listOfData[index].endTime = end_time;
         }else{
           this.modal.error({
             nzTitle: "",
@@ -138,7 +139,7 @@ export class ManagerProjectComponent implements OnInit {
 
   updateEditCache(): void {
     this.listOfData.forEach(item => {
-      this.editCache[item.project_id] = {
+      this.editCache[item.projectId] = {
         edit: false,
         data: { ...item }
       };
