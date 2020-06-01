@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Participate} from "../../../share/participate.model";
+import {Score} from "../../../share/score.model";
 import {ScoreService} from "../../../services/score.service";
 import {ActivatedRoute} from "@angular/router";
 
@@ -9,7 +9,7 @@ import {ActivatedRoute} from "@angular/router";
   styleUrls: ['./pj-my-score.component.css']
 })
 export class PjMyScoreComponent implements OnInit {
-  participate: Participate[] = [];
+  scores: Score[] = [];
   project_id: number;
   totalScore: number = 0;
   selfEva: number = 0;//自评
@@ -27,8 +27,8 @@ export class PjMyScoreComponent implements OnInit {
 
   ngOnInit(): void {
     this.scoreService.getScores().subscribe(result => {
-      this.participate = result;
-      for (let score of this.participate) {
+      this.scores = result;
+      for (let score of this.scores) {
         let s = score.distribute * score.value;
         switch (score.score_type) {
           case 1:

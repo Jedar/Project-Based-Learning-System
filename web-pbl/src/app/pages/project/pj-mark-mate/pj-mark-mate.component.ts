@@ -2,9 +2,11 @@ import {Component, OnInit} from '@angular/core';
 import {Student} from "../../../share/student.model";
 import {StudentService} from "../../../services/student.service";
 import {ActivatedRoute} from "@angular/router";
-import {Participate} from "../../../share/participate.model";
+import {Score} from "../../../share/score.model";
 import {ScoreService} from "../../../services/score.service";
 import {NzModalService} from "ng-zorro-antd/modal";
+import {Task} from "../../../share/task.model";
+import {TaskService} from "../../../services/task.service";
 
 @Component({
   selector: 'app-pj-mark-mate',
@@ -15,13 +17,15 @@ export class PjMarkMateComponent implements OnInit {
   selfEva: number = 0;
   students: Student[] = [];
   projectId:number;
-  participates:Participate[] = [];
+  scores:Score[] = [];
+  tasksOfStudent: Map<number,Task[]> = new Map<number, Task[]>();
 
   constructor(
     private studentService: StudentService,
     private activatedRoute: ActivatedRoute,
     private scoreService:ScoreService,
     private modal: NzModalService,
+    private taskService: TaskService,
   ) {
     activatedRoute.params.subscribe(params => {
       this.projectId = params['projectId'];
@@ -47,9 +51,15 @@ export class PjMarkMateComponent implements OnInit {
   ngOnInit(): void {
     this.studentService.getStudentsOfProject(this.projectId).subscribe(result => {
       this.students = result;
+      for (let student of this.students){
+        this.taskService.getTaskListOfUser(this.projectId, student.user_id).subscribe(res => {
+          // this.tasks = res;
+          this.tasksOfStudent.set(student.user_id,res);
+        });
+      }
     });
     this.scoreService.getScores().subscribe(result=>{
-      this.participates = result;
+      this.scores = result;
     })
   }
 

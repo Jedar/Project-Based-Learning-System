@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Student} from "../../../share/student.model";
 import {StudentService} from "../../../services/student.service";
 import {ActivatedRoute} from "@angular/router";
-import {Participate} from "../../../share/participate.model";
+import {Score} from "../../../share/score.model";
 import {ScoreService} from "../../../services/score.service";
 import {NzModalService} from "ng-zorro-antd/modal";
 import {Task} from "../../../share/task.model";
@@ -16,7 +16,7 @@ import {TaskService} from "../../../services/task.service";
 export class PjMarkScoreComponent implements OnInit {
   students: Student[] = [];
   projectId: number;
-  participates: Participate[] = [];
+  scores: Score[] = [];
   tasksOfStudent: Map<number,Task[]> = new Map<number, Task[]>();
 
   constructor(
@@ -43,7 +43,7 @@ export class PjMarkScoreComponent implements OnInit {
     });
 
     this.scoreService.getScores().subscribe(result => {
-      this.participates = result;
+      this.scores = result;
     })
   }
 
