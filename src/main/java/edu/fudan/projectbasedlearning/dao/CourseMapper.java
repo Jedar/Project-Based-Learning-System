@@ -10,9 +10,14 @@ import java.util.List;
 
 public interface CourseMapper extends Mapper<Course> {
     List<Student> findStudentListOfCourse(int courseId);
+    // 查询所有的课程
+    List<HashMap<String,String>> selectAllCourses();
 
+    // 更新课程信息
+    void modifyCourseInfo(HashMap<String, Object> param);
 
-
+    //删除课程
+    void deleteCourse(int courseId);
     //查询某个学生已选的所有课程
     List<HashMap<String,String>> selectStudentCourses(int studentId);
 

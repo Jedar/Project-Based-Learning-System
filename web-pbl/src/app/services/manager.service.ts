@@ -4,6 +4,8 @@ import {Observable} from "rxjs";
 import {ManagerCourse, Result, User, UserOfStudent, UserOfTeacher} from "../share/common.model";
 import {Project} from "../share/project.model";
 import {Course} from "../share/course.model";
+import {Student} from "../share/student.model";
+import {Teacher} from "../share/teacher.model";
 
 @Injectable({
   providedIn: 'root'
@@ -25,17 +27,17 @@ export class ManagerService {
       day = "0" + day; // 补零
     return year+"-"+month+"-"+day;
   }
-  studentList():Observable<UserOfStudent[]>{
-    return this.http.get<UserOfStudent[]>("/assets/data/student-list.json").pipe()
+  studentList():Observable<Student[]>{
+    return this.http.get<Student[]>("/assets/data/student-list.json").pipe()
   }
-  teacherList():Observable<UserOfTeacher[]>{
-    return this.http.get<UserOfTeacher[]>("/assets/data/teacher-list.json").pipe()
+  teacherList():Observable<Teacher[]>{
+    return this.http.get<Teacher[]>("/assets/data/teacher-list.json").pipe()
   }
   projectList():Observable<Project[]>{
     return this.http.get<Project[]>("/assets/data/projects.json").pipe()
   }
-  courseList():Observable<ManagerCourse[]>{
-    return this.http.get<ManagerCourse[]>("/assets/data/manager-course.json").pipe()
+  courseList():Observable<Course[]>{
+    return this.http.get<Course[]>("/assets/data/manager-course.json").pipe()
   }
 
   deleteStudent(data):Observable<Result>{

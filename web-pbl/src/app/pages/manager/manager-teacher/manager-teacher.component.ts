@@ -3,6 +3,7 @@ import {UserOfTeacher} from "../../../share/common.model";
 import {ManagerService} from "../../../services/manager.service";
 import {NzModalService} from "ng-zorro-antd";
 import {HttpParams} from "@angular/common/http";
+import {Teacher} from "../../../share/teacher.model";
 
 @Component({
   selector: 'app-manager-teacher',
@@ -10,19 +11,19 @@ import {HttpParams} from "@angular/common/http";
   styleUrls: ['./manager-teacher.component.css']
 })
 export class ManagerTeacherComponent implements OnInit {
-  listOfData: UserOfTeacher[];
-  editCache: { [key: string]: { edit: boolean; data: UserOfTeacher } } = {};
+  listOfData: Teacher[];
+  editCache: { [key: string]: { edit: boolean; data: Teacher } } = {};
   pageSize = 10;
   listOfColumn = [
     {
       title: 'ID',
-      compare: (a: UserOfTeacher, b: UserOfTeacher) => a.t_id - b.t_id,
+      compare: (a: Teacher, b: Teacher) => a.tId - b.tId,
       priority: 2,
       width: '10%'
     },
     {
       title: '用户名',
-      compare: (a: UserOfTeacher, b: UserOfTeacher) => a.username.localeCompare(b.username),
+      compare: (a: Teacher, b: Teacher) => a.username.localeCompare(b.username),
       priority: 1,
       width: '10%'
     },
@@ -63,7 +64,7 @@ export class ManagerTeacherComponent implements OnInit {
           nzTitle: "",
           nzContent: "删除成功"
         });
-        this.listOfData = this.listOfData.filter(item => item.t_id !== t_id);
+        this.listOfData = this.listOfData.filter(item => item.tId !== t_id);
       }else{
         this.modal.error({
           nzTitle: "删除失败",
@@ -77,7 +78,7 @@ export class ManagerTeacherComponent implements OnInit {
   }
 
   cancelEdit(t_id): void {
-    const index = this.listOfData.findIndex(item => item.t_id === t_id);
+    const index = this.listOfData.findIndex(item => item.tId === t_id);
     this.editCache[t_id] = {
       data: { ...this.listOfData[index] },
       edit: false
@@ -88,7 +89,7 @@ export class ManagerTeacherComponent implements OnInit {
     var data = this.editCache[t_id].data;
     if (data.username!=""&&data.school!=""){//输入不能为空
       var params = new HttpParams()
-        .set("t_id", data.t_id+"")
+        .set("t_id", data.tId+"")
         .set("username", data.username)
         .set("gender", data.gender)
         .set("school",data.school);
@@ -100,7 +101,7 @@ export class ManagerTeacherComponent implements OnInit {
               nzTitle: "",
               nzContent: "保存成功"
             });
-            const index = this.listOfData.findIndex(item => item.t_id === t_id);
+            const index = this.listOfData.findIndex(item => item.tId === t_id);
             Object.assign(this.listOfData[index], this.editCache[t_id].data);
           }else{
             this.modal.error({
@@ -121,7 +122,7 @@ export class ManagerTeacherComponent implements OnInit {
 
   updateEditCache(): void {
     this.listOfData.forEach(item => {
-      this.editCache[item.t_id] = {
+      this.editCache[item.tId] = {
         edit: false,
         data: { ...item }
       };

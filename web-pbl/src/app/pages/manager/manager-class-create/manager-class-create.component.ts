@@ -8,6 +8,7 @@ import {CommonValidators} from "../../../share/CommonValidator";
 import {HttpParams} from "@angular/common/http";
 import {Md5} from "ts-md5";
 import {Router} from "@angular/router";
+import {Teacher} from "../../../share/teacher.model";
 
 @Component({
   selector: 'app-manager-class-create',
@@ -17,7 +18,7 @@ import {Router} from "@angular/router";
 export class ManagerClassCreateComponent implements OnInit {
 
   validateForm!: FormGroup;
-  teacherList: UserOfTeacher[];
+  teacherList: Teacher[];
   loading = false;
   avatarUrl?: string;
   autoTips: Record<string, Record<string, string>> = {

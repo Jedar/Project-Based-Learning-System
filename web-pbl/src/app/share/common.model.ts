@@ -8,6 +8,11 @@ export interface User{
     username:string,
     role:number,
 }
+export interface UserMessage {
+  code: number,
+  message: string,
+  data: User[]
+}
 export interface UserOfTeacher {
   t_id: number,
   username: string,

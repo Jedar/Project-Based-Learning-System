@@ -56,11 +56,11 @@ export class PjMyTaskComponent implements OnInit {
   ngOnInit(): void {
     this.studentService.getStudentInfo().subscribe(result => {
       this.student = result;
-      this.taskService.getTaskListOfUser(this.projectId,this.student.user_id).subscribe(res => {
+      this.taskService.getTaskListOfUser(this.projectId,this.student.sId).subscribe(res => {
         this.tasks = res;
       });
     });
-    
+
   }
 
 }

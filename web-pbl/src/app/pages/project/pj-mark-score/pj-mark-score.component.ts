@@ -35,9 +35,9 @@ export class PjMarkScoreComponent implements OnInit {
     this.studentService.getStudentsOfProject(this.projectId).subscribe(result => {
       this.students = result;
       for (let student of this.students){
-        this.taskService.getTaskListOfUser(this.projectId, student.user_id).subscribe(res => {
+        this.taskService.getTaskListOfUser(this.projectId, student.sId).subscribe(res => {
           // this.tasks = res;
-          this.tasksOfStudent.set(student.user_id,res);
+          this.tasksOfStudent.set(student.sId,res);
         });
       }
     });

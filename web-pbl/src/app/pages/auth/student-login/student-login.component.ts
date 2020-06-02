@@ -19,7 +19,7 @@ export class StudentLoginComponent implements OnInit {
   localPassword;
   isRemember = false;
   validateForm!: FormGroup;
-  checkCodeUrl = "http://localhost:8080/getVerify";
+  checkCodeUrl = "/getVerify";
   checkCodePass = false;
 
   autoTips: Record<string, Record<string, string>> = {
@@ -97,6 +97,7 @@ export class StudentLoginComponent implements OnInit {
     } else {
       this.checkCodeUrl = this.checkCodeUrl + "?timestamp=" + getTimestamp
     }
+    alert(this.checkCodeUrl);
     (<HTMLImageElement>document.querySelector("#check-code-img")).src = this.checkCodeUrl;
   }
 
@@ -108,7 +109,7 @@ export class StudentLoginComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // this.getVerify();
+
     this.localUserID = this.authService.getLocalStorage("student","pbl_userId");
     this.localPassword = this.authService.getLocalStorage("student","pbl_password");
     if (this.authService.isLocalStorageSupported()){//浏览器支持localStorage
@@ -125,5 +126,6 @@ export class StudentLoginComponent implements OnInit {
     });
     this.validateForm.controls["userID"].setValue(this.localUserID);
     this.validateForm.controls["password"].setValue(this.localPassword);
+    this.getVerify();
   }
 }

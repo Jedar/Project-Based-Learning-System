@@ -6,10 +6,7 @@ import edu.fudan.projectbasedlearning.service.UserService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -22,6 +19,16 @@ import java.util.List;
 public class UserController {
     @Autowired
     private UserService userService;
+
+    @PostMapping("login")
+    public Result login(String username, String password){
+        User user = userService.findByUsernameAndPassword(username, password);
+        if (user==null)
+            return ResultGenerator.genFailResult("用户名或密码错误");
+        else
+            return ResultGenerator.genSuccessResult();
+    }
+    @GetMapping("")
 
     @PostMapping("/add")
     public Result add(User user) {

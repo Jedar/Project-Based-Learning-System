@@ -4,6 +4,7 @@ import edu.fudan.projectbasedlearning.core.Service;
 import edu.fudan.projectbasedlearning.pojo.Student;
 import edu.fudan.projectbasedlearning.pojo.User;
 
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -12,4 +13,6 @@ import java.util.List;
  */
 public interface CourseService extends Service<Course> {
     List<Student> findUserListOfCourse(int courseId);
+    // 查询所有的课程
+    List<HashMap<String,String>> selectAllCourses();
 }

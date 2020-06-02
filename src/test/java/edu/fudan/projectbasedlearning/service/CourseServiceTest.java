@@ -6,6 +6,7 @@ import edu.fudan.projectbasedlearning.pojo.Student;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -18,7 +19,7 @@ public class CourseServiceTest extends Tester {
     private CourseService courseService;
     @Test
     public void testFindAllCourse(){
-        List<Course> allCourse = courseService.findAll();
+        List<HashMap<String, String>> allCourse = courseService.selectAllCourses();
         System.out.println("testFindAllCourse");
         System.out.println(allCourse);
     }
@@ -55,4 +56,5 @@ public class CourseServiceTest extends Tester {
         courseService.save(course);
         System.out.println("testInsert");
     }
+
 }

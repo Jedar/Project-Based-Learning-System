@@ -30,13 +30,13 @@ export class PjManageTaskComponent implements OnInit {
   isSubmit:boolean;
   /* 临时的项目信息，实际不会使用，仅仅为了防止空指针 */
   project:Project={
-    "project_id":0,
-    "course_id":0,
-    "project_name":"",
+    "projectId":0,
+    "courseId":0,
+    "projectName":"",
     "theme":"",
-    "leader_id":0,
-    "start_time":"2020-05-20",
-    "end_time":"2020-05-20",
+    "leaderId":0,
+    "startTime":"2020-05-20",
+    "endTime":"2020-05-20",
     "description":"",
   };
 
@@ -99,8 +99,8 @@ export class PjManageTaskComponent implements OnInit {
       this.projectId = Number.parseInt(params['projectId']);
       projectService.getProjectOf(this.projectId).subscribe(result => {
         this.project = result;
-        this.startDate = new Date(Date.parse(this.project.start_time));
-        this.endDate = new Date(Date.parse(this.project.end_time));
+        this.startDate = new Date(Date.parse(this.project.startTime));
+        this.endDate = new Date(Date.parse(this.project.endTime));
       })
     });
   }
