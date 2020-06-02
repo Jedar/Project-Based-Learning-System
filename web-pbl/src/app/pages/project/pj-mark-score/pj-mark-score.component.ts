@@ -2,11 +2,12 @@ import {Component, OnInit} from '@angular/core';
 import {Student} from "../../../share/student.model";
 import {StudentService} from "../../../services/student.service";
 import {ActivatedRoute} from "@angular/router";
-import {Participate} from "../../../share/participate.model";
+import {Score} from "../../../share/score.model";
 import {ScoreService} from "../../../services/score.service";
 import {NzModalService} from "ng-zorro-antd/modal";
 import {Task} from "../../../share/task.model";
 import {TaskService} from "../../../services/task.service";
+import {HttpParams} from "@angular/common/http";
 
 @Component({
   selector: 'app-pj-mark-score',
@@ -16,7 +17,8 @@ import {TaskService} from "../../../services/task.service";
 export class PjMarkScoreComponent implements OnInit {
   students: Student[] = [];
   projectId: number;
-  participates: Participate[] = [];
+  studentId: number = 10009;
+  scores: Score[] = [];
   tasksOfStudent: Map<number,Task[]> = new Map<number, Task[]>();
 
   constructor(
@@ -42,14 +44,20 @@ export class PjMarkScoreComponent implements OnInit {
       }
     });
 
-    this.scoreService.getScores().subscribe(result => {
-      this.participates = result;
+    this.scoreService.getScores(this.studentId).subscribe(result => {
+      this.scores = result.data;
     })
   }
 
-  onSubmit() {
-    this.scoreService.submitScore().subscribe(result => {
-      if (result.state == "true") {
+  onSubmit(type:number,userId:number) {
+    const params = new HttpParams()
+      .set("projectId",String(this.projectId))
+      .set("userId",String(userId))
+      .set("scoreType",String(type))
+      .set("scorerId",String(this.studentId));
+
+    this.scoreService.submitScore(params).subscribe(result => {
+      if (result.code == 200) {
         this.modal.success({
           nzTitle: '提交互评',
           nzContent: '提交成功',

@@ -16,6 +16,15 @@
 
   <select id="getDiscussionsByProjectId"  parameterType="int" resultType="edu.fudan.projectbasedlearning.pojo.Discussion">
     select discussion_id as discussionId,project_id as projectId,content,time,user_id as userId,likes,
-     parents_id as parentId from discussion where project_id = #{projectId} ;
+     parents_id as parentsId from discussion where project_id = #{projectId} and parents_id is null
+  </select>
+
+  <select id="getDiscussionChildrenList" parameterType="int" resultType="edu.fudan.projectbasedlearning.pojo.Discussion">
+    select discussion_id as discussionId,project_id as projectId,content,time,user_id as userId,likes,
+     parents_id as parentsId from discussion where project_id = #{projectId} and parents_id = #{parentsId}
+  </select>
+
+  <select id="getDiscussionAuthor" parameterType="int" resultType="hashmap">
+     select user_id as sId, username, gender, school, profile from user inner join student on user.user_id = student.s_id where s_id = #{studentId}
   </select>
 </mapper>

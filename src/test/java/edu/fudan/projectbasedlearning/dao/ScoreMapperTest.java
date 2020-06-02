@@ -16,18 +16,19 @@ public class ScoreMapperTest extends Tester {
     public void testInsertScore(){
         Score score = new Score();
         score.setProjectId(1);
-        score.setScorerId(10009);
-        score.setScoreType(2);
+        score.setScorerId(10000);
+        score.setScoreType(3);
         score.setTime(new Date());
         score.setUserId(10009);
         score.setValue(100);
-        score.setComment("comment");
+        score.setComment("comment demo");
         scoreMapper.insertScore(score);
     }
 
     @Test
     public void testFindStudentScores(){
         List<Score> scores = scoreMapper.findStudentScores(10009);
+        System.out.println(scores.size());
         System.out.println(scores.get(0).getValue());
         System.out.println(scores.get(0).getDistribute());
         System.out.println(scores.get(0).getScorerId());
