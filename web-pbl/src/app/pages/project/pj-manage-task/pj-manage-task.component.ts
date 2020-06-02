@@ -106,8 +106,8 @@ export class PjManageTaskComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.taskService.getTaskList(123).subscribe(result=>{
-      this.tasks = result;
+    this.taskService.getTaskList(this.projectId).subscribe(result=>{
+      this.tasks = result.data;
     });
     const { required, maxLength, minLength } = CommonValidators;
     this.validateForm = this.fb.group({

@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
+import java.util.List;
 
 
 /**
@@ -19,4 +21,8 @@ public class TaskServiceImpl extends AbstractService<Task> implements TaskServic
     @Resource
     private TaskMapper taskMapper;
 
+    @Override
+    public List<HashMap<String, Object>> getAllTaskListByProject(int projectId) {
+        return taskMapper.getTaskInfoByProject(projectId);
+    }
 }

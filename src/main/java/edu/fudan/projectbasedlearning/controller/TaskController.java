@@ -10,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
 * Created by CodeGenerator on 2020/05/29.
@@ -23,6 +25,19 @@ public class TaskController {
 
     @Autowired
     private User user;
+
+    @GetMapping("/all")
+    public Result getAllTasks(@RequestParam String projectId){
+        int id;
+        try {
+            id = Integer.parseInt(projectId);
+        }
+        catch (Exception e){
+            return ResultGenerator.genFailResult("Get参数错误");
+        }
+        List<HashMap<String,Object>> list = taskService.getAllTaskListByProject(id);
+        return ResultGenerator.genSuccessResult(list);
+    }
 
     @PostMapping("/add")
     public Result add(Task task) {

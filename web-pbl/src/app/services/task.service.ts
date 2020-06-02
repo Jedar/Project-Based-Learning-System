@@ -7,7 +7,7 @@ import {catchError,map,tap} from 'rxjs/operators';
 /* 回调对象 */
 import {Observable,of, ObservableInput} from "rxjs";
 
-import { Task,EditTaskMessage,TaskMessage } from "../share/task.model";
+import { Task,EditTaskMessage,TaskMessage,TaskListMessage } from "../share/task.model";
 
 import {Result} from "../share/common.model";
 
@@ -22,10 +22,14 @@ const httpOptions = {
 })
 export class TaskService {
 
+  allTasksUrl = "/task/all";
+
   constructor(private http:HttpClient/* 依赖注入 */) { }
 
-  getTaskList(projectId:number):Observable<Task[]>{
-    return this.http.get<Task[]>("/assets/data/tasks.json").pipe();
+  getTaskList(projectId:number):Observable<TaskListMessage>{
+    let url = this.allTasksUrl+"?projectId="+projectId;
+    // return this.http.get<Task[]>("/assets/data/tasks.json").pipe();
+    return this.http.get<TaskListMessage>(url).pipe();
   }
 
   getTaskListOfUser(projectId:number,userId:number):Observable<Task[]>{

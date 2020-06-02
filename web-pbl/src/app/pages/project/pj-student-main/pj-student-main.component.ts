@@ -9,11 +9,17 @@ import { ActivatedRoute,Router } from '@angular/router';
 })
 export class PjStudentMainComponent implements OnInit {
   option:string;
+  projectId:number;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-  ) { }
+  ) {
+    route.params.subscribe(params => {
+      console.log(params);
+      this.projectId = Number.parseInt(params['projectId']);
+    });
+  }
 
   ngOnInit(): void {
     let res = this.route;

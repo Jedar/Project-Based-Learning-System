@@ -48,22 +48,31 @@
             
             <li nz-submenu nzOpen nzTitle="任务" nzIcon="bars">
               <ul>
-                <li [nzSelected]="option=='all_task'" nz-menu-item [routerLink]="['/','project','teacher','all_task']">任务总览</li>
-                <li [nzSelected]="option=='manage_task'" nz-menu-item  [routerLink]="['/','project','teacher','manage_task']">管理任务</li>
+                <li [nzSelected]="option=='all_task'" 
+                  nz-menu-item 
+                  [routerLink]="['/','project','teacher','all_task']" 
+                  [queryParams]="{projectId:projectId}">任务总览</li>
+                <li [nzSelected]="option=='manage_task'" 
+                  nz-menu-item  
+                  [routerLink]="['/','project','teacher','manage_task']" 
+                  [queryParams]="{projectId:projectId}">管理任务</li>
               </ul>
             </li>
             <li nz-menu-item [nzSelected]="option=='discuss'"
-                [routerLink]="['/','project','teacher','discuss']">
+                [routerLink]="['/','project','teacher','discuss']"
+                [queryParams]="{projectId:projectId}">
                 <i nz-icon nzType="message" nzTheme="outline"></i>
                 项目讨论
             </li>
             <li nz-menu-item [nzSelected]="option=='file'"
-                [routerLink]="['/','project','teacher','file']">
+                [routerLink]="['/','project','teacher','file']"
+                [queryParams]="{projectId:projectId}">
                 <i nz-icon nzType="file-text" nzTheme="outline"></i>
                 项目资源
             </li>
             <li nz-menu-item [nzSelected]="option=='mark_score'"
-                [routerLink]="['/','project','teacher','mark_score']">
+                [routerLink]="['/','project','teacher','mark_score']"
+                [queryParams]="{projectId:projectId}">
                 <i nz-icon nzType="file-text" nzTheme="outline"></i>
                 打分
             </li>

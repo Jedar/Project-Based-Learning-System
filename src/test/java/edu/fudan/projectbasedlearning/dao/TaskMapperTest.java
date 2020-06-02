@@ -30,9 +30,9 @@ public class TaskMapperTest extends Tester {
 
     @Test
     public void testGetTaskInfoByProject(){
-        List<HashMap<String,String>> tasks = taskMapper.getTaskInfoByProject(1);
+        List<HashMap<String,Object>> tasks = taskMapper.getTaskInfoByProject(1);
 
-        for(HashMap<String,String> task : tasks){
+        for(HashMap<String,Object> task : tasks){
             System.out.println(task);
         }
     }

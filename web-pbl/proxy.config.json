@@ -1,5 +1,5 @@
 {
-    "/login/store": {
+    "/task/all": {
       "target": "http://localhost:8080",
       "secure": "false"
     }

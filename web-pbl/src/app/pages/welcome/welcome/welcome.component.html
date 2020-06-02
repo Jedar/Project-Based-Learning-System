@@ -46,6 +46,6 @@
   <a nz-button nzType="link" nzBlock [routerLink]="['/','manager']">管理员页面</a>
   <a nz-button nzType="link" nzBlock [routerLink]="['/','student']">学生页面</a>
   <a nz-button nzType="link" nzBlock [routerLink]="['/','teacher']">教师页面</a>
-  <a nz-button nzType="link" nzBlock [routerLink]="['/','project','student','info']">学生项目页面</a>
+  <a nz-button nzType="link" nzBlock [routerLink]="['/','project','student','info']" [queryParams]="{projectId:1}">学生项目页面</a>
   <a nz-button nzType="link" nzBlock [routerLink]="['/','project','teacher','info']">教师项目页面</a>
 </div>

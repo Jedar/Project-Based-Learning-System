@@ -4,6 +4,7 @@ import { Validators, FormBuilder } from '@angular/forms';
 import { GanttEditorComponent, GanttEditorOptions } from 'ng-gantt';
 import { Task } from '../../../share/task.model';
 import { TaskService } from '../../../services/task.service';
+import { ActivatedRoute,Router } from '@angular/router';
 
 interface GanttTask{
   'pID': number,
@@ -51,6 +52,8 @@ export class PjAllTaskComponent implements OnInit {
   vLang = 'cn'
   public tasks:Task[] = [];
 
+  projectId:number;
+
   public listOfColumn = [
     {
       title: '任务名称',
@@ -82,8 +85,13 @@ export class PjAllTaskComponent implements OnInit {
 
   constructor(
     public fb: FormBuilder,
-    private taskService:TaskService
+    private taskService:TaskService,
+    private activatedRoute: ActivatedRoute,
+    private router:Router,
     ){
+      activatedRoute.queryParams.subscribe(params => {
+        this.projectId = params['projectId'];
+      });
   }
 
   ngOnInit(){
@@ -96,9 +104,13 @@ export class PjAllTaskComponent implements OnInit {
         title: '持续时间'
       }
     };
-    this.taskService.getTaskList(123).subscribe(result=>{
-      this.tasks = result;
-      this.data = this.turnTaskToGanttTask(result);
+    this.taskService.getTaskList(this.projectId).subscribe(result=>{
+      if(result.code != 200){
+        window.alert(result.message);
+        return;
+      }
+      this.tasks = result.data;
+      this.data = this.turnTaskToGanttTask(result.data);
       this.editor.setOptions(this.editorOptions);
     });
     this.data = this.turnTaskToGanttTask(this.tasks);

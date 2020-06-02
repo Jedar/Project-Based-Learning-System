@@ -49,27 +49,27 @@
             
             <li nz-submenu nzOpen nzTitle="任务" nzIcon="bars">
               <ul>
-                <li [nzSelected]="option=='all_task'" nz-menu-item [routerLink]="['/','project','student','all_task']" >任务总览</li>
-                <li [nzSelected]="option=='my_task'" nz-menu-item  [routerLink]="['/','project','student','my_task']">我的任务</li>
-                <li [nzSelected]="option=='manage_task'" nz-menu-item  [routerLink]="['/','project','student','manage_task']">管理任务</li>
+                <li [nzSelected]="option=='all_task'" nz-menu-item [routerLink]="['/','project','student','all_task']" [queryParams]="{projectId:projectId}">任务总览</li>
+                <li [nzSelected]="option=='my_task'" nz-menu-item  [routerLink]="['/','project','student','my_task']" [queryParams]="{projectId:projectId}">我的任务</li>
+                <li [nzSelected]="option=='manage_task'" nz-menu-item  [routerLink]="['/','project','student','manage_task']" [queryParams]="{projectId:projectId}">管理任务</li>
               </ul>
             </li>
             <li nz-menu-item
                 [nzSelected]="option=='discuss'"
-                [routerLink]="['/','project','student','discuss']">
+                [routerLink]="['/','project','student','discuss']" [queryParams]="{projectId:projectId}">
                 <i nz-icon nzType="message" nzTheme="outline"></i>
                 项目讨论
             </li>
             <li nz-menu-item
                 [nzSelected]="option=='file'"
-                [routerLink]="['/','project','student','file']">
+                [routerLink]="['/','project','student','file']"  [queryParams]="{projectId:projectId}">
                 <i nz-icon nzType="file-text" nzTheme="outline"></i>
                 项目资源
             </li>
             <li nz-submenu nzTitle="分数" nzIcon="rocket">
               <ul>
-                <li [nzSelected]="option=='my_score'" nz-menu-item [routerLink]="['/','project','student','my_score']">我的分数</li>
-                <li [nzSelected]="option=='mark_mate'" nz-menu-item [routerLink]="['/','project','student','mark_mate']">打分</li>
+                <li [nzSelected]="option=='my_score'" nz-menu-item [routerLink]="['/','project','student','my_score']"  [queryParams]="{projectId:projectId}">我的分数</li>
+                <li [nzSelected]="option=='mark_mate'" nz-menu-item [routerLink]="['/','project','student','mark_mate']"  [queryParams]="{projectId:projectId}">打分</li>
               </ul>
             </li>
           </ul>
