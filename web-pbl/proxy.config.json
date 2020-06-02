@@ -1,10 +1,34 @@
 {
-    "/login/store": {
-      "target": "http://localhost:8080",
-      "secure": "false"
-    },
-    "/getVerify": {
-      "target": "http://localhost:8080",
-      "secure": "false"
-    }
+  "/login/store": {
+    "target": "http://localhost:8080",
+    "secure": "false"
+  },
+  "/getVerify": {
+    "target": "http://localhost:8080",
+    "secure": "false"
+  },
+  "/discussion/list": {
+    "target": "http://localhost:8080",
+    "secure": "false"
+  },
+  "/discussion/children": {
+    "target": "http://localhost:8080",
+    "secure": "false"
+  },
+  "/discussion/add": {
+    "target": "http://localhost:8080",
+    "secure": "false"
+  },
+  "/discussion/getDiscussionAuthor": {
+    "target": "http://localhost:8080",
+    "secure": "false"
+  },
+  "/score/getScores": {
+    "target": "http://localhost:8080",
+    "secure": "false"
+  },
+  "/score/add": {
+    "target": "http://localhost:8080",
+    "secure": "false"
+  }
 }

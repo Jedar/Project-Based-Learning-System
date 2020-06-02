@@ -5,12 +5,11 @@ import edu.fudan.projectbasedlearning.pojo.Score;
 import edu.fudan.projectbasedlearning.service.ScoreService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -23,8 +22,17 @@ public class ScoreController {
     private ScoreService scoreService;
 
     @PostMapping("/add")
-    public Result add(Score score) {
-        scoreService.save(score);
+    public Result add(@RequestParam HashMap<String,String> hashMap) {
+        Score score = new Score();
+        score.setValue(Integer.parseInt(hashMap.get("value")));
+        score.setUserId(Integer.parseInt(hashMap.get("userId")));
+        score.setTime(new Date());
+        score.setScoreType(Integer.parseInt(hashMap.get("scoreType")));
+        score.setScorerId(Integer.parseInt(hashMap.get("scorerId")));
+        score.setProjectId(Integer.parseInt(hashMap.get("projectId")));
+        score.setComment(hashMap.get("comment"));
+        scoreService.saveScore(score);
+//        System.out.println(ResultGenerator.genSuccessResult());
         return ResultGenerator.genSuccessResult();
     }
 
@@ -44,6 +52,12 @@ public class ScoreController {
     public Result detail(@RequestParam Integer id) {
         Score score = scoreService.findById(id);
         return ResultGenerator.genSuccessResult(score);
+    }
+
+    @GetMapping("/getScores")
+    public Result getScores(@RequestParam Integer studentId){
+        List<Score> scores = scoreService.findScoresByStudentId(studentId);
+        return ResultGenerator.genSuccessResult(scores);
     }
 
     @PostMapping("/list")

@@ -4,7 +4,7 @@
 
 <nz-content>
   <nz-card nzTitle="教师评分">
-    <nz-card *ngFor="let data of scores" nzType="inner" nzTitle="学生 : {{data.user_id}}" [nzExtra]="extraTemplate">
+    <nz-card *ngFor="let data of scores" nzType="inner" nzTitle="学生 : {{data.userId}}" [nzExtra]="extraTemplate">
       <nz-collapse>
         <nz-collapse-panel nzHeader="查看任务完成情况">
           <nz-list nzBordered>
@@ -13,7 +13,7 @@
               <span>任务名称</span>
               <span>任务进度</span>
             </nz-list-item>
-            <nz-list-item *ngFor="let task of tasksOfStudent.get(data.user_id)">
+            <nz-list-item *ngFor="let task of tasksOfStudent.get(data.userId)">
               <span>{{task.task_id}}</span>
               <span>{{task.task_name}}</span>
               <span>{{task.state}}</span>
@@ -41,7 +41,7 @@
       <nz-list-item>
         <span>打分：</span>
         <span style="margin-right: 2px"><label><input placeholder="0" nz-input/></label></span>
-        <button style="margin-left: 2px" (click)="onSubmit()" nz-button nzType="primary">提交</button>
+<!--        <button style="margin-left: 2px" (click)="onSubmit()" nz-button nzType="primary">提交</button>-->
       </nz-list-item>
     </nz-list>
   </ng-template>

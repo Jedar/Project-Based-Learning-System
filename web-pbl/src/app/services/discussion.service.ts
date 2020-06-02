@@ -1,37 +1,80 @@
 import { Injectable } from '@angular/core';
 
 /* 引入包 */
-import { HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 /* 回调对象 */
 import {Observable} from "rxjs";
 
-import {Discussion} from "../share/dicussion.model";
-import {Student} from "../share/student.model";
-import {Result} from "../share/common.model";
+import {DiscussionListMessage} from "../share/dicussion.model";
+import {StudentMessage} from "../share/student.model";
+import {ResultMessage} from "../share/common.model";
 
 @Injectable({
   providedIn: 'root'
 })
 export class DiscussionService {
 
+  private serviceUrl = 'http://127.0.0.1:4200';
+
   constructor(private http:HttpClient/* 依赖注入 */) { }
 
-  getDiscussionList(projectId:number) :Observable<Discussion[]>{
-    return this.http.get<Discussion[]>("/assets/data/discussions.json").pipe();
+  getDiscussionList(projectId:number) :Observable<DiscussionListMessage>{
+    projectId = 1;
+    const params = new HttpParams({
+      fromString:'projectId='+projectId
+    });
+
+    const findHttpOptions = {
+      headers: new HttpHeaders({'content-Type': 'application/json'}),
+      params: params
+    };
+    return this.http.get<DiscussionListMessage>(this.serviceUrl+"/discussion/list",findHttpOptions).pipe();
+    // return this.http.get<Discussion[]>("/assets/data/discussions.json").pipe();
   }
 
-  getAuthorsOfDiscussions():Observable<Student[]>{
-    return this.http.get<Student[]>("/assets/data/students.json").pipe();
+  getDiscussionChildren(discussion_id:number):Observable<DiscussionListMessage>{
+    const projectId = 1;
+    const params = new HttpParams({
+      fromString:'projectId='+projectId+'&parentsId='+discussion_id
+    });
+
+    const findHttpOptions = {
+      headers: new HttpHeaders({'content-Type': 'application/json'}),
+      params: params
+    };
+    return this.http.get<DiscussionListMessage>(this.serviceUrl+"/discussion/children",findHttpOptions).pipe();
   }
 
-  publishDiscussion():Observable<Result>{
-    return this.http.get<Result>("/assets/data/success.json").pipe();
+  replyDiscussion(data):Observable<ResultMessage>{
+    const findHttpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/x-www-form-urlencoded;charset=utf-8',
+      })
+    };
+    return this.http.post<ResultMessage>(this.serviceUrl+"/discussion/add",data,findHttpOptions).pipe();
   }
 
-  getDiscussionChildren(discussion_id:number):Observable<Discussion[]>{
-    return this.http.get<Discussion[]>("/assets/data/discussionChildren.json").pipe();
+  getAuthorOfDiscussion(user_id:number):Observable<StudentMessage>{
+    const params = new HttpParams({
+      fromString:'studentId='+user_id
+    });
+
+    const findHttpOptions = {
+      headers: new HttpHeaders({'content-Type': 'application/json'}),
+      params: params
+    };
+    return this.http.get<StudentMessage>(this.serviceUrl+"/discussion/getDiscussionAuthor",findHttpOptions).pipe();
+
   }
-  replyDiscussion():Observable<Result>{
-    return this.http.get<Result>("/assets/data/success.json").pipe();
-  }
+
+  publishDiscussion(data):Observable<ResultMessage>{
+    const findHttpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/x-www-form-urlencoded;charset=utf-8',
+      })
+    };
+    return this.http.post<ResultMessage>(this.serviceUrl+"/discussion/add",data,findHttpOptions).pipe();
+}
+
+
 }

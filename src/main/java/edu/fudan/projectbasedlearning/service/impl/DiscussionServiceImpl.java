@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -23,5 +24,15 @@ public class DiscussionServiceImpl extends AbstractService<Discussion> implement
     @Override
     public List<Discussion> findAllDiscussionByProjectId(int projectId) {
         return discussionMapper.getDiscussionsByProjectId(projectId);
+    }
+
+    @Override
+    public List<Discussion> findAllChildrenOfDiscussion(int projectId, int parentsId) {
+        return discussionMapper.getDiscussionChildrenList(projectId,parentsId);
+    }
+
+    @Override
+    public HashMap<String, String> findAuthorById(int studentId) {
+        return discussionMapper.getDiscussionAuthor(studentId);
     }
 }

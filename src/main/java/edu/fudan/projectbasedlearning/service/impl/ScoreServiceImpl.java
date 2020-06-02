@@ -31,6 +31,7 @@ public class ScoreServiceImpl extends AbstractService<Score> implements ScoreSer
         try {
             scoreMapper.insertScore(score);
         }catch (Exception e){
+            e.printStackTrace();
             return false;
         }
         return true;

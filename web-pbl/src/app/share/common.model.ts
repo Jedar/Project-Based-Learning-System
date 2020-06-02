@@ -3,6 +3,11 @@ export interface Result{
     message:string
 }
 
+export interface ResultMessage {
+  code:number,
+  message:string
+}
+
 export interface User{
     user_id:number,
     username:string,

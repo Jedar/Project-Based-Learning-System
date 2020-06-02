@@ -10,7 +10,8 @@ import {ActivatedRoute} from "@angular/router";
 })
 export class PjMyScoreComponent implements OnInit {
   scores: Score[] = [];
-  project_id: number;
+  projectId: number;
+  studentId: number = 10009;
   totalScore: number = 0;
   selfEva: number = 0;//自评
   mutEva: number = 0;//互评
@@ -21,16 +22,16 @@ export class PjMyScoreComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
   ) {
     activatedRoute.params.subscribe(params => {
-      this.project_id = params['projectId'];
+      this.projectId = params['projectId'];
     });
   }
 
   ngOnInit(): void {
-    this.scoreService.getScores().subscribe(result => {
-      this.scores = result;
+    this.scoreService.getScores(this.studentId).subscribe(result => {
+      this.scores = result.data;
       for (let score of this.scores) {
         let s = score.distribute * score.value;
-        switch (score.score_type) {
+        switch (score.scoreType) {
           case 1:
             this.selfEva = s;
             break;

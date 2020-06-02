@@ -1,9 +1,15 @@
 export interface Discussion {
-  'discussion_id':number,
-  'project_id':number,
-  'content':string,
-  'time':string,
-  'user_id':number,
-  'likes':number,
-  'parents_id':number,
+  discussionId:number,
+  projectId:number,
+  content:string,
+  time:string,
+  userId:number,
+  likes:number,
+  parentsId:number,
+}
+
+export interface DiscussionListMessage {
+  code:number,
+  message:string,
+  data:Discussion[],
 }
