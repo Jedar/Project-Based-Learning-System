@@ -15,11 +15,16 @@ public interface ProjectService extends Service<Project> {
 
     /**
      *
-     * @param projectId
+     * @param projectId 项目id
      * @param value1 自评得分
      * @param value2 互评得分
      * @param value3 老师评分
      * @return
      */
     int saveScoreDistribute(int projectId, double value1, double value2, double value3);
+
+    //删除项目
+    void deleteProject(int projectId);
+
+    void createProject(Project project, double value1, double value2, double value3);
 }

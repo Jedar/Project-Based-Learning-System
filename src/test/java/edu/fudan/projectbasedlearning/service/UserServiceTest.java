@@ -15,7 +15,7 @@ public class UserServiceTest extends Tester {
     private UserService userService;
     @Test
     public void testFindByUserNameAndPassword(){
-        User user =  userService.findByUsernameAndPassword("jxy123", "123456");
+        User user =  userService.findByUsernameAndPassword("jxy123", "123456", 2);
         System.out.println(user);
     }
     @Test
@@ -33,6 +33,10 @@ public class UserServiceTest extends Tester {
         student.setGender("男");
         student.setSchool("复旦大学");
         student.setUser(user);
-        userService.saveStudent(student);
+        userService.saveUser(student);
+    }
+    @Test
+    public void test(){
+        System.out.println("男".length());
     }
 }

@@ -2,6 +2,7 @@ package edu.fudan.projectbasedlearning.dao;
 
 import edu.fudan.projectbasedlearning.core.Mapper;
 import edu.fudan.projectbasedlearning.pojo.Course;
+import edu.fudan.projectbasedlearning.pojo.Project;
 import edu.fudan.projectbasedlearning.pojo.Student;
 import edu.fudan.projectbasedlearning.pojo.User;
 
@@ -11,13 +12,15 @@ import java.util.List;
 public interface CourseMapper extends Mapper<Course> {
     List<Student> findStudentListOfCourse(int courseId);
     // 查询所有的课程
-    List<HashMap<String,String>> selectAllCourses();
+    List<HashMap<String,Object>> selectAllCourses();
 
-    // 更新课程信息
-    void modifyCourseInfo(HashMap<String, Object> param);
-
+    List<Project> findProjectListOfCourse(int courseId);
     //删除课程
     void deleteCourse(int courseId);
+
+    void insertCourse(Course course);
+    //插入teach表中
+    void insertTeach(int teacherId, int courseId);
     //查询某个学生已选的所有课程
     List<HashMap<String,String>> selectStudentCourses(int studentId);
 

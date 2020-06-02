@@ -18,7 +18,7 @@
     <nz-form-control >
       <nz-input-group nzPrefixIcon="safety">
         <input  type="text" nz-input formControlName="checkCode" placeholder="验证码">
-        &nbsp;<img id="check-code-img" src="" width="95px" height="36px">
+        &nbsp;&nbsp;<img id="check-code-img" [src]="imgSrc" width="95px" height="36px" (click)="getVerify()">
       </nz-input-group>
 
     </nz-form-control>

@@ -5,6 +5,7 @@ import edu.fudan.projectbasedlearning.pojo.User;
 import org.springframework.context.annotation.Bean;
 
 import java.util.HashMap;
+import java.util.List;
 
 
 public interface UserMapper extends Mapper<User> {
@@ -30,5 +31,10 @@ public interface UserMapper extends Mapper<User> {
 
     //教师修改个人信息
     void modifyTeacherInfo(HashMap<String, Object> param);
+
+    List<HashMap<String, Object>> getStudentList();
+
+    List<HashMap<String, Object>> getTeacherList();
+
 }
 

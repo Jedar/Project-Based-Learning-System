@@ -31,7 +31,7 @@
       <td>
         <nz-select [(ngModel)]="editCache[data.projectId].data.courseId" >
           <nz-option *ngFor="let course of courseList"
-                     [nzValue]="course.course_id" [nzLabel]="course.course_id+''">
+                     [nzValue]="course.course_id+''" [nzLabel]="course.course_id+''">
           </nz-option>
         </nz-select>
       </td>

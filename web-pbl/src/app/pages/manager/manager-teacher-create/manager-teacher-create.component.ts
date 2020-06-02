@@ -38,18 +38,18 @@ export class ManagerTeacherCreateComponent implements OnInit {
     }
     if (this.validateForm.valid){//所有验证通过开始提交表单
       let md5Value = Md5.hashStr(formValue["password"]).toString();
-      const params = new HttpParams()
-        .set("username", formValue["username"])
-        .set("school", formValue["school"])
-        .set("gender", formValue["gender"])
-        .set("password", md5Value);
-      console.log(params);
-      //然后把输入框中的内容替换
+      // const params = new HttpParams()
+      //   .set("username", formValue["username"])
+      //   .set("school", formValue["school"])
+      //   .set("gender", formValue["gender"])
+      //   .set("password", md5Value);
+      // console.log(params);
+      // //然后把输入框中的内容替换
       // this.validateForm.controls["password"].setValue(md5Value);
       // this.validateForm.controls["checkPassword"].setValue(md5Value);
-      this.authService.signUp(params).subscribe(
+      this.authService.signUp(formValue["username"],md5Value,formValue["gender"],formValue["school"], 1).subscribe(
         result=>{
-          if (result.state=="success"){ //服务器返回注册成功
+          if (result.message=="SUCCESS"){ //服务器返回注册成功
             this.modal.success({
               nzTitle: "",
               nzContent: "创建成功"
@@ -106,15 +106,18 @@ export class ManagerTeacherCreateComponent implements OnInit {
       const username = control.value;
       this.authService.isUniqueUsername(username).subscribe(
         result=> {
-          this.isUnique = result.result;
-
+          if (result.message=="SUCCESS")
+            this.isUnique = true;
+          else
+            this.isUnique = false;
         },
         error => {
-          console.log(error)
+          console.log(error);
         });
     }
     // TODO:可以把&&后面的去掉
-    if (this.isUnique==true && control.value==='111222') {//确认用户名已存在,
+    console.log(this.isUnique)
+    if (this.isUnique == false) { //确认用户名已存在,
       return { exists: true, error: true };
     }
     return {};

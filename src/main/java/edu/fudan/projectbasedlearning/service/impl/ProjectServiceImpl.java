@@ -39,4 +39,15 @@ public class ProjectServiceImpl extends AbstractService<Project> implements Proj
         }
         return 1;
     }
+
+    @Override
+    public void deleteProject(int projectId) {
+        projectMapper.deleteProject(projectId);
+    }
+
+    @Override
+    public void createProject(Project project, double value1, double value2, double value3) {
+        projectMapper.insertProject(project);
+        saveScoreDistribute(project.getProjectId(), value1, value2, value3);
+    }
 }

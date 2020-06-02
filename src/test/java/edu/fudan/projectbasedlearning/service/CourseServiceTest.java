@@ -19,7 +19,7 @@ public class CourseServiceTest extends Tester {
     private CourseService courseService;
     @Test
     public void testFindAllCourse(){
-        List<HashMap<String, String>> allCourse = courseService.selectAllCourses();
+        List<HashMap<String, Object>> allCourse = courseService.selectAllCourses();
         System.out.println("testFindAllCourse");
         System.out.println(allCourse);
     }
