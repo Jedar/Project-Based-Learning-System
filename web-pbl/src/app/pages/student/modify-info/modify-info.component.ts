@@ -1,9 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import {NzMessageService, UploadFile} from "ng-zorro-antd";
-import {Observable, Observer} from "rxjs";
+import {NzMessageService, NzModalService, UploadFile} from "ng-zorro-antd";
 import {UploadFileService} from "../../../services/upload-file.service";
 import {CommonValidators} from "../../../share/CommonValidator";
+import {Student} from "../../../share/student.model";
+import {StudentService} from "../../../services/student.service";
+import {AuthService} from "../../../services/auth.service";
+import {Md5} from "ts-md5";
 
 @Component({
   selector: 'app-modify-info',
@@ -19,15 +22,20 @@ export class ModifyInfoComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private msg: NzMessageService,
-    private uploadFileService: UploadFileService
-  ) { }
+    private uploadFileService: UploadFileService,
+    private studentService: StudentService,
+    private modal: NzModalService,
+    private authService: AuthService
+  ) {
+  }
 
   ngOnInit(): void {
+
     this.validateForm = this.fb.group({
       username: [null, [Validators.required]],
       password: [null, [Validators.required, CommonValidators.minLengthPassword(6), CommonValidators.maxLengthPassword(16)]],
       checkPassword: [null, this.confirmationValidator],
-      gender: [null, [Validators.required]]
+      gender: ["男", [Validators.required]]
     });
   }
 
@@ -38,9 +46,9 @@ export class ModifyInfoComponent implements OnInit {
 
   confirmationValidator = (control: FormControl): { [s: string]: boolean } => {
     if (!control.value) {
-      return { required: true };
+      return {required: true};
     } else if (control.value !== this.validateForm.controls.password.value) {
-      return { confirm: true, error: true };
+      return {confirm: true, error: true};
     }
     return {};
   };
@@ -51,6 +59,23 @@ export class ModifyInfoComponent implements OnInit {
       this.validateForm.controls[i].markAsDirty();
       this.validateForm.controls[i].updateValueAndValidity();
       formValue[i] = this.validateForm.controls[i].value;
+    }
+    if (this.validateForm.valid && this.avatarUrl != undefined) {
+      let md5Value = Md5.hashStr(formValue["password"]).toString();
+      this.studentService.modifyStudentInfo(this.authService.getUserId(), formValue["username"], md5Value, formValue["gender"], "picture")
+        .subscribe(result => {
+          if (result.code === 200) {
+            this.modal.success({
+              nzTitle: "",
+              nzContent: "修改成功"
+            });
+          } else {
+            this.modal.error({
+              nzTitle: "",
+              nzContent: result.message
+            });
+          }
+        })
     }
   }
 

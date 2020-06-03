@@ -1,4 +1,11 @@
-<form style="max-width: 600px;" nz-form [formGroup]="validateForm" (ngSubmit)="addProject()">
+<form style="max-width: 600px;" nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
+  <nz-form-item hidden>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="course">课程ID</nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="必填项">
+      <input nz-input formControlName="course" id="course" />
+    </nz-form-control>
+  </nz-form-item>
+
   <nz-form-item>
     <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="name">项目名称</nz-form-label>
     <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="必填项">

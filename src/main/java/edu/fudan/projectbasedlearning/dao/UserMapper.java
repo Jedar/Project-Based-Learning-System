@@ -21,13 +21,13 @@ public interface UserMapper extends Mapper<User> {
     HashMap<String,String> getTeacher(int teacherId);
 
     //学生查看个人信息
-    HashMap<String, String> getStudentInfo(int studentId);
+    HashMap<String, Object> getStudentInfo(int studentId);
 
     //学生修改个人信息
     void modifyStudentInfo(HashMap<String, Object> param);
 
     //教师查看个人信息
-    HashMap<String, String> getTeacherInfo(int teacherId);
+    HashMap<String, Object> getTeacherInfo(int teacherId);
 
     //教师修改个人信息
     void modifyTeacherInfo(HashMap<String, Object> param);

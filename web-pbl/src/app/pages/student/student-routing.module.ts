@@ -16,7 +16,7 @@ const routes: Routes = [
       {path: 'course_join', component: CourseJoinComponent},
       {path: 'info', component: InfoComponent},
       {path: 'modify_info', component: ModifyInfoComponent},
-      {path: 'course', component: CourseMainComponent}
+      {path: 'course/:courseId', component: CourseMainComponent}
     ]
   },
 ];

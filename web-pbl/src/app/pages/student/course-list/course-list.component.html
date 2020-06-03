@@ -3,13 +3,13 @@
     <div nz-col nzFlex="300px" [nzSpan]="8"
          *ngFor="let course of courses.slice((pagination.pageIndex - 1) * 6,
          (pagination.pageIndex) * 6 - 3)">
-      <app-course-card [course]="course" [operation]="operation"></app-course-card>
+      <app-course-card [course]="course" [operation]="operation" (getAllCourses)="getAllCourses()"></app-course-card>
     </div>
   </div>
   <div nz-row [nzGutter]="8">
     <div nz-col nzFlex="300px" [nzSpan]="8" *ngFor="let course of courses.slice((pagination.pageIndex) * 6 - 3,
          (pagination.pageIndex) * 6)">
-      <app-course-card [course]="course" [operation]="operation"></app-course-card>
+      <app-course-card [course]="course" [operation]="operation" (getAllCourses)="getAllCourses()"></app-course-card>
     </div>
   </div>
 

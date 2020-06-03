@@ -9,6 +9,7 @@ import {CourseService} from "../../../services/course.service";
 })
 export class CourseJoinComponent implements OnInit {
 
+  searchValue = "";
 
   searchCoursesResult: Course[] = [];
   searchCoursesPagination = {
@@ -24,9 +25,9 @@ export class CourseJoinComponent implements OnInit {
   }
 
   searchCourses(): void {
-    this.courseService.searchCourse('')
+    this.courseService.searchCourse(this.searchValue)
       .subscribe(result => {
-        this.searchCoursesResult = result;
+        this.searchCoursesResult = result.data;
       })
   }
 }

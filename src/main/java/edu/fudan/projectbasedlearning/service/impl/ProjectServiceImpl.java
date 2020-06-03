@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -38,6 +39,37 @@ public class ProjectServiceImpl extends AbstractService<Project> implements Proj
             return 0;
         }
         return 1;
+    }
+
+    @Override
+    public List<Project> selectAllProjectsOfCourse(int courseId) {
+        return projectMapper.selectAllProjectsOfCourse(courseId);
+    }
+
+    @Override
+    public List<Project> selectAllProjectsOfStudentInCourse(int studentId, int courseId) {
+        return projectMapper.selectAllProjectsOfStudentInCourse(studentId, courseId);
+    }
+
+    @Override
+    public void studentDropProject(int studentId, int projectId) {
+        projectMapper.studentDropProject(studentId, projectId);
+    }
+
+    @Override
+    public HashMap<String, Object> studentJoinProject(int studentId, int projectId) {
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("code", 200);
+        result.put("message", "");
+
+        try {
+            projectMapper.studentJoinProject(studentId, projectId);
+            return result;
+        }catch (Exception e){
+            result.put("code", 400);
+            result.put("message", "你已经加入了该项目！");
+            return result;
+        }
     }
 
     @Override

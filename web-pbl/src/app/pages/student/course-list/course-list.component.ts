@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Course} from "../../../share/course.model";
 import {CourseService} from "../../../services/course.service";
+import {AuthService} from "../../../services/auth.service";
 
 @Component({
   selector: 'app-course-list',
@@ -16,7 +17,8 @@ export class CourseListComponent implements OnInit {
   };
 
   constructor(
-    private courseService : CourseService
+    private courseService : CourseService,
+    private authService: AuthService
   ) { }
 
   ngOnInit(): void {
@@ -24,9 +26,9 @@ export class CourseListComponent implements OnInit {
   }
 
   getAllCourses(): void {
-    this.courseService.getAllStudentCourses(1)
+    this.courseService.getAllStudentCourses(this.authService.getUserId())
       .subscribe(result => {
-        this.courses = result;
+        this.courses = result.data;
       })
   }
 }

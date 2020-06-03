@@ -1,10 +1,18 @@
-<form style="max-width: 600px;" nz-form [formGroup]="validateForm" (ngSubmit)="addCourse()">
+<form style="max-width: 600px;" nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
   <nz-form-item>
     <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="name">课程名称</nz-form-label>
     <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="必填项">
       <input nz-input formControlName="name" id="name" />
     </nz-form-control>
   </nz-form-item>
+
+  <nz-form-item hidden>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="teacher">开课教师</nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="必填项">
+      <input nz-input formControlName="teacher" id="teacher">
+    </nz-form-control>
+  </nz-form-item>
+
   <nz-form-item>
     <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="description">课程描述</nz-form-label>
     <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="必填项">

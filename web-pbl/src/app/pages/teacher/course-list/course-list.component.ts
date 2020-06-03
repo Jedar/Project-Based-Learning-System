@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {Course} from "../../../share/course.model";
+import {TeacherCourse} from "../../../share/course.model";
 import {CourseService} from "../../../services/course.service";
 import {Router} from "@angular/router";
 import {NzMessageService, NzModalRef, NzModalService} from "ng-zorro-antd";
+import {AuthService} from "../../../services/auth.service";
 
 @Component({
   selector: 'app-course-list',
@@ -11,7 +12,7 @@ import {NzMessageService, NzModalRef, NzModalService} from "ng-zorro-antd";
 })
 export class CourseListComponent implements OnInit {
 
-  courses: Course[] = [];
+  courses: TeacherCourse[] = [];
   pagination = {
     pageIndex: 1,
   };
@@ -23,6 +24,7 @@ export class CourseListComponent implements OnInit {
     private router: Router,
     private modal: NzModalService,
     private message: NzMessageService,
+    private authService: AuthService
   ) { }
 
   ngOnInit(): void {
@@ -30,14 +32,14 @@ export class CourseListComponent implements OnInit {
   }
 
   getAllCourses(): void {
-    this.courseService.getAllTeacherCourses(1)
+    this.courseService.getAllTeacherCourses(this.authService.getUserId())
       .subscribe(result => {
-        this.courses = result;
+        this.courses = result.data;
       })
   }
 
   getIntoCourseProject(courseId: number): void {
-    this.router.navigate(['teacher/course']);
+    this.router.navigate(['teacher/course/' + courseId]);
   }
 
   deleteCourse(courseId: number): void {
@@ -46,10 +48,11 @@ export class CourseListComponent implements OnInit {
       nzContent: '确定解散该课程？',
       nzOnOk: () =>
         new Promise((resolve, reject) => {
-          this.courseService.deleteCourse(1, courseId)
+          this.courseService.deleteCourse(courseId)
             .subscribe(result => {
-              if (result.state === '') {
+              if (result.code === 200) {
                 this.message.create('success', '解散课程成功');
+                this.getAllCourses();
               }else {
                 this.message.create('error', '解散课程失败，失败原因：' + result.message);
               }

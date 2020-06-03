@@ -8,20 +8,18 @@ import {ActivatedRoute, Router} from "@angular/router";
 })
 export class CourseMainComponent implements OnInit {
 
+  courseId: number;
+
   option:string;
   constructor(
     private route: ActivatedRoute,
-    private router: Router,
   ) { }
 
   ngOnInit(): void {
-    let res = this.route;
 
-    this.route.parent.url.subscribe(url => {
-      res.children[0].url.subscribe(u => {
-        this.option = u[0].path;
-      });
-    });
+    this.route.paramMap.subscribe(params => {
+      this.courseId = parseInt(params.get("courseId"))
+    })
   }
 
 }

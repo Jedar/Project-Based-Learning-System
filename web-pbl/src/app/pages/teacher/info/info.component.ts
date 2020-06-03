@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Teacher} from "../../../share/teacher.model";
 import {TeacherService} from "../../../services/teacher.service";
+import {AuthService} from "../../../services/auth.service";
 
 @Component({
   selector: 'app-info',
@@ -12,7 +13,8 @@ export class InfoComponent implements OnInit {
   teacher: Teacher;
 
   constructor(
-    private teacherService: TeacherService
+    private teacherService: TeacherService,
+    private authService: AuthService
   ) { }
 
   ngOnInit(): void {
@@ -20,9 +22,9 @@ export class InfoComponent implements OnInit {
   }
 
   getTeacherInfo(): void {
-    this.teacherService.getTeacherInfo()
+    this.teacherService.getTeacherInfo(this.authService.getUserId())
       .subscribe(result => {
-        this.teacher = result;
+        this.teacher = result.data;
       })
   }
 }

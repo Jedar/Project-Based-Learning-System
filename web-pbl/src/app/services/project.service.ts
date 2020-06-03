@@ -1,15 +1,15 @@
 import {Injectable} from '@angular/core';
 
 /* 引入包 */
-import {HttpClient, HttpHeaders, HttpErrorResponse} from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpErrorResponse, HttpParams} from '@angular/common/http';
 /* 可能用到的操作符 */
 import {catchError, map, tap} from 'rxjs/operators';
 /* 回调对象 */
 import {Observable, of, ObservableInput} from "rxjs";
 
-import {Project} from '../share/project.model';
+import {Project, ProjectListMessage} from '../share/project.model';
 
-import {Result} from '../share/common.model';
+import {Result, ResultMessage} from '../share/common.model';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -29,28 +29,27 @@ export class ProjectService {
     return this.http.get<Project>("/assets/data/project.json").pipe();
   }
 
-  getAllStudentProjects(studentId: number): Observable<Project[]> {
-    return this.http.get<Project[]>("/assets/data/projects.json").pipe();
+  getAllStudentProjects(studentId: number, courseId: number): Observable<ProjectListMessage> {
+    return this.http.get<ProjectListMessage>("/project/getAllStudentProjects?studentId=" + studentId + "&courseId=" + courseId).pipe();
   }
 
-  getAllTeacherProjects(teacherId: number): Observable<Project[]> {
-    return this.http.get<Project[]>("/assets/data/projects.json").pipe();
+
+  dropProjectOfStudent(studentId: number, projectId: number): Observable<ResultMessage> {
+    return this.http.delete<ResultMessage>("/project/studentDropProject?studentId=" + studentId + "&projectId=" + projectId).pipe();
   }
 
-  dropProjectOfStudent(studentId: number, project_id: number): Observable<Result> {
-    return this.http.get<Result>("").pipe();
+  getAllProjects(courseId: number): Observable<ProjectListMessage> {
+    return this.http.get<ProjectListMessage>("/project/getAllCourseProjects?&courseId=" + courseId).pipe();
   }
 
-  getAllProjects(courseId: number): Observable<Project[]> {
-    return this.http.get<Project[]>("/assets/data/projects.json").pipe();
+  joinProject(studentId: number, projectId: number): Observable<ResultMessage> {
+    return this.http.post<ResultMessage>("/project/studentJoinProject", {studentId: studentId, projectId: projectId}).pipe();
   }
 
-  joinProject(studentId: number, project_id: number): Observable<Result> {
-    return this.http.get<Result>("").pipe();
-  }
-
-  deleteProject(teacherId: number, project_id: number): Observable<Result> {
-    return this.http.get<Result>("").pipe();
+  deleteProject(projectId: number): Observable<ResultMessage> {
+    var params  = new HttpParams()
+      .set("projectId", String(projectId));
+    return this.http.delete<ResultMessage>("/project/deleteProject", {params}).pipe()
   }
 
 }

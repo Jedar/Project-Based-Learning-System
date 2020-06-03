@@ -5,14 +5,14 @@
        *ngFor="let course of courses.slice((pagination.pageIndex - 1) * 6,
          (pagination.pageIndex) * 6 - 3)">
     <nz-card nzSize="small" [nzCover]="coverTemplate" [nzHoverable]="true" [nzActions]="[getInto, drop]">
-      <nz-card-meta nzTitle="{{course.name + '(' + course.teacher + ')'}}"
+      <nz-card-meta nzTitle="{{course.courseName}}"
                     nzDescription="{{course.description}}"></nz-card-meta>
     </nz-card>
     <ng-template #getInto>
-      <a (click)="getIntoCourseProject(course.id)"><i nz-icon nzType="login"></i> 进入课程项目</a>
+      <a (click)="getIntoCourseProject(course.courseId)"><i nz-icon nzType="login"></i> 进入课程项目</a>
     </ng-template>
     <ng-template #drop>
-      <a (click)="deleteCourse(course.id)"><i nz-icon nzType="delete"></i> 解散课程</a>
+      <a (click)="deleteCourse(course.courseId)"><i nz-icon nzType="delete"></i> 解散课程</a>
     </ng-template>
   </div>
 </div>
@@ -21,14 +21,14 @@
   <div nz-col nzFlex="300px" [nzSpan]="8" *ngFor="let course of courses.slice((pagination.pageIndex) * 6 - 3,
          (pagination.pageIndex) * 6)">
     <nz-card nzSize="small" [nzCover]="coverTemplate" [nzHoverable]="true" [nzActions]="[getInto, drop]">
-      <nz-card-meta nzTitle="{{course.name + '(' + course.teacher + ')'}}"
+      <nz-card-meta nzTitle="{{course.courseName}}"
                     nzDescription="{{course.description}}"></nz-card-meta>
     </nz-card>
     <ng-template #getInto>
-      <a (click)="getIntoCourseProject(course.id)"><i nz-icon nzType="login"></i> 进入课程项目</a>
+      <a (click)="getIntoCourseProject(course.courseId)"><i nz-icon nzType="login"></i> 进入课程项目</a>
     </ng-template>
     <ng-template #drop>
-      <a (click)="deleteCourse(course.id)"><i nz-icon nzType="delete"></i> 解散课程</a>
+      <a (click)="deleteCourse(course.courseId)"><i nz-icon nzType="delete"></i> 解散课程</a>
     </ng-template>
   </div>
 </div>

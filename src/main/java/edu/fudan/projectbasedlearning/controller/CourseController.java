@@ -1,4 +1,5 @@
 package edu.fudan.projectbasedlearning.controller;
+import com.alibaba.fastjson.JSONObject;
 import edu.fudan.projectbasedlearning.core.Result;
 import edu.fudan.projectbasedlearning.core.ResultGenerator;
 import edu.fudan.projectbasedlearning.pojo.Course;
@@ -56,8 +57,56 @@ public class CourseController {
         course.setCourseName(courseInfo.get("courseName"));
         course.setDescription(courseInfo.get("description"));
         course.setPicture(courseInfo.get("picture"));
-        String teacherName = courseInfo.get("teacherName");
-        courseService.createCourse(course, teacherName);
+        if(courseInfo.containsKey("teacherName")){
+            String teacherName = courseInfo.get("teacherName");
+            courseService.createCourse(course, teacherName);
+        }
+        else if(courseInfo.containsKey("teacherId")){
+            int teacherId = Integer.parseInt(courseInfo.get("teacherId"));
+            courseService.createCourse(course, teacherId);
+        }
         return ResultGenerator.genSuccessResult();
+    }
+
+    //得到某个学生已选的所有课程
+    @GetMapping("/getStudentCourses/{studentId}")
+    public Result getStudentCourses(@PathVariable Integer studentId) {
+        List<HashMap<String, Object>> list = courseService.selectStudentCourses(studentId);
+        return ResultGenerator.genSuccessResult(list);
+    }
+
+    //学生退课
+    @DeleteMapping("/studentDropCourse")
+    public Result studentDropCourse(@RequestParam("studentId") Integer studentId, @RequestParam("courseId") Integer courseId){
+        courseService.studentDropCourse(studentId, courseId);
+        return ResultGenerator.genSuccessResult();
+    }
+
+    //查询课程
+    @GetMapping("/searchCourse")
+    public Result searchCourse(@RequestParam(value = "keyword", required = false, defaultValue = "") String keyword){
+        List<HashMap<String, Object>> list = courseService.searchCourses(keyword);
+        return ResultGenerator.genSuccessResult(list);
+    }
+
+    @PostMapping("/studentJoinCourse")
+    public Result studentJoinCourse(@RequestBody JSONObject jsonObject){
+        int studentId = (int)jsonObject.get("studentId");
+        int courseId = (int)jsonObject.get("courseId");
+
+        HashMap<String, Object> result = courseService.studentChooseCourse(studentId, courseId);
+        int code = (int)result.get("code");
+        String message = result.get("message") + "";
+        if(code == 200)
+            return ResultGenerator.genSuccessResult();
+        else
+            return ResultGenerator.genFailResult(message);
+    }
+
+    //得到某个学生已选的所有课程
+    @GetMapping("/getTeacherCourses/{teacherId}")
+    public Result getTeacherCourses(@PathVariable Integer teacherId) {
+        List<Course> list = courseService.selectTeacherCourses(teacherId);
+        return ResultGenerator.genSuccessResult(list);
     }
 }

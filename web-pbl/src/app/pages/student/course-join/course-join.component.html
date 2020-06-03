@@ -1,7 +1,7 @@
 <h4>搜索课程</h4>
 
 <nz-input-group style="width: 500px" nzSearch [nzAddOnAfter]="suffixIconButton">
-  <input type="text" nz-input placeholder="输入课程信息（名称、简介、教师），支持模糊匹配" />
+  <input type="text" nz-input placeholder="输入课程信息（名称、简介、教师），支持模糊匹配" [(ngModel)]="searchValue" />
 </nz-input-group>
 <ng-template #suffixIconButton>
   <button nz-button nzType="default" nzSearch (click)="searchCourses()"><i nz-icon nzType="search"></i> 搜索课程</button>

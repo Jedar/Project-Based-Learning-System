@@ -5,11 +5,12 @@ import edu.fudan.projectbasedlearning.pojo.User;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.List;
 
 public class UserMapperTest extends Tester {
-    @Autowired
+    @Resource
     private UserMapper userMapper;
 
     @Test
@@ -65,7 +66,7 @@ public class UserMapperTest extends Tester {
 
     @Test
     public void getStudentInfo() {
-        HashMap<String, String> hash = userMapper.getStudentInfo(10009);
+        HashMap<String, Object> hash = userMapper.getStudentInfo(10009);
         System.out.println(hash);
     }
 
@@ -87,7 +88,7 @@ public class UserMapperTest extends Tester {
 
     @Test
     public void getTeacherInfo() {
-        HashMap<String, String> hash = userMapper.getTeacherInfo(10000);
+        HashMap<String, Object> hash = userMapper.getTeacherInfo(10000);
         System.out.println(hash);
     }
 

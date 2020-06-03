@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {NzMessageService, NzModalRef, NzModalService} from "ng-zorro-antd";
 import {CourseService} from "../../../services/course.service";
 import {Router} from "@angular/router";
+import {AuthService} from "../../../services/auth.service";
 
 @Component({
   selector: 'app-course-card',
@@ -16,18 +17,21 @@ export class CourseCardComponent implements OnInit {
 
   confirmModal?: NzModalRef;
 
+  @Output() getAllCourses = new EventEmitter();
+
   constructor(
     private modal: NzModalService,
     private courseService : CourseService,
     private message: NzMessageService,
     private router: Router,
+    private authService: AuthService
   ) { }
 
   ngOnInit(): void {
   }
 
   getIntoCourseProject(courseId: number): void {
-    this.router.navigate(['student/course']);
+    this.router.navigate(['student/course/' + courseId]);
   }
 
   dropCourse(courseId: number): void {
@@ -36,10 +40,12 @@ export class CourseCardComponent implements OnInit {
       nzContent: '确定退课？',
       nzOnOk: () =>
         new Promise((resolve, reject) => {
-          this.courseService.dropCourse(1, courseId)
+          this.courseService.dropCourse(this.authService.getUserId(), courseId)
             .subscribe(result => {
-              if (result.state === '') {
+              if (result.code === 200) {
                 this.message.create('success', '退课成功');
+                this.getAllCourses.emit();
+
               }else {
                 this.message.create('error', '退课失败，失败原因：' + result.message);
               }
@@ -55,9 +61,9 @@ export class CourseCardComponent implements OnInit {
       nzContent: '确定加入该课程？',
       nzOnOk: () =>
         new Promise((resolve, reject) => {
-          this.courseService.joinCourse(1, courseId)
+          this.courseService.joinCourse(this.authService.getUserId(), courseId)
             .subscribe(result => {
-              if (result.state === '') {
+              if (result.code === 200) {
                 this.message.create('success', '选课成功');
               }else {
                 this.message.create('error', '选课失败，失败原因：' + result.message);

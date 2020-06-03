@@ -1,5 +1,7 @@
 package edu.fudan.projectbasedlearning.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 import javax.persistence.*;
 
@@ -16,9 +18,11 @@ public class Project {
     @Column(name = "leader_id")
     private Integer leaderId;
 
+    @JsonFormat(shape=JsonFormat.Shape.STRING,pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     @Column(name = "start_time")
     private Date startTime;
 
+    @JsonFormat(shape=JsonFormat.Shape.STRING,pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     @Column(name = "end_time")
     private Date endTime;
 

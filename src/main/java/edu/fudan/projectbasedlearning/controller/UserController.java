@@ -92,13 +92,27 @@ public class UserController {
         }
     }
 
+    @GetMapping("/getStudentInfo/{studentId}")
+    public Result getStudentInfo(@PathVariable Integer studentId){
+        HashMap<String, Object> student = userService.getStudentInfo(studentId);
+        return ResultGenerator.genSuccessResult(student);
+    }
+
+    @GetMapping("/getTeacherInfo/{teacherId}")
+    public Result getTeacherInfo(@PathVariable Integer teacherId){
+        HashMap<String, Object> teacher = userService.getTeacherInfo(teacherId);
+        return ResultGenerator.genSuccessResult(teacher);
+    }
+
+
     @PostMapping("/modifyStudentInfo")
     public Result modifyStudentInfo(@RequestParam HashMap<String, String> studentInfo){
         userService.managerUpdateStudentInfo(studentInfo);
         return ResultGenerator.genSuccessResult();
     }
+
     @PostMapping("/modifyTeacherInfo")
-    public Result modifyTeacherInfo(HashMap<String, String> teacherInfo){
+    public Result modifyTeacherInfo(@RequestParam HashMap<String, String> teacherInfo){
         userService.managerUpdateTeacherInfo(teacherInfo);
         return ResultGenerator.genSuccessResult();
     }
