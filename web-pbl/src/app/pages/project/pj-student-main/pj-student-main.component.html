@@ -42,7 +42,9 @@
           <ul nz-menu nzMode="inline" class="sider-menu">
             
             <li nz-menu-item [nzSelected]="option=='info'"
-                [routerLink]="['/','project','student','info']">
+                [routerLink]="['/','project','student','info']"
+                [queryParams]="{projectId:projectId}"
+                >
                 <i nz-icon nzType="home" nzTheme="outline"></i>
                 项目信息
             </li>

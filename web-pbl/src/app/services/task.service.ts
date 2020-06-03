@@ -24,7 +24,28 @@ export class TaskService {
 
   allTasksUrl = "/task/all";
 
-  constructor(private http:HttpClient/* 依赖注入 */) { }
+  userTaskUrl = "/task/user";
+
+  editMessageUrl = "/task/edit/";
+
+  modifyMessageUrl = "/task/modify/";
+
+  editUrl = "/task/edit/";/* +taskid */
+
+  modifyUrl = "/task/modify/";
+
+  deleteUrl = "/task/";
+
+  addUrl = "/task";
+
+
+
+  private projectId:number;
+
+  constructor(private http:HttpClient/* 依赖注入 */) {
+    /* 设置一个默认值 */
+    this.projectId = 1;
+  }
 
   getTaskList(projectId:number):Observable<TaskListMessage>{
     let url = this.allTasksUrl+"?projectId="+projectId;
@@ -61,5 +82,13 @@ export class TaskService {
   modifyTask(task:TaskMessage):Observable<Result>{
     console.log(task);
     return this.http.get<Result>("/assets/data/success.json").pipe();
+  }
+
+  setProjectId(id:number){
+    this.projectId = id;
+  }
+
+  getProjectId():number{
+    return this.projectId;
   }
 }

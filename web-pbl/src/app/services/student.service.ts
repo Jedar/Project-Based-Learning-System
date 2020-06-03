@@ -20,6 +20,8 @@ const httpOptions = {
 })
 export class StudentService {
 
+  studentOfProjectUrl = "/project/users";
+
   constructor(private http:HttpClient/* 依赖注入 */) { }
 
   getStudentInfo():Observable<Student>{

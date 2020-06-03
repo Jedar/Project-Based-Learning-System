@@ -62,4 +62,8 @@ export class AuthService {
       return false;
     }
   }
+
+  getUserId():number{
+    return 10000;
+  }
 }

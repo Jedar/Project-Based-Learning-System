@@ -2,7 +2,7 @@ export interface Task{
     task_id:number,
     task_name:string,
     project_id:number,
-    user_name:string,
+    username:string,
     start_time:string,
     end_time:string,
     content:string,

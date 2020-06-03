@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-
 import { ActivatedRoute,Router } from '@angular/router';
+import { TaskService } from '../../../services/task.service';
 
 @Component({
   selector: 'app-pj-student-main',
@@ -14,11 +14,13 @@ export class PjStudentMainComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
+    private taskService:TaskService,
   ) {
-    route.params.subscribe(params => {
-      console.log(params);
-      this.projectId = Number.parseInt(params['projectId']);
-    });
+    // route.params.subscribe(params => {
+    //   console.log(params);
+    //   this.projectId = Number.parseInt(params['projectId']);
+    // });
+    this.projectId = taskService.getProjectId();
   }
 
   ngOnInit(): void {

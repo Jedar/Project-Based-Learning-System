@@ -23,6 +23,12 @@ const httpOptions = {
 })
 export class FileService {
 
+  fileListUrl = "/project/filelist";
+
+  deleteUrl = "/project/file/";/* +id */
+
+  addUrl = "/project/file";
+
   constructor(private http:HttpClient/* 依赖注入 */) {
 
   }

@@ -14,7 +14,9 @@ public interface TaskMapper extends Mapper<Task> {
     public List<HashMap<String,Object>> getTaskInfoByProject(Integer projectId);
 
     /* 获取某个用户的所有任务列表 */
-    public List<Task> getTasksByUser(Integer userId);
+    public List<HashMap<String,Object>> getTasksByUser(Integer userId,Integer projectId);
+
+    public HashMap<String,Object> getTaskInfo(Integer taskId);
 
     /* 修改任务进度 */
     public void modifyTask(Integer taskId, Integer state, String comment);

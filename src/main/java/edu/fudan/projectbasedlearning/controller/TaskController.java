@@ -3,6 +3,7 @@ import edu.fudan.projectbasedlearning.core.Result;
 import edu.fudan.projectbasedlearning.core.ResultGenerator;
 import edu.fudan.projectbasedlearning.pojo.Task;
 import edu.fudan.projectbasedlearning.pojo.User;
+import edu.fudan.projectbasedlearning.request.EditTaskRequest;
 import edu.fudan.projectbasedlearning.service.TaskService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -39,8 +40,41 @@ public class TaskController {
         return ResultGenerator.genSuccessResult(list);
     }
 
+    @GetMapping("/user")
+    public Result getTasksOfUser(@RequestParam String projectId, @RequestParam String userId){
+        int project;
+        int user;
+        try {
+            project = Integer.parseInt(projectId);
+            user = Integer.parseInt(userId);
+        }
+        catch (Exception e){
+            return ResultGenerator.genFailResult("Get参数错误");
+        }
+        List<HashMap<String,Object>> list = taskService.getAllTaskListByUser(user,project);
+        return ResultGenerator.genSuccessResult(list);
+    }
+
+    @GetMapping("/info/{taskId}")
+    public Result info(@PathVariable("taskId") int taskId ){
+        HashMap<String,Object> res = taskService.getTaskInfo(taskId);
+        return ResultGenerator.genSuccessResult(res);
+    }
+
+    @PutMapping("/edit")
+    public Result edit(@RequestParam EditTaskRequest request){
+        this.taskService.modifyTask(request.getTaskId(),request.getState(),request.getComment());
+        return ResultGenerator.genSuccessResult();
+    }
+
+    @PutMapping("/update")
+    public Result modify(@RequestParam Task task){
+        this.taskService.setTask(task);
+        return ResultGenerator.genSuccessResult();
+    }
+
     @PostMapping("/add")
-    public Result add(Task task) {
+    public Result add(@RequestParam Task task) {
         taskService.save(task);
         return ResultGenerator.genSuccessResult();
     }
@@ -49,18 +83,6 @@ public class TaskController {
     public Result delete(@RequestParam Integer id) {
         taskService.deleteById(id);
         return ResultGenerator.genSuccessResult();
-    }
-
-    @PostMapping("/update")
-    public Result update(Task task) {
-        taskService.update(task);
-        return ResultGenerator.genSuccessResult();
-    }
-
-    @PostMapping("/detail")
-    public Result detail(@RequestParam Integer id) {
-        Task task = taskService.findById(id);
-        return ResultGenerator.genSuccessResult(task);
     }
 
     @GetMapping("/list")

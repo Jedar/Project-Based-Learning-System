@@ -25,4 +25,24 @@ public class TaskServiceImpl extends AbstractService<Task> implements TaskServic
     public List<HashMap<String, Object>> getAllTaskListByProject(int projectId) {
         return taskMapper.getTaskInfoByProject(projectId);
     }
+
+    @Override
+    public List<HashMap<String, Object>> getAllTaskListByUser(int userId, int projectId) {
+        return taskMapper.getTasksByUser(userId,projectId);
+    }
+
+    @Override
+    public HashMap<String, Object> getTaskInfo(int taskId) {
+        return taskMapper.getTaskInfo(taskId);
+    }
+
+    @Override
+    public void modifyTask(int taskId, int state, String comment) {
+        taskMapper.modifyTask(taskId,state,comment);
+    }
+
+    @Override
+    public void setTask(Task task) {
+        taskMapper.insert(task);
+    }
 }

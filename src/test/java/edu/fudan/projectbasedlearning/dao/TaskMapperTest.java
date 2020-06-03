@@ -39,9 +39,9 @@ public class TaskMapperTest extends Tester {
 
     @Test
     public void testGetTasksByUser(){
-        List<Task> tasks = taskMapper.getTasksByUser(10000);
+        List<HashMap<String,Object>> tasks = taskMapper.getTasksByUser(10000,1);
 
-        for(Task task : tasks){
+        for(HashMap<String,Object> task : tasks){
             System.out.println(task);
         }
     }

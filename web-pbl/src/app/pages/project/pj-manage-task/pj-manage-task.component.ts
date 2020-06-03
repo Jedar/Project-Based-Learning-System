@@ -60,7 +60,7 @@ export class PjManageTaskComponent implements OnInit {
     },
     {
       title: '负责人',
-      compare: (a: Task, b: Task) => a.user_name.localeCompare(b.user_name),
+      compare: (a: Task, b: Task) => a.username.localeCompare(b.username),
       priority: 1
     },
     {

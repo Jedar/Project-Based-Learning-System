@@ -60,7 +60,7 @@ export class PjAllTaskComponent implements OnInit {
     },
     {
       title: '负责人',
-      compare: (a: Task, b: Task) => a.user_name.localeCompare(b.user_name),
+      compare: (a: Task, b: Task) => a.username.localeCompare(b.username),
       priority: 1
     },
     {
@@ -90,7 +90,7 @@ export class PjAllTaskComponent implements OnInit {
     private router:Router,
     ){
       activatedRoute.queryParams.subscribe(params => {
-        this.projectId = params['projectId'];
+        this.projectId = Number(params['projectId']);
       });
   }
 
@@ -109,6 +109,7 @@ export class PjAllTaskComponent implements OnInit {
         window.alert(result.message);
         return;
       }
+      console.log(result.data);
       this.tasks = result.data;
       this.data = this.turnTaskToGanttTask(result.data);
       this.editor.setOptions(this.editorOptions);
@@ -171,7 +172,7 @@ export class PjAllTaskComponent implements OnInit {
         'pClass': this.randomColor(),
         'pLink': '',
         'pMile': 0,
-        'pRes': item.user_name,
+        'pRes': item.username,
         'pComp': item.state,
         'pGroup': 0,
         'pParent': 0,
@@ -179,7 +180,7 @@ export class PjAllTaskComponent implements OnInit {
         'pDepend': '',
         'pCaption': '',
         'pNotes': item.content,
-        'pTaskUser':item.user_name,
+        'pTaskUser':item.username,
         'pTime':this.getTime(item.start_time,item.end_time)+"天",
       });
     }
@@ -203,7 +204,6 @@ export class PjAllTaskComponent implements OnInit {
 
   getToolTip(task:any,index):string{
     let item = task;
-    console.log(task);
     return `
     <div>
       <span class="gTtTitle">{{pName}}</span>

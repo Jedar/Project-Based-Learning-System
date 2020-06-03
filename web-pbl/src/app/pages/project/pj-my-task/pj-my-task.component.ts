@@ -3,7 +3,7 @@ import { ActivatedRoute,Router } from '@angular/router';
 
 import { TaskService } from '../../../services/task.service';
 import { Task } from '../../../share/task.model';
-import {StudentService } from '../../../services/student.service';
+import { AuthService } from '../../../services/auth.service';
 import { Student } from '../../../share/student.model';
 
 @Component({
@@ -45,7 +45,7 @@ export class PjMyTaskComponent implements OnInit {
 
   constructor(
     private taskService:TaskService,
-    private studentService:StudentService,
+    private authService:AuthService,
     private activatedRoute: ActivatedRoute,
   ) {
     activatedRoute.params.subscribe(params => {
@@ -54,13 +54,10 @@ export class PjMyTaskComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.studentService.getStudentInfo().subscribe(result => {
-      this.student = result;
-      this.taskService.getTaskListOfUser(this.projectId,this.student.sId).subscribe(res => {
-        this.tasks = res;
-      });
+    let userId = this.authService.getUserId();
+    this.taskService.getTaskListOfUser(this.projectId,userId).subscribe(res => {
+      this.tasks = res;
     });
-
   }
 
 }

@@ -25,8 +25,12 @@
     select * from task natural join user where project_id=#{projectId}
   </select>
   
-  <select id="getTasksByUser" parameterType="int" resultType="edu.fudan.projectbasedlearning.pojo.Task">
-    select * from task where user_id=#{userId}
+  <select id="getTasksByUser" resultType="hashmap">
+    select * from task natural join user where user_id=#{userId} and project_id=#{projectId}
+  </select>
+
+  <select id="getTaskInfo" resultType="hashmap">
+    select * from task natural join user where task_id=#{taskId}
   </select>
 
   <update id="modifyTask">
