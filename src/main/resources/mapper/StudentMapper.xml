@@ -16,5 +16,11 @@
         <result property="role" jdbcType="INTEGER" column="role"/>
     </association>
   </resultMap>
+    <select id="findStudentFromProject" parameterType="int" resultType="hashmap">
+        select user.user_id as sId, username, gender, school, profile
+        from project inner join participate on project.project_id = participate.project_id
+        inner join user on participate.user_id=user.user_id
+        inner join student on user.user_id=student.s_id where project.project_id=#{projectId}
+    </select>
 
 </mapper>

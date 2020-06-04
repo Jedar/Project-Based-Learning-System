@@ -46,7 +46,7 @@ export class ManagerProjectCreateComponent implements OnInit {
       scoreInfo: [[30, 70]]
     });
     this.managerService.courseList().subscribe(result=>{
-      this.courseList = result;
+      this.courseList = result.data;
     })
   }
 
@@ -62,18 +62,9 @@ export class ManagerProjectCreateComponent implements OnInit {
     if (this.validateForm.valid){
       var start_time = this.managerService.UTCTODateString(formValue["timeRange"][0]);
       var end_time = this.managerService.UTCTODateString(formValue["timeRange"][1]);
-      var params = new HttpParams()
-        .set("course_id", formValue["course"])
-        .set("project_name", formValue["name"])
-        .set("theme", formValue["theme"])
-        .set("start_time", start_time)  //TODO: 这里传的时间是yyyy-MM-dd 类型的字符串
-        .set("end_time", end_time)
-        .set("teacher_score", this.value1+"")
-        .set("mutual_score", this.value2+"")
-        .set("self_score", this.value3+"");
-      console.log(params);
-      this.managerService.createProject(params).subscribe(result=>{
-        if (result.state=="success"){
+      this.managerService.createProject(
+        formValue["course"],formValue["name"],formValue["theme"],start_time,end_time, this.value1, this.value2, this.value3).subscribe(result=>{
+        if (result.message=="SUCCESS"){
           this.modal.success({
             nzTitle: "",
             nzContent: "创建成功"
@@ -81,8 +72,8 @@ export class ManagerProjectCreateComponent implements OnInit {
           this.router.navigateByUrl("/manager/project_list");
         }else{
           this.modal.error({
-            nzTitle: "",
-            nzContent: "创建失败"
+            nzTitle: "创建失败",
+            nzContent: result.message
           });
           this.cleanFormValue();
         }

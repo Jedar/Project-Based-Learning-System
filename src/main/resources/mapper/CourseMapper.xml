@@ -11,9 +11,7 @@
     <result column="max_student_number" jdbcType="INTEGER" property="maxStudentNumber" />
     <result column="picture" jdbcType="VARCHAR" property="picture" />
   </resultMap>
-  <update id="modifyCourseInfo">
 
-  </update>
   <select id="findStudentListOfCourse" resultMap ="StudentListOfCourseMap">
     select * from user natural join student natural join take where course_id = #{courseId}
   </select>
@@ -32,7 +30,6 @@
       <result property="role" jdbcType="INTEGER" column="role"/>
     </association>
   </resultMap>
-
   <!-- 查询某个学生已选的所有课程 -->
   <select id="selectStudentCourses" resultType="hashmap">
     select course_id, user_id as teacher_id, username as teacher_name, course_name, description, max_student_number, picture from user, course
@@ -50,6 +47,13 @@
   <insert id="studentChooseCourse">
     insert into take (user_id, course_id) values (#{studentId}, #{courseId})
   </insert>
+  <insert id="insertTeach">
+    insert into teach(user_id, course_id) values (#{teacherId}, #{courseId})
+  </insert>
+  <insert id="insertCourse" useGeneratedKeys="true" keyProperty="courseId" keyColumn="course_id">
+    insert into course(course_name, description, max_student_number, picture)
+    values (#{courseName}, #{description}, #{maxStudentNumber},#{picture})
+  </insert>
 
   <!-- 学生退课（从take表中删除数据） -->
   <delete id="studentDropCourse">
@@ -57,12 +61,7 @@
   </delete>
   <delete id="deleteCourse">
     delete from teach where course_id = #{courseId};
-    delete from score_distribute where courseId = #{courseId};
-    delete from score where courseId = #{courseId};
-    delete from file where courseId = #{courseId};
-    delete from discussion where courseId = #{courseId};
-    delete from project where courseId = #{courseId};
-    delete from course where courseId = #{courseId}
+    delete from course where course_id = #{courseId}
   </delete>
 
   <!-- 查询某个教师开设的所有课程 -->
@@ -72,5 +71,8 @@
   <select id="selectAllCourses" resultType="hashmap">
     select course_id, user_id as teacher_id, username as teacher_name, course_name,
            description, max_student_number, picture from user natural join course natural join teach
+  </select>
+  <select id="findProjectListOfCourse" resultType="edu.fudan.projectbasedlearning.pojo.Project">
+    select * from project where course_id = #{courseId}
   </select>
 </mapper>

@@ -5,12 +5,11 @@ import edu.fudan.projectbasedlearning.pojo.File;
 import edu.fudan.projectbasedlearning.service.FileService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -23,34 +22,27 @@ public class FileController {
     private FileService fileService;
 
     @PostMapping("/add")
-    public Result add(File file) {
-        fileService.save(file);
+    public Result add(@RequestBody File file) {
+        file.setTime(new Date());
+        fileService.addFile(file);
         return ResultGenerator.genSuccessResult();
     }
 
-    @PostMapping("/delete")
-    public Result delete(@RequestParam Integer id) {
-        fileService.deleteById(id);
+    @DeleteMapping("/delete/{fileId}")
+    public Result delete(@PathVariable("fileId")Integer fileId) {
+        fileService.deleteById(fileId);
         return ResultGenerator.genSuccessResult();
     }
 
-    @PostMapping("/update")
-    public Result update(File file) {
-        fileService.update(file);
-        return ResultGenerator.genSuccessResult();
-    }
-
-    @PostMapping("/detail")
-    public Result detail(@RequestParam Integer id) {
-        File file = fileService.findById(id);
+    @GetMapping("/info/{fileId}")
+    public Result detail(@PathVariable("fileId")Integer fileId) {
+        File file = fileService.findById(fileId);
         return ResultGenerator.genSuccessResult(file);
     }
 
-    @PostMapping("/list")
-    public Result list(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "0") Integer size) {
-        PageHelper.startPage(page, size);
-        List<File> list = fileService.findAll();
-        PageInfo pageInfo = new PageInfo(list);
-        return ResultGenerator.genSuccessResult(pageInfo);
+    @GetMapping("/list")
+    public Result list(@RequestParam Integer projectId) {
+        List<HashMap<String,Object>> list = fileService.getFileListOf(projectId);
+        return ResultGenerator.genSuccessResult(list);
     }
 }

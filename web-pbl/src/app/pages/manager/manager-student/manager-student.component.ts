@@ -47,19 +47,15 @@ export class ManagerStudentComponent implements OnInit {
 
   ngOnInit(): void {
     this.managerService.studentList().subscribe(result=>{
-      this.listOfData = result;
+      this.listOfData = result.data;
       this.updateEditCache();
     })
   }
 
   //TODO: 删除学生信息
   deleteRow(s_id){
-    console.log(typeof s_id);
-    var params = new HttpParams()
-      .set("s_id", s_id);
-    console.log(params);
-    this.managerService.deleteStudent(params).subscribe(result=>{
-      if (result.state=="success"){
+    this.managerService.deleteStudent(s_id).subscribe(result=>{
+      if (result.message=="SUCCESS"){
         this.modal.success({
           nzTitle: "",
           nzContent: "删除成功"
@@ -88,14 +84,8 @@ export class ManagerStudentComponent implements OnInit {
   saveEdit(s_id): void {
     var data = this.editCache[s_id].data;
     if (data.username!=""&&data.school!=""){//输入不为空
-      var params = new HttpParams()
-        .set("s_id", data.sId+"")
-        .set("username", data.username)
-        .set("gender", data.gender)
-        .set("school",data.school);
-      console.log(params);
-      this.managerService.saveStudentInformation(params).subscribe(result=>{
-        if (result.state=="success"){
+      this.managerService.saveStudentInformation(data.sId, data.username, data.gender, data.school).subscribe(result=>{
+        if (result.message=="SUCCESS"){
           this.modal.success({
             nzTitle: "",
             nzContent: "保存成功"
@@ -107,6 +97,7 @@ export class ManagerStudentComponent implements OnInit {
             nzTitle: "",
             nzContent: "保存失败"
           });
+          this.updateEditCache();
         }
       });
       this.editCache[s_id].edit = false;

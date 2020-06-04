@@ -10,6 +10,7 @@ export interface StudentListMessage {
   message: string,
   data: Student[]
 }
+
 export interface StudentMessage {
   code:number,
   message: string,

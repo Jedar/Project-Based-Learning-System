@@ -56,22 +56,19 @@ export class ManagerProjectComponent implements OnInit {
 
   ngOnInit(): void {
     this.managerService.projectList().subscribe(result=>{
-      this.listOfData = result;
+      this.listOfData = result.data;
       this.updateEditCache();
     });
     this.managerService.courseList().subscribe(result=>{
-      this.courseList = result;
+      this.courseList = result.data;
     });
   }
 
   //TODO: 删除项目信息
   deleteRow(id){
     console.log(typeof id);
-    var params = new HttpParams()
-      .set("project_id", id);
-    console.log(params);
-    this.managerService.deleteProject(params).subscribe(result=>{
-      if (result.state=="success"){
+    this.managerService.deleteProject(id).subscribe(result=>{
+      if (result.message=="SUCCESS"){
         this.modal.success({
           nzTitle: "",
           nzContent: "删除成功"
@@ -102,16 +99,10 @@ export class ManagerProjectComponent implements OnInit {
     if (data.projectName!=""&&data.theme!=""&&this.timeRange!=null){
       var start_time = this.managerService.UTCTODateString(this.timeRange[0]);
       var end_time = this.managerService.UTCTODateString(this.timeRange[1]);
-      var params = new HttpParams()
-        .set("project_id", data.projectId+"")
-        .set("course_id", data.courseId+"")
-        .set("project_name", data.projectName)
-        .set("theme",data.theme)
-        .set("start_time", start_time)
-        .set("end_time", end_time);
-      console.log(params);
-      this.managerService.saveProjectInformation(params).subscribe(result=>{
-        if (result.state=="success"){
+      this.managerService.saveProjectInformation(
+        data.courseId+"",data.courseId+"", data.projectName, data.theme, start_time, end_time
+      ).subscribe(result=>{
+        if (result.message=="SUCCESS"){
           this.modal.success({
             nzTitle: "",
             nzContent: "保存成功"
@@ -125,6 +116,7 @@ export class ManagerProjectComponent implements OnInit {
             nzTitle: "",
             nzContent: "保存失败"
           });
+          this.updateEditCache();
         }
       });
       this.editCache[id].edit = false;

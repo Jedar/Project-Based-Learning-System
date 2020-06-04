@@ -1,10 +1,14 @@
 package edu.fudan.projectbasedlearning.controller;
 
+import edu.fudan.projectbasedlearning.core.Result;
+import edu.fudan.projectbasedlearning.core.ResultGenerator;
 import edu.fudan.projectbasedlearning.utils.VerifyUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -31,6 +35,13 @@ public class VerifyController {
         } catch (Exception e) {
             logger.error("获取验证码失败>>>>   ", e);
         }
+    }
+
+    @GetMapping(value="/checkCode")
+    @ResponseBody
+    public Result checkCode(String checkCode){
+        //TODO: 验证码比较
+        return ResultGenerator.genSuccessResult();
     }
 
 }

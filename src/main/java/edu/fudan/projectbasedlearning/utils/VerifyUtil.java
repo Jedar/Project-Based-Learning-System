@@ -17,7 +17,7 @@ public class VerifyUtil {
     public static final String RANDOMCODEKEY= "RandomCheckCode";//放到session中的key，以用于与从前端接收到的输入比较
     private String randString = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";//随机产生数字与字母组合的字符串
     private int width = 95;// 图片宽
-    private int height = 25;// 图片高
+    private int height = 36;// 图片高
     private int lineSize = 40;// 干扰线数量
     private int stringNum = 4;// 随机产生字符数量
 
@@ -68,7 +68,7 @@ public class VerifyUtil {
         session.removeAttribute(RANDOMCODEKEY);
         session.setAttribute(RANDOMCODEKEY, randomString);
         //设置失效时间1分钟
-        session.setMaxInactiveInterval(60);
+//        session.setMaxInactiveInterval(120);
         g.dispose();
         try {
             // 将内存中的图片通过流动形式输出到客户端

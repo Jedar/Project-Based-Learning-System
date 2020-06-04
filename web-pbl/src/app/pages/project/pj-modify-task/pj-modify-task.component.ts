@@ -25,13 +25,15 @@ export class PjModifyTaskComponent implements OnInit {
   validateForm;
   students:Student[]=[];
   task:TaskMessage={
-    "task_id":0,
-    "task_name":"",
-    "project_id":0,
-    "start_time":"2020-05-20",
-    "end_time":"2020-05-20",
+    "taskId":0,
+    "taskName":"",
+    "projectId":0,
+    "startTime":"2020-05-20",
+    "endTime":"2020-05-20",
     "content":"",
-    "user_id":0
+    "userId":0,
+    "state":0,
+    "comment":""
   };
 
   isSubmit:boolean;
@@ -72,13 +74,14 @@ export class PjModifyTaskComponent implements OnInit {
   ) {
     const { required, maxLength, minLength } = CommonValidators;
     this.validateForm = this.fb.group({
-      task_name: [this.task.task_name, [required]],
-      user_id:[this.task.user_id, [required]],
+      task_name: [this.task.taskName, [required]],
+      user_id:[this.task.userId, [required]],
       rangePicker: [[this.startDate,this.endDate], [required]],
       content:[this.task.content, [required]]
     });
     activatedRoute.queryParams.subscribe(params => {
-      this.projectId = Number.parseInt(params['projectId']);
+      // this.projectId = Number.parseInt(params['projectId']);
+      this.projectId = taskService.getProjectId();
       this.taskId = Number.parseInt(params['taskId']);
       projectService.getProjectOf(this.projectId).subscribe(result => {
         this.project = result;
@@ -88,8 +91,8 @@ export class PjModifyTaskComponent implements OnInit {
       taskService.getTaskMessageOfUser(this.taskId).subscribe(result => {
         this.task = result;
         this.validateForm.setValue({
-          task_name: this.task.task_name,
-          user_id:this.task.user_id,
+          task_name: this.task.taskName,
+          user_id:this.task.userId,
           rangePicker: [this.startDate,this.endDate],
           content:this.task.content
         });
@@ -124,16 +127,18 @@ export class PjModifyTaskComponent implements OnInit {
     if(!this.isSubmit){
       this.isSubmit = !this.isSubmit;
       this.taskService.modifyTask({
-        task_id:this.task.task_id,
-        task_name:data.task_name,
-        project_id:this.task.project_id,
-        user_id:this.task.user_id,
-        start_time:format.default(date0, 'yyyy-MM-dd'),
-        end_time:format.default(date1,"yyyy-MM-dd"),
+        taskId:this.task.taskId,
+        taskName:data.taskName,
+        projectId:this.task.projectId,
+        userId:this.task.userId,
+        startTime:format.default(date0, 'yyyy-MM-dd'),
+        endTime:format.default(date1,"yyyy-MM-dd"),
         content:data.content,
+        state:0,
+        comment:"",
       }).subscribe(result => {
         this.isSubmit = !this.isSubmit;
-        if(result.state=="true"){
+        if(result.code === 200){
           this.modal.success({
             nzTitle: '创建修改',
             nzContent: '任务修改成功',

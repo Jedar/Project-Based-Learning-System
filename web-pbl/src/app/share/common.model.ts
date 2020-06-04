@@ -3,12 +3,22 @@ export interface Result{
     message:string
 }
 
+export interface ResultMessage {
+  code: number,
+  message: string
+}
+
 export interface User{
-    user_id:number,
+    userId:number,
     username:string,
     role:number,
 }
 export interface UserMessage {
+  code: number,
+  message: string,
+  data: User
+}
+export interface UserListMessage {
   code: number,
   message: string,
   data: User[]

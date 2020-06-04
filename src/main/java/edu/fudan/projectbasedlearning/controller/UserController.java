@@ -1,7 +1,9 @@
 package edu.fudan.projectbasedlearning.controller;
 import edu.fudan.projectbasedlearning.core.Result;
 import edu.fudan.projectbasedlearning.core.ResultGenerator;
+import edu.fudan.projectbasedlearning.pojo.Student;
 import edu.fudan.projectbasedlearning.pojo.User;
+import edu.fudan.projectbasedlearning.service.CourseService;
 import edu.fudan.projectbasedlearning.service.UserService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -9,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -19,46 +22,85 @@ import java.util.List;
 public class UserController {
     @Autowired
     private UserService userService;
-
-    @PostMapping("login")
-    public Result login(String username, String password){
-        User user = userService.findByUsernameAndPassword(username, password);
+    @Autowired
+    private CourseService courseService;
+    @PostMapping("/login")
+    public Result login(String username, String password, int role){
+        User user = userService.findByUsernameAndPassword(username, password, role);
         if (user==null)
             return ResultGenerator.genFailResult("用户名或密码错误");
         else
+            return ResultGenerator.genSuccessResult(user);
+    }
+    @PostMapping("/signup")
+    public Result signup(String username, String password, String gender, String school, int role){
+        User user = new User();
+        user.setUsername(username);
+        user.setPassword(password);
+        user.setRole(role);
+        Student student = new Student();
+        student.setGender(gender);
+        System.out.println(gender);
+        student.setSchool(school);
+        student.setUser(user);
+        System.out.println(student);
+        System.out.println(user);
+        int result = userService.saveUser(student);
+        if (result == 1)
             return ResultGenerator.genSuccessResult();
+        else
+            return ResultGenerator.genFailResult("注册失败");
     }
-    @GetMapping("")
+    @GetMapping("/isUniqueUsername")
+    public Result isUniqueUsername(String username){
+        User user = userService.findBy("username", username);
+        if (user == null)
+            return ResultGenerator.genSuccessResult();
+        else
+            return ResultGenerator.genFailResult("用户名已存在");
+    }
 
-    @PostMapping("/add")
-    public Result add(User user) {
-        userService.save(user);
+    @GetMapping("/teacherList")
+    public Result getTeacherList(){
+        List<HashMap<String, Object>> teacherList = userService.getTeacherList();
+        return ResultGenerator.genSuccessResult(teacherList);
+    }
+    @GetMapping("/studentList")
+    public Result getStudentList(){
+        List<HashMap<String, Object>> studentList = userService.getStudentList();
+        return ResultGenerator.genSuccessResult(studentList);
+    }
+
+    @DeleteMapping("/deleteTeacher")
+    public Result deleteTeacher(int teacherId){
+        if (courseService.selectTeacherCourses(teacherId).size() == 0){//没有开设课程
+            userService.deleteTeacher(teacherId);
+            return ResultGenerator.genSuccessResult();
+        } else{
+            return ResultGenerator.genFailResult("该教师已开设课程，不能删除");
+        }
+    }
+
+    @DeleteMapping("/deleteStudent")
+    public Result deleteStudent(int studentId){
+
+        if (courseService.selectStudentCourses(studentId).size() == 0){//没有选课程
+            userService.deleteStudent(studentId);
+            return ResultGenerator.genSuccessResult();
+        } else{
+            return ResultGenerator.genFailResult("该学生已选课，不能删除");
+        }
+    }
+
+    @PostMapping("/modifyStudentInfo")
+    public Result modifyStudentInfo(@RequestParam HashMap<String, String> studentInfo){
+        userService.managerUpdateStudentInfo(studentInfo);
+        return ResultGenerator.genSuccessResult();
+    }
+    @PostMapping("/modifyTeacherInfo")
+    public Result modifyTeacherInfo(HashMap<String, String> teacherInfo){
+        userService.managerUpdateTeacherInfo(teacherInfo);
         return ResultGenerator.genSuccessResult();
     }
 
-    @PostMapping("/delete")
-    public Result delete(@RequestParam Integer id) {
-        userService.deleteById(id);
-        return ResultGenerator.genSuccessResult();
-    }
-
-    @PostMapping("/update")
-    public Result update(User user) {
-        userService.update(user);
-        return ResultGenerator.genSuccessResult();
-    }
-
-    @PostMapping("/detail")
-    public Result detail(@RequestParam Integer id) {
-        User user = userService.findById(id);
-        return ResultGenerator.genSuccessResult(user);
-    }
-
-    @PostMapping("/list")
-    public Result list(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "0") Integer size) {
-        PageHelper.startPage(page, size);
-        List<User> list = userService.findAll();
-        PageInfo pageInfo = new PageInfo(list);
-        return ResultGenerator.genSuccessResult(pageInfo);
-    }
 }

@@ -30,11 +30,11 @@ public class FileMapperTest extends Tester {
 
     @Test
     public void testGetFileInfoByProject(){
-        List<HashMap<String,String>> files = fileMapper.getFileInfoByProject(1);
+        List<HashMap<String,Object>> files = fileMapper.getFileInfoByProject(1);
         File file = new File();
         file.setProjectId(1);
 //        files = fileMapper.select(file);
-        for(HashMap<String,String> f : files){
+        for(HashMap<String,Object> f : files){
             System.out.println(f);
         }
     }

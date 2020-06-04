@@ -7,6 +7,12 @@ export interface FileResourse{
     upload_time:string,
 }
 
+export interface FileListMessage{
+    code:number,
+    message:string,
+    data:FileResourse[]
+}
+
 export interface FileUpload{
     project_id:number,
     file_name:string,

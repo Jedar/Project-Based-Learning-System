@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
+import java.util.List;
 
 
 /**
@@ -21,4 +23,8 @@ public class StudentServiceImpl extends AbstractService<Student> implements Stud
     @Resource
     private StudentMapper studentMapper;
 
+    @Override
+    public List<HashMap<String, Object>> findStudentFromProject(Integer projectId) {
+        return studentMapper.findStudentFromProject(projectId);
+    }
 }

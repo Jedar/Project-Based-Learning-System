@@ -62,32 +62,27 @@ public class TaskController {
     }
 
     @PutMapping("/edit")
-    public Result edit(@RequestParam EditTaskRequest request){
+    public Result edit(@RequestBody EditTaskRequest request){
         this.taskService.modifyTask(request.getTaskId(),request.getState(),request.getComment());
         return ResultGenerator.genSuccessResult();
     }
 
     @PutMapping("/update")
-    public Result modify(@RequestParam Task task){
-        this.taskService.setTask(task);
+    public Result modify(@RequestBody Task task){
+        this.taskService.update(task);
         return ResultGenerator.genSuccessResult();
     }
 
     @PostMapping("/add")
-    public Result add(@RequestParam Task task) {
-        taskService.save(task);
+    public Result add(@RequestBody Task task) {
+        task.setTaskId(null);
+        taskService.setTask(task);
         return ResultGenerator.genSuccessResult();
     }
 
-    @PostMapping("/delete")
-    public Result delete(@RequestParam Integer id) {
-        taskService.deleteById(id);
+    @DeleteMapping("/delete")
+    public Result delete(@RequestParam Integer taskId) {
+        taskService.deleteById(taskId);
         return ResultGenerator.genSuccessResult();
-    }
-
-    @GetMapping("/list")
-    public Result list() {
-        List<Task> list = taskService.findAll();
-        return ResultGenerator.genSuccessResult(list);
     }
 }

@@ -11,5 +11,5 @@ public interface FileMapper extends Mapper<File> {
     /* 根据项目获取所有资源列表 */
     public List<File> getFilesByProject(Integer projectId);
 
-    public List<HashMap<String,String>> getFileInfoByProject(Integer projectId);
+    public List<HashMap<String,Object>> getFileInfoByProject(Integer projectId);
 }

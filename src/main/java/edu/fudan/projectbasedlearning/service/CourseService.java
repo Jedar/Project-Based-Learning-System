@@ -14,5 +14,16 @@ import java.util.List;
 public interface CourseService extends Service<Course> {
     List<Student> findUserListOfCourse(int courseId);
     // 查询所有的课程
-    List<HashMap<String,String>> selectAllCourses();
+    List<HashMap<String,Object>> selectAllCourses();
+
+    //查询某个教师开设的所有课程
+    List<Course> selectTeacherCourses(int teacherId);
+
+    //查询某个学生已选的所有课程
+    List<HashMap<String,String>> selectStudentCourses(int studentId);
+
+    //删除课程以及项目
+    void deleteCourse(int courseId);
+
+    void createCourse(Course course, String teacherName);
 }

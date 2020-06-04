@@ -1,5 +1,6 @@
 package edu.fudan.projectbasedlearning.service.impl;
 
+import edu.fudan.projectbasedlearning.core.ServiceException;
 import edu.fudan.projectbasedlearning.dao.TaskMapper;
 import edu.fudan.projectbasedlearning.pojo.Task;
 import edu.fudan.projectbasedlearning.service.TaskService;
@@ -38,7 +39,13 @@ public class TaskServiceImpl extends AbstractService<Task> implements TaskServic
 
     @Override
     public void modifyTask(int taskId, int state, String comment) {
-        taskMapper.modifyTask(taskId,state,comment);
+        Task task = taskMapper.selectByPrimaryKey(taskId);
+        if(task == null){
+            throw new ServiceException("Task Not Found");
+        }
+        task.setState(state);
+        task.setComment(comment);
+        taskMapper.updateByPrimaryKeySelective(task);
     }
 
     @Override

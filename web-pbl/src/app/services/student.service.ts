@@ -7,7 +7,7 @@ import {catchError,map,tap} from 'rxjs/operators';
 /* 回调对象 */
 import {Observable,of, ObservableInput} from "rxjs";
 
-import { Student } from "../share/student.model";
+import { Student, StudentListMessage } from "../share/student.model";
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -20,7 +20,7 @@ const httpOptions = {
 })
 export class StudentService {
 
-  studentOfProjectUrl = "/project/users";
+  studentOfProjectUrl = "/student/project";
 
   constructor(private http:HttpClient/* 依赖注入 */) { }
 
@@ -28,7 +28,9 @@ export class StudentService {
     return this.http.get<Student>("/assets/data/studentdemo.json").pipe();
   }
 
-  getStudentsOfProject(project_id:number):Observable<Student[]>{
-    return this.http.get<Student[]>("/assets/data/students.json").pipe();
+  getStudentsOfProject(project_id:number):Observable<StudentListMessage>{
+    let url = this.studentOfProjectUrl + "?projectId="+project_id;
+    return this.http.get<StudentListMessage>(url).pipe();
+    // return this.http.get<Student[]>("/assets/data/students.json").pipe();
   }
 }

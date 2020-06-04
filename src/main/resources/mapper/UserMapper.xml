@@ -23,7 +23,7 @@
   </select>
   <!-- 登陆通过用户名密码查血 -->
     <select id="findByUserNameAndPassword" resultType="edu.fudan.projectbasedlearning.pojo.User">
-        select * from user where username = #{username} and password = #{password}
+        select user_id as userId, username from user where username = #{username} and password = #{password} and role = #{role}
     </select>
 
   <select id="getStudentInfo" parameterType="int" resultType="hashmap">
@@ -37,6 +37,12 @@
 
   <select id="getTeacherInfo" parameterType="int" resultType="hashmap">
     select user_id as tId, username, gender, school, profile from user inner join teacher on user.user_id = teacher.t_id where t_id = #{teacherId}
+  </select>
+  <select id="getStudentList" resultType="hashmap">
+    select user_id as sId, username, gender, school, profile from user inner join student on user.user_id = student.s_id
+  </select>
+  <select id="getTeacherList" resultType="hashmap">
+    select user_id as tId, username, gender, school, profile from user inner join teacher on user.user_id = teacher.t_id
   </select>
 
   <update id="modifyTeacherInfo" parameterType="hashmap">

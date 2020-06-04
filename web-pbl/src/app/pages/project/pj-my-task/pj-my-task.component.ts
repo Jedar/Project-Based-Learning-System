@@ -48,15 +48,19 @@ export class PjMyTaskComponent implements OnInit {
     private authService:AuthService,
     private activatedRoute: ActivatedRoute,
   ) {
-    activatedRoute.params.subscribe(params => {
-      this.projectId = params['projectId'];
-    });
+    this.projectId = taskService.getProjectId();
   }
 
   ngOnInit(): void {
+    this.authService.setUserId(10000);
     let userId = this.authService.getUserId();
     this.taskService.getTaskListOfUser(this.projectId,userId).subscribe(res => {
-      this.tasks = res;
+      if(res.code === 200){
+        this.tasks = res.data;
+      }
+      else{
+        window.alert(res.message);
+      }
     });
   }
 

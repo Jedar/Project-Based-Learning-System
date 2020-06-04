@@ -10,6 +10,12 @@ export interface Task{
     comment:string,
 }
 
+export interface TaskInfoMessage{
+    "code":number,
+    "message":string,
+    "data":Task,
+}
+
 export interface TaskListMessage{
     "code":number,
     "message":string,
@@ -18,19 +24,21 @@ export interface TaskListMessage{
 
 
 export interface EditTaskMessage{
-    project_id:number,
-    task_id:number,
+    projectId:number,
+    taskId:number,
     state:number,
     comment:string,
 }
 
 /* Post structure */
 export interface TaskMessage{
-    task_id:number,
-    task_name:string,
-    project_id:number,
-    user_id:number,
-    start_time:string,
-    end_time:string,
+    taskId:number,
+    taskName:string,
+    projectId:number,
+    userId:number,
+    startTime:string,
+    endTime:string,
     content:string,
+    state:number,
+    comment:string,
 }

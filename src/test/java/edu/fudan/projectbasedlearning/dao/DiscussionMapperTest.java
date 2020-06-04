@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import javax.annotation.Resource;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 public class DiscussionMapperTest extends Tester {
@@ -15,11 +16,12 @@ public class DiscussionMapperTest extends Tester {
     @Test
     public void testSave(){
         Discussion discussion = new Discussion();
-        discussion.setContent("a demo");
-        discussion.setLikes(2);
+        discussion.setContent("a child demo");
+        discussion.setLikes(3);
        discussion.setProjectId(1);
        discussion.setTime(new Date());
-       discussion.setUserId(10009);
+       discussion.setUserId(10017);
+       discussion.setParentsId(2);
        discussionMapper.insert(discussion);
     }
 
@@ -30,4 +32,19 @@ public class DiscussionMapperTest extends Tester {
         System.out.println(discussionList.get(0).getDiscussionId());
         System.out.println(discussionList.get(0).getProjectId());
     }
+
+    @Test
+    public void testGetDiscussionChildren(){
+        List<Discussion> discussionList = discussionMapper.getDiscussionChildrenList(1,2);
+        System.out.println(discussionList.get(0).getLikes());
+        System.out.println(discussionList.get(0).getDiscussionId());
+        System.out.println(discussionList.get(0).getProjectId());
+    }
+
+    @Test
+    public void testGetAuthor(){
+        HashMap<String,String> studentInfo = discussionMapper.getDiscussionAuthor(10009);
+        System.out.println(studentInfo);
+    }
+
 }

@@ -17,11 +17,13 @@ export class PjEditTaskComponent implements OnInit {
   taskId:number;
   task:Task;
   endTime;
+  startTime;
   stateInput:number;
   commentInput:string;
   isSubmit:boolean;
   isOutOfTime:boolean;
   isNotStart:boolean;
+  isFinish:boolean;
 
   constructor(
     private taskService:TaskService,
@@ -36,11 +38,13 @@ export class PjEditTaskComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.taskService.getTaskOfUser(this.taskId).subscribe(result => {
-      this.task = result;
+    this.taskService.getTaskOf(this.taskId).subscribe(result => {
+      this.task = result.data;
       this.endTime = Date.parse(this.task.end_time);
+      this.startTime = Date.parse(this.task.start_time)
       this.isOutOfTime = (Date.now() >= this.endTime);
-      this.isNotStart = (Date.now() <= this.endTime);
+      this.isNotStart = (Date.now() <= this.startTime);
+      this.isFinish = (this.task.state === 100);
       this.stateInput = this.task.state;
       this.commentInput = this.task.comment;
     });
@@ -53,12 +57,12 @@ export class PjEditTaskComponent implements OnInit {
   onSubmit(){
     this.isSubmit = true;
     this.taskService.editTaskState({
-      'project_id':this.task.project_id,
-      'task_id':this.task.task_id,
+      'projectId':this.task.project_id,
+      'taskId':this.task.task_id,
       'state':this.stateInput,
       'comment':this.commentInput
     }).subscribe(result => {
-      if(result.state=="true"){
+      if(result.code === 200){
         this.modal.success({
           nzTitle: '任务编辑',
           nzContent: '任务编辑成功',
@@ -70,9 +74,10 @@ export class PjEditTaskComponent implements OnInit {
       else{
         this.modal.error({
           nzTitle: '任务编辑',
-          nzContent: '任务编辑失败，请稍后再试',
+          nzContent: '任务编辑失败，请稍后再试。错误原因：' + result.message,
         });
       }
+      this.isSubmit = false;
     })
   }
 

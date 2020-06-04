@@ -6,6 +6,8 @@ import {ActivatedRoute} from "@angular/router";
 import {Student} from "../../../share/student.model";
 import {ElementRef} from '@angular/core';
 import {NzModalService} from "ng-zorro-antd/modal";
+import {StudentService} from "../../../services/student.service";
+import {HttpParams} from "@angular/common/http";
 
 
 @Component({
@@ -15,20 +17,21 @@ import {NzModalService} from "ng-zorro-antd/modal";
 })
 export class PjDiscussComponent implements OnInit {
   projectId: number;
+  userId:number;
   discussions: Discussion[] = [];
-  authors: Student[] = [];
-  isShow: boolean = true;
-  discussionContent: string;
+  isShow: Map<string,boolean> = new Map<string, boolean>();
+  discussionContent: string = "";
   replyContent:string;
   discussionChildren: Map<number, Discussion[]> = new Map<number, Discussion[]>();
+  discussionAuthors:Map<number,Student> = new Map<number, Student>();
 
   like(discussion_id: number): void {
     for (let items of this.discussions) {
-      if (items.discussion_id == discussion_id) {
+      if (items.discussionId == discussion_id) {
         items.likes++;
       }
-      for (let child of this.discussionChildren.get(items.discussion_id)) {
-        if (child.discussion_id == discussion_id) {
+      for (let child of this.discussionChildren.get(items.discussionId)) {
+        if (child.discussionId == discussion_id) {
           child.likes++;
         }
       }
@@ -38,46 +41,53 @@ export class PjDiscussComponent implements OnInit {
 
   showReply(discussion_id: number): void {
     let s = ".ReplyController" + discussion_id;
-    if (this.isShow) {
+    if (!this.isShow.has(s) || !this.isShow.get(s)) {
       this.el.nativeElement.querySelector(s).style.display = "block";
+      this.isShow.set(s,true);
     } else {
       this.el.nativeElement.querySelector(s).style.display = "none";
+      this.isShow.set(s,false);
     }
-    this.isShow = !this.isShow;
   }
 
-  getAuthor(author_id: number): string {
-    for (let item of this.authors) {
-      if (item.sId == author_id) {
-        return item.username;
-      }
-    }
+  getAuthor(author_id: number) {
+    return this.discussionAuthors.get(author_id).username;
   }
 
   constructor(
     private discussionService: DiscussionService,
+    private studentService: StudentService,
     private activatedRoute: ActivatedRoute,
     private modal: NzModalService,
     private el: ElementRef,
   ) {
     activatedRoute.params.subscribe(params => {
       this.projectId = params['projectId'];
+      this.userId = params['userId'];
     });
   }
 
   ngOnInit(): void {
     this.discussionService.getDiscussionList(this.projectId).subscribe(result => {
-      this.discussions = result;
+      this.discussions = result.data;
       for (let discussion of this.discussions) {
-        this.discussionService.getDiscussionChildren(discussion.discussion_id).subscribe(res => {
-              this.discussionChildren.set(discussion.discussion_id,res);
+
+        this.discussionService.getDiscussionChildren(discussion.discussionId).subscribe(res => {
+              this.discussionChildren.set(discussion.discussionId,res.data);
+
+              for(let child of res.data){
+                this.discussionService.getAuthorOfDiscussion(child.userId).subscribe(author=>{
+                  this.discussionAuthors.set(child.userId,author.data);
+                })
+              }
         });
+
+        this.discussionService.getAuthorOfDiscussion(discussion.userId).subscribe(author=>{
+          this.discussionAuthors.set(discussion.userId,author.data);
+          }
+        )
       }
     });
-
-    this.discussionService.getAuthorsOfDiscussions().subscribe(result => {
-      this.authors = result;
-    })
 
   }
 
@@ -89,8 +99,17 @@ export class PjDiscussComponent implements OnInit {
       });
       return;
     }
-    this.discussionService.publishDiscussion().subscribe(result => {
-      if (result.state == "true") {
+
+    this.projectId = 1;
+    this.userId = 10009;
+    const params = new HttpParams()
+      .set('projectId',String(this.projectId))
+      .set('content',this.discussionContent)
+      .set('likes',String(0))
+      .set('userId',String(this.userId));
+
+    this.discussionService.publishDiscussion(params).subscribe(result => {
+      if (result.code == 200) {
         this.modal.success({
           nzTitle: '发布讨论',
           nzContent: '发布成功',
@@ -105,6 +124,7 @@ export class PjDiscussComponent implements OnInit {
   }
 
   reply(parent_id: number) {
+
     if (this.replyContent.length <= 0) {
       this.modal.error({
         nzTitle: '回复失败',
@@ -112,8 +132,18 @@ export class PjDiscussComponent implements OnInit {
       });
       return;
     }
-    this.discussionService.replyDiscussion().subscribe(result => {
-      if (result.state == "true") {
+
+    this.projectId = 1;
+    this.userId = 10009;
+    const params = new HttpParams()
+      .set('projectId',String(this.projectId))
+      .set('content',this.replyContent)
+      .set('likes',String(0))
+      .set('userId',String(this.userId))
+      .set('parentsId',String(parent_id));
+
+    this.discussionService.replyDiscussion(params).subscribe(result => {
+      if (result.code == 200) {
         this.modal.success({
           nzTitle: '回复讨论',
           nzContent: '回复成功',

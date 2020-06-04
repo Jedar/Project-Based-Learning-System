@@ -13,9 +13,9 @@
     <ng-container *ngIf="!editCache[data.course_id].edit; else editTemplate">
       <td>{{ data.course_id }}</td>
       <td>{{ data.course_name }}</td>
-      <td>{{ data.teacherName }}</td>
+      <td>{{ data.teacher_name }}</td>
       <td>{{ data.description }}</td>
-      <td>{{ data.maxStudentNumber }}</td>
+      <td>{{ data.max_student_number }}</td>
       <td>
         <button nz-button (click)="startEdit(data.course_id)">
           <i nz-icon nzType="edit" nzTheme="outline"></i>
@@ -29,12 +29,7 @@
     <ng-template #editTemplate>
       <td>{{data.course_id}}</td>
       <td><input type="text" nz-input [(ngModel)]="editCache[data.course_id].data.course_name" /></td>
-      <td><nz-select [(ngModel)]="editCache[data.course_id].data.teacher_name">
-        <nz-option *ngFor="let teacher of teacherList"
-                   [nzValue]="teacher.username" [nzLabel]="teacher.username">
-        </nz-option>
-      </nz-select>
-      </td>
+      <td>{{data.teacher_name}}</td>
       <td><input type="text" nz-input [(ngModel)]="editCache[data.course_id].data.description" /></td>
       <nz-input-number [nzMin]="1" [nzStep]="1" [(ngModel)]="editCache[data.course_id].data.max_student_number"></nz-input-number>
       <td>

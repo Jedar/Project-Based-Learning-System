@@ -7,9 +7,9 @@ import {catchError,map,tap} from 'rxjs/operators';
 /* 回调对象 */
 import {Observable,of, ObservableInput} from "rxjs";
 
-import { FileResourse,FileUpload } from '../share/file.model';
+import { FileListMessage,FileUpload } from '../share/file.model';
 
-import { Result } from '../share/common.model';
+import { ResultMessage } from '../share/common.model';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -23,25 +23,29 @@ const httpOptions = {
 })
 export class FileService {
 
-  fileListUrl = "/project/filelist";
+  fileListUrl = "/file/list";
 
-  deleteUrl = "/project/file/";/* +id */
+  deleteUrl = "/file/delete/";/* +id */
 
-  addUrl = "/project/file";
+  addUrl = "/file/add";
 
   constructor(private http:HttpClient/* 依赖注入 */) {
 
   }
 
-  getFileList(projectId:number):Observable<FileResourse[]>{
-    return this.http.get<FileResourse[]>("/assets/data/fileList.json").pipe();
+  getFileList(projectId:number):Observable<FileListMessage>{
+    let url = this.fileListUrl;
+    return this.http.get<FileListMessage>(url).pipe();
   }
 
-  deleteFile(fileId:number):Observable<Result>{
-    return this.http.get<Result>("/assets/data/success.json").pipe();
+  deleteFile(fileId:number):Observable<ResultMessage>{
+    let url = this.deleteUrl+fileId;
+    return this.http.delete<ResultMessage>(url).pipe();
+    // return this.http.get<Result>("/assets/data/success.json").pipe();
   }
 
-  addFile(file:FileUpload):Observable<Result>{
-    return this.http.get<Result>("/assets/data/success.json").pipe();
+  addFile(file:FileUpload):Observable<ResultMessage>{
+    return this.http.post<ResultMessage>(this.addUrl,file,httpOptions).pipe();
+    // return this.http.get<Result>("/assets/data/success.json").pipe();
   }
 }

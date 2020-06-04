@@ -53,7 +53,7 @@ export class PjFileComponent implements OnInit {
     activatedRoute.params.subscribe(params => {
       this.projectId = Number.parseInt(params['projectId']);
       this.fileService.getFileList(this.projectId).subscribe(result => {
-        this.listOfData = result;
+        this.listOfData = result.data;
       });
     });
   }
@@ -63,7 +63,7 @@ export class PjFileComponent implements OnInit {
 
   onDelete(fileId:number){
     this.fileService.deleteFile(fileId).subscribe(result => {
-      if(result.state == "true"){
+      if(result.code === 200){
         this.modal.success({
           nzTitle: '删除文件',
           nzContent: '文件删除成功',
@@ -104,7 +104,7 @@ export class PjFileComponent implements OnInit {
       path:this.fileList[0].url
     }
     this.fileService.addFile(data).subscribe(result => {
-      if(result.state == "true"){
+      if(result.code === 200){
         this.modal.success({
           nzTitle: '上传文件',
           nzContent: '文件上传成功',

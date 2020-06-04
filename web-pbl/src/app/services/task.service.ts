@@ -7,9 +7,9 @@ import {catchError,map,tap} from 'rxjs/operators';
 /* 回调对象 */
 import {Observable,of, ObservableInput} from "rxjs";
 
-import { Task,EditTaskMessage,TaskMessage,TaskListMessage } from "../share/task.model";
+import { TaskInfoMessage,EditTaskMessage,TaskMessage,TaskListMessage } from "../share/task.model";
 
-import {Result} from "../share/common.model";
+import {ResultMessage} from "../share/common.model";
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -26,19 +26,15 @@ export class TaskService {
 
   userTaskUrl = "/task/user";
 
-  editMessageUrl = "/task/edit/";
+  editMessageUrl = "/task/edit";
 
-  modifyMessageUrl = "/task/modify/";
+  modifyMessageUrl = "/task/modify";
 
-  editUrl = "/task/edit/";/* +taskid */
-
-  modifyUrl = "/task/modify/";
+  infoUrl = "/task/info/";/* +taskid */
 
   deleteUrl = "/task/";
 
   addUrl = "/task";
-
-
 
   private projectId:number;
 
@@ -53,35 +49,47 @@ export class TaskService {
     return this.http.get<TaskListMessage>(url).pipe();
   }
 
-  getTaskListOfUser(projectId:number,userId:number):Observable<Task[]>{
-    return this.http.get<Task[]>("/assets/data/tasks.json").pipe();
+  getTaskListOfUser(projectId:number,userId:number):Observable<TaskListMessage>{
+    // return this.http.get<Task[]>("/assets/data/tasks.json").pipe();
+    let url = this.userTaskUrl + "?projectId="+projectId+"&userId="+userId;
+    console.log(url);
+    return this.http.get<TaskListMessage>(url).pipe();
   }
 
-  getTaskOfUser(taskId:number):Observable<Task>{
-    return this.http.get<Task>("/assets/data/task_edit.json")
+  getTaskOf(taskId:number):Observable<TaskInfoMessage>{
+    // return this.http.get<Task>("/assets/data/task_edit.json");
+    let url = this.infoUrl+taskId;
+    return this.http.get<TaskInfoMessage>(url).pipe();
   }
 
   getTaskMessageOfUser(taskId:number):Observable<TaskMessage>{
-    console.log(taskId);
-    return this.http.get<TaskMessage>("/assets/data/task_modify.json")
+    // console.log(taskId);
+    // return this.http.get<TaskMessage>("/assets/data/task_modify.json")
+    let url = this.infoUrl+taskId;
+    return this.http.get<TaskMessage>(url).pipe();
   }
 
-  editTaskState(message:EditTaskMessage ):Observable<Result>{
-    return this.http.get<Result>("/assets/data/success.json").pipe();
+  editTaskState(message:EditTaskMessage ):Observable<ResultMessage>{
+    // return this.http.get<Result>("/assets/data/success.json").pipe();
+    console.log(message);
+    let url = this.editMessageUrl;
+    return this.http.put<ResultMessage>(url,message,httpOptions).pipe();
   }
 
-  deleteTask(task_id:number):Observable<Result>{
-    return this.http.get<Result>("/assets/data/success.json").pipe();
+  deleteTask(task_id:number):Observable<ResultMessage>{
+    let url = this.deleteUrl+task_id;
+    return this.http.delete<ResultMessage>(url).pipe();
   }
 
-  addTask(task:TaskMessage):Observable<Result>{
+  addTask(task:TaskMessage):Observable<ResultMessage>{
+    let url = this.addUrl;
+    return this.http.post<ResultMessage>(url,task,httpOptions).pipe();
+  }
+
+  modifyTask(task:TaskMessage):Observable<ResultMessage>{
     console.log(task);
-    return this.http.get<Result>("/assets/data/success.json").pipe();
-  }
-
-  modifyTask(task:TaskMessage):Observable<Result>{
-    console.log(task);
-    return this.http.get<Result>("/assets/data/success.json").pipe();
+    let url = this.modifyMessageUrl;
+    return this.http.put<ResultMessage>(url,task,httpOptions).pipe();
   }
 
   setProjectId(id:number){

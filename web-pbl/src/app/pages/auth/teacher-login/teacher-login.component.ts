@@ -15,12 +15,12 @@ import {NzModalService} from "ng-zorro-antd";
   styleUrls: ['./teacher-login.component.css']
 })
 export class TeacherLoginComponent implements OnInit {
-
+  imgSrc;
   localUserID;
   localPassword;
   isRemember = false;
   validateForm!: FormGroup;
-  checkCodeUrl = "http://localhost:8080/getVerify";
+  checkCodeUrl = "/getVerify";
   checkCodePass = false;
 
   autoTips: Record<string, Record<string, string>> = {
@@ -42,11 +42,11 @@ export class TeacherLoginComponent implements OnInit {
       formValue[i] = this.validateForm.controls[i].value;
     }
     if (this.validateForm.valid){ //验证通过，则开始验证用户名密码和验证码是否正确
-      const checkCodeParam = new HttpParams().set("checkCode", formValue["checkCode"]);
-      console.log(checkCodeParam);
-      this.authService.checkCode(checkCodeParam).subscribe(result=>{
+      // const checkCodeParam = new HttpParams().set("checkCode", formValue["checkCode"]);
+      // console.log(checkCodeParam);
+      this.authService.checkCode(formValue["checkCode"]).subscribe(result=>{
         //TODO: 把||后面的部分去掉
-        if (result.state!="success"||formValue["checkCode"]=="1234"){
+        if (result.message!="SUCCESS"){
           this.modal.error({
             nzTitle: "",
             nzContent: "验证码错误"
@@ -57,23 +57,24 @@ export class TeacherLoginComponent implements OnInit {
             md5Password = this.localPassword;
           else
             md5Password = Md5.hashStr(formValue["password"]).toString();
-          const params = new HttpParams()
-            .set("userID", formValue["userID"])
-            .set("password", md5Password);
-          console.log(params);
-          this.authService.login(params).subscribe(result=>{
-              if (result.state=="success"){//登陆成功
+          // const params = new HttpParams()
+          //   .set("userID", formValue["userID"])
+          //   .set("password", md5Password);
+          // console.log(params);
+          this.authService.login(formValue["userID"],md5Password, 1).subscribe(result=>{
+              if (result.message=="SUCCESS"){//登陆成功
 
                 if (formValue["remember"]){ //用户选择记住密码
                   this.authService.saveUserIdAndPassword("teacher",formValue["userID"], md5Password);
                 }else{
                   this.authService.removeAllLocal("teacher");
                 }
+                this.authService.setUserId(result.data.userId);
                 this.router.navigate(['/teacher']);
               }else{
                 this.modal.error({
                   nzTitle: "登陆失败",
-                  nzContent: "用户名或密码错误"
+                  nzContent: result.message
                 });
               }
             }, error => {
@@ -98,7 +99,7 @@ export class TeacherLoginComponent implements OnInit {
     } else {
       this.checkCodeUrl = this.checkCodeUrl + "?timestamp=" + getTimestamp
     }
-    (<HTMLImageElement>document.querySelector("#check-code-img")).src = this.checkCodeUrl;
+    this.imgSrc = this.checkCodeUrl;
   }
 
   constructor(
@@ -109,7 +110,7 @@ export class TeacherLoginComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // this.getVerify();
+
     this.localUserID = this.authService.getLocalStorage("teacher","pbl_userId");
     this.localPassword = this.authService.getLocalStorage("teacher","pbl_password");
     if (this.authService.isLocalStorageSupported()){//浏览器支持localStorage
@@ -126,5 +127,6 @@ export class TeacherLoginComponent implements OnInit {
     });
     this.validateForm.controls["userID"].setValue(this.localUserID);
     this.validateForm.controls["password"].setValue(this.localPassword);
+    this.getVerify();
   }
 }

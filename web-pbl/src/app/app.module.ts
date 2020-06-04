@@ -21,6 +21,8 @@ import { ProjectService } from './services/project.service';
 import { FileService } from './services/file.service';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import {NzMessageService} from "ng-zorro-antd";
+/* 解决刷新页面错误的问题 */
+import {HashLocationStrategy, LocationStrategy} from '@angular/common';
 
 registerLocaleData(zh);
 
@@ -40,6 +42,7 @@ registerLocaleData(zh);
     ReactiveFormsModule,
   ],
   providers: [
+    { provide: LocationStrategy, useClass: HashLocationStrategy, },
     { provide: NZ_I18N, useValue: zh_CN },
     AuthService,
     TaskService,

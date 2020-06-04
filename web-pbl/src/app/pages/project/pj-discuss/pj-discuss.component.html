@@ -13,25 +13,25 @@
             <!--                       nzSrc="//zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"></nz-avatar>-->
             <nz-comment-content>
               <div class="ant-comment-content-author-name">
-                {{getAuthor(data.user_id)}}
+                {{getAuthor(data.userId)}}
                 <span class="ant-comment-content-author-time">{{data.time}}</span></div>
               <p>{{ data.content }}</p>
             </nz-comment-content>
             <nz-comment-action>
               <span class="action">
               <i nz-tooltip nzTitle="Like" nz-icon nzType="like" [nzTheme]="data.likes > 0 ? 'twotone' : 'outline'"
-                 (click)="like(data.discussion_id)"></i>
+                 (click)="like(data.discussionId)"></i>
               <span class="count like">{{ data.likes }}</span>
               </span>
             </nz-comment-action>
             <nz-comment-action class="action-reply">
               <span class="action">
               <i nz-icon nz-tooltip nzType="message" nzTheme="twotone"></i>
-              <span (click)="showReply(data.discussion_id)"> Reply to</span>
+              <span (click)="showReply(data.discussionId)"> Reply to</span>
               </span>
             </nz-comment-action>
 
-            <div class="ReplyController{{data.discussion_id}}" style="display: none">
+            <div class="ReplyController{{data.discussionId}}" style="display: none">
               <nz-comment>
                 <nz-avatar nz-comment-avatar nzSize="large" nzIcon="user" style="background-color:#87d068;"></nz-avatar>
                 <!--              <nz-avatar nz-comment-avatar nzIcon="user"-->
@@ -41,7 +41,7 @@
                     <textarea placeholder="回复讨论" nz-input rows="4" [(ngModel)]="replyContent" ></textarea>
                   </nz-form-item>
                   <nz-form-item>
-                    <button nz-button nzType="primary" (click)="reply(data.discussion_id)">
+                    <button nz-button nzType="primary" (click)="reply(data.discussionId)">
                       回复
                     </button>
                   </nz-form-item>
@@ -50,31 +50,31 @@
             </div>
 <!--            子讨论-->
             <div *ngIf="discussionChildren.size">
-              <nz-card *ngFor="let child of discussionChildren.get(data.discussion_id)">
+              <nz-card *ngFor="let child of discussionChildren.get(data.discussionId)">
                 <nz-comment>
                   <nz-avatar nz-comment-avatar nzSize="large" nzIcon="user"
                              style="background-color:#87d068;"></nz-avatar>
                   <nz-comment-content>
                     <div class="ant-comment-content-author-name">
-                      {{getAuthor(child.user_id)}}
+                      {{getAuthor(child.userId)}}
                       <span class="ant-comment-content-author-time">{{child.time}}</span></div>
                     <p>{{ child.content }}</p>
                   </nz-comment-content>
                   <nz-comment-action>
               <span class="action">
               <i nz-tooltip nzTitle="Like" nz-icon nzType="like" [nzTheme]="child.likes > 0 ? 'twotone' : 'outline'"
-                 (click)="like(child.discussion_id)"></i>
+                 (click)="like(child.discussionId)"></i>
               <span class="count like">{{ child.likes }}</span>
               </span>
                   </nz-comment-action>
                   <nz-comment-action class="action-reply">
                       <span class="action">
                           <i nz-icon nz-tooltip nzType="message" nzTheme="twotone"></i>
-                          <span (click)="showReply(child.discussion_id)"> Reply to</span>
+                          <span (click)="showReply(child.discussionId)"> Reply to</span>
                        </span>
                   </nz-comment-action>
 
-                  <div class="ReplyController{{child.discussion_id}}" style="display: none">
+                  <div class="ReplyController{{child.discussionId}}" style="display: none">
                     <nz-comment>
                       <nz-avatar nz-comment-avatar nzSize="large" nzIcon="user"
                                  style="background-color:#87d068;"></nz-avatar>
@@ -85,7 +85,7 @@
                           <textarea placeholder="回复讨论" nz-input rows="4" [(ngModel)]="replyContent"></textarea>
                         </nz-form-item>
                         <nz-form-item>
-                          <button nz-button nzType="primary" (click)="reply(child.discussion_id)">
+                          <button nz-button nzType="primary" (click)="reply(child.discussionId)">
                             回复
                           </button>
                         </nz-form-item>
@@ -131,26 +131,26 @@
             <!--                       nzSrc="//zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"></nz-avatar>-->
             <nz-comment-content>
               <div class="ant-comment-content-author-name">
-                {{getAuthor(data.user_id)}}
+                {{getAuthor(data.userId)}}
                 <span class="ant-comment-content-author-time">{{data.time}}</span></div>
               <p>{{ data.content }}</p>
             </nz-comment-content>
             <nz-comment-action>
               <span class="action">
               <i nz-tooltip nzTitle="Like" nz-icon nzType="like" [nzTheme]="data.likes > 0 ? 'twotone' : 'outline'"
-                 (click)="like(data.discussion_id)"></i>
+                 ></i>
               <span class="count like">{{ data.likes }}</span>
               </span>
             </nz-comment-action>
             <nz-comment-action class="action-reply">
               <span class="action">
               <i nz-icon nz-tooltip nzType="message" nzTheme="twotone"></i>
-              <span (click)="showReply(data.discussion_id)"> Reply to</span>
+              <span (click)="showReply(data.discussionId)"> Reply to</span>
               </span>
             </nz-comment-action>
           </nz-comment>
 
-          <div class="ReplyController{{data.discussion_id}}" style="display: none">
+          <div class="ReplyController{{data.discussionId}}" style="display: none">
             <nz-comment>
               <nz-avatar nz-comment-avatar nzSize="large" nzIcon="user" style="background-color:#87d068;"></nz-avatar>
               <!--              <nz-avatar nz-comment-avatar nzIcon="user"-->
@@ -160,7 +160,7 @@
                   <textarea placeholder="回复讨论" nz-input rows="4"></textarea>
                 </nz-form-item>
                 <nz-form-item>
-                  <button nz-button nzType="primary" (click)="reply(data.discussion_id)">
+                  <button nz-button nzType="primary" (click)="reply(data.discussionId)">
                     回复
                   </button>
                 </nz-form-item>

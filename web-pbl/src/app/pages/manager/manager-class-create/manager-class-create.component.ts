@@ -48,7 +48,7 @@ export class ManagerClassCreateComponent implements OnInit {
       maxStudentNumber: [null, [required]]
     });
     this.managerService.teacherList().subscribe(result=>{
-      this.teacherList = result;
+      this.teacherList = result.data;
     })
   }
 
@@ -67,8 +67,8 @@ export class ManagerClassCreateComponent implements OnInit {
         .set("maxStudentNumber", formValue["maxStudentNumber"])
         .set("file",this.avatarUrl);
       console.log(params);
-      this.managerService.createClass(params).subscribe(result=>{
-        if (result.state=="success"){
+      this.managerService.createClass(formValue["name"],formValue["teacher"],formValue["description"],formValue["maxStudentNumber"], "picture").subscribe(result=>{
+        if (result.message=="SUCCESS"){
           this.modal.success({
             nzTitle: "",
             nzContent: "创建成功"
@@ -77,7 +77,7 @@ export class ManagerClassCreateComponent implements OnInit {
         }else{
           this.modal.error({
             nzTitle: "",
-            nzContent: "创建成功"
+            nzContent: result.message
           });
           this.cleanFormValue();
         }
@@ -102,7 +102,7 @@ export class ManagerClassCreateComponent implements OnInit {
         // Get this url from response in real world.
         this.uploadFileService.getBase64(info.file!.originFileObj!, (img: string) => {
           this.loading = false;
-          this.avatarUrl = img;
+          this.avatarUrl = img;//TODO:图片路径
         });
         break;
       case 'error':

@@ -14,6 +14,7 @@ import {NzModalService} from "ng-zorro-antd";
 })
 export class StudentSignupComponent implements OnInit {
   isUnique: any;
+  submit = false;
   validateForm!: FormGroup;
   autoTips: Record<string, Record<string, string>> = {
     'zh-cn': {
@@ -32,6 +33,7 @@ export class StudentSignupComponent implements OnInit {
 
 
   submitForm(): void {
+    this.submit = true;
     var formValue = {};
     for (const i in this.validateForm.controls) {
       this.validateForm.controls[i].markAsDirty();
@@ -39,36 +41,40 @@ export class StudentSignupComponent implements OnInit {
       formValue[i] = this.validateForm.controls[i].value;
     }
     if (this.validateForm.valid){//所有验证通过开始提交表单
-      let md5Value = Md5.hashStr(formValue["password"]).toString();
-      const params = new HttpParams()
-        .set("username", formValue["username"])
-        .set("school", formValue["school"])
-        .set("gender", formValue["gender"])
-        .set("password", md5Value);
-      //然后把输入框中的内容替换
-      // this.validateForm.controls["password"].setValue(md5Value);
-      // this.validateForm.controls["checkPassword"].setValue(md5Value);
-      this.authService.signUp(params).subscribe(
-        result=>{
-        if (result.state=="success"){ //服务器返回注册成功
-          this.modal.success({
-            nzTitle: "",
-            nzContent: "注册成功,请登录"
-          });
-          this.router.navigate(['/auth/student/login']);
-        }else{//服务器返回注册失败
-          this.modal.error({
-            nzTitle: "",
-            nzContent: "注册失败"
-          })
-        }
-      },error => {
-          this.modal.error({
-            nzTitle: "",
-            nzContent: "注册失败"
-          })
-      });
-
+      this.authService.isUniqueUsername(formValue["username"]).subscribe(
+        result=> {
+            if (result.message!="SUCCESS"){
+              this.modal.error({
+                nzTitle:"",
+                nzContent:result.message
+              });
+            }else{
+              let md5Value = Md5.hashStr(formValue["password"]).toString();
+              this.authService.signUp(formValue["username"],md5Value,formValue["gender"],formValue["school"], 2).subscribe(
+                result=>{
+                  if (result.message=="SUCCESS"){ //服务器返回注册成功
+                    this.modal.success({
+                      nzTitle: "",
+                      nzContent: "注册成功,请登录"
+                    });
+                    this.router.navigate(['/auth/student/login']);
+                  }else{//服务器返回注册失败
+                    this.modal.error({
+                      nzTitle: "",
+                      nzContent: "注册失败"
+                    })
+                  }
+                },error => {
+                  this.modal.error({
+                    nzTitle: "",
+                    nzContent: "注册失败"
+                  })
+                });
+            }
+          },
+        error => {
+            console.log(error);
+        });
     }
   }
 
@@ -93,27 +99,30 @@ export class StudentSignupComponent implements OnInit {
     return {};
   };
 
-  //判断用户名是否存在
-  uniqueUsernameValidator = (control: FormControl): { [s: string]: boolean } => {
-    if (!control.value) {
-      return { required: true };
-    } else{
-      const username = control.value;
-      this.authService.isUniqueUsername(username).subscribe(
-        result=> {
-          this.isUnique = result.result;
-
-      },
-        error => {
-          console.log(error)
-        });
-    }
-    // TODO:可以把&&后面的去掉
-    if (this.isUnique==true && control.value==='111222') {//确认用户名已存在,
-      return { exists: true, error: true };
-    }
-    return {};
-  };
+  // //判断用户名是否存在
+  // uniqueUsernameValidator = (control: FormControl): { [s: string]: boolean } => {
+  //   if (!control.value) {
+  //     return { required: true };
+  //   } else{
+  //     const username = control.value;
+  //     this.authService.isUniqueUsername(username).subscribe(
+  //       result=> {
+  //         if (result.message=="SUCCESS")
+  //           this.isUnique = true;
+  //         else
+  //           this.isUnique = false;
+  //     },
+  //       error => {
+  //         console.log(error);
+  //       });
+  //   }
+  //   if (this.isUnique == false && this.submit == true) { //确认用户名已存在,
+  //     this.submit = false;
+  //     return { exists: true, error: true };
+  //   }
+  //   this.submit = false;
+  //   return {};
+  // };
 
 
   getCaptcha(e: MouseEvent): void {
@@ -132,7 +141,7 @@ export class StudentSignupComponent implements OnInit {
     const maxLengthPassword = CommonValidators.maxLengthPassword;
 
     this.validateForm = this.fb.group({
-      username: [null, [required,minLengthUsername(4), maxLengthUsername(20), this.uniqueUsernameValidator]],
+      username: [null, [required,minLengthUsername(4), maxLengthUsername(20)]],
       school: [null, [required, maxLengthUsername(40)]],
       gender:[null, [required]],
       password: [null, [required, minLengthPassword(6), maxLengthPassword(16)]],

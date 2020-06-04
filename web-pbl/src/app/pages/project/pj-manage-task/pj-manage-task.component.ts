@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute,Router } from '@angular/router';
 import * as format from 'date-fns/format';
 import differenceInCalendarDays from 'date-fns/differenceInCalendarDays';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { CommonValidators } from '../../../share/CommonValidator';
 
 import { Task } from '../../../share/task.model';
@@ -24,10 +24,11 @@ import { da } from 'date-fns/locale';
 export class PjManageTaskComponent implements OnInit {
   projectId:number;
   public tasks:Task[] = [];
-  validateForm;
+  validateForm:FormGroup;
   students:Student[]=[];
 
   isSubmit:boolean;
+  isDeleting:boolean;
   /* 临时的项目信息，实际不会使用，仅仅为了防止空指针 */
   project:Project={
     "projectId":0,
@@ -95,13 +96,11 @@ export class PjManageTaskComponent implements OnInit {
     private projectService: ProjectService,
     private router:Router,
   ){
-    activatedRoute.params.subscribe(params => {
-      this.projectId = Number.parseInt(params['projectId']);
-      projectService.getProjectOf(this.projectId).subscribe(result => {
-        this.project = result;
-        this.startDate = new Date(Date.parse(this.project.startTime));
-        this.endDate = new Date(Date.parse(this.project.endTime));
-      })
+    this.projectId = taskService.getProjectId();
+    projectService.getProjectOf(this.projectId).subscribe(result => {
+      this.project = result;
+      this.startDate = new Date(Date.parse(this.project.startTime));
+      this.endDate = new Date(Date.parse(this.project.endTime));
     });
   }
 
@@ -117,13 +116,29 @@ export class PjManageTaskComponent implements OnInit {
       content:[null, [required]]
     });
     this.studentService.getStudentsOfProject(this.projectId).subscribe(result=>{
-      this.students=result;
+      if(result.code == 200){
+        this.students=result.data;
+      }
+      else{
+        window.alert("项目信息请求错误");
+      }
+      
     });
+    this.isDeleting =false;
   }
 
   onDelete(index:number){
+    if(this.isDeleting){
+      this.modal.info({
+        nzTitle:"操作异常",
+        nzContent:"删除失败，请稍等片刻后再尝试"
+      });
+      return;
+    }
+    this.isDeleting =  !this.isDeleting;
     this.taskService.deleteTask(index).subscribe(result=>{
-      if(result.state=="true"){
+      this.isDeleting =  !this.isDeleting;
+      if(result.code === 200){
         this.modal.success({
           nzTitle: '删除任务',
           nzContent: '任务删除成功',
@@ -154,28 +169,31 @@ export class PjManageTaskComponent implements OnInit {
     if(!this.isSubmit){
       this.isSubmit = !this.isSubmit;
       this.taskService.addTask({
-        task_id:0,
-        task_name:data.task_name,
-        project_id:this.projectId,
-        user_id:data.user_id,
-        start_time:format.default(date0, 'yyyy-MM-dd'),
-        end_time:format.default(date1,"yyyy-MM-dd"),
+        taskId:0,
+        taskName:data.task_name,
+        projectId:this.projectId,
+        userId:data.user_id,
+        startTime:format.default(date0, 'yyyy-MM-dd'),
+        endTime:format.default(date1,"yyyy-MM-dd"),
         content:data.content,
+        state:0,
+        comment:"",
       }).subscribe(result => {
         this.isSubmit = !this.isSubmit;
-        if(result.state=="true"){
+        if(result.code === 200){
           this.modal.success({
             nzTitle: '创建任务',
             nzContent: '任务创建成功',
             nzOnOk:() => {
               this.router.navigate(['.']);
+              this.validateForm.reset();
             }
           });
         }
         else{
           this.modal.error({
             nzTitle: '任务创建',
-            nzContent: '任务创建失败，请稍后再试',
+            nzContent: '任务创建失败，请稍后再试。错误信息：'+result.message,
           });
         }
       })
