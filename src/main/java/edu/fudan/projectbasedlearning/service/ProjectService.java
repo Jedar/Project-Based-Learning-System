@@ -4,6 +4,7 @@ import edu.fudan.projectbasedlearning.core.Service;
 import edu.fudan.projectbasedlearning.pojo.Student;
 import edu.fudan.projectbasedlearning.pojo.User;
 
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -23,8 +24,21 @@ public interface ProjectService extends Service<Project> {
      */
     int saveScoreDistribute(int projectId, double value1, double value2, double value3);
 
-    //删除项目
+    // 删除项目
     void deleteProject(int projectId);
+
+    //查询某门课程的所有项目
+    List<Project> selectAllProjectsOfCourse(int courseId);
+
+    //查询某个学生在某门课程下参与的所有项目
+    List<Project> selectAllProjectsOfStudentInCourse(int studentId, int courseId);
+
+    //学生退出项目
+    void studentDropProject(int studentId, int projectId);
+
+    //学生加入新项目
+    HashMap<String, Object> studentJoinProject(int studentId, int projectId);
+
 
     void createProject(Project project, double value1, double value2, double value3);
 }

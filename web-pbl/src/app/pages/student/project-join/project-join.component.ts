@@ -1,14 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {Project} from "../../../share/project.model";
 import {NzMessageService, NzModalRef, NzModalService} from "ng-zorro-antd";
 import {ProjectService} from "../../../services/project.service";
+import {ProjectListComponent} from "../project-list/project-list.component";
+import {AuthService} from "../../../services/auth.service";
 
 @Component({
   selector: 'app-project-join',
   templateUrl: './project-join.component.html',
-  styleUrls: ['./project-join.component.css']
+  styleUrls: ['./project-join.component.css'],
+  inputs: ['courseId']
 })
 export class ProjectJoinComponent implements OnInit {
+
+  courseId;
 
   allProjects: Project[] = [];
   pagination = {
@@ -20,7 +25,8 @@ export class ProjectJoinComponent implements OnInit {
   constructor(
     private projectService: ProjectService,
     private modal: NzModalService,
-    private message: NzMessageService
+    private message: NzMessageService,
+    private authService: AuthService
   ) { }
 
   ngOnInit(): void {
@@ -28,9 +34,9 @@ export class ProjectJoinComponent implements OnInit {
   }
 
   getAllProjects(): void {
-    this.projectService.getAllProjects(1)
+    this.projectService.getAllProjects(this.courseId)
       .subscribe(result => {
-        this.allProjects = result;
+        this.allProjects = result.data;
       })
   }
 
@@ -40,10 +46,11 @@ export class ProjectJoinComponent implements OnInit {
       nzContent: '确定加入该项目？',
       nzOnOk: () =>
         new Promise((resolve, reject) => {
-          this.projectService.joinProject(1, projectId)
+          this.projectService.joinProject(this.authService.getUserId(), projectId)
             .subscribe(result => {
-              if (result.state === '') {
+              if (result.code === 200) {
                 this.message.create('success', '加入项目成功');
+
               } else {
                 this.message.create('error', '加入项目失败，失败原因：' + result.message);
               }

@@ -30,7 +30,7 @@
   <nz-form-item>
     <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="gender">性别</nz-form-label>
     <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请输入性别！">
-      <nz-select ngModel='男' formControlName="gender" id="gender">
+      <nz-select formControlName="gender" id="gender">
         <nz-option nzValue="男" nzLabel="男"></nz-option>
         <nz-option nzValue="女" nzLabel="女"></nz-option>
       </nz-select>

@@ -7,9 +7,12 @@ import {NzMessageService, NzModalRef, NzModalService} from "ng-zorro-antd";
 @Component({
   selector: 'app-project-list',
   templateUrl: './project-list.component.html',
-  styleUrls: ['./project-list.component.css']
+  styleUrls: ['./project-list.component.css'],
+  inputs: ['courseId']
 })
 export class ProjectListComponent implements OnInit {
+
+  courseId;
 
   projects: Project[] = [];
   pagination = {
@@ -29,9 +32,9 @@ export class ProjectListComponent implements OnInit {
   }
 
   getAllProjects(): void {
-    this.projectService.getAllTeacherProjects(1)
+    this.projectService.getAllProjects(this.courseId)
       .subscribe(result => {
-        this.projects = result;
+        this.projects = result.data;
       })
   }
 
@@ -45,10 +48,11 @@ export class ProjectListComponent implements OnInit {
       nzContent: '确定删除该项目？',
       nzOnOk: () =>
         new Promise((resolve, reject) => {
-          this.projectService.deleteProject(1, projectId)
+          this.projectService.deleteProject(projectId)
             .subscribe(result => {
-              if (result.state === '') {
+              if (result.code === 200) {
                 this.message.create('success', '删除项目成功');
+                this.getAllProjects();
               } else {
                 this.message.create('error', '删除项目失败，失败原因：' + result.message);
               }

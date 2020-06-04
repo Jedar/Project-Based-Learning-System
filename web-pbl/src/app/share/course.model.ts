@@ -18,3 +18,17 @@ export interface CourseMessage {
   message: string,
   data: Course
 }
+
+export interface TeacherCourse {
+  courseId: number,
+  courseName: string,
+  description: string,
+  maxStudentNumber: number,
+  picture: string
+}
+
+export interface TeacherCourseListMessage {
+  code: number,
+  message: string,
+  data: TeacherCourse[]
+}

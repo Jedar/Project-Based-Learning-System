@@ -16,19 +16,19 @@ public class CourseMapperTest extends Tester {
 
     @Test
     public void selectStudentCourses() {
-        List<HashMap<String,String>> list = courseMapper.selectStudentCourses(10009);
+        List<HashMap<String,Object>> list = courseMapper.selectStudentCourses(10009);
         System.out.println(list);
     }
 
     @Test
     public void searchCourses() {
-        List<HashMap<String,String>> list = courseMapper.searchCourses("");
+        List<HashMap<String,Object>> list = courseMapper.searchCourses("");
         System.out.println(list);
     }
 
     @Test
     public void studentChooseCourse() {
-        List<HashMap<String,String>> list = courseMapper.selectStudentCourses(10009);
+        List<HashMap<String,Object>> list = courseMapper.selectStudentCourses(10009);
         System.out.println(list);
         courseMapper.studentChooseCourse(10009, 2);
         list = courseMapper.selectStudentCourses(10009);
@@ -37,7 +37,7 @@ public class CourseMapperTest extends Tester {
 
     @Test
     public void studentDropCourse() {
-        List<HashMap<String,String>> list = courseMapper.selectStudentCourses(10009);
+        List<HashMap<String,Object>> list = courseMapper.selectStudentCourses(10009);
         System.out.println(list);
         courseMapper.studentDropCourse(10009, 1);
         list = courseMapper.selectStudentCourses(10009);

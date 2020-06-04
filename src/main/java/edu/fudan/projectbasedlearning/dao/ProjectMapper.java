@@ -8,13 +8,15 @@ import java.util.List;
 
 
 public interface ProjectMapper extends Mapper<Project> {
-    //查询一门课程的学生列表
+
+    //查询一个项目的学生列表
     List<Student> findStudentListOfProject(int projectId);
 
     //插入评分规则
     void insertScoreDistribute(int projectId, int type, double distribute);
 
     void insertProject(Project project);
+
     // 删除项目
     void deleteProject(int projectId);
 

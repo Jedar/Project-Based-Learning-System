@@ -32,8 +32,8 @@ export class PjInfoComponent implements OnInit {
       this.project = result;
     });
 
-    this.studentService.getStudentInfo().subscribe(result => {
-      this.leader = result;
+    this.studentService.getStudentInfo(10009).subscribe(result => {
+      this.leader = result.data;
     });
 
     this.studentService.getStudentsOfProject(this.projectId).subscribe(result=>{
