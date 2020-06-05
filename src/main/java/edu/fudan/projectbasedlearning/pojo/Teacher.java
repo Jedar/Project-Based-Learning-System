@@ -13,6 +13,8 @@ public class Teacher {
 
     private String profile;
 
+    @Transient
+    private User user;
     /**
      * @return t_id
      */
@@ -67,5 +69,13 @@ public class Teacher {
      */
     public void setProfile(String profile) {
         this.profile = profile;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 
 import { ActivatedRoute,Router } from '@angular/router';
 import { TaskService } from '../../../services/task.service';
+import {TokenHandler} from "../../../share/Token";
+import {AuthService} from "../../../services/auth.service";
 
 @Component({
   selector: 'app-pj-teacher-main',
@@ -16,6 +18,7 @@ export class PjTeacherMainComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private taskService:TaskService,
+    private authService: AuthService
   ) {
     // route.params.subscribe(params => {
     //   this.projectId = Number.parseInt(params['projectId']);
@@ -25,13 +28,18 @@ export class PjTeacherMainComponent implements OnInit {
 
   ngOnInit(): void {
     let res = this.route;
-    
+
     this.route.parent.url.subscribe(url => {
       res.children[0].url.subscribe(u => {
         this.option = u[0].path;
       });
-      
+
     });
   }
 
+  logout(){
+    this.authService.setUserId(null);
+    new TokenHandler().deleteToken();
+    this.router.navigateByUrl("/auth/teacher/login");
+  }
 }

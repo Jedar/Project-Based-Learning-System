@@ -33,7 +33,7 @@ public class UserServiceTest extends Tester {
         student.setGender("男");
         student.setSchool("复旦大学");
         student.setUser(user);
-        userService.saveUser(student);
+        userService.saveStudent(student);
     }
     @Test
     public void test(){

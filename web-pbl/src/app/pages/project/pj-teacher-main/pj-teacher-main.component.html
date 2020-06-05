@@ -14,12 +14,13 @@
           </a>
         </div>
         <div class="header-info-item">
-          <a nzType="link" 
-            nzGhost 
-            nzTooltipTitle="登出" 
-            nzTooltipPlacement="bottom" 
-            nz-button 
+          <a nzType="link"
+            nzGhost
+            nzTooltipTitle="登出"
+            nzTooltipPlacement="bottom"
+            nz-button
             nz-tooltip
+             (click)="logout()"
             >
             <i nz-icon nzType="logout" nzTheme="outline"></i>
           </a>
@@ -45,16 +46,16 @@
                 <i nz-icon nzType="home" nzTheme="outline"></i>
                 项目信息
             </li>
-            
+
             <li nz-submenu nzOpen nzTitle="任务" nzIcon="bars">
               <ul>
-                <li [nzSelected]="option=='all_task'" 
-                  nz-menu-item 
-                  [routerLink]="['/','project','teacher','all_task']" 
+                <li [nzSelected]="option=='all_task'"
+                  nz-menu-item
+                  [routerLink]="['/','project','teacher','all_task']"
                   [queryParams]="{projectId:projectId}">任务总览</li>
-                <li [nzSelected]="option=='manage_task'" 
-                  nz-menu-item  
-                  [routerLink]="['/','project','teacher','manage_task']" 
+                <li [nzSelected]="option=='manage_task'"
+                  nz-menu-item
+                  [routerLink]="['/','project','teacher','manage_task']"
                   [queryParams]="{projectId:projectId}">管理任务</li>
               </ul>
             </li>

@@ -4,6 +4,7 @@ import edu.fudan.projectbasedlearning.annotation.UserLoginToken;
 import edu.fudan.projectbasedlearning.core.Result;
 import edu.fudan.projectbasedlearning.core.ResultGenerator;
 import edu.fudan.projectbasedlearning.pojo.Student;
+import edu.fudan.projectbasedlearning.pojo.Teacher;
 import edu.fudan.projectbasedlearning.pojo.User;
 import edu.fudan.projectbasedlearning.service.CourseService;
 import edu.fudan.projectbasedlearning.service.UserService;
@@ -44,14 +45,23 @@ public class UserController {
         user.setUsername(username);
         user.setPassword(password);
         user.setRole(role);
-        Student student = new Student();
-        student.setGender(gender);
-        System.out.println(gender);
-        student.setSchool(school);
-        student.setUser(user);
-        System.out.println(student);
-        System.out.println(user);
-        int result = userService.saveUser(student);
+        int result;
+        if (role == 1){
+            Teacher teacher = new Teacher();
+            teacher.setGender(gender);
+            teacher.setSchool(school);
+            teacher.setUser(user);
+            result = userService.saveTeacher(teacher);
+        }else if(role == 2){
+            Student student = new Student();
+            student.setGender(gender);
+            System.out.println(gender);
+            student.setSchool(school);
+            student.setUser(user);
+            result = userService.saveStudent(student);
+        }else
+            result = 0;
+
         if (result == 1)
             return ResultGenerator.genSuccessResult();
         else

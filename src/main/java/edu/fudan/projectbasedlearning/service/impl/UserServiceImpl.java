@@ -39,11 +39,20 @@ public class UserServiceImpl extends AbstractService<User> implements UserServic
      * @return
      */
     @Override
-    public int saveUser(Student student){
+    public int saveStudent(Student student) {
         int result;
         result = userMapper.insertUser(student.getUser());
         student.setsId(student.getUser().getUserId());
         result = studentMapper.insertSelective(student);
+        return result;
+    }
+
+    @Override
+    public int saveTeacher(Teacher teacher) {
+        int result;
+        result = userMapper.insertUser(teacher.getUser());
+        teacher.settId(teacher.getUser().getUserId());
+        result = teacherMapper.insertSelective(teacher);
         return result;
     }
 
@@ -139,6 +148,7 @@ public class UserServiceImpl extends AbstractService<User> implements UserServic
         user.setRole(role);
         return userMapper.findByUserNameAndPassword(user);
     }
+
 
     @Override
     public HashMap<String, Object> getStudentInfo(int studentId) {

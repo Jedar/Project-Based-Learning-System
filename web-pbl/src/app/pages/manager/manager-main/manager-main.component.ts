@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 
 
 import { ActivatedRoute,Router } from '@angular/router';
+import {AuthService} from "../../../services/auth.service";
+import {TokenHandler} from "../../../share/Token";
 
 @Component({
   selector: 'app-manager-main',
@@ -14,6 +16,7 @@ export class ManagerMainComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
+    private authService: AuthService
   ) { }
 
   ngOnInit(): void {
@@ -25,6 +28,12 @@ export class ManagerMainComponent implements OnInit {
       });
 
     });
+  }
+
+  logout(){
+    this.authService.setUserId(null);
+    new TokenHandler().deleteToken();
+    this.router.navigateByUrl("/auth/manager/login");
   }
 
 }

@@ -111,7 +111,6 @@ export class ManagerLoginComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-
     this.localUserID = this.authService.getLocalStorage("manager","pbl_userId");
     this.localPassword = this.authService.getLocalStorage("manager","pbl_password");
     if (this.authService.isLocalStorageSupported()){//浏览器支持localStorage

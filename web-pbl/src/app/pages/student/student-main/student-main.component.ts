@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
+import {TokenHandler} from "../../../share/Token";
+import {AuthService} from "../../../services/auth.service";
 
 @Component({
   selector: 'app-student-main',
@@ -13,6 +15,7 @@ export class StudentMainComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
+    private authService: AuthService
   ) { }
 
   ngOnInit(): void {
@@ -23,6 +26,11 @@ export class StudentMainComponent implements OnInit {
         this.option = u[0].path;
       });
     });
+  }
+  logout(){
+    this.authService.setUserId(null);
+    new TokenHandler().deleteToken();
+    this.router.navigateByUrl("/auth/student/login");
   }
 
 }

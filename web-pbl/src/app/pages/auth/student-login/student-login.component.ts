@@ -109,7 +109,6 @@ export class StudentLoginComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-
     this.localUserID = this.authService.getLocalStorage("student","pbl_userId");
     this.localPassword = this.authService.getLocalStorage("student","pbl_password");
     if (this.authService.isLocalStorageSupported()){//浏览器支持localStorage

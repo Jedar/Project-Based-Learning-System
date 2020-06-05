@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
+import {TokenHandler} from "../../../share/Token";
+import {AuthService} from "../../../services/auth.service";
 
 @Component({
   selector: 'app-teacher-main',
@@ -13,6 +15,7 @@ export class TeacherMainComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
+    private authService: AuthService
   ) { }
 
   ngOnInit(): void {
@@ -24,6 +27,12 @@ export class TeacherMainComponent implements OnInit {
       });
 
     });
+  }
+
+  logout(){
+    this.authService.setUserId(null);
+    new TokenHandler().deleteToken();
+    this.router.navigateByUrl("/auth/teacher/login");
   }
 
 }
