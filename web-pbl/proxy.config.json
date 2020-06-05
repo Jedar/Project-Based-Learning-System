@@ -178,5 +178,59 @@
   "/upload/*":{
     "target": "http://localhost:8080",
     "secure": "false"
+  },
+  "/login/store": {
+    "target": "http://localhost:8080",
+    "secure": "false"
+  },
+
+  "/course/getStudentCourses/": {
+    "target": "http://localhost:8080",
+    "secure": "false"
+  },
+
+  "/course/searchCourse": {
+    "target": "http://localhost:8080",
+    "secure": "false"
+  },
+
+  "/course/studentDropCourse": {
+    "target": "http://localhost:8080",
+    "secure": "false"
+  },
+
+  "/course/studentJoinCourse": {
+    "target": "http://localhost:8080",
+    "secure": "false"
+  },
+
+  "/project/getAllStudentProjects": {
+    "target": "http://localhost:8080",
+    "secure": "false"
+  },
+
+  "/project/studentDropProject": {
+    "target": "http://localhost:8080",
+    "secure": "false"
+  },
+
+  "/project/getAllCourseProjects": {
+    "target": "http://localhost:8080",
+    "secure": "false"
+  },
+
+  "/project/studentJoinProject": {
+    "target": "http://localhost:8080",
+    "secure": "false"
+  },
+
+  "/course/getTeacherCourses": {
+    "target": "http://localhost:8080",
+    "secure": "false"
+  },
+
+  "/user/getStudentInfo": {
+    "target": "http://localhost:8080",
+    "secure": "false"
   }
 }

@@ -7,10 +7,10 @@ import {catchError, map, tap} from 'rxjs/operators';
 /* 回调对象 */
 import {Observable, of, ObservableInput} from "rxjs";
 
-import {Project, ProjectListMessage,ProjectMessage} from '../share/project.model';
+import {Project, ProjectListMessage, ProjectMessage} from '../share/project.model';
 
 import {Result, ResultMessage} from '../share/common.model';
-import { TokenHandler } from '../share/Token';
+import {TokenHandler} from '../share/Token';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -34,15 +34,15 @@ export class ProjectService {
   }
 
   getProjectOf(project_id: number): Observable<ProjectMessage> {
-    let url = "/project/info/"+project_id;
-    return this.http.get<ProjectMessage>(url,httpGetOptions).pipe();
+    let url = "/project/info/" + project_id;
+    return this.http.get<ProjectMessage>(url, httpGetOptions).pipe();
   }
 
   getAllStudentProjects(studentId: number, courseId: number): Observable<ProjectListMessage> {
     return this.http.get<ProjectListMessage>(
       "/project/getAllStudentProjects?studentId=" + studentId + "&courseId=" + courseId,
       httpGetOptions
-      ).pipe();
+    ).pipe();
   }
 
 
@@ -50,14 +50,14 @@ export class ProjectService {
     return this.http.delete<ResultMessage>(
       "/project/studentDropProject?studentId=" + studentId + "&projectId=" + projectId,
       httpGetOptions
-      ).pipe();
+    ).pipe();
   }
 
   getAllProjects(courseId: number): Observable<ProjectListMessage> {
     return this.http.get<ProjectListMessage>(
       "/project/getAllCourseProjects?&courseId=" + courseId,
       httpGetOptions
-      ).pipe();
+    ).pipe();
   }
 
   joinProject(studentId: number, projectId: number): Observable<ResultMessage> {
@@ -66,9 +66,7 @@ export class ProjectService {
   }
 
   deleteProject(projectId: number): Observable<ResultMessage> {
-    var params  = new HttpParams()
-      .set("projectId", String(projectId));
-    return this.http.delete<ResultMessage>("/project/deleteProject", {params}).pipe()
+    return this.http.delete<ResultMessage>("/project/deleteProject?projectId=" + projectId, httpGetOptions).pipe()
   }
 
 }
