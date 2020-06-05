@@ -6,32 +6,32 @@ nz-content {
   padding: 0 50px;
 }
 
-nz-card{
+nz-card {
   margin: 15px;
   /*background: #ECECEC;*/
 }
 
-nz-comment-content{
+nz-comment-content {
   margin-left: 10px;
 }
 
-nz-comment-action{
+nz-comment-action {
   color: #98bf21;
   margin-left: 10px;
 }
 
-.ant-comment-content-author-name{
+.ant-comment-content-author-name {
   margin-top: -10px;
   font-size: large;
   color: #98bf21;
 }
 
-.ant-comment-content-author-time{
+.ant-comment-content-author-time {
   margin-left: 10px;
   font-size: small;
 }
 
-.action{
+.action {
   margin-left: 10px;
   color: #98bf21;
 }

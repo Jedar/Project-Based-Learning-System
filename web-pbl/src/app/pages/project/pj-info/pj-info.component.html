@@ -9,13 +9,13 @@
       <th>项目主题：</th>
       <td>{{ project.theme}}</td>
     </tr>
-    <tr>
+    <tr *ngIf="leader">
       <th>组长：</th>
-      <td *ngIf="leader">{{ leader.username }}</td>
+      <td >{{ leader.username }}</td>
     </tr>
     <tr>
       <th>组员:</th>
-      <td><span *ngFor="let data of student">{{data.username}}   </span></td>
+      <td><span *ngFor="let data of students">{{data.username}}   </span></td>
     </tr>
     <tr>
       <th>开始时间<i nz-icon nzType="swap-right" nzTheme="outline"></i>结束时间:</th>

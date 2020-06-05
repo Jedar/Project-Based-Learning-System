@@ -6,7 +6,7 @@
   <nz-tab nzTitle="全部讨论">
     <nz-content>
       <nz-list [nzItemLayout]="'horizontal'">
-        <nz-card *ngFor="let data of discussions">
+        <nz-card *ngFor="let data of firstDiscussions">
           <nz-comment>
             <nz-avatar nz-comment-avatar nzSize="large" nzIcon="user" style="background-color:#87d068;"></nz-avatar>
             <!--            <nz-avatar nzSize="large" nz-comment-avatar nzIcon="user"-->
@@ -38,7 +38,7 @@
                 <!--                         nzSrc="//zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"></nz-avatar>-->
                 <nz-comment-content>
                   <nz-form-item>
-                    <textarea placeholder="回复讨论" nz-input rows="4" [(ngModel)]="replyContent" ></textarea>
+                    <textarea placeholder="回复讨论" nz-input rows="4" [(ngModel)]="replyContent"></textarea>
                   </nz-form-item>
                   <nz-form-item>
                     <button nz-button nzType="primary" (click)="reply(data.discussionId)">
@@ -48,7 +48,7 @@
                 </nz-comment-content>
               </nz-comment>
             </div>
-<!--            子讨论-->
+            <!--            子讨论-->
             <div *ngIf="discussionChildren.size">
               <nz-card *ngFor="let child of discussionChildren.get(data.discussionId)">
                 <nz-comment>
@@ -56,7 +56,7 @@
                              style="background-color:#87d068;"></nz-avatar>
                   <nz-comment-content>
                     <div class="ant-comment-content-author-name">
-                      {{getAuthor(child.userId)}}
+                      {{getAuthor(data.userId)}}
                       <span class="ant-comment-content-author-time">{{child.time}}</span></div>
                     <p>{{ child.content }}</p>
                   </nz-comment-content>
@@ -85,7 +85,7 @@
                           <textarea placeholder="回复讨论" nz-input rows="4" [(ngModel)]="replyContent"></textarea>
                         </nz-form-item>
                         <nz-form-item>
-                          <button nz-button nzType="primary" (click)="reply(child.discussionId)">
+                          <button nz-button nzType="primary" (click)="reply(data.discussionId)">
                             回复
                           </button>
                         </nz-form-item>
@@ -97,7 +97,7 @@
             </div>
           </nz-comment>
         </nz-card>
-<!--        子讨论-->
+        <!--        子讨论-->
 
         <nz-card>
           <nz-comment>
@@ -118,13 +118,13 @@
         </nz-card>
       </nz-list>
       <nz-pagination class="ant-table-pagination ant-table-pagination-right" [nzPageSize]="3" [nzPageIndex]="1"
-                     [nzTotal]="discussions.length"></nz-pagination>
+                     [nzTotal]="firstDiscussions.length"></nz-pagination>
     </nz-content>
   </nz-tab>
   <nz-tab nzTitle="我的讨论">
     <nz-content>
       <nz-list [nzItemLayout]="'horizontal'">
-        <nz-card *ngFor="let data of discussions">
+        <nz-card *ngFor="let data of firstDiscussions">
           <nz-comment>
             <nz-avatar nz-comment-avatar nzSize="large" nzIcon="user" style="background-color:#87d068;"></nz-avatar>
             <!--            <nz-avatar nzSize="large" nz-comment-avatar nzIcon="user"-->
@@ -138,7 +138,7 @@
             <nz-comment-action>
               <span class="action">
               <i nz-tooltip nzTitle="Like" nz-icon nzType="like" [nzTheme]="data.likes > 0 ? 'twotone' : 'outline'"
-                 ></i>
+              ></i>
               <span class="count like">{{ data.likes }}</span>
               </span>
             </nz-comment-action>

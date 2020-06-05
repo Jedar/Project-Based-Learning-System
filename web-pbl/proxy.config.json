@@ -1,128 +1,132 @@
 {
-    "/task/all": {
-      "target": "http://localhost:8080",
-      "secure": "false"
-    },
-    "/getVerify": {
-      "target": "http://localhost:8080",
-      "secure": "false"
-    },
-    "/file/list":{
-      "target": "http://localhost:8080",
-      "secure": "false"
-    },
-    "/file/delete/*":{
-      "target": "http://localhost:8080",
-      "secure": "false"
-    },
-    "/file/add":{
-      "target": "http://localhost:8080",
-      "secure": "false"
-    },
-    "/task/user":{
-      "target": "http://localhost:8080",
-      "secure": "false"
-    },
-    "/task/edit":{
-      "target": "http://localhost:8080",
-      "secure": "false"
-    },
-    "/task/update":{
-      "target": "http://localhost:8080",
-      "secure": "false"
-    },
-    "/task/info/*":{
-      "target": "http://localhost:8080",
-      "secure": "false"
-    },
-    "/task/add":{
-      "target": "http://localhost:8080",
-      "secure": "false"
-    },
-    "/task/delete/*":{
-      "target": "http://localhost:8080",
-      "secure": "false"
-    },
-    "/student/project":{
-      "target": "http://localhost:8080",
-      "secure": "false"
-    },
-    "/user/login": {
-      "target": "http://localhost:8080",
-      "secure": "false"
-    },
-    "/checkCode": {
-      "target": "http://localhost:8080",
-      "secure": "false"
-    },
-    "/user/isUniqueUsername": {
-      "target": "http://localhost:8080",
-      "secure": "false"
-    },
-    "/user/signup": {
-      "target": "http://localhost:8080",
-      "secure": "false"
-    },
-    "/user/teacherList": {
-      "target": "http://localhost:8080",
-      "secure": "false"
-    },
-    "/user/studentList": {
-      "target": "http://localhost:8080",
-      "secure": "false"
-    },
-    "/user/modifyStudentInfo": {
-      "target": "http://localhost:8080",
-      "secure": "false"
-    },
-    "/user/modifyTeacherInfo": {
-      "target": "http://localhost:8080",
-      "secure": "false"
-    },
-    "/user/deleteStudent": {
-      "target": "http://localhost:8080",
-      "secure": "false"
-    },
-    "/user/deleteTeacher": {
-      "target": "http://localhost:8080",
-      "secure": "false"
-    },
-    "/project/projectList": {
-      "target": "http://localhost:8080",
-      "secure": "false"
-    },
-    "/course/courseList": {
-      "target": "http://localhost:8080",
-      "secure": "false"
-    },
-    "/course/deleteCourse": {
-      "target": "http://localhost:8080",
-      "secure": "false"
-    },
-    "/course/updateCourse": {
-      "target": "http://localhost:8080",
-      "secure": "false"
-    },
-    "/project/deleteProject": {
-      "target": "http://localhost:8080",
-      "secure": "false"
-    },
-    "/project/updateProject": {
-      "target": "http://localhost:8080",
-      "secure": "false"
-    },
-    "/course/createCourse": {
-      "target": "http://localhost:8080",
-      "secure": "false"
-    },
-    "/project/createProject": {
-      "target": "http://localhost:8080",
-      "secure": "false"
-    },
-    "/project/info/*":{
-      "target": "http://localhost:8080",
-      "secure": "false"
-    },
+  "/task/all": {
+    "target": "http://localhost:8080",
+    "secure": "false"
+  },
+  "/getVerify": {
+    "target": "http://localhost:8080",
+    "secure": "false"
+  },
+  "/file/list":{
+    "target": "http://localhost:8080",
+    "secure": "false"
+  },
+  "/file/delete/*":{
+    "target": "http://localhost:8080",
+    "secure": "false"
+  },
+  "/file/add":{
+    "target": "http://localhost:8080",
+    "secure": "false"
+  },
+  "/task/user":{
+    "target": "http://localhost:8080",
+    "secure": "false"
+  },
+  "/task/edit":{
+    "target": "http://localhost:8080",
+    "secure": "false"
+  },
+  "/task/update":{
+    "target": "http://localhost:8080",
+    "secure": "false"
+  },
+  "/task/info/*":{
+    "target": "http://localhost:8080",
+    "secure": "false"
+  },
+  "/task/add":{
+    "target": "http://localhost:8080",
+    "secure": "false"
+  },
+  "/task/delete/*":{
+    "target": "http://localhost:8080",
+    "secure": "false"
+  },
+  "/student/project":{
+    "target": "http://localhost:8080",
+    "secure": "false"
+  },
+  "/user/login": {
+    "target": "http://localhost:8080",
+    "secure": "false"
+  },
+  "/checkCode": {
+    "target": "http://localhost:8080",
+    "secure": "false"
+  },
+  "/user/isUniqueUsername": {
+    "target": "http://localhost:8080",
+    "secure": "false"
+  },
+  "/user/signup": {
+    "target": "http://localhost:8080",
+    "secure": "false"
+  },
+  "/user/teacherList": {
+    "target": "http://localhost:8080",
+    "secure": "false"
+  },
+  "/user/studentList": {
+    "target": "http://localhost:8080",
+    "secure": "false"
+  },
+  "/user/modifyStudentInfo": {
+    "target": "http://localhost:8080",
+    "secure": "false"
+  },
+  "/user/modifyTeacherInfo": {
+    "target": "http://localhost:8080",
+    "secure": "false"
+  },
+  "/user/deleteStudent": {
+    "target": "http://localhost:8080",
+    "secure": "false"
+  },
+  "/user/deleteTeacher": {
+    "target": "http://localhost:8080",
+    "secure": "false"
+  },
+  "/user/getStudentInfo/*": {
+    "target": "http://localhost:8080",
+    "secure": "false"
+  },
+  "/project/projectList": {
+    "target": "http://localhost:8080",
+    "secure": "false"
+  },
+  "/course/courseList": {
+    "target": "http://localhost:8080",
+    "secure": "false"
+  },
+  "/course/deleteCourse": {
+    "target": "http://localhost:8080",
+    "secure": "false"
+  },
+  "/course/updateCourse": {
+    "target": "http://localhost:8080",
+    "secure": "false"
+  },
+  "/project/deleteProject": {
+    "target": "http://localhost:8080",
+    "secure": "false"
+  },
+  "/project/updateProject": {
+    "target": "http://localhost:8080",
+    "secure": "false"
+  },
+  "/course/createCourse": {
+    "target": "http://localhost:8080",
+    "secure": "false"
+  },
+  "/project/createProject": {
+    "target": "http://localhost:8080",
+    "secure": "false"
+  },
+  "/project/info/*":{
+    "target": "http://localhost:8080",
+    "secure": "false"
+  },
   "/discussion/list": {
     "target": "http://localhost:8080",
     "secure": "false"
@@ -136,6 +140,22 @@
     "secure": "false"
   },
   "/discussion/getDiscussionAuthor": {
+    "target": "http://localhost:8080",
+    "secure": "false"
+  },
+  "/discussion/getAllDiscussions": {
+    "target": "http://localhost:8080",
+    "secure": "false"
+  },
+  "/discussion/getPublishCount": {
+    "target": "http://localhost:8080",
+    "secure": "false"
+  },
+  "/discussion/getReplyCount": {
+    "target": "http://localhost:8080",
+    "secure": "false"
+  },
+  "/discussion/updateLikes": {
     "target": "http://localhost:8080",
     "secure": "false"
   },

@@ -13,7 +13,7 @@ public class ScoreMapperTest extends Tester {
     private ScoreMapper scoreMapper;
 
     @Test
-    public void testInsertScore(){
+    public void testInsertScore() {
         Score score = new Score();
         score.setProjectId(1);
         score.setScorerId(10000);
@@ -26,7 +26,7 @@ public class ScoreMapperTest extends Tester {
     }
 
     @Test
-    public void testFindStudentScores(){
+    public void testFindStudentScores() {
         List<Score> scores = scoreMapper.findStudentScores(10009);
         System.out.println(scores.size());
         System.out.println(scores.get(0).getValue());
@@ -35,7 +35,7 @@ public class ScoreMapperTest extends Tester {
     }
 
     @Test
-    public void testDeleteScore(){
+    public void testDeleteScore() {
         scoreMapper.deleteScore(10009);
     }
 }

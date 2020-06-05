@@ -1,4 +1,5 @@
 package edu.fudan.projectbasedlearning.controller;
+
 import edu.fudan.projectbasedlearning.core.Result;
 import edu.fudan.projectbasedlearning.core.ResultGenerator;
 import edu.fudan.projectbasedlearning.pojo.Score;
@@ -13,8 +14,8 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
-* Created by CodeGenerator on 2020/05/29.
-*/
+ * Created by CodeGenerator on 2020/05/29.
+ */
 @RestController
 @RequestMapping("/score")
 public class ScoreController {
@@ -22,7 +23,7 @@ public class ScoreController {
     private ScoreService scoreService;
 
     @PostMapping("/add")
-    public Result add(@RequestParam HashMap<String,String> hashMap) {
+    public Result add(@RequestParam HashMap<String, String> hashMap) {
         Score score = new Score();
         score.setValue(Integer.parseInt(hashMap.get("value")));
         score.setUserId(Integer.parseInt(hashMap.get("userId")));
@@ -55,7 +56,7 @@ public class ScoreController {
     }
 
     @GetMapping("/getScores")
-    public Result getScores(@RequestParam Integer studentId){
+    public Result getScores(@RequestParam Integer studentId) {
         List<Score> scores = scoreService.findScoresByStudentId(studentId);
         return ResultGenerator.genSuccessResult(scores);
     }

@@ -14,37 +14,63 @@ public class DiscussionMapperTest extends Tester {
     private DiscussionMapper discussionMapper;
 
     @Test
-    public void testSave(){
+    public void testSave() {
         Discussion discussion = new Discussion();
         discussion.setContent("a child demo");
         discussion.setLikes(3);
-       discussion.setProjectId(1);
-       discussion.setTime(new Date());
-       discussion.setUserId(10017);
-       discussion.setParentsId(2);
-       discussionMapper.insert(discussion);
+        discussion.setProjectId(1);
+        discussion.setTime(new Date());
+        discussion.setUserId(10017);
+        discussion.setParentsId(2);
+        discussionMapper.insert(discussion);
     }
 
     @Test
-    public void testGetDiscussionsByProjectId(){
-        List<Discussion> discussionList = discussionMapper.getDiscussionsByProjectId(1);
+    public void testGetDiscussionsByProjectId() {
+        List<Discussion> discussionList = discussionMapper.getFirstDiscussionsByProjectId(1);
         System.out.println(discussionList.get(0).getLikes());
         System.out.println(discussionList.get(0).getDiscussionId());
         System.out.println(discussionList.get(0).getProjectId());
     }
 
     @Test
-    public void testGetDiscussionChildren(){
-        List<Discussion> discussionList = discussionMapper.getDiscussionChildrenList(1,2);
+    public void testGetDiscussionChildren() {
+        List<Discussion> discussionList = discussionMapper.getDiscussionChildrenList(1, 2);
         System.out.println(discussionList.get(0).getLikes());
         System.out.println(discussionList.get(0).getDiscussionId());
         System.out.println(discussionList.get(0).getProjectId());
     }
 
     @Test
-    public void testGetAuthor(){
-        HashMap<String,String> studentInfo = discussionMapper.getDiscussionAuthor(10009);
+    public void testGetAuthor() {
+        HashMap<String, String> studentInfo = discussionMapper.getDiscussionAuthor(10009);
         System.out.println(studentInfo);
     }
 
+    @Test
+    public void testGetAllDiscussions() {
+        List<Discussion> discussionList = discussionMapper.getAllDiscussions(1);
+        for (Discussion discussion : discussionList) {
+            System.out.println(discussion);
+        }
+    }
+
+    @Test
+    public void testGetPublishCount(){
+        int count = discussionMapper.getPublishCount(10009);
+        System.out.println(count);
+    }
+
+    @Test
+    public void testGetReplyCount(){
+        int count = discussionMapper.getReplyCount(10009);
+        System.out.println(count);
+    }
+
+    @Test
+    public void testUpdateLikes(){
+        int id = 2;
+        int likes = 3;
+        discussionMapper.updateLikes(id,likes);
+    }
 }
