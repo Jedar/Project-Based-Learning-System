@@ -1,19 +1,17 @@
 package edu.fudan.projectbasedlearning.controller;
+import edu.fudan.projectbasedlearning.annotation.UserLoginToken;
 import edu.fudan.projectbasedlearning.core.Result;
 import edu.fudan.projectbasedlearning.core.ResultGenerator;
 import edu.fudan.projectbasedlearning.pojo.Task;
 import edu.fudan.projectbasedlearning.pojo.User;
 import edu.fudan.projectbasedlearning.request.EditTaskRequest;
 import edu.fudan.projectbasedlearning.service.TaskService;
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
 * Created by CodeGenerator on 2020/05/29.
@@ -67,6 +65,7 @@ public class TaskController {
         return ResultGenerator.genSuccessResult();
     }
 
+    @UserLoginToken(roles = {"Student","Teacher","Manager"})
     @PutMapping("/update")
     public Result modify(@RequestBody Task task){
         this.taskService.update(task);

@@ -1,5 +1,4 @@
 package edu.fudan.projectbasedlearning.controller;
-import edu.fudan.projectbasedlearning.annotation.ManagerToken;
 import edu.fudan.projectbasedlearning.annotation.PassToken;
 import edu.fudan.projectbasedlearning.annotation.UserLoginToken;
 import edu.fudan.projectbasedlearning.core.Result;
@@ -8,13 +7,10 @@ import edu.fudan.projectbasedlearning.pojo.Student;
 import edu.fudan.projectbasedlearning.pojo.User;
 import edu.fudan.projectbasedlearning.service.CourseService;
 import edu.fudan.projectbasedlearning.service.UserService;
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 import edu.fudan.projectbasedlearning.utils.JWTTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.List;
 
@@ -82,7 +78,6 @@ public class UserController {
         return ResultGenerator.genSuccessResult(studentList);
     }
 
-    @ManagerToken
     @DeleteMapping("/deleteTeacher")
     public Result deleteTeacher(int teacherId){
         if (courseService.selectTeacherCourses(teacherId).size() == 0){//没有开设课程
