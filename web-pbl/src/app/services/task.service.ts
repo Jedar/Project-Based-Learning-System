@@ -10,10 +10,18 @@ import {Observable,of, ObservableInput} from "rxjs";
 import { TaskInfoMessage,EditTaskMessage,TaskMessage,TaskListMessage } from "../share/task.model";
 
 import {ResultMessage} from "../share/common.model";
+import { TokenHandler } from '../share/Token';
 
 const httpPostOptions = {
   headers: new HttpHeaders({
     'Content-Type':  'application/json',
+    'token':new TokenHandler().getToken(),
+  })
+};
+
+const httpOptions = {
+  headers: new HttpHeaders({
+    'token':new TokenHandler().getToken(),
   })
 };
 
@@ -46,27 +54,27 @@ export class TaskService {
   getTaskList(projectId:number):Observable<TaskListMessage>{
     let url = this.allTasksUrl+"?projectId="+projectId;
     // return this.http.get<Task[]>("/assets/data/tasks.json").pipe();
-    return this.http.get<TaskListMessage>(url,httpPostOptions).pipe();
+    return this.http.get<TaskListMessage>(url,httpOptions).pipe();
   }
 
   getTaskListOfUser(projectId:number,userId:number):Observable<TaskListMessage>{
     // return this.http.get<Task[]>("/assets/data/tasks.json").pipe();
     let url = this.userTaskUrl + "?projectId="+projectId+"&userId="+userId;
     console.log(url);
-    return this.http.get<TaskListMessage>(url).pipe();
+    return this.http.get<TaskListMessage>(url,httpOptions).pipe();
   }
 
   getTaskOf(taskId:number):Observable<TaskInfoMessage>{
     // return this.http.get<Task>("/assets/data/task_edit.json");
     let url = this.infoUrl+taskId;
-    return this.http.get<TaskInfoMessage>(url).pipe();
+    return this.http.get<TaskInfoMessage>(url,httpOptions).pipe();
   }
 
   getTaskMessageOfUser(taskId:number):Observable<TaskInfoMessage>{
     // console.log(taskId);
     // return this.http.get<TaskMessage>("/assets/data/task_modify.json")
     let url = this.infoUrl+taskId;
-    return this.http.get<TaskInfoMessage>(url).pipe();
+    return this.http.get<TaskInfoMessage>(url,httpOptions).pipe();
   }
 
   editTaskState(message:EditTaskMessage ):Observable<ResultMessage>{
@@ -78,7 +86,7 @@ export class TaskService {
 
   deleteTask(task_id:number):Observable<ResultMessage>{
     let url = this.deleteUrl+task_id;
-    return this.http.delete<ResultMessage>(url).pipe();
+    return this.http.delete<ResultMessage>(url,httpOptions).pipe();
   }
 
   addTask(task:TaskMessage):Observable<ResultMessage>{
@@ -94,9 +102,11 @@ export class TaskService {
 
   setProjectId(id:number){
     this.projectId = id;
+    sessionStorage.setItem("projectId",id+"");
   }
 
   getProjectId():number{
+    this.projectId = Number.parseInt(sessionStorage.getItem("projectId"));
     return this.projectId;
   }
 }

@@ -89,9 +89,10 @@ export class PjAllTaskComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private router:Router,
     ){
-      activatedRoute.queryParams.subscribe(params => {
-        this.projectId = Number(params['projectId']);
-      });
+      // activatedRoute.queryParams.subscribe(params => {
+      //   this.projectId = Number(params['projectId']);
+      // });
+      this.projectId = taskService.getProjectId();
   }
 
   ngOnInit(){
