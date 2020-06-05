@@ -48,7 +48,7 @@ export class ManagerStudentCreateComponent implements OnInit {
       // this.validateForm.controls["checkPassword"].setValue(md5Value);
       this.authService.signUp(formValue["username"],md5Value,formValue["gender"],formValue["school"], 2).subscribe(
         result=>{
-          if (result.message=="SUCCESS"){ //服务器返回注册成功
+          if (result.code==200){ //服务器返回注册成功
             this.modal.success({
               nzTitle: "",
               nzContent: "创建成功"
@@ -98,7 +98,7 @@ export class ManagerStudentCreateComponent implements OnInit {
       const username = control.value;
       this.authService.isUniqueUsername(username).subscribe(
         result=> {
-          if (result.message=="SUCCESS")
+          if (result.code==200)
             this.isUnique = true;
           else
             this.isUnique = false;

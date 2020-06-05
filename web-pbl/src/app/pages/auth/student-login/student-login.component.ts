@@ -7,6 +7,7 @@ import {HttpParams} from "@angular/common/http";
 import {Md5} from "ts-md5";
 import {Router} from "@angular/router";
 import {NzModalService} from "ng-zorro-antd";
+import {TokenHandler} from "../../../share/Token";
 
 @Component({
   selector: 'app-student-login',
@@ -44,7 +45,7 @@ export class StudentLoginComponent implements OnInit {
       // const checkCodeParam = new HttpParams().set("checkCode", formValue["checkCode"]);
       // console.log(checkCodeParam);
       this.authService.checkCode(formValue["checkCode"]).subscribe(result=>{
-        if (result.message!="SUCCESS"){
+        if (result.code!=200){
           this.modal.error({
             nzTitle: "",
             nzContent: "验证码错误"
@@ -60,7 +61,8 @@ export class StudentLoginComponent implements OnInit {
           //   .set("password", md5Password);
           // console.log(params);
           this.authService.login(formValue["userID"],md5Password, 2).subscribe(result=>{
-              if (result.message=="SUCCESS"){//登陆成功
+              if (result.code==200){//登陆成功
+                new TokenHandler().setToken(result.message);
                 if (formValue["remember"]){ //用户选择记住密码
                   this.authService.saveUserIdAndPassword("student",formValue["userID"], md5Password);
                 }else{
