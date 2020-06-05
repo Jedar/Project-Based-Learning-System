@@ -52,7 +52,7 @@ public class ProjectController {
     }
 
     @DeleteMapping("/deleteProject")
-    public Result deleteProject(int projectId) {
+    public Result deleteProject(@RequestParam("projectId") Integer projectId) {
         if (projectService.findUserListOfProject(projectId).size() == 0) {//无人选此项目
             projectService.deleteProject(projectId);
             return ResultGenerator.genSuccessResult();
