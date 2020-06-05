@@ -1,4 +1,7 @@
 package edu.fudan.projectbasedlearning.controller;
+import edu.fudan.projectbasedlearning.annotation.ManagerToken;
+import edu.fudan.projectbasedlearning.annotation.PassToken;
+import edu.fudan.projectbasedlearning.annotation.UserLoginToken;
 import edu.fudan.projectbasedlearning.core.Result;
 import edu.fudan.projectbasedlearning.core.ResultGenerator;
 import edu.fudan.projectbasedlearning.pojo.Student;
@@ -7,6 +10,7 @@ import edu.fudan.projectbasedlearning.service.CourseService;
 import edu.fudan.projectbasedlearning.service.UserService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import edu.fudan.projectbasedlearning.utils.JWTTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,13 +28,19 @@ public class UserController {
     private UserService userService;
     @Autowired
     private CourseService courseService;
+
+    @PassToken
     @PostMapping("/login")
     public Result login(String username, String password, int role){
         User user = userService.findByUsernameAndPassword(username, password, role);
-        if (user==null)
+        String token = JWTTokenUtil.getToken(user);
+
+        if (user==null) {
             return ResultGenerator.genFailResult("用户名或密码错误");
-        else
+        }
+        else{
             return ResultGenerator.genSuccessResult(user);
+        }
     }
     @PostMapping("/signup")
     public Result signup(String username, String password, String gender, String school, int role){
@@ -60,6 +70,7 @@ public class UserController {
             return ResultGenerator.genFailResult("用户名已存在");
     }
 
+    @UserLoginToken
     @GetMapping("/teacherList")
     public Result getTeacherList(){
         List<HashMap<String, Object>> teacherList = userService.getTeacherList();
@@ -71,6 +82,7 @@ public class UserController {
         return ResultGenerator.genSuccessResult(studentList);
     }
 
+    @ManagerToken
     @DeleteMapping("/deleteTeacher")
     public Result deleteTeacher(int teacherId){
         if (courseService.selectTeacherCourses(teacherId).size() == 0){//没有开设课程

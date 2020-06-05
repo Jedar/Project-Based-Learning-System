@@ -38,5 +38,4 @@ public class CorsConfig extends WebMvcConfigurer {
                 .addPathPatterns("/**")
         ;
     }
-
 }

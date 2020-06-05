@@ -11,7 +11,7 @@ import { TaskInfoMessage,EditTaskMessage,TaskMessage,TaskListMessage } from "../
 
 import {ResultMessage} from "../share/common.model";
 
-const httpOptions = {
+const httpPostOptions = {
   headers: new HttpHeaders({
     'Content-Type':  'application/json',
   })
@@ -46,7 +46,7 @@ export class TaskService {
   getTaskList(projectId:number):Observable<TaskListMessage>{
     let url = this.allTasksUrl+"?projectId="+projectId;
     // return this.http.get<Task[]>("/assets/data/tasks.json").pipe();
-    return this.http.get<TaskListMessage>(url).pipe();
+    return this.http.get<TaskListMessage>(url,httpPostOptions).pipe();
   }
 
   getTaskListOfUser(projectId:number,userId:number):Observable<TaskListMessage>{
@@ -73,7 +73,7 @@ export class TaskService {
     // return this.http.get<Result>("/assets/data/success.json").pipe();
     console.log(message);
     let url = this.editMessageUrl;
-    return this.http.put<ResultMessage>(url,message,httpOptions).pipe();
+    return this.http.put<ResultMessage>(url,message,httpPostOptions).pipe();
   }
 
   deleteTask(task_id:number):Observable<ResultMessage>{
@@ -83,13 +83,13 @@ export class TaskService {
 
   addTask(task:TaskMessage):Observable<ResultMessage>{
     let url = this.addUrl;
-    return this.http.post<ResultMessage>(url,task,httpOptions).pipe();
+    return this.http.post<ResultMessage>(url,task,httpPostOptions).pipe();
   }
 
   modifyTask(task:TaskMessage):Observable<ResultMessage>{
     console.log(task);
     let url = this.modifyMessageUrl;
-    return this.http.put<ResultMessage>(url,task,httpOptions).pipe();
+    return this.http.put<ResultMessage>(url,task,httpPostOptions).pipe();
   }
 
   setProjectId(id:number){

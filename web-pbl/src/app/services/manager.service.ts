@@ -6,10 +6,12 @@ import {Project, ProjectListMessage} from "../share/project.model";
 import {Course, CourseListMessage} from "../share/course.model";
 import {Student, StudentListMessage} from "../share/student.model";
 import {Teacher, TeacherListMessage} from "../share/teacher.model";
+import { TokenHandler } from '../share/Token';
 
 const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type':  'application/x-www-form-urlencoded;charset=utf-8',
+    'token':new TokenHandler().getToken(),
   })
 };
 
