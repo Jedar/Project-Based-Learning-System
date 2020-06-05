@@ -71,7 +71,7 @@ export class ManagerClassCreateComponent implements OnInit {
         .set("file",this.avatarUrl);
       console.log(params);
       this.managerService.createClass(formValue["name"],formValue["teacher"],formValue["description"],formValue["maxStudentNumber"], "picture").subscribe(result=>{
-        if (result.message=="SUCCESS"){
+        if (result.code==200){
           this.modal.success({
             nzTitle: "",
             nzContent: "创建成功"

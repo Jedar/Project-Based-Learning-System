@@ -39,7 +39,7 @@ export class ManagerService {
     return this.http.get<StudentListMessage>("/user/studentList",httpOptions).pipe()
   }
   teacherList():Observable<TeacherListMessage>{
-    return this.http.get<TeacherListMessage>("/user/teacherList",httpOptions).pipe()
+    return this.http.get<TeacherListMessage>("/user/teacherList", httpOptions).pipe()
   }
   projectList():Observable<ProjectListMessage>{
     return this.http.get<ProjectListMessage>("/project/projectList").pipe()

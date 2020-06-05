@@ -18,6 +18,12 @@ public class ResultGenerator {
                 .setMessage(DEFAULT_SUCCESS_MESSAGE)
                 .setData(data);
     }
+    public static <T> Result genSuccessResult(String token,T data) {
+        return new Result()
+                .setCode(ResultCode.SUCCESS)
+                .setMessage(token)
+                .setData(data);
+    }
 
     public static Result genFailResult(String message) {
         return new Result()

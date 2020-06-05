@@ -70,7 +70,7 @@ export class ManagerClassComponent implements OnInit {
       .set("id", id);
     console.log(params);
     this.managerService.deleteClass(id).subscribe(result=>{
-      if (result.message=="SUCCESS"){
+      if (result.code==200){
         this.modal.success({
           nzTitle: "",
           nzContent: "删除成功"
@@ -106,7 +106,7 @@ export class ManagerClassComponent implements OnInit {
       .set("maxStudentNumber", data.max_student_number + "");
     console.log(params);
     this.managerService.saveClassInformation(data.course_id + "", data.course_name, data.description, data.max_student_number).subscribe(result=>{
-      if (result.message=="SUCCESS"){
+      if (result.code==200){
         this.modal.success({
           nzTitle: "",
           nzContent: "保存成功"

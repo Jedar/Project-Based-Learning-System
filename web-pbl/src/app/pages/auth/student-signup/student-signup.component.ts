@@ -43,7 +43,7 @@ export class StudentSignupComponent implements OnInit {
     if (this.validateForm.valid){//所有验证通过开始提交表单
       this.authService.isUniqueUsername(formValue["username"]).subscribe(
         result=> {
-            if (result.message!="SUCCESS"){
+            if (result.code!=200){
               this.modal.error({
                 nzTitle:"",
                 nzContent:result.message
@@ -52,7 +52,7 @@ export class StudentSignupComponent implements OnInit {
               let md5Value = Md5.hashStr(formValue["password"]).toString();
               this.authService.signUp(formValue["username"],md5Value,formValue["gender"],formValue["school"], 2).subscribe(
                 result=>{
-                  if (result.message=="SUCCESS"){ //服务器返回注册成功
+                  if (result.code==200){ //服务器返回注册成功
                     this.modal.success({
                       nzTitle: "",
                       nzContent: "注册成功,请登录"

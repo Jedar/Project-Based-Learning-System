@@ -8,6 +8,7 @@ import {HttpParams} from "@angular/common/http";
 import {Md5} from "ts-md5";
 import {Router} from "@angular/router";
 import {NzModalService} from "ng-zorro-antd";
+import {TokenHandler} from "../../../share/Token";
 
 @Component({
   selector: 'app-manager-login',
@@ -46,7 +47,7 @@ export class ManagerLoginComponent implements OnInit {
       // console.log(checkCodeParam);
       this.authService.checkCode(formValue["checkCode"]).subscribe(result=>{
         //TODO: 把||后面的部分去掉
-        if (result.message!="SUCCESS"){
+        if (result.code!=200){
           this.modal.error({
             nzTitle: "",
             nzContent: "验证码错误"
@@ -62,8 +63,8 @@ export class ManagerLoginComponent implements OnInit {
           //   .set("password", md5Password);
           // console.log(params);
           this.authService.login(formValue["userID"],md5Password,0).subscribe(result=>{
-              if (result.message=="SUCCESS"){//登陆成功
-
+              if (result.code == 200){//登陆成功
+                new TokenHandler().setToken(result.message);
                 if (formValue["remember"]){ //用户选择记住密码
                   this.authService.saveUserIdAndPassword("manager",formValue["userID"], md5Password);
                 }else{

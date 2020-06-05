@@ -29,13 +29,12 @@ public class UserController {
     @PostMapping("/login")
     public Result login(String username, String password, int role){
         User user = userService.findByUsernameAndPassword(username, password, role);
-        String token = JWTTokenUtil.getToken(user);
-
         if (user==null) {
             return ResultGenerator.genFailResult("用户名或密码错误");
         }
         else{
-            return ResultGenerator.genSuccessResult(user);
+            String token = JWTTokenUtil.getToken(user);
+            return ResultGenerator.genSuccessResult(token, user);
         }
     }
     @PostMapping("/signup")

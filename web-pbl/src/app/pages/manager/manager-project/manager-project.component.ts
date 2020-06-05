@@ -68,7 +68,7 @@ export class ManagerProjectComponent implements OnInit {
   deleteRow(id){
     console.log(typeof id);
     this.managerService.deleteProject(id).subscribe(result=>{
-      if (result.message=="SUCCESS"){
+      if (result.code==200){
         this.modal.success({
           nzTitle: "",
           nzContent: "删除成功"
@@ -102,7 +102,7 @@ export class ManagerProjectComponent implements OnInit {
       this.managerService.saveProjectInformation(
         data.courseId+"",data.courseId+"", data.projectName, data.theme, start_time, end_time
       ).subscribe(result=>{
-        if (result.message=="SUCCESS"){
+        if (result.code==200){
           this.modal.success({
             nzTitle: "",
             nzContent: "保存成功"

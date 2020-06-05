@@ -1,11 +1,10 @@
 export class TokenHandler{
-    private token:string;
 
     public getToken():string{
-        return this.token;
+        return sessionStorage.getItem("token");
     }
 
     public setToken(token:string):void{
-        this.token = token;
+        sessionStorage.setItem("token", token);
     }
 }

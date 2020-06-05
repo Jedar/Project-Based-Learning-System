@@ -55,7 +55,7 @@ export class ManagerStudentComponent implements OnInit {
   //TODO: 删除学生信息
   deleteRow(s_id){
     this.managerService.deleteStudent(s_id).subscribe(result=>{
-      if (result.message=="SUCCESS"){
+      if (result.code==200){
         this.modal.success({
           nzTitle: "",
           nzContent: "删除成功"
@@ -85,7 +85,7 @@ export class ManagerStudentComponent implements OnInit {
     var data = this.editCache[s_id].data;
     if (data.username!=""&&data.school!=""){//输入不为空
       this.managerService.saveStudentInformation(data.sId, data.username, data.gender, data.school).subscribe(result=>{
-        if (result.message=="SUCCESS"){
+        if (result.code==200){
           this.modal.success({
             nzTitle: "",
             nzContent: "保存成功"

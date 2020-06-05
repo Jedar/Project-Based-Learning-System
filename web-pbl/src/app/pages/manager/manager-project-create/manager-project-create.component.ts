@@ -64,7 +64,7 @@ export class ManagerProjectCreateComponent implements OnInit {
       var end_time = this.managerService.UTCTODateString(formValue["timeRange"][1]);
       this.managerService.createProject(
         formValue["course"],formValue["name"],formValue["theme"],start_time,end_time, this.value1, this.value2, this.value3).subscribe(result=>{
-        if (result.message=="SUCCESS"){
+        if (result.code==200){
           this.modal.success({
             nzTitle: "",
             nzContent: "创建成功"
