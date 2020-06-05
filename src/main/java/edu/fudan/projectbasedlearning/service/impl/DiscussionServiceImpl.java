@@ -22,17 +22,37 @@ public class DiscussionServiceImpl extends AbstractService<Discussion> implement
     private DiscussionMapper discussionMapper;
 
     @Override
-    public List<Discussion> findAllDiscussionByProjectId(int projectId) {
-        return discussionMapper.getDiscussionsByProjectId(projectId);
+    public List<Discussion> findFirstDiscussionByProjectId(int projectId) {
+        return discussionMapper.getFirstDiscussionsByProjectId(projectId);
+    }
+
+    @Override
+    public List<Discussion> findAllDiscussions(int projectId) {
+        return discussionMapper.getAllDiscussions(projectId);
     }
 
     @Override
     public List<Discussion> findAllChildrenOfDiscussion(int projectId, int parentsId) {
-        return discussionMapper.getDiscussionChildrenList(projectId,parentsId);
+        return discussionMapper.getDiscussionChildrenList(projectId, parentsId);
     }
 
     @Override
     public HashMap<String, String> findAuthorById(int studentId) {
         return discussionMapper.getDiscussionAuthor(studentId);
+    }
+
+    @Override
+    public int getPublishCount(int studentId) {
+        return discussionMapper.getPublishCount(studentId);
+    }
+
+    @Override
+    public int getReplyCount(int studentId) {
+        return discussionMapper.getReplyCount(studentId);
+    }
+
+    @Override
+    public void updateLikes(int discussionId, int likes) {
+        discussionMapper.updateLikes(discussionId,likes);
     }
 }

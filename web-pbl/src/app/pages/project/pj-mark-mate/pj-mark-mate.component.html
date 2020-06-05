@@ -17,7 +17,7 @@
               </nz-form-control>
             </nz-form-item>
             <nz-form-item>
-              <nz-form-label [nzSpan]="7" >评论</nz-form-label>
+              <nz-form-label [nzSpan]="7">评论</nz-form-label>
               <nz-form-control [nzSpan]="8">
                 <label>
                   <textarea nz-input [(ngModel)]="comment"></textarea>
@@ -26,7 +26,7 @@
             </nz-form-item>
             <nz-form-item>
               <nz-form-control [nzOffset]="7" [nzSpan]="8">
-                <button (click)="onSelfEvaSubmit(1,studentId)" nz-button nzType="primary">提交</button>
+                <button (click)="onSubmit(1,studentId)" nz-button nzType="primary">提交</button>
               </nz-form-control>
             </nz-form-item>
           </div>
@@ -34,52 +34,52 @@
       </nz-col>
     </nz-row>
   </nz-tab>
-<!--  <nz-tab nzTitle="互评">-->
-<!--    <nz-content>-->
-<!--      <nz-card nzTitle="组内评分">-->
-<!--        <nz-card *ngFor="let data of scores" nzType="inner" nzTitle="学生 : {{data.userId}}" [nzExtra]="extraTemplate">-->
-<!--          <nz-collapse>-->
-<!--            <nz-collapse-panel nzHeader="查看任务完成情况">-->
-<!--              <nz-list nzBordered>-->
-<!--                <nz-list-item>-->
-<!--                  <span>任务编号</span>-->
-<!--                  <span>任务名称</span>-->
-<!--                  <span>任务进度</span>-->
-<!--                </nz-list-item>-->
-<!--                <p>{{tasksOfStudent.get(data.userId).length}}</p>-->
-<!--                <nz-list-item *ngFor="let task of tasksOfStudent.get(data.userId)">-->
-<!--                  <span>{{task.task_id}}</span>-->
-<!--                  <span>{{task.task_name}}</span>-->
-<!--                  <span>{{task.state}}</span>-->
-<!--                </nz-list-item>-->
-<!--              </nz-list>-->
-<!--            </nz-collapse-panel>-->
-<!--            <nz-collapse-panel nzHeader="查看讨论情况">-->
+  <nz-tab nzTitle="互评">
+    <nz-content>
+      <nz-card nzTitle="组内评分">
+        <nz-card *ngFor="let data of students" nzType="inner" nzTitle="学生 : {{data.sId}}" [nzExtra]="extraTemplate">
+          <nz-collapse>
+            <nz-collapse-panel nzHeader="查看任务完成情况">
+              <nz-list nzBordered>
+                <nz-list-item>
+                  <span>任务编号</span>
+                  <span>任务名称</span>
+                  <span>任务进度</span>
+                </nz-list-item>
+                <nz-list-item *ngFor="let task of tasksOfStudent.get(data.sId)">
+                  <span>{{task.task_id}}</span>
+                  <span>{{task.task_name}}</span>
+                  <span>{{task.state}}</span>
+                </nz-list-item>
+              </nz-list>
+            </nz-collapse-panel>
+            <nz-collapse-panel nzHeader="查看讨论情况">
 
-<!--              <nz-list nzBordered>-->
-<!--                <nz-list-item>-->
-<!--                  <span>发布的讨论数目</span>-->
-<!--                  <span>0</span>-->
-<!--                </nz-list-item>-->
-<!--                <nz-list-item>-->
-<!--                  <span>回复的讨论数目</span>-->
-<!--                  <span>0</span>-->
-<!--                </nz-list-item>-->
-<!--              </nz-list>-->
-<!--            </nz-collapse-panel>-->
-<!--          </nz-collapse>-->
-<!--        </nz-card>-->
-<!--      </nz-card>-->
-<!--      <ng-template #extraTemplate >-->
-<!--        <nz-list>-->
-<!--          <nz-list-item>-->
-<!--            <span>打分：</span>-->
-<!--            <span style="margin-right: 2px"><label><input placeholder="0" nz-input/></label></span>-->
-<!--            <button style="margin-left: 2px" (click)="onSubmit(2,studentId)" nz-button nzType="primary">提交</button>-->
-<!--          </nz-list-item>-->
-<!--        </nz-list>-->
-<!--      </ng-template>-->
-<!--    </nz-content>-->
-<!--  </nz-tab>-->
+              <nz-list nzBordered>
+                <nz-list-item>
+                  <span>发布的讨论数目</span>
+                  <span>{{publishOfStudent.get(data.sId)}}</span>
+                </nz-list-item>
+                <nz-list-item>
+                  <span>回复的讨论数目</span>
+                  <span>{{replyOfStudent.get(data.sId)}}</span>
+                </nz-list-item>
+              </nz-list>
+            </nz-collapse-panel>
+          </nz-collapse>
+          <ng-template #extraTemplate>
+            <nz-list>
+              <nz-list-item>
+                <span>打分：</span>
+                <span style="margin-right: 2px"><label><input placeholder="0" nz-input
+                                                              [(ngModel)]="mutEva"/></label></span>
+                <button style="margin-left: 2px" (click)="onSubmit(2,data.sId)" nz-button nzType="primary">提交</button>
+              </nz-list-item>
+            </nz-list>
+          </ng-template>
+        </nz-card>
+      </nz-card>
+    </nz-content>
+  </nz-tab>
 </nz-tabset>
 

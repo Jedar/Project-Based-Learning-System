@@ -11,9 +11,10 @@ import java.util.List;
 class DiscussionServiceTest extends Tester {
     @Autowired
     private DiscussionService discussionService;
+
     @Test
     void findAllDiscussionByProjectId() {
-        List<Discussion> discussionList = discussionService.findAllDiscussionByProjectId(1);
+        List<Discussion> discussionList = discussionService.findFirstDiscussionByProjectId(1);
         System.out.println(discussionList.get(0).getDiscussionId());
     }
 }

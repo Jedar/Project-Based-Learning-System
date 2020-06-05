@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { PjMyScoreComponent } from './pj-my-score.component';
+import {PjMyScoreComponent} from './pj-my-score.component';
 
 describe('PjMyScoreComponent', () => {
   let component: PjMyScoreComponent;
@@ -8,9 +8,9 @@ describe('PjMyScoreComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PjMyScoreComponent ]
+      declarations: [PjMyScoreComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

@@ -6,7 +6,8 @@ import {TaskService} from "../../../services/task.service";
 import {ActivatedRoute} from "@angular/router";
 import {Project} from "../../../share/project.model";
 import {Student} from "../../../share/student.model";
-import { Task } from 'src/app/share/task.model';
+import {Task} from 'src/app/share/task.model';
+import {AuthService} from "../../../services/auth.service";
 
 @Component({
   selector: 'app-pj-info',
@@ -17,13 +18,14 @@ export class PjInfoComponent implements OnInit {
   projectId: number;
   project: Project = null;
   leader: Student = null;
-  student: Student[] = [];
+  students: Student[] = [];
 
   constructor(
     private projectService: ProjectService,
     private activatedRoute: ActivatedRoute,
     private studentService: StudentService,
-    private taskService: TaskService
+    private taskService: TaskService,
+    private authService: AuthService,
   ) {
     activatedRoute.params.subscribe(params => {
       // this.projectId = params['projectId'];
@@ -34,25 +36,30 @@ export class PjInfoComponent implements OnInit {
 
   ngOnInit(): void {
     this.projectService.getProjectOf(this.projectId).subscribe(result => {
-      if(result.code === 200){
-         this.project = result.data;
-         console.log(this.project);
-      }
-      else{
+      if (result.code === 200) {
+        this.project = result.data;
+      } else {
         window.alert("项目信息获取失败");
       }
-     
+      this.studentService.getStudentInfo(result.data.leaderId).subscribe(res => {
+        if (res.code == 200) {
+          console.log(res.data);
+          this.leader = res.data;
+        }
+        console.log(res.message);
+      });
+
+      this.studentService.getStudentsOfProject(this.projectId).subscribe(res => {
+        this.students = res.data;
+        for (let i=0;i<this.students.length;i++){
+          if (this.students[i].sId == result.data.leaderId){
+            this.students.splice(i,i+1);
+          }
+        }
+        console.log(this.students);
+      })
     });
 
-    this.studentService.getStudentInfo(10009).subscribe(result => {
-      this.leader = result.data;
-      console.log(result.message);
-    });
-
-    this.studentService.getStudentsOfProject(this.projectId).subscribe(result=>{
-      this.student = result.data;
-      console.log(result.message);
-    })
   }
 
 }

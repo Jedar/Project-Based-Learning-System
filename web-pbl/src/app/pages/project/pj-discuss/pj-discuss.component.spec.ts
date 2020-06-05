@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { PjDiscussComponent } from './pj-discuss.component';
+import {PjDiscussComponent} from './pj-discuss.component';
 
 describe('PjDiscussComponent', () => {
   let component: PjDiscussComponent;
@@ -8,9 +8,9 @@ describe('PjDiscussComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PjDiscussComponent ]
+      declarations: [PjDiscussComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
