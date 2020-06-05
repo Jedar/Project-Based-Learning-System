@@ -16,8 +16,8 @@
             <tbody>
               <tr *ngFor="let data of basicTable.data">
                 <td>{{ data.file_name }}</td>
-                <td>{{ data.upload_time }}</td>
-                <td>{{ data.uploader }}</td>
+                <td>{{ data.time }}</td>
+                <td>{{ data.username }}</td>
                 <td>
                     <nz-tag nzColor="green">
                         <a (click)="onDownload(data.path)">下载</a>
@@ -45,8 +45,10 @@
                         <nz-form-item>
                           <nz-form-label [nzSpan]="7" nzRequired>资源</nz-form-label>
                           <nz-form-control [nzSpan]="8">
-                            <nz-upload nzAction="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-                                [nzFileList]="fileList" (nzChange)="handleChange($event)">
+                            <nz-upload 
+                                nzAction="/file/upload"
+                                nzName="upload_file"
+                                [(nzFileList)]="fileList" (nzChange)="handleChange($event)">
                                 <button nz-button><i nz-icon nzType="upload"></i>Upload</button>
                             </nz-upload>
                           </nz-form-control>

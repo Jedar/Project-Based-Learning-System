@@ -7,7 +7,7 @@ import {catchError, map, tap} from 'rxjs/operators';
 /* 回调对象 */
 import {Observable, of, ObservableInput} from "rxjs";
 
-import {Project, ProjectListMessage} from '../share/project.model';
+import {Project, ProjectListMessage,ProjectMessage} from '../share/project.model';
 
 import {Result, ResultMessage} from '../share/common.model';
 
@@ -25,8 +25,9 @@ export class ProjectService {
   constructor(private http: HttpClient/* 依赖注入 */) {
   }
 
-  getProjectOf(project_id: number): Observable<Project> {
-    return this.http.get<Project>("/assets/data/project.json").pipe();
+  getProjectOf(project_id: number): Observable<ProjectMessage> {
+    let url = "/project/info/"+project_id;
+    return this.http.get<ProjectMessage>(url).pipe();
   }
 
   getAllStudentProjects(studentId: number, courseId: number): Observable<ProjectListMessage> {

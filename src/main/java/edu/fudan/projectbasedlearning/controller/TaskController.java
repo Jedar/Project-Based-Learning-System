@@ -80,8 +80,8 @@ public class TaskController {
         return ResultGenerator.genSuccessResult();
     }
 
-    @DeleteMapping("/delete")
-    public Result delete(@RequestParam Integer taskId) {
+    @DeleteMapping("/delete/{taskId}")
+    public Result delete(@PathVariable("taskId") Integer taskId) {
         taskService.deleteById(taskId);
         return ResultGenerator.genSuccessResult();
     }

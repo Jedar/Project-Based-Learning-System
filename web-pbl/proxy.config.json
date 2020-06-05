@@ -39,6 +39,10 @@
       "target": "http://localhost:8080",
       "secure": "false"
     },
+    "/task/delete/*":{
+      "target": "http://localhost:8080",
+      "secure": "false"
+    },
     "/student/project":{
       "target": "http://localhost:8080",
       "secure": "false"
@@ -115,6 +119,10 @@
       "target": "http://localhost:8080",
       "secure": "false"
     },
+    "/project/info/*":{
+      "target": "http://localhost:8080",
+      "secure": "false"
+    },
   "/discussion/list": {
     "target": "http://localhost:8080",
     "secure": "false"
@@ -136,6 +144,18 @@
     "secure": "false"
   },
   "/score/add": {
+    "target": "http://localhost:8080",
+    "secure": "false"
+  },
+  "/image/upload":{
+    "target": "http://localhost:8080",
+    "secure": "false"
+  },
+  "/file/upload":{
+    "target": "http://localhost:8080",
+    "secure": "false"
+  },
+  "/upload/*":{
     "target": "http://localhost:8080",
     "secure": "false"
   }

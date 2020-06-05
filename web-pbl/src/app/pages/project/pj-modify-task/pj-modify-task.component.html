@@ -14,7 +14,7 @@
         <nz-form-label [nzSpan]="7" nzRequired>任务负责人</nz-form-label>
         <nz-form-control [nzSpan]="12" nzValidatingTip="Validating...">
             <nz-select formControlName="user_id" style="width: 100%;">
-                <nz-option *ngFor="let user of students" [nzValue]="user.user_id" [nzLabel]="user.user_name"></nz-option>
+                <nz-option *ngFor="let user of students" [nzValue]="user.sId" [nzLabel]="user.username"></nz-option>
             </nz-select>
         </nz-form-control>
     </nz-form-item>

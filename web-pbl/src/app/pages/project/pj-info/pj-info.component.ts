@@ -29,7 +29,13 @@ export class PjInfoComponent implements OnInit {
 
   ngOnInit(): void {
     this.projectService.getProjectOf(this.projectId).subscribe(result => {
-      this.project = result;
+      if(result.code === 200){
+         this.project = result.data;
+      }
+      else{
+        window.alert("项目信息获取失败");
+      }
+     
     });
 
     this.studentService.getStudentInfo(10009).subscribe(result => {
@@ -37,7 +43,7 @@ export class PjInfoComponent implements OnInit {
     });
 
     this.studentService.getStudentsOfProject(this.projectId).subscribe(result=>{
-      this.student = result;
+      this.student = result.data;
     })
   }
 

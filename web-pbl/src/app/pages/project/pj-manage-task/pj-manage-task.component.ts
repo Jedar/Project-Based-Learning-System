@@ -98,7 +98,7 @@ export class PjManageTaskComponent implements OnInit {
   ){
     this.projectId = taskService.getProjectId();
     projectService.getProjectOf(this.projectId).subscribe(result => {
-      this.project = result;
+      this.project = result.data;
       this.startDate = new Date(Date.parse(this.project.startTime));
       this.endDate = new Date(Date.parse(this.project.endTime));
     });
@@ -135,9 +135,9 @@ export class PjManageTaskComponent implements OnInit {
       });
       return;
     }
-    this.isDeleting =  !this.isDeleting;
+    this.isDeleting =  true;
     this.taskService.deleteTask(index).subscribe(result=>{
-      this.isDeleting =  !this.isDeleting;
+      this.isDeleting =  false;
       if(result.code === 200){
         this.modal.success({
           nzTitle: '删除任务',
@@ -165,9 +165,9 @@ export class PjManageTaskComponent implements OnInit {
       return;
     }
     let date0:Date = data.rangePicker[0];
-    let date1:Date = data.rangePicker[0];
+    let date1:Date = data.rangePicker[1];
     if(!this.isSubmit){
-      this.isSubmit = !this.isSubmit;
+      this.isSubmit = true;
       this.taskService.addTask({
         taskId:0,
         taskName:data.task_name,
@@ -179,14 +179,16 @@ export class PjManageTaskComponent implements OnInit {
         state:0,
         comment:"",
       }).subscribe(result => {
-        this.isSubmit = !this.isSubmit;
+        this.isSubmit = false;
         if(result.code === 200){
           this.modal.success({
             nzTitle: '创建任务',
             nzContent: '任务创建成功',
             nzOnOk:() => {
-              this.router.navigate(['.']);
               this.validateForm.reset();
+              this.taskService.getTaskList(this.projectId).subscribe(result=>{
+                this.tasks = result.data;
+              });
             }
           });
         }
@@ -198,10 +200,6 @@ export class PjManageTaskComponent implements OnInit {
         }
       })
     }
-  }
-
-  onChange(result: Date[]): void {
-    console.log('From: ', result[0], ', to: ', result[1]);
   }
 
   disabledDate = (current: Date): boolean => {

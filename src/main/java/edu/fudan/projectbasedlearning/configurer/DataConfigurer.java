@@ -10,7 +10,7 @@ public class DataConfigurer {
     @Bean
     public User getUser(){
         User user = new User();
-        user.setUserId(1);
+        user.setUserId(10000);
         user.setUsername("123");
         user.setRole(1);
         return user;

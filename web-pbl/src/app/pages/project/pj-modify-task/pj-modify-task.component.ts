@@ -6,7 +6,7 @@ import differenceInCalendarDays from 'date-fns/differenceInCalendarDays';
 import { FormBuilder } from '@angular/forms';
 import { CommonValidators } from '../../../share/CommonValidator'
 
-import { TaskMessage } from '../../../share/task.model';
+import { Task } from '../../../share/task.model';
 import { TaskService } from '../../../services/task.service';
 import { Student } from '../../../share/student.model';
 import { StudentService } from '../../../services/student.service';
@@ -24,14 +24,14 @@ export class PjModifyTaskComponent implements OnInit {
   taskId:number;
   validateForm;
   students:Student[]=[];
-  task:TaskMessage={
-    "taskId":0,
-    "taskName":"",
-    "projectId":0,
-    "startTime":"2020-05-20",
-    "endTime":"2020-05-20",
+  task:Task={
+    "task_id":0,
+    "task_name":"",
+    "project_id":0,
+    "start_time":"2020-05-20",
+    "end_time":"2020-05-20",
     "content":"",
-    "userId":0,
+    "username":"",
     "state":0,
     "comment":""
   };
@@ -74,31 +74,46 @@ export class PjModifyTaskComponent implements OnInit {
   ) {
     const { required, maxLength, minLength } = CommonValidators;
     this.validateForm = this.fb.group({
-      task_name: [this.task.taskName, [required]],
-      user_id:[this.task.userId, [required]],
-      rangePicker: [[this.startDate,this.endDate], [required]],
-      content:[this.task.content, [required]]
+      task_name: [null, [required]],
+      user_id:[null, [required]],
+      rangePicker: [[], [required]],
+      content:[null, [required]]
     });
     activatedRoute.queryParams.subscribe(params => {
       // this.projectId = Number.parseInt(params['projectId']);
       this.projectId = taskService.getProjectId();
-      this.taskId = Number.parseInt(params['taskId']);
+      this.taskId = Number.parseInt(params['task_id']);
       projectService.getProjectOf(this.projectId).subscribe(result => {
-        this.project = result;
-        this.startDate = new Date(Date.parse(this.project.startTime));
-        this.endDate = new Date(Date.parse(this.project.endTime));
+        if(result.code === 200){
+          this.project = result.data;
+          this.startDate = new Date(Date.parse(this.project.startTime));
+          this.endDate = new Date(Date.parse(this.project.endTime));
+        }
+        else{
+          window.alert("项目信息获取失败");
+        }
+      });
+      this.studentService.getStudentsOfProject(this.projectId).subscribe(result=>{
+        this.students=result.data;
       });
       taskService.getTaskMessageOfUser(this.taskId).subscribe(result => {
-        this.task = result;
-        this.validateForm.setValue({
-          task_name: this.task.taskName,
-          user_id:this.task.userId,
-          rangePicker: [this.startDate,this.endDate],
-          content:this.task.content
-        });
-        this.studentService.getStudentsOfProject(this.projectId).subscribe(result=>{
-          this.students=result;
-        });
+        if(result.code == 200){
+          this.task = result.data;
+          console.log(this.task);
+          this.validateForm.setValue({
+            task_name: this.task.task_name,
+            user_id:null,
+            rangePicker: [this.task.start_time,this.task.end_time],
+            content:this.task.content
+          });
+        }
+        else{
+          this.modal.error({
+            nzTitle:"请求任务信息错误",
+            nzContent:result.message
+          })
+        }
+        
       });
 
     });
@@ -109,9 +124,18 @@ export class PjModifyTaskComponent implements OnInit {
   }
 
   onBack(){
-    this.router.navigate(['../','manage_task'],{queryParams:{
-      'projectId':this.projectId,
-    }});
+    let flag = this.router.url.lastIndexOf("student");
+    if(flag == -1){
+      this.router.navigate(['/','project','teacher','manage_task'],{queryParams:{
+        'projectId':this.projectId,
+      }});
+    }
+    else{
+      this.router.navigate(['/','project','student','manage_task'],{queryParams:{
+        'projectId':this.projectId,
+      }});
+    }
+    
   }
 
   submitForm(data){
@@ -123,14 +147,21 @@ export class PjModifyTaskComponent implements OnInit {
       return;
     }
     let date0:Date = data.rangePicker[0];
-    let date1:Date = data.rangePicker[0];
+    let date1:Date = data.rangePicker[1];
+    if(date0.toString() == date1.toString()){
+      this.modal.error({
+        nzTitle: '任务修改失败',
+        nzContent: '任务起始终止时间不能一样',
+      });
+      return;
+    }
     if(!this.isSubmit){
       this.isSubmit = !this.isSubmit;
       this.taskService.modifyTask({
-        taskId:this.task.taskId,
-        taskName:data.taskName,
-        projectId:this.task.projectId,
-        userId:this.task.userId,
+        taskId:this.task.task_id,
+        taskName:data.task_name,
+        projectId:this.task.project_id,
+        userId:data.user_id,
         startTime:format.default(date0, 'yyyy-MM-dd'),
         endTime:format.default(date1,"yyyy-MM-dd"),
         content:data.content,

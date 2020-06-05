@@ -35,7 +35,7 @@ export class PjMarkScoreComponent implements OnInit {
 
   ngOnInit(): void {
     this.studentService.getStudentsOfProject(this.projectId).subscribe(result => {
-      this.students = result;
+      this.students = result.data;
       for (let student of this.students){
         this.taskService.getTaskListOfUser(this.projectId, student.sId).subscribe(res => {
           // this.tasks = res;

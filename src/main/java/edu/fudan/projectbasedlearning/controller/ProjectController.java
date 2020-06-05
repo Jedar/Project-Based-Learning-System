@@ -176,4 +176,10 @@ public class ProjectController {
             return ResultGenerator.genFailResult(message);
     }
 
+    @GetMapping("/info/{projectId}")
+    public Result getProjectInfoOf(@PathVariable("projectId") Integer projectId){
+        Project project = projectService.findById(projectId);
+        return ResultGenerator.genSuccessResult(project);
+    }
+
 }

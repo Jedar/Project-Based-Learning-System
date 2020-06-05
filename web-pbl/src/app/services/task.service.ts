@@ -28,13 +28,13 @@ export class TaskService {
 
   editMessageUrl = "/task/edit";
 
-  modifyMessageUrl = "/task/modify";
+  modifyMessageUrl = "/task/update";
 
   infoUrl = "/task/info/";/* +taskid */
 
-  deleteUrl = "/task/";
+  deleteUrl = "/task/delete/";
 
-  addUrl = "/task";
+  addUrl = "/task/add";
 
   private projectId:number;
 
@@ -62,11 +62,11 @@ export class TaskService {
     return this.http.get<TaskInfoMessage>(url).pipe();
   }
 
-  getTaskMessageOfUser(taskId:number):Observable<TaskMessage>{
+  getTaskMessageOfUser(taskId:number):Observable<TaskInfoMessage>{
     // console.log(taskId);
     // return this.http.get<TaskMessage>("/assets/data/task_modify.json")
     let url = this.infoUrl+taskId;
-    return this.http.get<TaskMessage>(url).pipe();
+    return this.http.get<TaskInfoMessage>(url).pipe();
   }
 
   editTaskState(message:EditTaskMessage ):Observable<ResultMessage>{

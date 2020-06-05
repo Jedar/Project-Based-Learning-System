@@ -3,8 +3,8 @@ export interface FileResourse{
     project_id:number,
     file_name:string,
     path:string,
-    uploader:string,
-    upload_time:string,
+    username:string,
+    time:string,
 }
 
 export interface FileListMessage{
@@ -14,9 +14,10 @@ export interface FileListMessage{
 }
 
 export interface FileUpload{
-    project_id:number,
-    file_name:string,
+    projectId:number,
+    fileName:string,
     path:string,
+    userId:number,
 }
 
 

@@ -34,7 +34,7 @@ export class FileService {
   }
 
   getFileList(projectId:number):Observable<FileListMessage>{
-    let url = this.fileListUrl;
+    let url = this.fileListUrl+"?projectId="+projectId;
     return this.http.get<FileListMessage>(url).pipe();
   }
 
