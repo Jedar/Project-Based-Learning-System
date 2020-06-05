@@ -36,7 +36,7 @@ export class ManagerService {
     return year+"-"+month+"-"+day;
   }
   studentList():Observable<StudentListMessage>{
-    return this.http.get<StudentListMessage>("/user/studentList").pipe()
+    return this.http.get<StudentListMessage>("/user/studentList",httpOptions).pipe()
   }
   teacherList():Observable<TeacherListMessage>{
     return this.http.get<TeacherListMessage>("/user/teacherList", httpOptions).pipe()
