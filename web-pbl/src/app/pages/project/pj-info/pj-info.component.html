@@ -1,6 +1,6 @@
 <nz-card>
   <nz-table [nzData]="[{}]" [nzShowPagination]="false">
-    <tbody>
+    <tbody *ngIf="project">
     <tr>
       <th>项目名称：</th>
       <td>{{ project.projectName }}</td>
@@ -11,7 +11,7 @@
     </tr>
     <tr>
       <th>组长：</th>
-      <td>{{ leader.username }}</td>
+      <td *ngIf="leader">{{ leader.username }}</td>
     </tr>
     <tr>
       <th>组员:</th>
