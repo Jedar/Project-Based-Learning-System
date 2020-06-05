@@ -41,6 +41,7 @@ public class UserController {
             return ResultGenerator.genSuccessResult(token, user);
         }
     }
+    @PassToken
     @PostMapping("/signup")
     public Result signup(String username, String password, String gender, String school, int role){
         User user = new User();
@@ -60,8 +61,9 @@ public class UserController {
         else
             return ResultGenerator.genFailResult("注册失败");
     }
-    @GetMapping("/isUniqueUsername")
-    public Result isUniqueUsername(String username){
+    @PassToken
+    @GetMapping("/isUniqueUsername/{username}")
+    public Result isUniqueUsername(@PathVariable String username){
         User user = userService.findBy("username", username);
         if (user == null)
             return ResultGenerator.genSuccessResult();

@@ -42,31 +42,26 @@ export class ManagerService {
     return this.http.get<TeacherListMessage>("/user/teacherList", httpOptions).pipe()
   }
   projectList():Observable<ProjectListMessage>{
-    return this.http.get<ProjectListMessage>("/project/projectList").pipe()
+    return this.http.get<ProjectListMessage>("/project/projectList", httpOptions).pipe()
   }
   courseList():Observable<CourseListMessage>{
-    return this.http.get<CourseListMessage>("/course/courseList").pipe()
+    return this.http.get<CourseListMessage>("/course/courseList", httpOptions).pipe()
   }
 
   deleteStudent(data):Observable<ResultMessage>{
-    var params = new HttpParams()
-      .set("studentId", data);
-    return this.http.delete<ResultMessage>("/user/deleteStudent", {params}).pipe()
+
+    return this.http.delete<ResultMessage>("/user/deleteStudent?studentId="+ data, httpOptions).pipe()
   }
   deleteTeacher(data):Observable<ResultMessage>{
-    var params = new HttpParams()
-      .set("teacherId", data);
-    return this.http.delete<ResultMessage>("/user/deleteTeacher", {params}).pipe()
+    return this.http.delete<ResultMessage>("/user/deleteTeacher?teacherId="+data, httpOptions).pipe()
   }
   deleteProject(data):Observable<ResultMessage>{
-    var params  = new HttpParams()
-      .set("projectId", data);
-    return this.http.delete<ResultMessage>("/project/deleteProject", {params}).pipe()
+    return this.http.delete<ResultMessage>("/project/deleteProject?projectId="+data, httpOptions).pipe()
   }
   deleteClass(data):Observable<ResultMessage>{
     var params  = new HttpParams()
       .set("courseId", data);
-    return this.http.delete<ResultMessage>("/course/deleteCourse", {params}).pipe()
+    return this.http.delete<ResultMessage>("/course/deleteCourse?courseId="+data, httpOptions).pipe()
   }
   saveTeacherInformation(tId, username, gender, school):Observable<ResultMessage>{
     var params = new HttpParams()

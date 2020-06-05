@@ -39,9 +39,7 @@ export class AuthService {
   }
   //注册时判断用户名是否已存在
   isUniqueUsername(data):Observable<ResultMessage>{
-    var params = new HttpParams()
-      .set("username", data);
-    return this.http.get<ResultMessage>("/user/isUniqueUsername", {params}).pipe();
+    return this.http.get<ResultMessage>("/user/isUniqueUsername/"+data, httpOptions).pipe();
   }
   //注册
   signUp(username, password, gender, school, role):Observable<ResultMessage>{
@@ -54,9 +52,7 @@ export class AuthService {
     return this.http.post<ResultMessage>("/user/signup", params, httpOptions).pipe()
   }
   checkCode(checkCode):Observable<ResultMessage>{
-    const params = new HttpParams()
-      .set("checkCode", checkCode);
-    return this.http.get<ResultMessage>("/checkCode",{params}).pipe()
+    return this.http.get<ResultMessage>("/checkCode/"+checkCode ,httpOptions).pipe()
   }
 
 
