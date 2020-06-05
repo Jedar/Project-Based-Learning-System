@@ -1,5 +1,6 @@
 package edu.fudan.projectbasedlearning.controller;
 import com.alibaba.fastjson.JSONObject;
+import edu.fudan.projectbasedlearning.annotation.UserLoginToken;
 import edu.fudan.projectbasedlearning.core.Result;
 import edu.fudan.projectbasedlearning.core.ResultGenerator;
 import edu.fudan.projectbasedlearning.pojo.Course;
@@ -21,13 +22,17 @@ import java.util.List;
 public class CourseController {
     @Resource
     private CourseService courseService;
+
+    @UserLoginToken(roles = {"Manager"})
     @GetMapping("/courseList")
     public Result getCourseList(){
         List<HashMap<String, Object>> courseList = courseService.selectAllCourses();
         return ResultGenerator.genSuccessResult(courseList);
     }
+
+    @UserLoginToken(roles = {"Teacher", "Manager"})
     @DeleteMapping("/deleteCourse")
-    public Result deleteCourse(int courseId){
+    public Result deleteCourse(@RequestParam("courseId") Integer courseId){
         if (courseService.findUserListOfCourse(courseId).size()==0){//没人选课
             courseService.deleteCourse(courseId);
             return ResultGenerator.genSuccessResult();
@@ -37,6 +42,7 @@ public class CourseController {
 
     }
 
+    @UserLoginToken(roles = {"Manager"})
     @PostMapping("/updateCourse")
     public Result updateCourse(@RequestParam HashMap<String, String> courseInfo){
         Course course = new Course();
@@ -49,6 +55,8 @@ public class CourseController {
         courseService.update(course);
         return ResultGenerator.genSuccessResult();
     }
+
+    @UserLoginToken(roles = {"Teacher", "Manager"})
     @PostMapping("/createCourse")
     public Result createCourse(@RequestParam HashMap<String, String> courseInfo){
         Course course = new Course();

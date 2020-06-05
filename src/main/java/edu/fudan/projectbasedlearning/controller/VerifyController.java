@@ -22,6 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 @Controller
 public class VerifyController {
     private static final Logger logger = LoggerFactory.getLogger(VerifyUtil.class);
+    public static final String RANDOMCODEKEY= "RandomCheckCode";//放到session中的key，以用于与从前端接收到的输入比较
     /**
      * 生成验证码
      */
@@ -42,9 +43,12 @@ public class VerifyController {
     @PassToken
     @GetMapping(value="/checkCode/{checkCode}")
     @ResponseBody
-    public Result checkCode(@PathVariable String checkCode){
+    public Result checkCode(HttpServletRequest request ,@PathVariable String checkCode){
         //TODO: 验证码比较
-        return ResultGenerator.genSuccessResult();
+        if (checkCode.equals(request.getSession().getAttribute(RANDOMCODEKEY)))
+            return ResultGenerator.genSuccessResult();
+        else
+            return ResultGenerator.genFailResult("验证码错误");
     }
 
 }

@@ -1,5 +1,6 @@
 package edu.fudan.projectbasedlearning.controller;
 import com.alibaba.fastjson.JSONObject;
+import edu.fudan.projectbasedlearning.annotation.UserLoginToken;
 import edu.fudan.projectbasedlearning.core.Result;
 import edu.fudan.projectbasedlearning.core.ResultGenerator;
 import edu.fudan.projectbasedlearning.pojo.Project;
@@ -29,6 +30,7 @@ public class ProjectController {
     @Resource
     private ProjectService projectService;
 
+    @UserLoginToken(roles = {"Manager"})
     @GetMapping("/projectList")
     public Result getProjectList(){
         List<Project> projectList = projectService.findAll();
@@ -51,8 +53,9 @@ public class ProjectController {
         return ResultGenerator.genSuccessResult(projectMaps);
     }
 
+    @UserLoginToken(roles = {"Teacher", "Manager"})
     @DeleteMapping("/deleteProject")
-    public Result deleteProject(int projectId) {
+    public Result deleteProject(@RequestParam("projectId") Integer projectId) {
         if (projectService.findUserListOfProject(projectId).size() == 0) {//无人选此项目
             projectService.deleteProject(projectId);
             return ResultGenerator.genSuccessResult();
@@ -61,6 +64,7 @@ public class ProjectController {
         }
     }
 
+    @UserLoginToken(roles = {"Manager"})
     @PostMapping("/updateProject")
     public Result updateProject(@RequestParam HashMap<String, String> projectInfo) {
         Project project = new Project();
@@ -84,6 +88,7 @@ public class ProjectController {
         return ResultGenerator.genSuccessResult();
     }
 
+    @UserLoginToken(roles = {"Teacher", "Manager"})
     @PostMapping("/createProject")
     public Result createProject(@RequestParam HashMap<String, String> projectInfo) {
         Project project = new Project();

@@ -1,5 +1,4 @@
 package edu.fudan.projectbasedlearning.controller;
-import edu.fudan.projectbasedlearning.annotation.ManagerToken;
 import edu.fudan.projectbasedlearning.annotation.PassToken;
 import edu.fudan.projectbasedlearning.annotation.UserLoginToken;
 import edu.fudan.projectbasedlearning.core.Result;
@@ -8,13 +7,10 @@ import edu.fudan.projectbasedlearning.pojo.Student;
 import edu.fudan.projectbasedlearning.pojo.User;
 import edu.fudan.projectbasedlearning.service.CourseService;
 import edu.fudan.projectbasedlearning.service.UserService;
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 import edu.fudan.projectbasedlearning.utils.JWTTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.List;
 
@@ -71,21 +67,23 @@ public class UserController {
             return ResultGenerator.genFailResult("用户名已存在");
     }
 
-    @UserLoginToken
+    @UserLoginToken(roles = {"Manager"})
     @GetMapping("/teacherList")
     public Result getTeacherList(){
         List<HashMap<String, Object>> teacherList = userService.getTeacherList();
         return ResultGenerator.genSuccessResult(teacherList);
     }
+
+    @UserLoginToken(roles = {"Manager"})
     @GetMapping("/studentList")
     public Result getStudentList(){
         List<HashMap<String, Object>> studentList = userService.getStudentList();
         return ResultGenerator.genSuccessResult(studentList);
     }
 
-    @ManagerToken
+    @UserLoginToken(roles = {"Manager"})
     @DeleteMapping("/deleteTeacher")
-    public Result deleteTeacher(int teacherId){
+    public Result deleteTeacher(@RequestParam("teacherId") Integer teacherId){
         if (courseService.selectTeacherCourses(teacherId).size() == 0){//没有开设课程
             userService.deleteTeacher(teacherId);
             return ResultGenerator.genSuccessResult();
@@ -94,8 +92,9 @@ public class UserController {
         }
     }
 
+    @UserLoginToken(roles = {"Manager"})
     @DeleteMapping("/deleteStudent")
-    public Result deleteStudent(int studentId){
+    public Result deleteStudent(@RequestParam("studentId") Integer studentId){
 
         if (courseService.selectStudentCourses(studentId).size() == 0){//没有选课程
             userService.deleteStudent(studentId);
@@ -104,6 +103,7 @@ public class UserController {
             return ResultGenerator.genFailResult("该学生已选课，不能删除");
         }
     }
+
 
     @GetMapping("/getStudentInfo/{studentId}")
     public Result getStudentInfo(@PathVariable Integer studentId){

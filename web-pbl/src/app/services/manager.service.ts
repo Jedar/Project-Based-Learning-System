@@ -50,18 +50,18 @@ export class ManagerService {
 
   deleteStudent(data):Observable<ResultMessage>{
 
-    return this.http.delete<ResultMessage>("/user/deleteStudent?studentId="+ data, httpOptions).pipe()
+    return this.http.delete<ResultMessage>("/user/deleteStudent?studentId=" + data, httpOptions).pipe()
   }
   deleteTeacher(data):Observable<ResultMessage>{
-    return this.http.delete<ResultMessage>("/user/deleteTeacher?teacherId="+data, httpOptions).pipe()
+    return this.http.delete<ResultMessage>("/user/deleteTeacher?teacherId=" + data, httpOptions).pipe()
   }
   deleteProject(data):Observable<ResultMessage>{
-    return this.http.delete<ResultMessage>("/project/deleteProject?projectId="+data, httpOptions).pipe()
+    return this.http.delete<ResultMessage>("/project/deleteProject?projectId=" + data, httpOptions).pipe()
   }
   deleteClass(data):Observable<ResultMessage>{
     var params  = new HttpParams()
       .set("courseId", data);
-    return this.http.delete<ResultMessage>("/course/deleteCourse?courseId="+data, httpOptions).pipe()
+    return this.http.delete<ResultMessage>("/course/deleteCourse?courseId=" + data, httpOptions).pipe()
   }
   saveTeacherInformation(tId, username, gender, school):Observable<ResultMessage>{
     var params = new HttpParams()

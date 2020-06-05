@@ -7,4 +7,7 @@ export class TokenHandler{
     public setToken(token:string):void{
         sessionStorage.setItem("token", token);
     }
+    public deleteToken(): void{
+      sessionStorage.removeItem("token");
+    }
 }
