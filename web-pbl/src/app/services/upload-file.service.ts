@@ -19,13 +19,13 @@ export class UploadFileService {
         observer.complete();
         return;
       }
-      const isLt2M = file.size! / 1024 / 1024 < 2;
-      if (!isLt2M) {
+      const isLt = file.size! / 1024 / 1024 < 10;
+      if (!isLt) {
         this.msg.error('Image must smaller than 2MB!');
         observer.complete();
         return;
       }
-      observer.next(isJpgOrPng && isLt2M);
+      observer.next(isJpgOrPng && isLt);
       observer.complete();
     });
   };

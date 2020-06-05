@@ -59,6 +59,9 @@ export class ManagerClassCreateComponent implements OnInit {
       this.validateForm.controls[i].updateValueAndValidity();
       formValue[i] = this.validateForm.controls[i].value;
     }
+    if(this.avatarUrl==undefined){
+      this.msg.error("请上传课程图片");
+    }
     if (this.validateForm.valid && this.avatarUrl!=undefined){ //验证通过，则开始验证用户名密码和验证码是否正确
       var params = new HttpParams()
         .set("name", formValue["name"])
@@ -100,10 +103,13 @@ export class ManagerClassCreateComponent implements OnInit {
         break;
       case 'done':
         // Get this url from response in real world.
-        this.uploadFileService.getBase64(info.file!.originFileObj!, (img: string) => {
-          this.loading = false;
-          this.avatarUrl = img;//TODO:图片路径
-        });
+        this.loading = false;
+        if(info.file.response.code === 200){
+          this.avatarUrl = info.file.response.data;
+        }
+        else{
+          this.msg.error("图片上传失败");
+        }
         break;
       case 'error':
         this.msg.error('Network error');

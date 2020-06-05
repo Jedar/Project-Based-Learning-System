@@ -5,6 +5,7 @@ import {UploadFileService} from "../../../services/upload-file.service";
 import {HttpParams} from "@angular/common/http";
 import {CourseService} from "../../../services/course.service";
 import {AuthService} from "../../../services/auth.service";
+import { retryWhen } from 'rxjs/operators';
 
 @Component({
   selector: 'app-course-add',
@@ -29,9 +30,13 @@ export class CourseAddComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    let val = this.authService.getUserId();
+    if(!val){
+      val = 10000;
+    }
     this.validateForm = this.fb.group({
       name: [null, [Validators.required]],
-      teacher: [this.authService.getUserId(), [Validators.required]],
+      teacher: [val, [Validators.required]],
       description: [null, [Validators.required]],
       maxStudentNumber: [null, [Validators.required]],
     });
@@ -44,13 +49,20 @@ export class CourseAddComponent implements OnInit {
       this.validateForm.controls[i].updateValueAndValidity();
       formValue[i] = this.validateForm.controls[i].value;
     }
-    if (this.validateForm.valid && this.avatarUrl!=undefined){ //验证通过，则开始验证用户名密码和验证码是否正确
-      this.courseService.addCourse(formValue["name"], formValue["teacher"], formValue["description"], formValue["maxStudentNumber"],"picture").subscribe(result=>{
+    if(!this.avatarUrl){
+      this.msg.error("请上传课程图片");
+      return;
+    }
+    console.log('Form Validate: '+this.validateForm.valid);
+    if (this.validateForm.valid&&this.avatarUrl){ //验证通过，则开始验证用户名密码和验证码是否正确
+      console.log(this.avatarUrl);
+      this.courseService.addCourse(formValue["name"], formValue["teacher"], formValue["description"], formValue["maxStudentNumber"],this.avatarUrl).subscribe(result=>{
         if (result.message=="SUCCESS"){
           this.modal.success({
             nzTitle: "",
             nzContent: "创建成功"
           });
+          this.validateForm.reset();
         }else{
           this.modal.error({
             nzTitle: "",
@@ -77,10 +89,14 @@ export class CourseAddComponent implements OnInit {
         break;
       case 'done':
         // Get this url from response in real world.
-        this.uploadFileService.getBase64(info.file!.originFileObj!, (img: string) => {
-          this.loading = false;
-          this.avatarUrl = img;
-        });
+        this.loading = false;
+        if(info.file.response.code == 200){
+          this.avatarUrl = info.file.response.data;
+        }
+        else{
+          this.avatarUrl = undefined;
+          this.msg.error(info.file.response.message);
+        }
         break;
       case 'error':
         this.msg.error('Network error');
