@@ -60,9 +60,13 @@ export class ModifyInfoComponent implements OnInit {
       this.validateForm.controls[i].updateValueAndValidity();
       formValue[i] = this.validateForm.controls[i].value;
     }
+    if(!this.avatarUrl){
+      this.msg.error("请上传图片");
+      return;
+    }
     if (this.validateForm.valid && this.avatarUrl != undefined) {
       let md5Value = Md5.hashStr(formValue["password"]).toString();
-      this.studentService.modifyStudentInfo(this.authService.getUserId(), formValue["username"], md5Value, formValue["gender"], "picture")
+      this.studentService.modifyStudentInfo(this.authService.getUserId(), formValue["username"], md5Value, formValue["gender"], this.avatarUrl)
         .subscribe(result => {
           if (result.code === 200) {
             this.modal.success({
@@ -88,10 +92,14 @@ export class ModifyInfoComponent implements OnInit {
         break;
       case 'done':
         // Get this url from response in real world.
-        this.uploadFileService.getBase64(info.file!.originFileObj!, (img: string) => {
-          this.loading = false;
-          this.avatarUrl = img;
-        });
+        this.loading = false;
+        if(info.file.response.code === 200){
+          this.avatarUrl = info.file.response.data;
+        }
+        else{
+          this.avatarUrl = null;
+          this.msg.error("上传文件失败");
+        }
         break;
       case 'error':
         this.msg.error('Network error');
