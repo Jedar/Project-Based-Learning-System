@@ -21,11 +21,12 @@ export class CourseCardComponent implements OnInit {
 
   constructor(
     private modal: NzModalService,
-    private courseService : CourseService,
+    private courseService: CourseService,
     private message: NzMessageService,
     private router: Router,
     private authService: AuthService
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
   }
@@ -45,8 +46,7 @@ export class CourseCardComponent implements OnInit {
               if (result.code === 200) {
                 this.message.create('success', '退课成功');
                 this.getAllCourses.emit();
-
-              }else {
+              } else {
                 this.message.create('error', '退课失败，失败原因：' + result.message);
               }
             });
@@ -59,28 +59,18 @@ export class CourseCardComponent implements OnInit {
     this.confirmModal = this.modal.confirm({
       nzTitle: '提示',
       nzContent: '确定加入该课程？',
-      nzOnOk: () => {
-        this.courseService.joinCourse(this.authService.getUserId(), courseId)
+      nzOnOk: () =>
+        new Promise((resolve, reject) => {
+          this.courseService.joinCourse(this.authService.getUserId(), courseId)
             .subscribe(result => {
               if (result.code === 200) {
                 this.message.create('success', '选课成功');
-              }else {
+              } else {
                 this.message.create('error', '选课失败，失败原因：' + result.message);
               }
             });
-      }
-      // nzOnOk: () =>
-      //   new Promise((resolve, reject) => {
-      //     this.courseService.joinCourse(this.authService.getUserId(), courseId)
-      //       .subscribe(result => {
-      //         if (result.code === 200) {
-      //           this.message.create('success', '选课成功');
-      //         }else {
-      //           this.message.create('error', '选课失败，失败原因：' + result.message);
-      //         }
-      //       });
-      //     setTimeout(Math.random() > 0.5 ? resolve : reject, 1000);
-      //   }).catch(() => console.log('Oops errors!'))
+          setTimeout(Math.random() > 0.5 ? resolve : reject, 1000);
+        }).catch(() => console.log('Oops errors!'))
     });
   }
 }

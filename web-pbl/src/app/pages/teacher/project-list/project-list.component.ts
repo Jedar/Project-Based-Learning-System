@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Project} from "../../../share/project.model";
 import {ProjectService} from "../../../services/project.service";
 import {Router} from "@angular/router";
@@ -25,7 +25,8 @@ export class ProjectListComponent implements OnInit {
     private projectService: ProjectService,
     private router: Router,
     private modal: NzModalService,
-    private message: NzMessageService) { }
+    private message: NzMessageService) {
+  }
 
   ngOnInit(): void {
     this.getAllProjects();

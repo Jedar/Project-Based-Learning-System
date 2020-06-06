@@ -64,6 +64,13 @@ public class ProjectServiceImpl extends AbstractService<Project> implements Proj
 
         try {
             projectMapper.studentJoinProject(studentId, projectId);
+
+            Project project = projectMapper.selectByPrimaryKey(projectId);
+            //如果该学生是第一个加入该项目的，那么把他设置为组长
+            if(project.getLeaderId() == null){
+                project.setLeaderId(studentId);
+                projectMapper.updateByPrimaryKeySelective(project);
+            }
             return result;
         }catch (Exception e){
             result.put("code", 400);
