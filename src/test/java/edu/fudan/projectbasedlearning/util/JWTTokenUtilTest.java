@@ -12,10 +12,12 @@ public class JWTTokenUtilTest extends Tester {
         User user = new User();
         user.setUserId(1);
         user.setPassword("123456");
+        user.setRole(1);
         String token = JWTTokenUtil.getToken(user);
         System.out.println(token);
         int id = JWTTokenUtil.getId(token);
         Assert.assertEquals(1, id);
         JWTTokenUtil.verify(token);
+        Assert.assertEquals(1,JWTTokenUtil.getRole(token));
     }
 }

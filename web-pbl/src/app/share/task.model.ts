@@ -8,6 +8,7 @@ export interface Task{
     content:string,
     state:number,
     comment:string,
+    priority:number,
 }
 
 export interface TaskInfoMessage{
@@ -41,4 +42,5 @@ export interface TaskMessage{
     content:string,
     state:number,
     comment:string,
+    priority:number,
 }

@@ -25,6 +25,7 @@ public class TaskController {
     @Autowired
     private User user;
 
+    @UserLoginToken(roles = {"Teacher","Student"})
     @GetMapping("/all")
     public Result getAllTasks(@RequestParam String projectId){
         int id;
@@ -38,6 +39,7 @@ public class TaskController {
         return ResultGenerator.genSuccessResult(list);
     }
 
+    @UserLoginToken(roles = {"Student"})
     @GetMapping("/user")
     public Result getTasksOfUser(@RequestParam String projectId, @RequestParam String userId){
         int project;
@@ -53,25 +55,28 @@ public class TaskController {
         return ResultGenerator.genSuccessResult(list);
     }
 
+    @UserLoginToken(roles = {"Teacher","Student"})
     @GetMapping("/info/{taskId}")
     public Result info(@PathVariable("taskId") int taskId ){
         HashMap<String,Object> res = taskService.getTaskInfo(taskId);
         return ResultGenerator.genSuccessResult(res);
     }
 
+    @UserLoginToken(roles = {"Student"})
     @PutMapping("/edit")
     public Result edit(@RequestBody EditTaskRequest request){
         this.taskService.modifyTask(request.getTaskId(),request.getState(),request.getComment());
         return ResultGenerator.genSuccessResult();
     }
 
-    @UserLoginToken(roles = {"Student","Teacher","Manager"})
+    @UserLoginToken(roles = {"Teacher","Student"})
     @PutMapping("/update")
     public Result modify(@RequestBody Task task){
         this.taskService.update(task);
         return ResultGenerator.genSuccessResult();
     }
 
+    @UserLoginToken(roles = {"Teacher","Student"})
     @PostMapping("/add")
     public Result add(@RequestBody Task task) {
         task.setTaskId(null);
@@ -79,6 +84,7 @@ public class TaskController {
         return ResultGenerator.genSuccessResult();
     }
 
+    @UserLoginToken(roles = {"Teacher","Student"})
     @DeleteMapping("/delete/{taskId}")
     public Result delete(@PathVariable("taskId") Integer taskId) {
         taskService.deleteById(taskId);

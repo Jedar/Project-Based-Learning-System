@@ -36,6 +36,7 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object object) throws Exception {
         // 从 http 请求头中取出 token
         String token = httpServletRequest.getHeader("token");
+
         // 如果不是映射到方法直接通过
         if(!(object instanceof HandlerMethod)){
             return true;
@@ -52,6 +53,7 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
         //检查有没有需要用户权限的注解
         if (method.isAnnotationPresent(UserLoginToken.class)) {
             UserLoginToken userLoginToken = method.getAnnotation(UserLoginToken.class);
+            String[] roles = userLoginToken.roles();
             if (userLoginToken.required()) {
                 // 执行认证
                 if (token == null) {
@@ -61,10 +63,29 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
                 System.out.println(token);
                 // 获取 token 中的 user id
                 int userId;
+                String role;
                 try {
                     userId = JWTTokenUtil.getId(token);
+                    System.out.println(userId);
+                    role = getRoleString(JWTTokenUtil.getRole(token));
                 } catch (JWTDecodeException j) {
                     failAuth(httpServletRequest,httpServletResponse,"token错误");
+                    return false;
+                }
+                /* 检查用户权限 */
+                boolean valid = false;
+                for(String s : roles){
+                    if(s.equals("None")){
+                        valid = true;
+                        break;
+                    }
+                    if(role.equals(s)){
+                        valid = true;
+                        break;
+                    }
+                }
+                if(!valid){
+                    failAuth(httpServletRequest,httpServletResponse,"用户权限不足");
                     return false;
                 }
                 // 验证 token
@@ -135,5 +156,18 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
         }
 
         return ip;
+    }
+
+    private String getRoleString(int val){
+        switch (val){
+            case 0:
+                return "Manager";
+            case 1:
+                return "Teacher";
+            case 2:
+                return "Student";
+            default:
+                return "None";
+        }
     }
 }
