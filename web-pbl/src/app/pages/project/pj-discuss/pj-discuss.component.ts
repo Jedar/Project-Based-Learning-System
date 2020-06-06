@@ -41,7 +41,20 @@ export class PjDiscussComponent implements OnInit {
         .set("discussionId",String(discussion_id))
         .set("likes",like+1);
       this.discussionService.updateLike(params).subscribe(result=>{
-        console.log(result);
+        if(result.code == 200){
+          for (let item of this.firstDiscussions) {
+            if (item.discussionId == discussion_id) {
+              item.likes++;
+              break;
+            }
+            for (let child of this.discussionChildren.get(item.discussionId)) {
+              if (child.discussionId == discussion_id) {
+                child.likes++;
+                break;
+              }
+            }
+          }
+        }
       });
   }
 
@@ -123,7 +136,7 @@ export class PjDiscussComponent implements OnInit {
         this.modal.success({
           nzTitle: '发布讨论',
           nzContent: '发布成功',
-        })
+        });
       } else {
         this.modal.error({
           nzTitle: '发布失败',
