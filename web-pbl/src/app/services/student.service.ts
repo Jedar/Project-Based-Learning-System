@@ -9,19 +9,6 @@ import {Student, StudentListMessage , StudentMessage} from "../share/student.mod
 import {ResultMessage} from "../share/common.model";
 import { TokenHandler } from '../share/Token';
 
-const httpOptions = {
-  headers: new HttpHeaders({
-    'Content-Type':  'application/x-www-form-urlencoded;charset=utf-8',
-    'token': new TokenHandler().getToken(),
-  })
-};
-
-const httpGetOptions = {
-  headers: new HttpHeaders({
-    'token': new TokenHandler().getToken(),
-  })
-};
-
 
 @Injectable({
   providedIn: 'root'
@@ -29,13 +16,33 @@ const httpGetOptions = {
 export class StudentService {
   studentOfProjectUrl = "/student/project";
 
+  httpOptions = {};
+  httpGetOptions = {};
+
+  init(){
+    this.httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/x-www-form-urlencoded;charset=utf-8',
+        'token': new TokenHandler().getToken(),
+      })
+    };
+
+    this.httpGetOptions = {
+      headers: new HttpHeaders({
+        'token': new TokenHandler().getToken(),
+      })
+    };
+  }
+
   constructor(private http:HttpClient/* 依赖注入 */) { }
 
   getStudentInfo(studentId: number): Observable<StudentMessage> {
-    return this.http.get<StudentMessage>("/user/getStudentInfo/" + studentId, httpGetOptions).pipe();
+    this.init();
+    return this.http.get<StudentMessage>("/user/getStudentInfo/" + studentId, this.httpGetOptions).pipe();
   }
 
   modifyStudentInfo(sId, username, password, gender, profile): Observable<ResultMessage> {
+    this.init();
     var params = new HttpParams()
       .set("sId" ,sId)
       .set("username", username)
@@ -43,12 +50,13 @@ export class StudentService {
       .set("gender", gender)
       .set("profile", profile);
 
-    return this.http.post<ResultMessage>("/user/modifyStudentInfo", params, httpOptions).pipe();
+    return this.http.post<ResultMessage>("/user/modifyStudentInfo", params, this.httpOptions).pipe();
   }
 
   getStudentsOfProject(project_id:number):Observable<StudentListMessage>{
+    this.init();
     let url = this.studentOfProjectUrl + "?projectId="+project_id;
-    return this.http.get<StudentListMessage>(url,httpGetOptions).pipe();
+    return this.http.get<StudentListMessage>(url,this.httpGetOptions).pipe();
     // return this.http.get<Student[]>("/assets/data/students.json").pipe();
   }
 }

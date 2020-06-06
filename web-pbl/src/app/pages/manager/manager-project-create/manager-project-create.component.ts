@@ -7,6 +7,7 @@ import {NzModalService} from "ng-zorro-antd";
 import {CommonValidators} from "../../../share/CommonValidator";
 import {HttpParams} from "@angular/common/http";
 import {ManagerCourse} from "../../../share/common.model";
+import {differenceInCalendarDays} from "date-fns";
 
 @Component({
   selector: 'app-manager-project-create',
@@ -14,7 +15,7 @@ import {ManagerCourse} from "../../../share/common.model";
   styleUrls: ['./manager-project-create.component.css']
 })
 export class ManagerProjectCreateComponent implements OnInit {
-
+  disabledDate;
   courseList: Course[];
   validateForm!: FormGroup;
   range = [30, 70];
@@ -62,6 +63,9 @@ export class ManagerProjectCreateComponent implements OnInit {
     if (this.validateForm.valid){
       var start_time = this.managerService.UTCTODateString(formValue["timeRange"][0]);
       var end_time = this.managerService.UTCTODateString(formValue["timeRange"][1]);
+
+      var score_start_time = this.managerService.UTCTODateString(formValue["scoreTimeRange"][0]);
+      var score_end_time = this.managerService.UTCTODateString(formValue["scoreTimeRange"][1]);
       this.managerService.createProject(
         formValue["course"],formValue["name"],formValue["theme"],start_time,end_time, this.value1, this.value2, this.value3).subscribe(result=>{
         if (result.code==200){
@@ -93,5 +97,17 @@ export class ManagerProjectCreateComponent implements OnInit {
     for (const i in this.validateForm.controls) {
       this.validateForm.controls[i].setValue("");
     }
+  }
+
+
+  changeDisabledDate(){
+    this.disabledDate = (current: Date): boolean => {
+      // Can not select days before today and today
+      var timeRange = this.validateForm.controls.timeRange.value;
+      var start_time = timeRange[0];
+      var end_time = timeRange[1];
+
+      return differenceInCalendarDays(current, start_time) < 0 || differenceInCalendarDays(current, end_time) > 0;
+    };
   }
 }

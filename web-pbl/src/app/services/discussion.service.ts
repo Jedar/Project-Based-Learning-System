@@ -8,6 +8,21 @@ import {Observable} from "rxjs";
 import {DiscussionCountMessage, DiscussionListMessage} from "../share/dicussion.model";
 import {StudentMessage} from "../share/student.model";
 import {ResultMessage} from "../share/common.model";
+import {TokenHandler} from "../share/Token";
+
+const httpGetOptions = {
+  headers: new HttpHeaders({
+    'Content-Type': 'application/json',
+    'token': new TokenHandler().getToken(),
+  })
+};
+
+const httpFormOptions = {
+  headers: new HttpHeaders({
+    'Content-Type':  'application/x-www-form-urlencoded;charset=utf-8',
+    'token': new TokenHandler().getToken(),
+  })
+};
 
 @Injectable({
   providedIn: 'root'
@@ -19,106 +34,40 @@ export class DiscussionService {
   }
 
   getAllDiscussionList(projectId: number): Observable<DiscussionListMessage> {
-    projectId = 1;
-    const params = new HttpParams({
-      fromString: 'projectId=' + projectId
-    });
-
-    const findHttpOptions = {
-      headers: new HttpHeaders({'content-Type': 'application/json'}),
-      params: params
-    };
-    return this.http.get<DiscussionListMessage>("/discussion/getAllDiscussions", findHttpOptions).pipe();
+    return this.http.get<DiscussionListMessage>("/discussion/getAllDiscussions/"+projectId, httpGetOptions).pipe();
   }
 
   getFirstDiscussionList(projectId: number): Observable<DiscussionListMessage> {
-    const params = new HttpParams({
-      fromString: 'projectId=' + projectId
-    });
-
-    const findHttpOptions = {
-      headers: new HttpHeaders({'content-Type': 'application/json'}),
-      params: params
-    };
-    return this.http.get<DiscussionListMessage>( "/discussion/list", findHttpOptions).pipe();
+    return this.http.get<DiscussionListMessage>( "/discussion/list/"+projectId, httpGetOptions).pipe();
   }
 
-  getDiscussionChildren(discussion_id: number): Observable<DiscussionListMessage> {
-    const projectId = 1;
-    const params = new HttpParams({
-      fromString: 'projectId=' + projectId + '&parentsId=' + discussion_id
-    });
-
-    const findHttpOptions = {
-      headers: new HttpHeaders({'content-Type': 'application/json'}),
-      params: params
-    };
-    return this.http.get<DiscussionListMessage>( "/discussion/children", findHttpOptions).pipe();
+  getDiscussionChildren(discussion_id: number,projectId:number): Observable<DiscussionListMessage> {
+    return this.http.get<DiscussionListMessage>( "/discussion/children?projectId="+projectId+"&parentsId="+discussion_id, httpGetOptions).pipe();
   }
 
   replyDiscussion(data): Observable<ResultMessage> {
-    const findHttpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',
-      })
-    };
-    return this.http.post<ResultMessage>( "/discussion/add", data, findHttpOptions).pipe();
+    return this.http.post<ResultMessage>( "/discussion/add", data, httpFormOptions).pipe();
   }
 
   getAuthorOfDiscussion(user_id: number): Observable<StudentMessage> {
-    const params = new HttpParams({
-      fromString: 'studentId=' + user_id
-    });
-
-    const findHttpOptions = {
-      headers: new HttpHeaders({'content-Type': 'application/json'}),
-      params: params
-    };
-    return this.http.get<StudentMessage>("/discussion/getDiscussionAuthor", findHttpOptions).pipe();
+    return this.http.get<StudentMessage>("/discussion/getDiscussionAuthor/"+user_id, httpGetOptions).pipe();
 
   }
 
   publishDiscussion(data): Observable<ResultMessage> {
-    const findHttpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',
-      })
-    };
-    return this.http.post<ResultMessage>( "/discussion/add", data, findHttpOptions).pipe();
+    return this.http.post<ResultMessage>( "/discussion/add", data, httpFormOptions).pipe();
   }
 
   getPublishCount(studentId:number):Observable<DiscussionCountMessage>{
-    const params = new HttpParams({
-      fromString: 'studentId=' + studentId
-    });
-
-    const findHttpOptions = {
-      headers: new HttpHeaders({'content-Type': 'application/json'}),
-      params: params
-    };
-    return this.http.get<DiscussionCountMessage>("discussion/getPublishCount",findHttpOptions);
+    return this.http.get<DiscussionCountMessage>("discussion/getPublishCount/"+studentId,httpGetOptions);
   }
 
   getReplyCount(studentId:number):Observable<DiscussionCountMessage>{
-    const params = new HttpParams({
-      fromString: 'studentId=' + studentId
-    });
-
-    const findHttpOptions = {
-      headers: new HttpHeaders({'content-Type': 'application/json'}),
-      params: params
-    };
-    return this.http.get<DiscussionCountMessage>("discussion/getReplyCount",findHttpOptions);
+    return this.http.get<DiscussionCountMessage>("discussion/getReplyCount/"+studentId,httpGetOptions);
   }
 
   updateLike(data):Observable<ResultMessage>{
-    const findHttpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',
-      })
-    };
-
-    return this.http.post<ResultMessage>("/discussion/updateLikes",data,findHttpOptions);
+    return this.http.post<ResultMessage>("/discussion/updateLikes",data,httpFormOptions);
   }
 
 

@@ -45,7 +45,8 @@ public class VerifyController {
     @ResponseBody
     public Result checkCode(HttpServletRequest request ,@PathVariable String checkCode){
         //TODO: 验证码比较
-        if (checkCode.equals(request.getSession().getAttribute(RANDOMCODEKEY)))
+        String sessionCheckCode = (String) request.getSession().getAttribute(RANDOMCODEKEY);
+        if (checkCode.toLowerCase().equals(sessionCheckCode.toLowerCase()))//验证码判断，不区分大小写
             return ResultGenerator.genSuccessResult();
         else
             return ResultGenerator.genFailResult("验证码错误");

@@ -23,7 +23,14 @@
   <nz-form-item>
     <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="timeRange">项目起止时间</nz-form-label>
     <nz-form-control [nzSm]="16" [nzXs]="24" nzErrorTip="必填项">
-      <nz-range-picker formControlName="timeRange" id="timeRange"></nz-range-picker>
+      <nz-range-picker formControlName="timeRange" id="timeRange" (ngModelChange)="changeDisabledDate()"></nz-range-picker>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="scoreTimeRange">项目评分起止时间</nz-form-label>
+    <nz-form-control [nzSm]="16" [nzXs]="24" nzErrorTip="必填项">
+      <nz-range-picker [nzDisabledDate]="disabledDate" formControlName="scoreTimeRange" id="scoreTimeRange" ></nz-range-picker>
     </nz-form-control>
   </nz-form-item>
 
