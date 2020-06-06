@@ -13,7 +13,8 @@
   </resultMap>
 
   <select id="findStudentListOfCourse" resultMap ="StudentListOfCourseMap">
-    select * from user natural join student natural join take where course_id = #{courseId}
+    select * from user inner join student on s_id = user.user_id
+        inner join take on take.user_id = user.user_id where course_id = #{courseId}
   </select>
   <resultMap id="StudentListOfCourseMap" type="edu.fudan.projectbasedlearning.pojo.Student">
   <!--

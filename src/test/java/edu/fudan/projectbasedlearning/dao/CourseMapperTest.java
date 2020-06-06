@@ -30,7 +30,7 @@ public class CourseMapperTest extends Tester {
     public void studentChooseCourse() {
         List<HashMap<String,Object>> list = courseMapper.selectStudentCourses(10009);
         System.out.println(list);
-        courseMapper.studentChooseCourse(10009, 2);
+        courseMapper.studentChooseCourse(10009, 6);
         list = courseMapper.selectStudentCourses(10009);
         System.out.println(list);
     }
