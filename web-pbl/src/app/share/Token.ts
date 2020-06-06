@@ -1,13 +1,24 @@
 export class TokenHandler{
 
-    public getToken():string{
+    public static getToken():string{
         return sessionStorage.getItem("token");
     }
 
-    public setToken(token:string):void{
+    public static setToken(token:string):void{
         sessionStorage.setItem("token", token);
     }
-    public deleteToken(): void{
+    public static deleteToken(): void{
       sessionStorage.removeItem("token");
     }
+
+  public getToken():string{
+    return sessionStorage.getItem("token");
+  }
+
+  public setToken(token:string):void{
+    sessionStorage.setItem("token", token);
+  }
+  public deleteToken(): void{
+    sessionStorage.removeItem("token");
+  }
 }

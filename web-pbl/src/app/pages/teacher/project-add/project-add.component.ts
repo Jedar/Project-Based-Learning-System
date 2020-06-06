@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {ManagerService} from "../../../services/manager.service";
 import {NzModalService} from "ng-zorro-antd";
+import {differenceInCalendarDays} from "date-fns";
 
 @Component({
   selector: 'app-project-add',
@@ -40,9 +41,24 @@ export class ProjectAddComponent implements OnInit {
       name: [null, [Validators.required]],
       theme: [null, [Validators.required]],
       timeRange: [null, [Validators.required]],
+      scoreTimeRange: [null, [Validators.required]],
       scoreInfo: [[30, 70]]
     });
   }
+
+  disabledDate;
+
+  changeDisabledDate(){
+    this.disabledDate = (current: Date): boolean => {
+      // Can not select days before today and today
+      var timeRange = this.validateForm.controls.timeRange.value;
+      var start_time = timeRange[0];
+      var end_time = timeRange[1];
+
+      return differenceInCalendarDays(current, start_time) < 0 || differenceInCalendarDays(current, end_time) > 0;
+    };
+  }
+
 
   formatter(value: number): string {
     return `${value}%`;
@@ -66,6 +82,10 @@ export class ProjectAddComponent implements OnInit {
     if (this.validateForm.valid) {
       var start_time = this.managerService.UTCTODateString(formValue["timeRange"][0]);
       var end_time = this.managerService.UTCTODateString(formValue["timeRange"][1]);
+
+      var score_start_time = this.managerService.UTCTODateString(formValue["scoreTimeRange"][0]);
+      var score_end_time = this.managerService.UTCTODateString(formValue["scoreTimeRange"][1]);
+
       this.managerService.createProject(
         formValue["course"], formValue["name"], formValue["theme"], start_time, end_time, this.value1, this.value2, this.value3).subscribe(result => {
         if (result.message == "SUCCESS") {

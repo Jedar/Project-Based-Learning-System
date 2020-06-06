@@ -116,12 +116,14 @@ public class UserController {
 
 
     @GetMapping("/getStudentInfo/{studentId}")
+    @UserLoginToken(roles = {"Student"})
     public Result getStudentInfo(@PathVariable Integer studentId){
         HashMap<String, Object> student = userService.getStudentInfo(studentId);
         return ResultGenerator.genSuccessResult(student);
     }
 
     @GetMapping("/getTeacherInfo/{teacherId}")
+    @UserLoginToken(roles = {"Teacher"})
     public Result getTeacherInfo(@PathVariable Integer teacherId){
         HashMap<String, Object> teacher = userService.getTeacherInfo(teacherId);
         return ResultGenerator.genSuccessResult(teacher);
@@ -129,12 +131,14 @@ public class UserController {
 
 
     @PostMapping("/modifyStudentInfo")
+    @UserLoginToken(roles = {"Student"})
     public Result modifyStudentInfo(@RequestParam HashMap<String, String> studentInfo){
         userService.managerUpdateStudentInfo(studentInfo);
         return ResultGenerator.genSuccessResult();
     }
 
     @PostMapping("/modifyTeacherInfo")
+    @UserLoginToken(roles = {"Teacher"})
     public Result modifyTeacherInfo(@RequestParam HashMap<String, String> teacherInfo){
         userService.managerUpdateTeacherInfo(teacherInfo);
         return ResultGenerator.genSuccessResult();
