@@ -29,6 +29,8 @@ public class Task {
 
     private String comment;
 
+    private Integer priority;
+
     /**
      * @return task_id
      */
@@ -153,6 +155,14 @@ public class Task {
      */
     public void setComment(String comment) {
         this.comment = comment;
+    }
+
+    public Integer getPriority() {
+        return priority;
+    }
+
+    public void setPriority(Integer priority) {
+        this.priority = priority;
     }
 
     @Override

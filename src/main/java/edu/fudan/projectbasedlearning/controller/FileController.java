@@ -1,4 +1,5 @@
 package edu.fudan.projectbasedlearning.controller;
+import edu.fudan.projectbasedlearning.annotation.UserLoginToken;
 import edu.fudan.projectbasedlearning.core.Result;
 import edu.fudan.projectbasedlearning.core.ResultGenerator;
 import edu.fudan.projectbasedlearning.pojo.File;
@@ -26,6 +27,7 @@ public class FileController {
     @Autowired
     private User user;
 
+    @UserLoginToken(roles = {"Teacher","Student"})
     @PostMapping("/add")
     public Result add(@RequestBody File file) {
         System.out.println(file);
@@ -38,18 +40,21 @@ public class FileController {
         return ResultGenerator.genSuccessResult();
     }
 
+    @UserLoginToken(roles = {"Teacher","Student"})
     @DeleteMapping("/delete/{fileId}")
     public Result delete(@PathVariable("fileId")Integer fileId) {
         fileService.deleteById(fileId);
         return ResultGenerator.genSuccessResult();
     }
 
+    @UserLoginToken(roles = {"Teacher","Student"})
     @GetMapping("/info/{fileId}")
     public Result detail(@PathVariable("fileId")Integer fileId) {
         File file = fileService.findById(fileId);
         return ResultGenerator.genSuccessResult(file);
     }
 
+    @UserLoginToken(roles = {"Teacher","Student"})
     @GetMapping("/list")
     public Result list(@RequestParam Integer projectId) {
         List<HashMap<String,Object>> list = fileService.getFileListOf(projectId);

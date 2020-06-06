@@ -33,7 +33,8 @@ export class PjModifyTaskComponent implements OnInit {
     "content":"",
     "username":"",
     "state":0,
-    "comment":""
+    "comment":"",
+    "priority":1
   };
 
   isSubmit:boolean;
@@ -167,6 +168,7 @@ export class PjModifyTaskComponent implements OnInit {
         content:data.content,
         state:0,
         comment:"",
+        priority:1
       }).subscribe(result => {
         this.isSubmit = !this.isSubmit;
         if(result.code === 200){

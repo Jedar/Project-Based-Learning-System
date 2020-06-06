@@ -74,6 +74,11 @@ export class PjAllTaskComponent implements OnInit {
       priority: 4
     },
     {
+      title: '任务优先级',
+      compare: (a: Task, b: Task) => a.priority > b.priority,
+      priority: 5
+    },
+    {
       title: '任务进度',
       compare: (a: Task, b: Task) => a.state - b.state,
       priority: 3

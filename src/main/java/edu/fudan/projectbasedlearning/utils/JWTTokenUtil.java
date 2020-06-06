@@ -17,6 +17,7 @@ public class JWTTokenUtil {
     public static String getToken(User user) {
         String token="";
         token= JWT.create().withAudience(user.getUserId()+"")
+                .withClaim("role", user.getRole())
                 .withExpiresAt(new Date(System.currentTimeMillis()+EXPIRATION_TIME))
                 .sign(Algorithm.HMAC256(SECRET));
         return token;
@@ -29,6 +30,10 @@ public class JWTTokenUtil {
     public static void verify(String token)throws JWTVerificationException {
         JWTVerifier jwtVerifier = JWT.require(Algorithm.HMAC256(SECRET)).build();
         jwtVerifier.verify(token);
+    }
+
+    public static int getRole(String token) {
+        return JWT.decode(token).getClaim("role").asInt();
     }
 
 }

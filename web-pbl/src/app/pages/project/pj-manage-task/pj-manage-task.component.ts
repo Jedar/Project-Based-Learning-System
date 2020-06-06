@@ -178,6 +178,7 @@ export class PjManageTaskComponent implements OnInit {
         content:data.content,
         state:0,
         comment:"",
+        priority:1,
       }).subscribe(result => {
         this.isSubmit = false;
         if(result.code === 200){
