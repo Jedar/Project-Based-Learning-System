@@ -9,6 +9,7 @@ import edu.fudan.projectbasedlearning.service.UserService;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -32,6 +33,7 @@ public class DiscussionController {
             discussion.setParentsId(Integer.parseInt(hashMap.get("parentsId")));
         }
         discussion.setUserId(Integer.parseInt(hashMap.get("userId")));
+
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Date date = new Date();
 

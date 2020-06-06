@@ -38,6 +38,10 @@ export class PjInfoComponent implements OnInit {
     this.projectService.getProjectOf(this.projectId).subscribe(result => {
       if (result.code === 200) {
         this.project = result.data;
+        this.project.startTime = result.data.startTime.substr(0,10);
+        this.project.endTime = result.data.endTime.substr(0,10);
+
+        console.log(this.project.startTime);
       } else {
         window.alert("项目信息获取失败");
       }

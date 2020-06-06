@@ -76,13 +76,12 @@ export class PjDiscussComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.authService.setUserId(10009);
-    this.taskService.setProjectId(1);
     this.discussionService.getAllDiscussionList(this.projectId).subscribe(result => {
       this.discussions = result.data;
       for (let discussion of this.discussions) {
         this.discussionService.getDiscussionChildren(discussion.discussionId,this.projectId).subscribe(res => {
           if (res.data != null) this.discussionChildren.set(discussion.discussionId, res.data);
+          for (let item of this.discussionChildren.get(discussion.discussionId))item.time = item.time.substr(0,10);
         });
 
         this.discussionService.getAuthorOfDiscussion(discussion.userId).subscribe(author => {
@@ -94,9 +93,11 @@ export class PjDiscussComponent implements OnInit {
 
     this.discussionService.getFirstDiscussionList(this.projectId).subscribe(result => {
       this.firstDiscussions = result.data;
+      for (let item of this.firstDiscussions)item.time = item.time.substr(0,10);
     });
 
   }
+
 
   getAllDiscussion(){
     return this.firstDiscussions;

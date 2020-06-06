@@ -10,6 +10,7 @@ import {TaskService} from "../../../services/task.service";
 import {HttpParams} from "@angular/common/http";
 import {DiscussionService} from "../../../services/discussion.service";
 import {AuthService} from "../../../services/auth.service";
+import {ProjectService} from "../../../services/project.service";
 
 @Component({
   selector: 'app-pj-mark-mate',
@@ -29,8 +30,8 @@ export class PjMarkMateComponent implements OnInit {
   publishOfStudent:Map<number,number> = new Map<number, number>();
   tasksOfStudent: Map<number, Task[]> = new Map<number, Task[]>();
 
-  ifHasSelfEva:boolean;
-  ifHasMulEva:boolean;
+  ifHasSelfEva:boolean = false;
+  ifHasMulEva:boolean = false;
 
   constructor(
     private studentService: StudentService,
@@ -40,6 +41,7 @@ export class PjMarkMateComponent implements OnInit {
     private taskService: TaskService,
     private discussionService: DiscussionService,
     private authService:AuthService,
+    private projectService: ProjectService,
   ) {
     activatedRoute.params.subscribe(params => {
       this.projectId = taskService.getProjectId();
@@ -113,6 +115,8 @@ export class PjMarkMateComponent implements OnInit {
         })
       }
     });
+
+    //Todo：判断是否在互评时间内
 
   }
 
