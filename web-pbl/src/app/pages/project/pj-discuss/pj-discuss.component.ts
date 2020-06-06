@@ -28,6 +28,9 @@ export class PjDiscussComponent implements OnInit {
   discussionChildren: Map<number, Discussion[]> = new Map<number, Discussion[]>();
   discussionAuthors: Map<number, string> = new Map<number, string>();
 
+  pagination = {
+    pageIndex: 1,
+  };
 
   like(discussion_id: number): void {
     let like;
@@ -78,7 +81,7 @@ export class PjDiscussComponent implements OnInit {
     this.discussionService.getAllDiscussionList(this.projectId).subscribe(result => {
       this.discussions = result.data;
       for (let discussion of this.discussions) {
-        this.discussionService.getDiscussionChildren(discussion.discussionId).subscribe(res => {
+        this.discussionService.getDiscussionChildren(discussion.discussionId,this.projectId).subscribe(res => {
           if (res.data != null) this.discussionChildren.set(discussion.discussionId, res.data);
         });
 
@@ -92,8 +95,11 @@ export class PjDiscussComponent implements OnInit {
     this.discussionService.getFirstDiscussionList(this.projectId).subscribe(result => {
       this.firstDiscussions = result.data;
     });
-    console.log(this.firstDiscussions);
 
+  }
+
+  getAllDiscussion(){
+    return this.firstDiscussions;
   }
 
   publish() {

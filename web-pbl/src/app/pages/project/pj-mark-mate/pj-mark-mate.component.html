@@ -26,7 +26,7 @@
             </nz-form-item>
             <nz-form-item>
               <nz-form-control [nzOffset]="7" [nzSpan]="8">
-                <button (click)="onSubmit(1,studentId)" nz-button nzType="primary">提交</button>
+                <button *ngIf="ifHasSelfEva" [disabled]="ifHasSelfEva" (click)="onSubmit(1,studentId)" nz-button nzType="primary">提交</button>
               </nz-form-control>
             </nz-form-item>
           </div>
@@ -34,7 +34,7 @@
       </nz-col>
     </nz-row>
   </nz-tab>
-  <nz-tab nzTitle="互评">
+  <nz-tab nzTitle="互评" [nzDisabled]="ifHasMulEva">
     <nz-content>
       <nz-card nzTitle="组内评分">
         <nz-card *ngFor="let data of students" nzType="inner" nzTitle="学生 : {{data.sId}}" [nzExtra]="extraTemplate">

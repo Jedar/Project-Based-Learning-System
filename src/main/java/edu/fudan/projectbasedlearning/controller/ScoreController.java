@@ -1,5 +1,6 @@
 package edu.fudan.projectbasedlearning.controller;
 
+import edu.fudan.projectbasedlearning.annotation.UserLoginToken;
 import edu.fudan.projectbasedlearning.core.Result;
 import edu.fudan.projectbasedlearning.core.ResultGenerator;
 import edu.fudan.projectbasedlearning.pojo.Score;
@@ -22,6 +23,7 @@ public class ScoreController {
     @Resource
     private ScoreService scoreService;
 
+    @UserLoginToken(roles = {"Student", "Teacher"})
     @PostMapping("/add")
     public Result add(@RequestParam HashMap<String, String> hashMap) {
         Score score = new Score();
@@ -37,30 +39,35 @@ public class ScoreController {
         return ResultGenerator.genSuccessResult();
     }
 
+    @UserLoginToken(roles = {"Student", "Teacher"})
     @PostMapping("/delete")
     public Result delete(@RequestParam Integer id) {
         scoreService.deleteById(id);
         return ResultGenerator.genSuccessResult();
     }
 
+    @UserLoginToken(roles = {"Student", "Teacher"})
     @PostMapping("/update")
     public Result update(Score score) {
         scoreService.update(score);
         return ResultGenerator.genSuccessResult();
     }
 
+    @UserLoginToken(roles = {"Student", "Teacher"})
     @PostMapping("/detail")
     public Result detail(@RequestParam Integer id) {
         Score score = scoreService.findById(id);
         return ResultGenerator.genSuccessResult(score);
     }
 
-    @GetMapping("/getScores")
-    public Result getScores(@RequestParam Integer studentId) {
+    @UserLoginToken(roles = {"Student", "Teacher"})
+    @GetMapping("/getScores/{studentId}")
+    public Result getScores(@PathVariable Integer studentId) {
         List<Score> scores = scoreService.findScoresByStudentId(studentId);
         return ResultGenerator.genSuccessResult(scores);
     }
 
+    @UserLoginToken(roles = {"Student", "Teacher"})
     @PostMapping("/list")
     public Result list(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "0") Integer size) {
         PageHelper.startPage(page, size);

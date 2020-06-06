@@ -127,7 +127,7 @@
     "target": "http://localhost:8080",
     "secure": "false"
   },
-  "/discussion/list": {
+  "/discussion/list/*": {
     "target": "http://localhost:8080",
     "secure": "false"
   },
@@ -139,19 +139,19 @@
     "target": "http://localhost:8080",
     "secure": "false"
   },
-  "/discussion/getDiscussionAuthor": {
+  "/discussion/getDiscussionAuthor/*": {
     "target": "http://localhost:8080",
     "secure": "false"
   },
-  "/discussion/getAllDiscussions": {
+  "/discussion/getAllDiscussions/*": {
     "target": "http://localhost:8080",
     "secure": "false"
   },
-  "/discussion/getPublishCount": {
+  "/discussion/getPublishCount/*": {
     "target": "http://localhost:8080",
     "secure": "false"
   },
-  "/discussion/getReplyCount": {
+  "/discussion/getReplyCount/*": {
     "target": "http://localhost:8080",
     "secure": "false"
   },
@@ -159,7 +159,7 @@
     "target": "http://localhost:8080",
     "secure": "false"
   },
-  "/score/getScores": {
+  "/score/getScores/*": {
     "target": "http://localhost:8080",
     "secure": "false"
   },

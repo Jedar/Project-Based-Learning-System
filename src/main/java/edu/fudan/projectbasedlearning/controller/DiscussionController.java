@@ -1,5 +1,6 @@
 package edu.fudan.projectbasedlearning.controller;
 
+import edu.fudan.projectbasedlearning.annotation.UserLoginToken;
 import edu.fudan.projectbasedlearning.core.Result;
 import edu.fudan.projectbasedlearning.core.ResultGenerator;
 import edu.fudan.projectbasedlearning.pojo.Discussion;
@@ -23,6 +24,7 @@ public class DiscussionController {
     private DiscussionService discussionService;
     private UserService userService;
 
+    @UserLoginToken(roles = {"Student", "Teacher"})
     @PostMapping("/add")
     public Result add(@RequestParam HashMap<String, String> hashMap) {
         Discussion discussion = new Discussion();
@@ -41,12 +43,14 @@ public class DiscussionController {
         return ResultGenerator.genSuccessResult();
     }
 
+    @UserLoginToken(roles = {"Student"})
     @PostMapping("/delete")
     public Result delete(@RequestParam Integer id) {
         discussionService.deleteById(id);
         return ResultGenerator.genSuccessResult();
     }
 
+    @UserLoginToken(roles = {"Student", "Teacher"})
     @PostMapping("/updateLikes")
     public Result update(@RequestParam HashMap<String, String> hashMap) {
         int id = Integer.parseInt(hashMap.get("discussionId"));
@@ -55,43 +59,51 @@ public class DiscussionController {
         return ResultGenerator.genSuccessResult();
     }
 
+    @UserLoginToken(roles = {"Student", "Teacher"})
     @PostMapping("/detail")
     public Result detail(@RequestParam Integer id) {
         Discussion discussion = discussionService.findById(id);
         return ResultGenerator.genSuccessResult(discussion);
     }
 
-    @GetMapping("/list")
-    public Result list(@RequestParam Integer projectId) {
+    @UserLoginToken(roles = {"Student", "Teacher"})
+    @GetMapping("/list/{projectId}")
+    public Result list(@PathVariable Integer projectId) {
         List<Discussion> discussionList = discussionService.findFirstDiscussionByProjectId(projectId);
         return ResultGenerator.genSuccessResult(discussionList);
     }
 
+    @UserLoginToken(roles = {"Student", "Teacher"})
     @GetMapping("/children")
     public Result getChildren(@RequestParam Integer projectId, @RequestParam Integer parentsId) {
         List<Discussion> discussionList = discussionService.findAllChildrenOfDiscussion(projectId, parentsId);
         return ResultGenerator.genSuccessResult(discussionList);
     }
 
-    @GetMapping("/getDiscussionAuthor")
-    public Result getDiscussionAuthor(@RequestParam Integer studentId) {
+    @UserLoginToken(roles = {"Student", "Teacher"})
+    @GetMapping("/getDiscussionAuthor/{studentId}")
+    public Result getDiscussionAuthor(@PathVariable Integer studentId) {
         HashMap<String, String> studentInfo = discussionService.findAuthorById(studentId);
         return ResultGenerator.genSuccessResult(studentInfo);
     }
 
-    @GetMapping("/getAllDiscussions")
-    public Result getAllDiscussions(@RequestParam Integer projectId) {
+    @UserLoginToken(roles = {"Student", "Teacher"})
+    @GetMapping("/getAllDiscussions/{projectId}")
+    public Result getAllDiscussions(@PathVariable Integer projectId) {
         List<Discussion> discussionList = discussionService.findAllDiscussions(projectId);
         return ResultGenerator.genSuccessResult(discussionList);
     }
 
-    @RequestMapping("getPublishCount")
-    public Result getPublishCount(@RequestParam Integer studentId){
+    @UserLoginToken(roles = {"Student", "Teacher"})
+    @RequestMapping("getPublishCount/{studentId}")
+    public Result getPublishCount(@PathVariable Integer studentId){
         int count = discussionService.getPublishCount(studentId);
         return ResultGenerator.genSuccessResult(count);
     }
-    @RequestMapping("getReplyCount")
-    public Result getReplyCount(@RequestParam Integer studentId){
+
+    @UserLoginToken(roles = {"Student", "Teacher"})
+    @RequestMapping("getReplyCount/{studentId}")
+    public Result getReplyCount(@PathVariable Integer studentId){
         int count = discussionService.getReplyCount(studentId);
         return ResultGenerator.genSuccessResult(count);
     }
