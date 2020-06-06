@@ -66,6 +66,7 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
                 String role;
                 try {
                     userId = JWTTokenUtil.getId(token);
+                    System.out.println(userId);
                     role = getRoleString(JWTTokenUtil.getRole(token));
                 } catch (JWTDecodeException j) {
                     failAuth(httpServletRequest,httpServletResponse,"token错误");

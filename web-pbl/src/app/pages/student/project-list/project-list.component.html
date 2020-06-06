@@ -6,10 +6,13 @@
         nzDescription="{{project.startTime}} --- {{project.endTime}}">
       </nz-list-item-meta>
       项目主题：{{project.theme}}
-      <ul nz-list-item-actions>
-        <nz-list-item-action><a (click)="getIntoProject(project.projectId)"><i nz-icon nzType="login"></i> 进入项目</a></nz-list-item-action>
-        <nz-list-item-action><a (click)="dropProject(project.projectId)"><i nz-icon nzType="delete"></i> 退出项目</a></nz-list-item-action>
+      <ul>
+        <button nz-button><a (click)="getIntoProject(project.projectId)"><i nz-icon nzType="login"></i> 进入项目</a></button>
+        <button nz-button><a (click)="dropProject(project.projectId)"><i nz-icon nzType="delete"></i> 退出项目</a></button>
+        <!-- <nz-list-item-action><a (click)="getIntoProject(project.projectId)"><i nz-icon nzType="login"></i> 进入项目</a></nz-list-item-action>
+        <nz-list-item-action><a (click)="dropProject(project.projectId)"><i nz-icon nzType="delete"></i> 退出项目</a></nz-list-item-action> -->
       </ul>
+      
     </ng-container>
   </nz-list-item>
 </nz-list>

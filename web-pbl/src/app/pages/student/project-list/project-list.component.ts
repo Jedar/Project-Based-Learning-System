@@ -53,9 +53,8 @@ export class ProjectListComponent implements OnInit {
     this.confirmModal = this.modal.confirm({
       nzTitle: '提示',
       nzContent: '确定退出该项目？',
-      nzOnOk: () =>
-        new Promise((resolve, reject) => {
-          this.projectService.dropProjectOfStudent(this.authService.getUserId(), projectId)
+      nzOnOk: () => {
+        this.projectService.dropProjectOfStudent(this.authService.getUserId(), projectId)
             .subscribe(result => {
               if (result.code === 200) {
                 this.message.create('success', '退出项目成功');
@@ -64,8 +63,20 @@ export class ProjectListComponent implements OnInit {
                 this.message.create('error', '退出项目失败，失败原因：' + result.message);
               }
             });
-          setTimeout(Math.random() > 0.5 ? resolve : reject, 1000);
-        }).catch(() => console.log('Oops errors!'))
+      }
+      // nzOnOk: () =>
+      //   new Promise((resolve, reject) => {
+      //     this.projectService.dropProjectOfStudent(this.authService.getUserId(), projectId)
+      //       .subscribe(result => {
+      //         if (result.code === 200) {
+      //           this.message.create('success', '退出项目成功');
+      //           this.getAllProjects();
+      //         } else {
+      //           this.message.create('error', '退出项目失败，失败原因：' + result.message);
+      //         }
+      //       });
+      //     setTimeout(Math.random() > 0.5 ? resolve : reject, 1000);
+      //   }).catch(() => console.log('Oops errors!'))
     });
   }
 }

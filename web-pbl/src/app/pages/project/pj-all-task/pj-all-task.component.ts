@@ -24,6 +24,7 @@ interface GanttTask{
   'pNotes': string,
   'pTaskUser':string,
   'pTime':string,
+  'pPriority':number,
 }
 
 const TASK_COLORS:string[] = [
@@ -108,6 +109,9 @@ export class PjAllTaskComponent implements OnInit {
       },
       pTime: {
         title: '持续时间'
+      },
+      pPriority: {
+        title: '优先级'
       }
     };
     this.taskService.getTaskList(this.projectId).subscribe(result=>{
@@ -188,6 +192,7 @@ export class PjAllTaskComponent implements OnInit {
         'pNotes': item.content,
         'pTaskUser':item.username,
         'pTime':this.getTime(item.start_time,item.end_time)+"天",
+        'pPriority':item.priority,
       });
     }
     console.log(data)

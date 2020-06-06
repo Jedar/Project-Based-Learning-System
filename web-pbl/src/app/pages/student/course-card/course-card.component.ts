@@ -59,9 +59,8 @@ export class CourseCardComponent implements OnInit {
     this.confirmModal = this.modal.confirm({
       nzTitle: '提示',
       nzContent: '确定加入该课程？',
-      nzOnOk: () =>
-        new Promise((resolve, reject) => {
-          this.courseService.joinCourse(this.authService.getUserId(), courseId)
+      nzOnOk: () => {
+        this.courseService.joinCourse(this.authService.getUserId(), courseId)
             .subscribe(result => {
               if (result.code === 200) {
                 this.message.create('success', '选课成功');
@@ -69,8 +68,19 @@ export class CourseCardComponent implements OnInit {
                 this.message.create('error', '选课失败，失败原因：' + result.message);
               }
             });
-          setTimeout(Math.random() > 0.5 ? resolve : reject, 1000);
-        }).catch(() => console.log('Oops errors!'))
+      }
+      // nzOnOk: () =>
+      //   new Promise((resolve, reject) => {
+      //     this.courseService.joinCourse(this.authService.getUserId(), courseId)
+      //       .subscribe(result => {
+      //         if (result.code === 200) {
+      //           this.message.create('success', '选课成功');
+      //         }else {
+      //           this.message.create('error', '选课失败，失败原因：' + result.message);
+      //         }
+      //       });
+      //     setTimeout(Math.random() > 0.5 ? resolve : reject, 1000);
+      //   }).catch(() => console.log('Oops errors!'))
     });
   }
 }
