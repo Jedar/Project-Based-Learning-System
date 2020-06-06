@@ -62,7 +62,7 @@
                   </nz-comment-content>
                   <nz-comment-action>
               <span class="action">
-              <i nz-tooltip nzTitle="Like" nz-icon nzType="like" [nzTheme]="child.likes > 0 ? 'twotone' : 'outline'"
+              <i nz-tooltip nzTitle="Like" nz-icon nzType="like" [nzTheme]="data.likes > 0 ? 'twotone' : 'outline'"
                  (click)="like(child.discussionId)"></i>
               <span class="count like">{{ child.likes }}</span>
               </span>
@@ -137,7 +137,7 @@
             </nz-comment-content>
             <nz-comment-action>
               <span class="action">
-              <i nz-tooltip nzTitle="Like" nz-icon nzType="like" [nzTheme]="data.likes > 0 ? 'twotone' : 'outline'"
+              <i nz-tooltip nzTitle="Like" nz-icon nzType="like" nzTheme="outline"
               ></i>
               <span class="count like">{{ data.likes }}</span>
               </span>

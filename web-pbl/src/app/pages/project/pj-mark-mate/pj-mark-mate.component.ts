@@ -93,6 +93,12 @@ export class PjMarkMateComponent implements OnInit {
   ngOnInit(): void {
     this.studentService.getStudentsOfProject(this.projectId).subscribe(result => {
       this.students = result.data;
+      for (let i=0;i<this.students.length;i++){
+        if (this.students[i].sId == this.studentId){
+          console.log(this.students[i]);
+          this.students.splice(i,i+1);
+        }
+      }
       for (let student of result.data) {
         this.taskService.getTaskListOfUser(this.projectId, student.sId).subscribe(res => {
           this.tasksOfStudent.set(student.sId, res.data);
