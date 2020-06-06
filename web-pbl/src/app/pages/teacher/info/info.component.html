@@ -1,11 +1,11 @@
 <div>
-  <nz-descriptions nzTitle="个人信息" nzBordered>
-    <nz-descriptions-item nzTitle="学号">{{teacher.tId}}</nz-descriptions-item>
-    <nz-descriptions-item nzTitle="姓名" [nzSpan]="2">{{teacher.username}}</nz-descriptions-item>
-    <nz-descriptions-item nzTitle="性别">{{teacher.gender}}</nz-descriptions-item>
-    <nz-descriptions-item nzTitle="学校" [nzSpan]="2">{{teacher.school}}</nz-descriptions-item>
+  <nz-descriptions nzTitle="个人信息" nzBordered [nzColumn]="1" nzSize="small">
     <nz-descriptions-item nzTitle="头像">
-      <img alt="example" src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"/>
+      <img alt="example" src="{{teacher.profile}}" style="width: 100px; height: 100px"/>
     </nz-descriptions-item>
+    <nz-descriptions-item nzTitle="学号">{{teacher.tId}}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="姓名">{{teacher.username}}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="性别">{{teacher.gender}}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="学校">{{teacher.school}}</nz-descriptions-item>
   </nz-descriptions>
 </div>

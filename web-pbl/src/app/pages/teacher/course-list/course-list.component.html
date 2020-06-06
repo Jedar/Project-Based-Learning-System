@@ -8,6 +8,9 @@
       <nz-card-meta nzTitle="{{course.courseName}}"
                     nzDescription="{{course.description}}"></nz-card-meta>
     </nz-card>
+    <ng-template #coverTemplate>
+      <img alt="example" src="{{course.picture}}"/>
+    </ng-template>
     <ng-template #getInto>
       <a (click)="getIntoCourseProject(course.courseId)"><i nz-icon nzType="login"></i> 进入课程项目</a>
     </ng-template>
@@ -24,6 +27,9 @@
       <nz-card-meta nzTitle="{{course.courseName}}"
                     nzDescription="{{course.description}}"></nz-card-meta>
     </nz-card>
+    <ng-template #coverTemplate>
+      <img alt="example" src="{{course.picture}}"/>
+    </ng-template>
     <ng-template #getInto>
       <a (click)="getIntoCourseProject(course.courseId)"><i nz-icon nzType="login"></i> 进入课程项目</a>
     </ng-template>
@@ -36,7 +42,4 @@
 <nz-pagination [(nzPageIndex)]="pagination.pageIndex" [nzPageSize]="6" [nzTotal]="courses.length"
                (nzPageIndexChange)="getAllCourses()"></nz-pagination>
 
-<ng-template #coverTemplate>
-  <img alt="example" src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"/>
-</ng-template>
 

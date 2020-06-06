@@ -8,6 +8,7 @@ import {HttpParams} from "@angular/common/http";
 import {Md5} from "ts-md5";
 import {Router} from "@angular/router";
 import {NzModalService} from "ng-zorro-antd";
+import {TokenHandler} from "../../../share/Token";
 
 @Component({
   selector: 'app-teacher-login',
@@ -63,6 +64,7 @@ export class TeacherLoginComponent implements OnInit {
           // console.log(params);
           this.authService.login(formValue["userID"],md5Password, 1).subscribe(result=>{
               if (result.code==200){//登陆成功
+                new TokenHandler().setToken(result.message);
                 if (formValue["remember"]){ //用户选择记住密码
                   this.authService.saveUserIdAndPassword("teacher",formValue["userID"], md5Password);
                 }else{

@@ -1,5 +1,6 @@
 package edu.fudan.projectbasedlearning.controller;
 import com.alibaba.fastjson.JSONObject;
+import edu.fudan.projectbasedlearning.annotation.PassToken;
 import edu.fudan.projectbasedlearning.annotation.UserLoginToken;
 import edu.fudan.projectbasedlearning.core.Result;
 import edu.fudan.projectbasedlearning.core.ResultGenerator;
@@ -113,6 +114,7 @@ public class ProjectController {
         return ResultGenerator.genSuccessResult();
     }
 
+    @UserLoginToken(roles = {"Student"})
     @GetMapping("/getAllStudentProjects")
     public Result getAllStudentProjects(@RequestParam("studentId") Integer studentId, @RequestParam("courseId") Integer courseId){
         List<Project> list = projectService.selectAllProjectsOfStudentInCourse(studentId, courseId);
@@ -138,18 +140,22 @@ public class ProjectController {
     }
 
     @DeleteMapping("/studentDropProject")
+    @UserLoginToken(roles = {"Student"})
     public Result studentDropProject(@RequestParam("studentId") Integer studentId, @RequestParam("projectId") Integer projectId) {
         projectService.studentDropProject(studentId, projectId);
         return ResultGenerator.genSuccessResult();
     }
 
+    @UserLoginToken(roles = {"Student", "Teacher"})
     @GetMapping("/getAllCourseProjects")
     public Result getAllCourseProjects(@RequestParam("courseId") Integer courseId){
+
         List<Project> list = projectService.selectAllProjectsOfCourse(courseId);
 
         List<HashMap<String, Object>> projectMaps = new ArrayList<>();
 
         for (Project project : list){
+
             HashMap<String, Object> projectMap = new HashMap<>();
             projectMap.put("projectId", project.getProjectId());
             projectMap.put("projectName", project.getProjectName());
@@ -168,6 +174,7 @@ public class ProjectController {
     }
 
     @PostMapping("/studentJoinProject")
+    @UserLoginToken(roles = {"Student"})
     public Result studentJoinProject(@RequestBody JSONObject jsonObject){
         int studentId = (int)jsonObject.get("studentId");
         int projectId = (int)jsonObject.get("projectId");
@@ -182,6 +189,7 @@ public class ProjectController {
     }
 
     @GetMapping("/info/{projectId}")
+    @UserLoginToken(roles = {"Student", "Teacher"})
     public Result getProjectInfoOf(@PathVariable("projectId") Integer projectId){
         Project project = projectService.findById(projectId);
         return ResultGenerator.genSuccessResult(project);

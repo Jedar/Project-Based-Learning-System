@@ -27,7 +27,8 @@ export class ProjectJoinComponent implements OnInit {
     private modal: NzModalService,
     private message: NzMessageService,
     private authService: AuthService
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
     this.getAllProjects();
@@ -36,7 +37,9 @@ export class ProjectJoinComponent implements OnInit {
   getAllProjects(): void {
     this.projectService.getAllProjects(this.courseId)
       .subscribe(result => {
-        this.allProjects = result.data;
+        if (result.code === 200) {
+          this.allProjects = result.data;
+        }
       })
   }
 

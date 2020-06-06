@@ -9,7 +9,9 @@
     </ng-template>
   </nz-tab>
   <nz-tab [nzTitle]="titleTemplate3">
-    <app-project-join [courseId]="courseId"></app-project-join>
+    <ng-template nz-tab>
+      <app-project-join [courseId]="courseId"></app-project-join>
+    </ng-template>
   </nz-tab>
 </nz-tabset>
 
