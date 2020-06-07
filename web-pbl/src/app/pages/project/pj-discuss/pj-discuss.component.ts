@@ -88,7 +88,7 @@ export class PjDiscussComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
+  init(){
     this.discussionService.getAllDiscussionList(this.projectId).subscribe(result => {
       this.discussions = result.data;
       for (let discussion of this.discussions) {
@@ -108,7 +108,10 @@ export class PjDiscussComponent implements OnInit {
       this.firstDiscussions = result.data;
       for (let item of this.firstDiscussions)item.time = item.time.substr(0,10);
     });
+  }
 
+  ngOnInit(): void {
+   this.init();
   }
 
 
@@ -137,6 +140,7 @@ export class PjDiscussComponent implements OnInit {
           nzTitle: '发布讨论',
           nzContent: '发布成功',
         });
+        this.init();
       } else {
         this.modal.error({
           nzTitle: '发布失败',
@@ -168,7 +172,8 @@ export class PjDiscussComponent implements OnInit {
         this.modal.success({
           nzTitle: '回复讨论',
           nzContent: '回复成功',
-        })
+        });
+        this.init();
       } else {
         this.modal.error({
           nzTitle: '回复失败',
