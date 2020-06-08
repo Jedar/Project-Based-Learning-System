@@ -4,6 +4,7 @@ import edu.fudan.projectbasedlearning.core.Mapper;
 import edu.fudan.projectbasedlearning.pojo.Project;
 import edu.fudan.projectbasedlearning.pojo.Student;
 
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -31,4 +32,8 @@ public interface ProjectMapper extends Mapper<Project> {
 
     //学生加入新项目
     void studentJoinProject(int studentId, int projectId);
+
+    //查询课程的选课人数及其他信息
+    List<HashMap<String, Object>> selectStudentNumberOfProject();
+
 }

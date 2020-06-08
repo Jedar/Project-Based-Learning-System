@@ -76,4 +76,16 @@
   <select id="findProjectListOfCourse" resultType="edu.fudan.projectbasedlearning.pojo.Project">
     select * from project where course_id = #{courseId}
   </select>
+  <select id="selectStudentNumberOfCourse" resultType="hashmap">
+    select count(user_id) as studentNumberOfCourse, course_id
+    from take
+    group by course_id
+    order by studentNumberOfCourse
+  </select>
+  <select id="selectCourseById" resultType="hashmap">
+    select course_id, username as teacher_name, course_name,description
+    from user natural join course natural join teach
+    where course_id = #{courseId}
+  </select>
+
 </mapper>

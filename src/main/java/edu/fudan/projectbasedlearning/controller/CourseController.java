@@ -25,6 +25,13 @@ public class CourseController {
     private CourseService courseService;
 
     @UserLoginToken(roles = {"Manager"})
+    @GetMapping("/courseChart")
+    public Result getCourseChart(){
+        List<HashMap<String, Object>> mapList = courseService.selectStudentNumberOfCourseAndOther();
+        return ResultGenerator.genSuccessResult(mapList);
+    }
+
+    @UserLoginToken(roles = {"Manager"})
     @GetMapping("/courseList")
     public Result getCourseList() {
         List<HashMap<String, Object>> courseList = courseService.selectAllCourses();

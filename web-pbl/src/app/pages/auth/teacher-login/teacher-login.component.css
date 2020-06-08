@@ -22,9 +22,12 @@
   margin-bottom: 16px;
 }
 /* button{
-  
+
   background-color: red;
 } */
 #check-code-img{
   margin: -5px -12px;
+}
+.sign-up{
+  text-align: center;
 }

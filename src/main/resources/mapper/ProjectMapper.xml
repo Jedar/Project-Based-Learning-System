@@ -52,8 +52,14 @@
   <select id="selectAllProjectsOfStudentInCourse" resultMap="BaseResultMap">
     select * from project where course_id = #{courseId} and project_id in (select project_id from participate where user_id = #{studentId})
   </select>
+    <select id="selectStudentNumberOfProject" resultType="hashmap">
+      select count(user_id) as studentNumberOfProject, project_id
+      from participate
+      group by project_id
+      order by studentNumberOfProject
+    </select>
 
-    <!-- 学生退出项目 -->
+  <!-- 学生退出项目 -->
   <delete id="studentDropProject">
     delete from participate where project_id = #{projectId} and user_id = #{studentId}
   </delete>

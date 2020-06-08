@@ -32,7 +32,9 @@
               "src/theme.less",
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [
+              "src/assets/js/echarts.min.js"
+            ]
           },
           "configurations": {
             "production": {

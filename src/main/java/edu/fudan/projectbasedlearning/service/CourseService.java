@@ -38,4 +38,7 @@ public interface CourseService extends Service<Course> {
 
     //查询某个教师开设的所有课程
     List<Course> selectTeacherCourses(int teacherId);
+
+    //查询课程的选课人数及其他信息
+    List<HashMap<String, Object>> selectStudentNumberOfCourseAndOther();
 }

@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -80,6 +81,20 @@ public class CourseServiceImpl extends AbstractService<Course> implements Course
     @Override
     public List<Course> selectTeacherCourses(int teacherId) {
         return courseMapper.selectTeacherCourses(teacherId);
+    }
+
+    @Override
+    public List<HashMap<String, Object>> selectStudentNumberOfCourseAndOther() {
+        List<HashMap<String, Object>> mapList = courseMapper.selectStudentNumberOfCourse();
+        List<HashMap<String, Object>> returnMap = new ArrayList<>();
+        for (HashMap<String, Object> map : mapList) {
+            int courseId = (int)(map.get("course_id"));
+            HashMap<String, Object> map1 = courseMapper.selectCourseById(courseId);
+            map1.put("studentNumberOfCourse", map.get("studentNumberOfCourse"));
+            returnMap.add(map1);
+        }
+
+        return returnMap;
     }
 
 

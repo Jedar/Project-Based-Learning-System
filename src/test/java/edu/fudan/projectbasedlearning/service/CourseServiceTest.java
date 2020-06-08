@@ -56,4 +56,8 @@ public class CourseServiceTest extends Tester {
         System.out.println("testInsert");
     }
 
+    @Test
+    public void testSelectStudentNumberOfCourseAndOther(){
+        System.out.println(courseService.selectStudentNumberOfCourseAndOther());
+    }
 }
