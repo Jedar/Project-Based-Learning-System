@@ -41,4 +41,6 @@ public interface ProjectService extends Service<Project> {
 
 
     void createProject(Project project, double value1, double value2, double value3);
+
+    List<HashMap<String, Object>> selectStudentNumberOfProjectAndOther();
 }

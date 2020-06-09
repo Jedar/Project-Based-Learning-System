@@ -6,6 +6,9 @@ import edu.fudan.projectbasedlearning.core.ResultGenerator;
 import edu.fudan.projectbasedlearning.pojo.Discussion;
 import edu.fudan.projectbasedlearning.service.DiscussionService;
 import edu.fudan.projectbasedlearning.service.UserService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -19,6 +22,7 @@ import java.util.List;
  * Created by CodeGenerator on 2020/05/28.
  */
 @RestController
+@Api(value = "讨论模块接口")
 @RequestMapping("/discussion")
 public class DiscussionController {
     @Resource
@@ -97,14 +101,14 @@ public class DiscussionController {
     }
 
     @UserLoginToken(roles = {"Student", "Teacher"})
-    @RequestMapping("getPublishCount/{studentId}")
+    @GetMapping("getPublishCount/{studentId}")
     public Result getPublishCount(@PathVariable Integer studentId){
         int count = discussionService.getPublishCount(studentId);
         return ResultGenerator.genSuccessResult(count);
     }
 
     @UserLoginToken(roles = {"Student", "Teacher"})
-    @RequestMapping("getReplyCount/{studentId}")
+    @GetMapping("getReplyCount/{studentId}")
     public Result getReplyCount(@PathVariable Integer studentId){
         int count = discussionService.getReplyCount(studentId);
         return ResultGenerator.genSuccessResult(count);

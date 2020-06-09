@@ -50,7 +50,15 @@ export class StudentSignupComponent implements OnInit {
               });
             }else{
               let md5Value = Md5.hashStr(formValue["password"]).toString();
-              this.authService.signUp(formValue["username"],md5Value,formValue["gender"],formValue["school"], 2).subscribe(
+              console.log(formValue["userType"]);
+              var role;
+              if (formValue["userType"] == "student") {
+                role = 2;
+              } else
+                role = 1;
+              this.authService.signUp(
+                formValue["username"],md5Value,formValue["gender"],formValue["school"], role
+              ).subscribe(
                 result=>{
                   if (result.code==200){ //服务器返回注册成功
                     this.modal.success({
@@ -73,7 +81,10 @@ export class StudentSignupComponent implements OnInit {
             }
           },
         error => {
-            console.log(error);
+            this.modal.error({
+              nzTitle:"注册失败",
+              nzContent: "服务器出错"
+            })
         });
     }
   }
@@ -146,6 +157,7 @@ export class StudentSignupComponent implements OnInit {
       gender:[null, [required]],
       password: [null, [required, minLengthPassword(6), maxLengthPassword(16)]],
       checkPassword: [null, [required, this.confirmationValidator]],
+      userType:[null, [required]],
       agree: [false, [this.agreementValidator]]
     });
   }

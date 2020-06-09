@@ -13,7 +13,8 @@
   </resultMap>
 
   <select id="findStudentListOfCourse" resultMap ="StudentListOfCourseMap">
-    select * from user natural join student natural join take where course_id = #{courseId}
+    select * from user inner join student on s_id = user.user_id
+        inner join take on take.user_id = user.user_id where course_id = #{courseId}
   </select>
   <resultMap id="StudentListOfCourseMap" type="edu.fudan.projectbasedlearning.pojo.Student">
   <!--
@@ -75,4 +76,16 @@
   <select id="findProjectListOfCourse" resultType="edu.fudan.projectbasedlearning.pojo.Project">
     select * from project where course_id = #{courseId}
   </select>
+  <select id="selectStudentNumberOfCourse" resultType="hashmap">
+    select count(user_id) as studentNumberOfCourse, course_id
+    from take
+    group by course_id
+    order by studentNumberOfCourse
+  </select>
+  <select id="selectCourseById" resultType="hashmap">
+    select course_id, username as teacher_name, course_name,description
+    from user natural join course natural join teach
+    where course_id = #{courseId}
+  </select>
+
 </mapper>

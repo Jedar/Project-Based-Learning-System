@@ -32,6 +32,13 @@ public class ProjectController {
     private ProjectService projectService;
 
     @UserLoginToken(roles = {"Manager"})
+    @GetMapping("/projectChart")
+    public Result getProjectChart(){
+        List<HashMap<String, Object>> mapList = projectService.selectStudentNumberOfProjectAndOther();
+        return ResultGenerator.genSuccessResult(mapList);
+    }
+
+    @UserLoginToken(roles = {"Manager"})
     @GetMapping("/projectList")
     public Result getProjectList(){
         List<Project> projectList = projectService.findAll();

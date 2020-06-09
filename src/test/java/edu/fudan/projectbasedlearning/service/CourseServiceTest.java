@@ -28,8 +28,7 @@ public class CourseServiceTest extends Tester {
         List<Student> users = courseService.findUserListOfCourse(1);
         System.out.println("testFindStudentList");
         System.out.println(users);
-        System.out.println(users.get(0).getsId());
-        System.out.println(users.get(0).getUser().getUserId());
+
     }
     @Test
     public void testDeleteById(){
@@ -57,4 +56,8 @@ public class CourseServiceTest extends Tester {
         System.out.println("testInsert");
     }
 
+    @Test
+    public void testSelectStudentNumberOfCourseAndOther(){
+        System.out.println(courseService.selectStudentNumberOfCourseAndOther());
+    }
 }

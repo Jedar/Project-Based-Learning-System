@@ -44,6 +44,7 @@ export class ManagerProjectCreateComponent implements OnInit {
       name: [null, [required]],
       theme: [null, [required]],
       timeRange: [null, [required]],
+      scoreTimeRange: [null, [required]],
       scoreInfo: [[30, 70]]
     });
     this.managerService.courseList().subscribe(result=>{

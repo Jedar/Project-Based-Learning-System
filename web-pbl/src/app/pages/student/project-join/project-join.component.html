@@ -8,8 +8,8 @@
         nzDescription="{{project.startTime}} --- {{project.endTime}}">
       </nz-list-item-meta>
       项目主题：{{project.theme}}
-      <ul nz-list-item-actions>
-        <nz-list-item-action><a (click)="joinProject(project.projectId)"><i nz-icon nzType="login"></i> 加入项目</a></nz-list-item-action>
+      <ul>
+        <a (click)="joinProject(project.projectId)"><i nz-icon nzType="login"></i> 加入项目</a>
       </ul>
     </ng-container>
   </nz-list-item>

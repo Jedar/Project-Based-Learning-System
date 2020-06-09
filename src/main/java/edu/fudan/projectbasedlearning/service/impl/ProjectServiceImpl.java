@@ -1,6 +1,9 @@
 package edu.fudan.projectbasedlearning.service.impl;
 
+import com.alibaba.fastjson.JSONObject;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import edu.fudan.projectbasedlearning.dao.ProjectMapper;
+import edu.fudan.projectbasedlearning.pojo.Course;
 import edu.fudan.projectbasedlearning.pojo.Project;
 import edu.fudan.projectbasedlearning.pojo.Student;
 import edu.fudan.projectbasedlearning.pojo.User;
@@ -10,7 +13,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 
 
@@ -64,6 +69,13 @@ public class ProjectServiceImpl extends AbstractService<Project> implements Proj
 
         try {
             projectMapper.studentJoinProject(studentId, projectId);
+
+            Project project = projectMapper.selectByPrimaryKey(projectId);
+            //如果该学生是第一个加入该项目的，那么把他设置为组长
+            if(project.getLeaderId() == null){
+                project.setLeaderId(studentId);
+                projectMapper.updateByPrimaryKeySelective(project);
+            }
             return result;
         }catch (Exception e){
             result.put("code", 400);
@@ -81,5 +93,19 @@ public class ProjectServiceImpl extends AbstractService<Project> implements Proj
     public void createProject(Project project, double value1, double value2, double value3) {
         projectMapper.insertProject(project);
         saveScoreDistribute(project.getProjectId(), value1, value2, value3);
+    }
+
+    @Override
+    public List<HashMap<String, Object>> selectStudentNumberOfProjectAndOther() {
+        List<HashMap<String, Object>> mapList = projectMapper.selectStudentNumberOfProject();
+        List<HashMap<String, Object>> returnMap = new ArrayList<>();
+        for (HashMap<String, Object> map : mapList){
+            int projectId = (int) (map.get("project_id"));
+            Project project = projectMapper.selectByPrimaryKey(projectId);
+            HashMap<String, Object> map1 = JSONObject.parseObject(JSONObject.toJSONString(project), HashMap.class);
+            map1.put("studentNumberOfProject", map.get("studentNumberOfProject"));
+            returnMap.add(map1);
+        }
+        return returnMap;
     }
 }

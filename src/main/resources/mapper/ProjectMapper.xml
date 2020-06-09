@@ -22,7 +22,9 @@
   </insert>
   <!-- 选了一个课程的所有学生 -->
   <select id="findStudentListOfProject" resultMap ="StudentListOfCourseMap">
-    select * from user natural join student natural join participate where project_id = #{projectId}
+    select * from user inner join student on user.user_id = s_id
+        inner join participate on user.user_id = participate.user_id
+    where project_id = #{projectId}
   </select>
   <resultMap id="StudentListOfCourseMap" type="edu.fudan.projectbasedlearning.pojo.Student">
     <!--
@@ -50,8 +52,14 @@
   <select id="selectAllProjectsOfStudentInCourse" resultMap="BaseResultMap">
     select * from project where course_id = #{courseId} and project_id in (select project_id from participate where user_id = #{studentId})
   </select>
+    <select id="selectStudentNumberOfProject" resultType="hashmap">
+      select count(user_id) as studentNumberOfProject, project_id
+      from participate
+      group by project_id
+      order by studentNumberOfProject
+    </select>
 
-    <!-- 学生退出项目 -->
+  <!-- 学生退出项目 -->
   <delete id="studentDropProject">
     delete from participate where project_id = #{projectId} and user_id = #{studentId}
   </delete>

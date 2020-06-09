@@ -31,4 +31,9 @@ public class ProjectServiceTest extends Tester {
         System.out.println(users.get(0).getsId());
         System.out.println(users.get(0).getUser().getUserId());
     }
+
+    @Test
+    public void testSelectStudentNumberOfProjectAndOther(){
+        System.out.println(projectService.selectStudentNumberOfProjectAndOther());
+    }
 }

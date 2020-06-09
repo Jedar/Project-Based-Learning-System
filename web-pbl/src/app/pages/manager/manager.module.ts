@@ -17,10 +17,25 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {TeacherModule} from "../teacher/teacher.module";
 import { ManagerProjectComponent } from './manager-project/manager-project.component';
 import { ManagerProjectCreateComponent } from './manager-project-create/manager-project-create.component';
-
+import { ManagerClassChartComponent } from './manager-class-chart/manager-class-chart.component';
+import { ManagerProjectChartComponent } from './manager-project-chart/manager-project-chart.component';
+import {NgxEchartsModule} from "ngx-echarts";
 
 @NgModule({
-  declarations: [ManagerMainComponent, ManagerTeacherComponent, ManagerStudentComponent, ManagerClassComponent, ManagerSystemComponent, ManagerTeacherCreateComponent, ManagerStudentCreateComponent, ManagerClassCreateComponent, ManagerProjectComponent, ManagerProjectCreateComponent],
+  declarations: [
+    ManagerMainComponent,
+    ManagerTeacherComponent,
+    ManagerStudentComponent,
+    ManagerClassComponent,
+    ManagerSystemComponent,
+    ManagerTeacherCreateComponent,
+    ManagerStudentCreateComponent,
+    ManagerClassCreateComponent,
+    ManagerProjectComponent,
+    ManagerProjectCreateComponent,
+    ManagerClassChartComponent,
+    ManagerProjectChartComponent
+  ],
     imports: [
         CommonModule,
         ManagerRoutingModule,
@@ -29,6 +44,8 @@ import { ManagerProjectCreateComponent } from './manager-project-create/manager-
         FormsModule,
         ReactiveFormsModule,
         TeacherModule,
+        NgxEchartsModule
+
     ]
 })
 export class ManagerModule { }

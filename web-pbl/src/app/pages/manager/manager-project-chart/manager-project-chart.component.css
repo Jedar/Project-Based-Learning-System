@@ -1,0 +1,19 @@
+#class-chart-title{
+  font-weight: bold;
+  font-size: 20px;
+}
+#chart-inner{
+  width: 80%;
+  text-align: center;
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
+#class-chart{
+  width: 40rem;
+  height:30rem;
+}
+
+#outer{
+  width: 80%;
+  margin: auto;
+}

@@ -1,4 +1,4 @@
-<div class="sign-up-title">学生用户注册</div>
+<div class="sign-up-title">用户注册</div>
 <form nz-form [nzAutoTips]="autoTips" [formGroup]="validateForm" (ngSubmit)="submitForm()">
 
   <nz-form-item>
@@ -49,7 +49,15 @@
       </ng-template>
     </nz-form-control>
   </nz-form-item>
-
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="userType" nzRequired>用户类型</nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="errorTpl">
+      <nz-radio-group  nzButtonStyle="solid" formControlName="userType" id="userType">
+        <label nz-radio-button nzValue="student">学生</label>
+        <label nz-radio-button nzValue="teacher">教师</label>
+      </nz-radio-group>
+    </nz-form-control>
+  </nz-form-item>
   <nz-form-item nz-row class="register-area">
     <nz-form-control [nzSpan]="14" [nzOffset]="6">
       <label nz-checkbox formControlName="agree">
@@ -60,4 +68,5 @@
   <nz-form-item nz-row class="register-area">
       <button nz-button nzType="primary" id="sign-up-button">立即注册</button>
   </nz-form-item>
+
 </form>

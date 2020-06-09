@@ -55,12 +55,14 @@
               <ul>
                 <li  [nzSelected]="option=='class_list'" nz-menu-item [routerLink]="['/','manager','class_list']">课程列表</li>
                 <li  [nzSelected]="option=='class_create'" nz-menu-item [routerLink]="['/','manager','class_create']">新增课程</li>
+                <li  [nzSelected]="option=='class_chart'" nz-menu-item [routerLink]="['/','manager','class_chart']">热门课程</li>
               </ul>
             </li>
             <li nz-submenu nzTitle="项目管理" nzIcon="project">
               <ul>
                 <li  [nzSelected]="option=='project_list'" nz-menu-item [routerLink]="['/','manager','project_list']">项目列表</li>
                 <li  [nzSelected]="option=='project_create'" nz-menu-item [routerLink]="['/','manager','project_create']">新增项目</li>
+                <li  [nzSelected]="option=='project_chart'" nz-menu-item [routerLink]="['/','manager','project_chart']">热门项目</li>
               </ul>
             </li>
             <li  [nzSelected]="option=='system'" nz-menu-item [routerLink]="['/','manager','system']"><i nz-icon nzType="setting" nzTheme="outline"></i>系统信息</li>
