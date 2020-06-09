@@ -3,11 +3,18 @@ package edu.fudan.projectbasedlearning.configurer;
 
 import edu.fudan.projectbasedlearning.interceptor.AuthenticationInterceptor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import springfox.documentation.builders.ApiInfoBuilder;
+import springfox.documentation.builders.PathSelectors;
+import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.service.Contact;
+import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spring.web.plugins.Docket;
 
 @Configuration
 public class CorsConfig extends WebMvcConfigurer {
@@ -37,5 +44,19 @@ public class CorsConfig extends WebMvcConfigurer {
         registry.addInterceptor(new AuthenticationInterceptor())
                 .addPathPatterns("/**")
         ;
+    }
+
+    @Bean
+    public Docket createRestApi() {
+        return new Docket(DocumentationType.SWAGGER_2)
+                .pathMapping("/")
+                .select()
+                .apis(RequestHandlerSelectors.basePackage("edu.fudan.projectbasedlearning.controller"))
+                .paths(PathSelectors.any())
+                .build().apiInfo(new ApiInfoBuilder()
+                        .title("Project Based learning ")
+                        .description("SpringBoot & Swagger")
+                        .version("9.0")
+                        .build());
     }
 }

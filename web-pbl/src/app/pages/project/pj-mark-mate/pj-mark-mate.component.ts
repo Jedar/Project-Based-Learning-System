@@ -95,7 +95,6 @@ export class PjMarkMateComponent implements OnInit {
       this.students = result.data;
       for (let i=0;i<this.students.length;i++){
         if (this.students[i].sId == this.studentId){
-          console.log(this.students[i]);
           this.students.splice(i,i+1);
         }
       }
@@ -111,17 +110,14 @@ export class PjMarkMateComponent implements OnInit {
         this.discussionService.getReplyCount(student.sId).subscribe(res=>{
           if(res.code == 200)this.replyOfStudent.set(student.sId,res.data);
         });
-
-        this.scoreService.getScores(this.studentId).subscribe(res=>{
-          if(res.code == 200)this.scores = res.data;
-
-          for (let score of this.scores){
-            if(score.userId == this.studentId && score.scoreType == 1)this.ifHasSelfEva = true;
-          }
-        })
       }
     });
-
+    this.scoreService.getScores(this.studentId).subscribe(res=>{
+      if(res.code == 200)this.scores = res.data;
+      for (let score of this.scores){
+        if(score.userId == this.studentId && score.scoreType == 1)this.ifHasSelfEva = true;
+      }
+    });
     //Todo：判断是否在互评时间内
 
   }

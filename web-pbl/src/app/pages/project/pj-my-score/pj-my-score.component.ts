@@ -32,11 +32,14 @@ export class PjMyScoreComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log(this.studentId);
     this.scoreService.getScores(this.studentId).subscribe(result => {
       this.scores = result.data;
       let count = 0;
+      console.log(this.scores);
       for (let score of this.scores) {
         let s = score.distribute * score.value;
+        console.log(s);
         switch (score.scoreType) {
           case 1:
             this.selfEva = s;
@@ -53,6 +56,7 @@ export class PjMyScoreComponent implements OnInit {
         }
       }
       this.mutEva = this.mutEva / count;
+      console.log(this.mutEva,count);
       this.totalScore = this.selfEva + this.teacherEva + this.mutEva;
     });
   }
