@@ -31,6 +31,11 @@ export class PjMyTaskComponent implements OnInit {
       priority: 4
     },
     {
+      title: '任务优先级',
+      compare: (a: Task, b: Task) => a.priority > b.priority,
+      priority: 5
+    },
+    {
       title: '任务进度',
       compare: (a: Task, b: Task) => a.state - b.state,
       priority: 3
@@ -52,7 +57,6 @@ export class PjMyTaskComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.authService.setUserId(10000);
     let userId = this.authService.getUserId();
     this.taskService.getTaskListOfUser(this.projectId,userId).subscribe(res => {
       if(res.code === 200){

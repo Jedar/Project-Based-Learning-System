@@ -73,12 +73,13 @@ export class PjModifyTaskComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private projectService: ProjectService,
   ) {
-    const { required, maxLength, minLength } = CommonValidators;
+    const { required, maxLength, minLength,min,max } = CommonValidators;
     this.validateForm = this.fb.group({
       task_name: [null, [required]],
       user_id:[null, [required]],
       rangePicker: [[], [required]],
-      content:[null, [required]]
+      content:[null, [required]],
+      priority: [null, [required,min(1),max(5)]]
     });
     activatedRoute.queryParams.subscribe(params => {
       // this.projectId = Number.parseInt(params['projectId']);
@@ -105,7 +106,8 @@ export class PjModifyTaskComponent implements OnInit {
             task_name: this.task.task_name,
             user_id:null,
             rangePicker: [this.task.start_time,this.task.end_time],
-            content:this.task.content
+            content:this.task.content,
+            priority:this.task.priority
           });
         }
         else{
@@ -114,7 +116,6 @@ export class PjModifyTaskComponent implements OnInit {
             nzContent:result.message
           })
         }
-        
       });
 
     });
@@ -168,7 +169,7 @@ export class PjModifyTaskComponent implements OnInit {
         content:data.content,
         state:0,
         comment:"",
-        priority:1
+        priority:data.priority
       }).subscribe(result => {
         this.isSubmit = !this.isSubmit;
         if(result.code === 200){

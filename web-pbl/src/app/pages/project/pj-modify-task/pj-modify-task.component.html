@@ -20,6 +20,14 @@
     </nz-form-item>
 
     <nz-form-item>
+      <nz-form-label [nzSpan]="7" nzRequired>任务优先级</nz-form-label>
+      <nz-form-control [nzSpan]="12" nzValidatingTip="Validating...">
+        <nz-input-number formControlName="priority" [nzMax]="5" [nzMin]="1" [nzStep]="1"></nz-input-number>
+        <!-- <input nz-input formControlName="priority"/> -->
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
         <nz-form-label [nzSpan]="7" nzRequired>任务时间</nz-form-label>
         <nz-form-control [nzSpan]="12" nzValidatingTip="Validating...">
             <nz-range-picker 

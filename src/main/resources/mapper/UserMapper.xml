@@ -27,7 +27,7 @@
     </select>
 
   <select id="getStudentInfo" parameterType="int" resultType="hashmap">
-    select user_id as sId, username, gender, school, profile from user inner join student on user.user_id = student.s_id where s_id = #{studentId}
+    select user_id as sId, username, gender, school,profile,role from user inner join student on user.user_id = student.s_id where s_id = #{studentId}
   </select>
 
   <update id="modifyStudentInfo" parameterType="hashmap">
@@ -36,13 +36,13 @@
   </update>
 
   <select id="getTeacherInfo" parameterType="int" resultType="hashmap">
-    select user_id as tId, username, gender, school, profile from user inner join teacher on user.user_id = teacher.t_id where t_id = #{teacherId}
+    select user_id as tId, username, gender, school, profile,role from user inner join teacher on user.user_id = teacher.t_id where t_id = #{teacherId}
   </select>
   <select id="getStudentList" resultType="hashmap">
-    select user_id as sId, username, gender, school, profile from user inner join student on user.user_id = student.s_id
+    select user_id as sId, username, gender, school, profile,role from user inner join student on user.user_id = student.s_id
   </select>
   <select id="getTeacherList" resultType="hashmap">
-    select user_id as tId, username, gender, school, profile from user inner join teacher on user.user_id = teacher.t_id
+    select user_id as tId, username, gender, school, profile,role from user inner join teacher on user.user_id = teacher.t_id
   </select>
 
   <update id="modifyTeacherInfo" parameterType="hashmap">

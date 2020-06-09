@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute,Router } from '@angular/router';
 import * as format from 'date-fns/format';
 import differenceInCalendarDays from 'date-fns/differenceInCalendarDays';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CommonValidators } from '../../../share/CommonValidator';
 
 import { Task } from '../../../share/task.model';
@@ -75,6 +75,11 @@ export class PjManageTaskComponent implements OnInit {
       priority: 4
     },
     {
+      title: '任务优先级',
+      compare: (a: Task, b: Task) => a.priority > b.priority,
+      priority: 5
+    },
+    {
       title: '任务进度',
       compare: (a: Task, b: Task) => a.state - b.state,
       priority: 3
@@ -108,12 +113,13 @@ export class PjManageTaskComponent implements OnInit {
     this.taskService.getTaskList(this.projectId).subscribe(result=>{
       this.tasks = result.data;
     });
-    const { required, maxLength, minLength } = CommonValidators;
+    const { required, maxLength, minLength, min, max } = CommonValidators;
     this.validateForm = this.fb.group({
       task_name: [null, [required]],
       user_id:[null, [required]],
       rangePicker: [[], [required]],
-      content:[null, [required]]
+      content:[null, [required]],
+      priority: [null, [required,min(1),max(5)]]
     });
     this.studentService.getStudentsOfProject(this.projectId).subscribe(result=>{
       if(result.code == 200){
@@ -178,7 +184,7 @@ export class PjManageTaskComponent implements OnInit {
         content:data.content,
         state:0,
         comment:"",
-        priority:1,
+        priority:data.priority,
       }).subscribe(result => {
         this.isSubmit = false;
         if(result.code === 200){

@@ -54,7 +54,7 @@
               <ul>
                 <li [nzSelected]="option=='all_task'" nz-menu-item [routerLink]="['/','project','student','all_task']" [queryParams]="{projectId:projectId}">任务总览</li>
                 <li [nzSelected]="option=='my_task'" nz-menu-item  [routerLink]="['/','project','student','my_task']" [queryParams]="{projectId:projectId}">我的任务</li>
-                <li [nzSelected]="option=='manage_task'" nz-menu-item  [routerLink]="['/','project','student','manage_task']" [queryParams]="{projectId:projectId}">管理任务</li>
+                <li *ngIf="isManager" [nzSelected]="option=='manage_task'" nz-menu-item  [routerLink]="['/','project','student','manage_task']" [queryParams]="{projectId:projectId}">管理任务</li>
               </ul>
             </li>
             <li nz-menu-item

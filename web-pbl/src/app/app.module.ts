@@ -21,6 +21,7 @@ import { ProjectService } from './services/project.service';
 import { FileService } from './services/file.service';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import {NzMessageService} from "ng-zorro-antd";
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 registerLocaleData(zh);
 

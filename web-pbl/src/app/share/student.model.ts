@@ -3,7 +3,7 @@ export interface Student{
     username:string,
     gender:string,
     school:string,
-    profile:string
+    profile:string,
 }
 export interface StudentListMessage {
   code:number,

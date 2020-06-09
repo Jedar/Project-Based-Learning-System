@@ -3,6 +3,7 @@ import { ActivatedRoute,Router } from '@angular/router';
 import { TaskService } from '../../../services/task.service';
 import {TokenHandler} from "../../../share/Token";
 import {AuthService} from "../../../services/auth.service";
+import {ProjectService} from "../../../services/project.service";
 
 @Component({
   selector: 'app-pj-student-main',
@@ -12,18 +13,27 @@ import {AuthService} from "../../../services/auth.service";
 export class PjStudentMainComponent implements OnInit {
   option:string;
   projectId:number;
+  isManager:boolean = false;;
+  userId:number;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private taskService:TaskService,
-    private authService: AuthService
+    private authService: AuthService,
+    private projectService:ProjectService,
   ) {
     // route.params.subscribe(params => {
     //   console.log(params);
     //   this.projectId = Number.parseInt(params['projectId']);
     // });
+    this.userId = this.authService.getUserId();
     this.projectId = taskService.getProjectId();
+    this.projectService.getProjectOf(this.projectId).subscribe(result => {
+      if(result.code === 200){
+        this.isManager = (this.userId == result.data.leaderId);
+      }
+    });
   }
 
   ngOnInit(): void {
