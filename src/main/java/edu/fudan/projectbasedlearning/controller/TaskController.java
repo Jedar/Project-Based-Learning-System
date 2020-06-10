@@ -2,6 +2,7 @@ package edu.fudan.projectbasedlearning.controller;
 import edu.fudan.projectbasedlearning.annotation.UserLoginToken;
 import edu.fudan.projectbasedlearning.core.Result;
 import edu.fudan.projectbasedlearning.core.ResultGenerator;
+import edu.fudan.projectbasedlearning.core.ResultTypeGenerator;
 import edu.fudan.projectbasedlearning.pojo.Task;
 import edu.fudan.projectbasedlearning.pojo.User;
 import edu.fudan.projectbasedlearning.request.EditTaskRequest;
@@ -41,7 +42,8 @@ public class TaskController {
 
     @UserLoginToken(roles = {"Student"})
     @GetMapping("/user")
-    public Result getTasksOfUser(@RequestParam String projectId, @RequestParam String userId){
+    public Result<List<HashMap<String,Object>>> getTasksOfUser(@RequestParam String projectId, @RequestParam String userId){
+        ResultTypeGenerator<List<HashMap<String,Object>>> generator = new ResultTypeGenerator<>();
         int project;
         int user;
         try {
@@ -49,15 +51,15 @@ public class TaskController {
             user = Integer.parseInt(userId);
         }
         catch (Exception e){
-            return ResultGenerator.genFailResult("Get参数错误");
+            return generator.genFailResult("Get参数错误");
         }
         List<HashMap<String,Object>> list = taskService.getAllTaskListByUser(user,project);
-        return ResultGenerator.genSuccessResult(list);
+        return generator.genSuccessResult(list);
     }
 
     @UserLoginToken(roles = {"Teacher","Student"})
     @GetMapping("/info/{taskId}")
-    public Result info(@PathVariable("taskId") int taskId ){
+    public Result<HashMap<String,Object>> info(@PathVariable("taskId") int taskId ){
         HashMap<String,Object> res = taskService.getTaskInfo(taskId);
         return ResultGenerator.genSuccessResult(res);
     }
