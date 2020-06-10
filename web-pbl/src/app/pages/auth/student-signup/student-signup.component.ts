@@ -50,14 +50,8 @@ export class StudentSignupComponent implements OnInit {
               });
             }else{
               let md5Value = Md5.hashStr(formValue["password"]).toString();
-              console.log(formValue["userType"]);
-              var role;
-              if (formValue["userType"] == "student") {
-                role = 2;
-              } else
-                role = 1;
               this.authService.signUp(
-                formValue["username"],md5Value,formValue["gender"],formValue["school"], role
+                formValue["username"],md5Value,formValue["gender"],formValue["school"], 2
               ).subscribe(
                 result=>{
                   if (result.code==200){ //服务器返回注册成功
@@ -110,31 +104,6 @@ export class StudentSignupComponent implements OnInit {
     return {};
   };
 
-  // //判断用户名是否存在
-  // uniqueUsernameValidator = (control: FormControl): { [s: string]: boolean } => {
-  //   if (!control.value) {
-  //     return { required: true };
-  //   } else{
-  //     const username = control.value;
-  //     this.authService.isUniqueUsername(username).subscribe(
-  //       result=> {
-  //         if (result.message=="SUCCESS")
-  //           this.isUnique = true;
-  //         else
-  //           this.isUnique = false;
-  //     },
-  //       error => {
-  //         console.log(error);
-  //       });
-  //   }
-  //   if (this.isUnique == false && this.submit == true) { //确认用户名已存在,
-  //     this.submit = false;
-  //     return { exists: true, error: true };
-  //   }
-  //   this.submit = false;
-  //   return {};
-  // };
-
 
   getCaptcha(e: MouseEvent): void {
     e.preventDefault();
@@ -157,7 +126,6 @@ export class StudentSignupComponent implements OnInit {
       gender:[null, [required]],
       password: [null, [required, minLengthPassword(6), maxLengthPassword(16)]],
       checkPassword: [null, [required, this.confirmationValidator]],
-      userType:[null, [required]],
       agree: [false, [this.agreementValidator]]
     });
   }
