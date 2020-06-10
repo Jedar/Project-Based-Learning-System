@@ -16,7 +16,7 @@ public class ScoreMapperTest extends Tester {
     public void testInsertScore() {
         Score score = new Score();
         score.setProjectId(1);
-        score.setScorerId(10000);
+        score.setScorerId(10023);
         score.setScoreType(3);
         score.setTime(new Date());
         score.setUserId(10009);

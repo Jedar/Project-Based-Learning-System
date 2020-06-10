@@ -48,7 +48,7 @@ public class ProjectMapperTest  extends Tester {
         for(Project project: list)
             System.out.println(project.getProjectId() + project.getProjectName());
 
-        projectMapper.studentJoinProject(10009, 2);
+        projectMapper.studentJoinProject(10023, 2);
 
         list = projectMapper.selectAllProjectsOfStudentInCourse(10009, 1);
         for(Project project: list)

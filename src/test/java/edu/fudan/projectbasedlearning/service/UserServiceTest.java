@@ -15,7 +15,7 @@ public class UserServiceTest extends Tester {
     private UserService userService;
     @Test
     public void testFindByUserNameAndPassword(){
-        User user =  userService.findByUsernameAndPassword("jxy123", "123456", 2);
+        User user =  userService.findByUsernameAndPassword("student1", "123456", 2);
         System.out.println(user);
     }
     @Test
