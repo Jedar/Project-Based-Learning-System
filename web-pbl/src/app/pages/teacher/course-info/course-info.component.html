@@ -1,1 +1,15 @@
-<p>course-info works!</p>
+<div>
+  <nz-descriptions nzTitle="课程信息" nzBordered [nzColumn]="1" nzSize="small">
+    <nz-descriptions-item nzTitle="课程图片">
+      <img alt="example" src="{{course.picture}}" style="width: 100px; height: 100px"/>
+    </nz-descriptions-item>
+    <nz-descriptions-item nzTitle="课程名称">{{course.course_name}}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="课程简介">{{course.description}}</nz-descriptions-item>
+  </nz-descriptions>
+</div>
+
+<div nz-row>
+  <div id="schoolChart" style="width: 500px; height: 400px"></div>
+  <div id="genderChart" style="width: 500px; height: 400px"></div>
+</div>
+

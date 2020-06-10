@@ -46,7 +46,7 @@ export class ProjectJoinComponent implements OnInit {
   joinProject(projectId: number): void {
     this.confirmModal = this.modal.confirm({
       nzTitle: '提示',
-      nzContent: '确定加入该项目？',
+      nzContent: '确定加入该项目？(加入后不可退出!)',
       nzOnOk: () =>
         new Promise((resolve, reject) => {
           this.projectService.joinProject(this.authService.getUserId(), projectId)

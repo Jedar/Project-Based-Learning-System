@@ -59,6 +59,13 @@ public class ProjectServiceImpl extends AbstractService<Project> implements Proj
     @Override
     public void studentDropProject(int studentId, int projectId) {
         projectMapper.studentDropProject(studentId, projectId);
+
+        Project project = projectMapper.selectByPrimaryKey(projectId);
+        //如果该学生是该项目组长，那么把项目组长设为null
+        if(project.getLeaderId() == studentId){
+            project.setLeaderId(null);
+            projectMapper.updateByPrimaryKeySelective(project);
+        }
     }
 
     @Override

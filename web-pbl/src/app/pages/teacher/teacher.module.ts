@@ -34,6 +34,7 @@ import { ModifyInfoComponent } from './modify-info/modify-info.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { CourseMainComponent } from './course-main/course-main.component';
 import { CourseInfoComponent } from './course-info/course-info.component';
+import {NgxEchartsModule} from "ngx-echarts";
 
 
 @NgModule({
@@ -41,33 +42,34 @@ import { CourseInfoComponent } from './course-info/course-info.component';
     exports: [
         CourseAddComponent
     ],
-  imports: [
-    CommonModule,
-    TeacherRoutingModule,
-    NzLayoutModule,
-    AppShareModule,
-    NzButtonModule,
-    NzToolTipModule,
-    NzIconModule,
-    NzMenuModule,
-    NzBreadCrumbModule,
-    NzDropDownModule,
-    NzGridModule,
-    NzCardModule,
-    NzPaginationModule,
-    ReactiveFormsModule,
-    NzInputModule,
-    NzFormModule,
-    NzUploadModule,
-    NzInputNumberModule,
-    NzListModule,
-    NzDatePickerModule,
-    NzDescriptionsModule,
-    NzSelectModule,
-    NzTabsModule,
-    NzSwitchModule,
-    FormsModule,
-    NzSliderModule
-  ]
+    imports: [
+        CommonModule,
+        TeacherRoutingModule,
+        NzLayoutModule,
+        AppShareModule,
+        NzButtonModule,
+        NzToolTipModule,
+        NzIconModule,
+        NzMenuModule,
+        NzBreadCrumbModule,
+        NzDropDownModule,
+        NzGridModule,
+        NzCardModule,
+        NzPaginationModule,
+        ReactiveFormsModule,
+        NzInputModule,
+        NzFormModule,
+        NzUploadModule,
+        NzInputNumberModule,
+        NzListModule,
+        NzDatePickerModule,
+        NzDescriptionsModule,
+        NzSelectModule,
+        NzTabsModule,
+        NzSwitchModule,
+        FormsModule,
+        NzSliderModule,
+        NgxEchartsModule
+    ]
 })
 export class TeacherModule { }

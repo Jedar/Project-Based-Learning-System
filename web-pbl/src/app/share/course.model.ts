@@ -4,6 +4,7 @@ export interface Course{
   teacher_name: string,
   course_name: string,
   description: string,
+  student_number: number,
   max_student_number: number,
   picture: string
 }
@@ -32,6 +33,23 @@ export interface TeacherCourseListMessage {
   message: string,
   data: TeacherCourse[]
 }
+
+export interface item {
+  name: string,
+  value: number;
+}
+
+export interface CourseStudentChart {
+  school: item[],
+  gender: item[];
+}
+
+export interface CourseStudentChartMessage {
+  code: number,
+  message: string,
+  data: CourseStudentChart
+}
+
 export interface CourseChart {
   course_id: number,
   teacher_name: string,

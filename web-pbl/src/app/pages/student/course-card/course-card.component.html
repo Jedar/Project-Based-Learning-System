@@ -1,11 +1,23 @@
 <nz-card *ngIf="operation === 0"
          nzSize="small" [nzCover]="coverTemplate" [nzHoverable]="true" [nzActions]="[getInto, drop]">
-  <nz-card-meta nzTitle="{{course.course_name + '(' + course.teacher_name+ ')'}}" nzDescription="{{course.description}}"></nz-card-meta>
+  <nz-card-meta
+    nzTitle="{{course.course_name + '(' + course.teacher_name+ ')'}}"
+    nzDescription="{{course.description}}">
+  </nz-card-meta>
+
+  <br>
+  选课人数: {{course.student_number}} / {{course.max_student_number}}
 </nz-card>
 
 <nz-card *ngIf="operation === 1"
          nzSize="small" [nzCover]="coverTemplate" [nzHoverable]="true" [nzActions]="[join]">
-  <nz-card-meta nzTitle="{{course.course_name + '(' + course.teacher_name + ')'}}" nzDescription="{{course.description}}"></nz-card-meta>
+  <nz-card-meta
+    nzTitle="{{course.course_name + '(' + course.teacher_name + ')'}}"
+    nzDescription="{{course.description}}">
+  </nz-card-meta>
+
+  <br>
+  选课人数: {{course.student_number}} / {{course.max_student_number}}
 </nz-card>
 
 <ng-template #coverTemplate>

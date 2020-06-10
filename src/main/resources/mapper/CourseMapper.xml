@@ -12,6 +12,16 @@
     <result column="picture" jdbcType="VARCHAR" property="picture" />
   </resultMap>
 
+  <!-- 查询课程信息 -->
+  <select id="getCourseInfo" parameterType="int" resultType="hashmap">
+    select course_id, user_id as teacher_id, username as teacher_name, course_name, description, max_student_number, picture from user, course
+        where course_id = #{courseId} and (user_id, course_id) in (select * from teach)
+  </select>
+
+  <select id="findStudentNumberOfCourse" parameterType="int" resultType="int">
+    select count(distinct user_id) from take where course_id = #{courseId}
+  </select>
+
   <select id="findStudentListOfCourse" resultMap ="StudentListOfCourseMap">
     select * from user inner join student on s_id = user.user_id
         inner join take on take.user_id = user.user_id where course_id = #{courseId}
@@ -88,4 +98,11 @@
     where course_id = #{courseId}
   </select>
 
+  <select id="getStudentSchoolsOfCourse" parameterType="int" resultType="hashmap">
+    select school as name, count(distinct s_id) as value from student where (s_id, #{courseId}) in (select * from take) group by school
+  </select>
+
+  <select id="getStudentGendersOfCourse" parameterType="int" resultType="hashmap">
+    select gender as name, count(distinct s_id) as value from student where (s_id, #{courseId}) in (select * from take) group by gender
+  </select>
 </mapper>

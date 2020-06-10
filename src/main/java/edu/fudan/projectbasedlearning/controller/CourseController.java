@@ -24,6 +24,21 @@ public class CourseController {
     @Resource
     private CourseService courseService;
 
+    @UserLoginToken(roles = {"Student", "Teacher"})
+    @GetMapping("/getCourseInfo/{courseId}")
+    public Result getCourseInfo(@PathVariable Integer courseId) {
+        HashMap<String, Object> course = courseService.getCourseInfo(courseId);
+        return ResultGenerator.genSuccessResult(course);
+    }
+
+    @UserLoginToken(roles = {"Teacher"})
+    @GetMapping("/courseStudentChart/{courseId}")
+    public Result getCourseStudentChart(@PathVariable Integer courseId){
+        HashMap<String, Object> courseStudentInfo = courseService.getCourseStudentInfo(courseId);
+        return ResultGenerator.genSuccessResult(courseStudentInfo);
+    }
+
+
     @UserLoginToken(roles = {"Manager"})
     @GetMapping("/courseChart")
     public Result getCourseChart(){
