@@ -41,6 +41,7 @@ registerLocaleData(zh);
     ReactiveFormsModule,
   ],
   providers: [
+    {provide: LocationStrategy, useClass: HashLocationStrategy},
     { provide: NZ_I18N, useValue: zh_CN },
     AuthService,
     TaskService,
