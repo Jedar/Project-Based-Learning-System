@@ -1,6 +1,12 @@
 import {Injectable} from '@angular/core';
 import {Observable} from "rxjs";
-import {Course, CourseListMessage, TeacherCourseListMessage} from "../share/course.model";
+import {
+  Course,
+  CourseListMessage,
+  CourseMessage,
+  CourseStudentChartMessage,
+  TeacherCourseListMessage
+} from "../share/course.model";
 import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import {Result, ResultMessage} from "../share/common.model";
 import {TokenHandler} from "../share/Token";
@@ -16,7 +22,7 @@ export class CourseService {
   httpGetOptions = {};
   httpFormOptions = {};
 
-  init(){
+  init() {
     this.httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -32,14 +38,24 @@ export class CourseService {
 
     this.httpFormOptions = {
       headers: new HttpHeaders({
-        'Content-Type':  'application/x-www-form-urlencoded;charset=utf-8',
+        'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',
         'token': new TokenHandler().getToken(),
       })
     };
   }
+
   constructor(private http: HttpClient) {
   }
 
+  getCourseStudentChart(courseId: number): Observable<CourseStudentChartMessage> {
+    this.init();
+    return this.http.get<CourseStudentChartMessage>("/course/courseStudentChart/" + courseId, this.httpGetOptions).pipe();
+  }
+
+  getCourseInfo(courseId: number): Observable<CourseMessage> {
+    this.init();
+    return this.http.get<CourseMessage>("/course/getCourseInfo/" + courseId, this.httpGetOptions).pipe();
+  }
   //得到某个学生已选的所有课程
   getAllStudentCourses(studentId: number): Observable<CourseListMessage> {
     this.init();
@@ -78,11 +94,11 @@ export class CourseService {
     }, this.httpOptions).pipe();
   }
 
-  addCourse(courseName, teacherId, description, maxStudentNumber, picture):Observable<ResultMessage>{
+  addCourse(courseName, teacherId, description, maxStudentNumber, picture): Observable<ResultMessage> {
     this.init();
     var params = new HttpParams()
-      .set("courseName" ,courseName)
-      .set("teacherId" ,teacherId)
+      .set("courseName", courseName)
+      .set("teacherId", teacherId)
       .set("description", description)
       .set("maxStudentNumber", maxStudentNumber)
       .set("picture", picture);

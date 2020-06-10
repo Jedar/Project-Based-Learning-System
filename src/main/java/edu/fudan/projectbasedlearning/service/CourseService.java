@@ -13,6 +13,12 @@ import java.util.List;
  */
 public interface CourseService extends Service<Course> {
 
+    //得到某门课程学生的信息
+    HashMap<String,Object> getCourseStudentInfo(int courseId);
+
+    //得到课程信息
+    HashMap<String,Object> getCourseInfo(int courseId);
+
     List<Student> findUserListOfCourse(int courseId);
     // 查询所有的课程
     List<HashMap<String,Object>> selectAllCourses();

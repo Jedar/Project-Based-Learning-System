@@ -11,6 +11,17 @@ import java.util.List;
 
 public interface CourseMapper extends Mapper<Course> {
 
+    //查询选择某门课程的学生的学校信息
+    List<HashMap<String,Object>> getStudentSchoolsOfCourse(int courseId);
+
+    //查询选择某门课程的学生的性别信息
+    List<HashMap<String,Object>> getStudentGendersOfCourse(int courseId);
+
+    //得到课程信息
+    HashMap<String,Object> getCourseInfo(int courseId);
+
+    int findStudentNumberOfCourse(int courseId);
+
     List<Student> findStudentListOfCourse(int courseId);
 
     // 查询所有的课程

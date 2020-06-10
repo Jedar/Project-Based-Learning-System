@@ -1,7 +1,7 @@
 <nz-tabset>
   <nz-tab [nzTitle]="titleTemplate1">
     <ng-template #titleTemplate1> <i nz-icon nzType="info-circle"></i> 课程信息</ng-template>
-    <app-course-info></app-course-info>
+    <app-course-info [courseId]="courseId"></app-course-info>
   </nz-tab>
   <nz-tab [nzTitle]="titleTemplate2">
     <ng-template nz-tab>

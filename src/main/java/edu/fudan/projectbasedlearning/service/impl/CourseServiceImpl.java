@@ -33,6 +33,24 @@ public class CourseServiceImpl extends AbstractService<Course> implements Course
     private UserMapper userMapper;
 
     @Override
+    public HashMap<String, Object> getCourseStudentInfo(int courseId) {
+        HashMap<String, Object> result = new HashMap<>();
+
+        List<HashMap<String, Object>> schools = courseMapper.getStudentSchoolsOfCourse(courseId);
+        result.put("school", schools);
+
+        List<HashMap<String, Object>> genders = courseMapper.getStudentGendersOfCourse(courseId);
+        result.put("gender", genders);
+
+        return result;
+    }
+
+    @Override
+    public HashMap<String, Object> getCourseInfo(int courseId) {
+        return courseMapper.getCourseInfo(courseId);
+    }
+
+    @Override
     public List<Student> findUserListOfCourse(int courseId) {
         return courseMapper.findStudentListOfCourse(courseId);
     }
@@ -44,12 +62,23 @@ public class CourseServiceImpl extends AbstractService<Course> implements Course
 
     @Override
     public List<HashMap<String, Object>> selectStudentCourses(int studentId) {
-        return courseMapper.selectStudentCourses(studentId);
+        List<HashMap<String, Object>> result = courseMapper.selectStudentCourses(studentId);
+        for(HashMap<String, Object> course: result){
+            int studentNum = courseMapper.findStudentNumberOfCourse((int)course.get("course_id"));
+            course.put("student_number", studentNum);
+        }
+
+        return result;
     }
 
     @Override
     public List<HashMap<String, Object>> searchCourses(String keyword) {
-        return courseMapper.searchCourses(keyword);
+        List<HashMap<String, Object>> result = courseMapper.searchCourses(keyword);
+        for(HashMap<String, Object> course: result){
+            int studentNum = courseMapper.findStudentNumberOfCourse((int)course.get("course_id"));
+            course.put("student_number", studentNum);
+        }
+        return result;
     }
 
     @Override
@@ -68,7 +97,14 @@ public class CourseServiceImpl extends AbstractService<Course> implements Course
                 return result;
             }
         }
-
+        Course course = findById(courseId);
+        int studentNum = courseMapper.findStudentNumberOfCourse(courseId);
+        int maxStudentNum = course.getMaxStudentNumber();
+        if(studentNum >= maxStudentNum){
+            result.put("code", 400);
+            result.put("message", "选课人数已达上限！");
+            return result;
+        }
         courseMapper.studentChooseCourse(studentId, courseId);
         return result;
     }

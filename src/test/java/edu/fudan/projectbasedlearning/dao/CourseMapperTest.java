@@ -50,4 +50,19 @@ public class CourseMapperTest extends Tester {
         for(Course course: list)
             System.out.println(course.getCourseId() + course.getCourseName());
     }
+
+    @Test
+    public void findStudentNumberOfCourse() {
+        System.out.println(courseMapper.findStudentNumberOfCourse(1));
+    }
+
+    @Test
+    public void getStudentSchoolsOfCourse() {
+        System.out.println(courseMapper.getStudentSchoolsOfCourse(1));
+    }
+
+    @Test
+    public void getStudentGendersOfCourse() {
+        System.out.println(courseMapper.getStudentGendersOfCourse(1));
+    }
 }
