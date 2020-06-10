@@ -3,16 +3,16 @@ package edu.fudan.projectbasedlearning.controller;
 import edu.fudan.projectbasedlearning.annotation.UserLoginToken;
 import edu.fudan.projectbasedlearning.core.Result;
 import edu.fudan.projectbasedlearning.core.ResultGenerator;
+import edu.fudan.projectbasedlearning.core.ResultTypeGenerator;
 import edu.fudan.projectbasedlearning.pojo.Discussion;
+import edu.fudan.projectbasedlearning.pojo.Student;
 import edu.fudan.projectbasedlearning.service.DiscussionService;
 import edu.fudan.projectbasedlearning.service.UserService;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -22,7 +22,7 @@ import java.util.List;
  * Created by CodeGenerator on 2020/05/28.
  */
 @RestController
-@Api(value = "讨论模块接口")
+@Api(value = "讨论管理相关接口",tags = "讨论管理相关接口")
 @RequestMapping("/discussion")
 public class DiscussionController {
     @Resource
@@ -30,6 +30,7 @@ public class DiscussionController {
     private UserService userService;
 
     @UserLoginToken(roles = {"Student", "Teacher"})
+    @ApiOperation(value = "新增讨论")
     @PostMapping("/add")
     public Result add(@RequestParam HashMap<String, String> hashMap) {
         Discussion discussion = new Discussion();
@@ -50,6 +51,7 @@ public class DiscussionController {
     }
 
     @UserLoginToken(roles = {"Student"})
+    @ApiOperation(value = "根据id删除讨论")
     @PostMapping("/delete")
     public Result delete(@RequestParam Integer id) {
         discussionService.deleteById(id);
@@ -57,6 +59,7 @@ public class DiscussionController {
     }
 
     @UserLoginToken(roles = {"Student", "Teacher"})
+    @ApiOperation(value = "更新讨论")
     @PostMapping("/updateLikes")
     public Result update(@RequestParam HashMap<String, String> hashMap) {
         int id = Integer.parseInt(hashMap.get("discussionId"));
@@ -66,51 +69,65 @@ public class DiscussionController {
     }
 
     @UserLoginToken(roles = {"Student", "Teacher"})
+    @ApiOperation(value = "根据id查找讨论")
     @PostMapping("/detail")
-    public Result detail(@RequestParam Integer id) {
+    public Result<Discussion> detail(@RequestParam Integer id) {
+        ResultTypeGenerator<Discussion> generator = new ResultTypeGenerator<>();
         Discussion discussion = discussionService.findById(id);
-        return ResultGenerator.genSuccessResult(discussion);
+        return generator.genSuccessResult(discussion);
     }
 
     @UserLoginToken(roles = {"Student", "Teacher"})
+    @ApiOperation(value = "查找一级讨论列表")
     @GetMapping("/list/{projectId}")
-    public Result list(@PathVariable Integer projectId) {
+    public Result<List<Discussion>> list(@PathVariable Integer projectId) {
+        ResultTypeGenerator<List<Discussion>> generator = new ResultTypeGenerator<>();
         List<Discussion> discussionList = discussionService.findFirstDiscussionByProjectId(projectId);
-        return ResultGenerator.genSuccessResult(discussionList);
+        return generator.genSuccessResult(discussionList);
     }
 
     @UserLoginToken(roles = {"Student", "Teacher"})
+    @ApiOperation(value = "查找子讨论列表")
     @GetMapping("/children")
-    public Result getChildren(@RequestParam Integer projectId, @RequestParam Integer parentsId) {
+    public Result<List<Discussion>> getChildren(@RequestParam Integer projectId, @RequestParam Integer parentsId) {
+        ResultTypeGenerator<List<Discussion>> generator = new ResultTypeGenerator<>();
         List<Discussion> discussionList = discussionService.findAllChildrenOfDiscussion(projectId, parentsId);
-        return ResultGenerator.genSuccessResult(discussionList);
+        return generator.genSuccessResult(discussionList);
     }
 
     @UserLoginToken(roles = {"Student", "Teacher"})
+    @ApiOperation(value = "查找讨论作者列表")
     @GetMapping("/getDiscussionAuthor/{studentId}")
-    public Result getDiscussionAuthor(@PathVariable Integer studentId) {
+    public Result<HashMap<String, String>> getDiscussionAuthor(@PathVariable Integer studentId) {
+        ResultTypeGenerator<HashMap<String, String>> generator = new ResultTypeGenerator<>();
         HashMap<String, String> studentInfo = discussionService.findAuthorById(studentId);
-        return ResultGenerator.genSuccessResult(studentInfo);
+        return generator.genSuccessResult(studentInfo);
     }
 
     @UserLoginToken(roles = {"Student", "Teacher"})
+    @ApiOperation(value = "查找所有讨论列表")
     @GetMapping("/getAllDiscussions/{projectId}")
-    public Result getAllDiscussions(@PathVariable Integer projectId) {
+    public Result<List<Discussion>> getAllDiscussions(@PathVariable Integer projectId) {
+        ResultTypeGenerator<List<Discussion>> generator = new ResultTypeGenerator<>();
         List<Discussion> discussionList = discussionService.findAllDiscussions(projectId);
-        return ResultGenerator.genSuccessResult(discussionList);
+        return generator.genSuccessResult(discussionList);
     }
 
     @UserLoginToken(roles = {"Student", "Teacher"})
+    @ApiOperation(value = "查找学生发布讨论数")
     @GetMapping("getPublishCount/{studentId}")
-    public Result getPublishCount(@PathVariable Integer studentId){
+    public Result<Integer> getPublishCount(@PathVariable Integer studentId){
+        ResultTypeGenerator<Integer> generator = new ResultTypeGenerator<>();
         int count = discussionService.getPublishCount(studentId);
-        return ResultGenerator.genSuccessResult(count);
+        return generator.genSuccessResult(count);
     }
 
     @UserLoginToken(roles = {"Student", "Teacher"})
+    @ApiOperation(value = "查找学生回复讨论数")
     @GetMapping("getReplyCount/{studentId}")
-    public Result getReplyCount(@PathVariable Integer studentId){
+    public Result<Integer> getReplyCount(@PathVariable Integer studentId){
+        ResultTypeGenerator<Integer> generator = new ResultTypeGenerator<>();
         int count = discussionService.getReplyCount(studentId);
-        return ResultGenerator.genSuccessResult(count);
+        return generator.genSuccessResult(count);
     }
 }

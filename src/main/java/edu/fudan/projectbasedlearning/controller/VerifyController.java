@@ -4,6 +4,7 @@ import edu.fudan.projectbasedlearning.annotation.PassToken;
 import edu.fudan.projectbasedlearning.core.Result;
 import edu.fudan.projectbasedlearning.core.ResultGenerator;
 import edu.fudan.projectbasedlearning.utils.VerifyUtil;
+import io.swagger.annotations.Api;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -20,6 +21,7 @@ import javax.servlet.http.HttpServletResponse;
  * on 2020/5/18
  */
 @Controller
+@Api(value = "验证相关接口",tags = "验证相关接口")
 public class VerifyController {
     private static final Logger logger = LoggerFactory.getLogger(VerifyUtil.class);
     public static final String RANDOMCODEKEY= "RandomCheckCode";//放到session中的key，以用于与从前端接收到的输入比较

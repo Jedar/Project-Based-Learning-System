@@ -7,6 +7,9 @@ import edu.fudan.projectbasedlearning.pojo.Score;
 import edu.fudan.projectbasedlearning.service.ScoreService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -18,12 +21,14 @@ import java.util.List;
  * Created by CodeGenerator on 2020/05/29.
  */
 @RestController
+@Api(value = "评分管理相关接口",tags = "评分管理相关接口")
 @RequestMapping("/score")
 public class ScoreController {
     @Resource
     private ScoreService scoreService;
 
     @UserLoginToken(roles = {"Student", "Teacher"})
+    @ApiOperation(value = "新增分数")
     @PostMapping("/add")
     public Result add(@RequestParam HashMap<String, String> hashMap) {
         Score score = new Score();
@@ -40,6 +45,8 @@ public class ScoreController {
     }
 
     @UserLoginToken(roles = {"Student", "Teacher"})
+    @ApiOperation(value = "根据id删除分数")
+    @ApiImplicitParam(name = "分数id")
     @PostMapping("/delete")
     public Result delete(@RequestParam Integer id) {
         scoreService.deleteById(id);
@@ -47,6 +54,8 @@ public class ScoreController {
     }
 
     @UserLoginToken(roles = {"Student", "Teacher"})
+    @ApiOperation(value = "更新分数")
+    @ApiImplicitParam(name = "分数")
     @PostMapping("/update")
     public Result update(Score score) {
         scoreService.update(score);
@@ -54,6 +63,8 @@ public class ScoreController {
     }
 
     @UserLoginToken(roles = {"Student", "Teacher"})
+    @ApiOperation(value = "根据id查找分数")
+    @ApiImplicitParam(name = "分数id")
     @PostMapping("/detail")
     public Result detail(@RequestParam Integer id) {
         Score score = scoreService.findById(id);
@@ -61,6 +72,7 @@ public class ScoreController {
     }
 
     @UserLoginToken(roles = {"Student", "Teacher"})
+    @ApiOperation(value = "查找学生分数列表")
     @GetMapping("/getScores/{studentId}")
     public Result getScores(@PathVariable Integer studentId) {
         List<Score> scores = scoreService.findScoresByStudentId(studentId);
@@ -68,6 +80,7 @@ public class ScoreController {
     }
 
     @UserLoginToken(roles = {"Student", "Teacher"})
+    @ApiOperation(value = "查找所有学生分数列表")
     @PostMapping("/list")
     public Result list(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "0") Integer size) {
         PageHelper.startPage(page, size);

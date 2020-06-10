@@ -4,10 +4,13 @@ import edu.fudan.projectbasedlearning.annotation.PassToken;
 import edu.fudan.projectbasedlearning.annotation.UserLoginToken;
 import edu.fudan.projectbasedlearning.core.Result;
 import edu.fudan.projectbasedlearning.core.ResultGenerator;
+import edu.fudan.projectbasedlearning.core.ResultTypeGenerator;
 import edu.fudan.projectbasedlearning.pojo.Project;
 import edu.fudan.projectbasedlearning.service.ProjectService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -26,21 +29,26 @@ import java.util.*;
 * Created by CodeGenerator on 2020/05/28.
 */
 @RestController
+@Api(value = "项目管理相关接口",tags = "项目管理相关接口")
 @RequestMapping("/project")
 public class ProjectController {
     @Resource
     private ProjectService projectService;
 
     @UserLoginToken(roles = {"Manager"})
+    @ApiOperation(value = "返回项目图表")
     @GetMapping("/projectChart")
-    public Result getProjectChart(){
+    public Result<List<HashMap<String, Object>>> getProjectChart(){
+        ResultTypeGenerator<List<HashMap<String, Object>>> generator = new ResultTypeGenerator<>();
         List<HashMap<String, Object>> mapList = projectService.selectStudentNumberOfProjectAndOther();
-        return ResultGenerator.genSuccessResult(mapList);
+        return generator.genSuccessResult(mapList);
     }
 
     @UserLoginToken(roles = {"Manager"})
+    @ApiOperation(value = "返回项目列表")
     @GetMapping("/projectList")
-    public Result getProjectList(){
+    public Result<List<HashMap<String, Object>>> getProjectList(){
+        ResultTypeGenerator<List<HashMap<String, Object>>> generator = new ResultTypeGenerator<>();
         List<Project> projectList = projectService.findAll();
         List<HashMap<String, Object>> projectMaps = new ArrayList<>();
         for (Project project : projectList){
@@ -58,10 +66,11 @@ public class ProjectController {
             projectMap.put("endTime", endTime);
             projectMaps.add(projectMap);
         }
-        return ResultGenerator.genSuccessResult(projectMaps);
+        return generator.genSuccessResult(projectMaps);
     }
 
     @UserLoginToken(roles = {"Teacher", "Manager"})
+    @ApiOperation(value = "根据项目id删除项目")
     @DeleteMapping("/deleteProject")
     public Result deleteProject(@RequestParam("projectId") Integer projectId) {
         if (projectService.findUserListOfProject(projectId).size() == 0) {//无人选此项目
@@ -73,6 +82,7 @@ public class ProjectController {
     }
 
     @UserLoginToken(roles = {"Manager"})
+    @ApiOperation(value = "更新项目")
     @PostMapping("/updateProject")
     public Result updateProject(@RequestParam HashMap<String, String> projectInfo) {
         Project project = new Project();
@@ -97,6 +107,7 @@ public class ProjectController {
     }
 
     @UserLoginToken(roles = {"Teacher", "Manager"})
+    @ApiOperation(value = "新建项目")
     @PostMapping("/createProject")
     public Result createProject(@RequestParam HashMap<String, String> projectInfo) {
         Project project = new Project();
@@ -122,10 +133,11 @@ public class ProjectController {
     }
 
     @UserLoginToken(roles = {"Student"})
+    @ApiOperation(value = "根据学生id返回学生参与的所有项目")
     @GetMapping("/getAllStudentProjects")
-    public Result getAllStudentProjects(@RequestParam("studentId") Integer studentId, @RequestParam("courseId") Integer courseId){
+    public Result<List<HashMap<String, Object>>> getAllStudentProjects(@RequestParam("studentId") Integer studentId, @RequestParam("courseId") Integer courseId){
         List<Project> list = projectService.selectAllProjectsOfStudentInCourse(studentId, courseId);
-
+        ResultTypeGenerator<List<HashMap<String, Object>>> generator = new ResultTypeGenerator<>();
         List<HashMap<String, Object>> projectMaps = new ArrayList<>();
 
         for (Project project : list){
@@ -143,10 +155,11 @@ public class ProjectController {
             projectMap.put("endTime", endTime);
             projectMaps.add(projectMap);
         }
-        return ResultGenerator.genSuccessResult(projectMaps);
+        return generator.genSuccessResult(projectMaps);
     }
 
     @DeleteMapping("/studentDropProject")
+    @ApiOperation(value = "学生退出项目")
     @UserLoginToken(roles = {"Student"})
     public Result studentDropProject(@RequestParam("studentId") Integer studentId, @RequestParam("projectId") Integer projectId) {
         projectService.studentDropProject(studentId, projectId);
@@ -154,9 +167,10 @@ public class ProjectController {
     }
 
     @UserLoginToken(roles = {"Student", "Teacher"})
+    @ApiOperation(value = "根据课程id返回课程所有项目")
     @GetMapping("/getAllCourseProjects")
-    public Result getAllCourseProjects(@RequestParam("courseId") Integer courseId){
-
+    public Result<List<HashMap<String, Object>>> getAllCourseProjects(@RequestParam("courseId") Integer courseId){
+        ResultTypeGenerator<List<HashMap<String, Object>>> generator = new ResultTypeGenerator<>();
         List<Project> list = projectService.selectAllProjectsOfCourse(courseId);
 
         List<HashMap<String, Object>> projectMaps = new ArrayList<>();
@@ -177,10 +191,11 @@ public class ProjectController {
             projectMap.put("endTime", endTime);
             projectMaps.add(projectMap);
         }
-        return ResultGenerator.genSuccessResult(projectMaps);
+        return generator.genSuccessResult(projectMaps);
     }
 
     @PostMapping("/studentJoinProject")
+    @ApiOperation(value = "学生加入项目")
     @UserLoginToken(roles = {"Student"})
     public Result studentJoinProject(@RequestBody JSONObject jsonObject){
         int studentId = (int)jsonObject.get("studentId");
@@ -196,10 +211,12 @@ public class ProjectController {
     }
 
     @GetMapping("/info/{projectId}")
+    @ApiOperation(value = "根据项目id返回项目信息")
     @UserLoginToken(roles = {"Student", "Teacher"})
-    public Result getProjectInfoOf(@PathVariable("projectId") Integer projectId){
+    public Result<Project> getProjectInfoOf(@PathVariable("projectId") Integer projectId){
+        ResultTypeGenerator<Project> generator = new ResultTypeGenerator<>();
         Project project = projectService.findById(projectId);
-        return ResultGenerator.genSuccessResult(project);
+        return generator.genSuccessResult(project);
     }
 
 }

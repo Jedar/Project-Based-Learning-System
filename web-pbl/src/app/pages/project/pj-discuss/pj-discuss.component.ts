@@ -139,8 +139,8 @@ export class PjDiscussComponent implements OnInit {
         this.modal.success({
           nzTitle: '发布讨论',
           nzContent: '发布成功',
+          nzOnOk: () => {this.init();}
         });
-        this.init();
       } else {
         this.modal.error({
           nzTitle: '发布失败',
@@ -172,8 +172,8 @@ export class PjDiscussComponent implements OnInit {
         this.modal.success({
           nzTitle: '回复讨论',
           nzContent: '回复成功',
+          nzOnOk: () => {this.init();}
         });
-        this.init();
       } else {
         this.modal.error({
           nzTitle: '回复失败',
