@@ -21,11 +21,12 @@ import { PjMarkMateComponent } from './pj-mark-mate/pj-mark-mate.component';
 
 import { NgGanttEditorModule } from 'ng-gantt';
 import { PjEditTaskComponent } from './pj-edit-task/pj-edit-task.component';
-import { PjModifyTaskComponent } from './pj-modify-task/pj-modify-task.component' ;
+import { PjModifyTaskComponent } from './pj-modify-task/pj-modify-task.component';
+import { PjManageInfoComponent } from './pj-manage-info/pj-manage-info.component' ;
 
 
 @NgModule({
-  declarations: [PjStudentMainComponent, PjTeacherMainComponent, PjInfoComponent, PjFileComponent, PjDiscussComponent, PjAllTaskComponent, PjMyTaskComponent, PjManageTaskComponent, PjMyScoreComponent, PjMarkScoreComponent, PjMarkMateComponent, PjEditTaskComponent, PjModifyTaskComponent],
+  declarations: [PjStudentMainComponent, PjTeacherMainComponent, PjInfoComponent, PjFileComponent, PjDiscussComponent, PjAllTaskComponent, PjMyTaskComponent, PjManageTaskComponent, PjMyScoreComponent, PjMarkScoreComponent, PjMarkMateComponent, PjEditTaskComponent, PjModifyTaskComponent, PjManageInfoComponent],
   imports: [
     CommonModule,
     ProjectRoutingModule,

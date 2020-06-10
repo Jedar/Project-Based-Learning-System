@@ -103,7 +103,7 @@
     "target": "http://localhost:8080",
     "secure": "false"
   },
-  "/course/getCourseInfo": {
+  "/course/getCourseInfo/*": {
     "target": "http://localhost:8080",
     "secure": "false"
   },
