@@ -31,10 +31,6 @@ export class CourseListComponent implements OnInit {
         if(result.code === 200){
           this.courses = result.data;
         }
-        else{
-          window.alert(result.message);
-        }
-        
       })
   }
 }
