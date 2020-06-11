@@ -24,13 +24,23 @@ export class CourseInfoComponent implements OnInit {
   getCourseInfo(): void {
     this.courseService.getCourseInfo(this.courseId)
       .subscribe(result => {
-        this.course = result.data;
+        if(result.code != 200){
+          window.alert(result.message);
+        }
+        else{
+          this.course = result.data;
+          console.log(result.data);
+        }
+        
       })
   }
 
   getCourseChart(): void {
     this.courseService.getCourseStudentChart(this.courseId)
       .subscribe(result => {
+        if(result.code != 200){
+          window.alert(result.message);
+        }
         this.chart = result.data;
 
         console.log(this.chart);

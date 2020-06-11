@@ -3,6 +3,7 @@ import {Project} from "../../../share/project.model";
 import {ProjectService} from "../../../services/project.service";
 import {Router} from "@angular/router";
 import {NzMessageService, NzModalRef, NzModalService} from "ng-zorro-antd";
+import {TaskService} from "../../../services/task.service";
 
 @Component({
   selector: 'app-project-list',
@@ -25,7 +26,9 @@ export class ProjectListComponent implements OnInit {
     private projectService: ProjectService,
     private router: Router,
     private modal: NzModalService,
-    private message: NzMessageService) {
+    private message: NzMessageService,
+    private taskService: TaskService, 
+    ) {
   }
 
   ngOnInit(): void {
@@ -40,7 +43,8 @@ export class ProjectListComponent implements OnInit {
   }
 
   getIntoProject(projectId: number): void {
-    this.router.navigate(['project/student'])
+    this.taskService.setProjectId(projectId);
+    this.router.navigate(['project/teacher']);
   }
 
   deleteProject(projectId: number): void {

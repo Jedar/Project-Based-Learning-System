@@ -153,6 +153,8 @@ public class ProjectServiceImpl extends AbstractService<Project> implements Proj
         try {
             project.setStartTime(format.parse(message.getStartTime()));
             project.setEndTime(format.parse(message.getEndTime()));
+            project.setScoreStartTime(format.parse(message.getScoreStartTime()));
+            project.setScoreEndTime(format.parse(message.getScoreEndTime()));
         } catch (ParseException e) {
             throw new ServiceException("时间格式错误");
         }
