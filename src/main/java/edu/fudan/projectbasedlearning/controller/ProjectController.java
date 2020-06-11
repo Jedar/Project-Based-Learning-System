@@ -113,12 +113,16 @@ public class ProjectController {
         Project project = new Project();
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         int courseId = Integer.parseInt(projectInfo.get("courseId"));
-        Date startTime, endTime;
+        Date startTime, endTime, scoreStartTime, scoreEndTime;
         try {
             startTime = format.parse(projectInfo.get("startTime"));
             endTime = format.parse(projectInfo.get("endTime"));
+            scoreStartTime = format.parse(projectInfo.get("scoreStartTime"));
+            scoreEndTime = format.parse(projectInfo.get("scoreEndTime"));
             project.setStartTime(startTime);
             project.setEndTime(endTime);
+            project.setScoreStartTime(scoreStartTime);
+            project.setScoreEndTime(scoreEndTime);
         } catch (ParseException e) {
             e.printStackTrace();
         }

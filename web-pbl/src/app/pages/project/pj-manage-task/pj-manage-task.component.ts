@@ -38,6 +38,8 @@ export class PjManageTaskComponent implements OnInit {
     "leaderId":0,
     "startTime":"2020-05-20",
     "endTime":"2020-05-20",
+    "scoreStartTime":"2020-05-20",
+    "scoreEndTime":"2020-05-20",
     "description":"",
   };
 
@@ -128,7 +130,7 @@ export class PjManageTaskComponent implements OnInit {
       else{
         window.alert("项目信息请求错误");
       }
-      
+
     });
     this.isDeleting =false;
   }
