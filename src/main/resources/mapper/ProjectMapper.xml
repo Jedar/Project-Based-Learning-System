@@ -76,8 +76,8 @@
     insert into participate (project_id, user_id) values (#{projectId}, #{studentId})
   </insert>
     <insert id="insertProject" useGeneratedKeys="true" keyProperty="projectId" keyColumn="project_id">
-      insert into project (project_name, theme, start_time, end_time, description, course_id)
-      values (#{projectName},#{theme}, #{startTime}, #{endTime}, #{description}, #{courseId})
+      insert into project (project_name, theme, start_time, end_time, score_start_time, score_end_time, description, course_id)
+      values (#{projectName},#{theme}, #{startTime}, #{endTime},#{scoreStartTime},#{scoreEndTime}, #{description}, #{courseId})
     </insert>
 
 </mapper>

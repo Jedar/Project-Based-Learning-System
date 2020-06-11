@@ -5,6 +5,8 @@ export interface Project{
   leaderId: number,
   startTime: string,
   endTime: string,
+  scoreStartTime: string,
+  scoreEndTime: string,
   description: string,
   courseId: number
 }

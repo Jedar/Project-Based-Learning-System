@@ -47,6 +47,8 @@ export class PjModifyTaskComponent implements OnInit {
     "leaderId":0,
     "startTime":"2020-05-20",
     "endTime":"2020-05-20",
+    "scoreStartTime":"2020-05-20",
+    "scoreEndTime":"2020-05-20",
     "description":"",
   };
 
@@ -137,7 +139,7 @@ export class PjModifyTaskComponent implements OnInit {
         'projectId':this.projectId,
       }});
     }
-    
+
   }
 
   submitForm(data){
