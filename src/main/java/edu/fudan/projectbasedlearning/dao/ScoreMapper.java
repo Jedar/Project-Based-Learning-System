@@ -11,4 +11,6 @@ public interface ScoreMapper extends Mapper<Score> {
     void insertScore(Score score);
 
     void deleteScore(int studentId);
+
+    List<Score> getAllScores();
 }

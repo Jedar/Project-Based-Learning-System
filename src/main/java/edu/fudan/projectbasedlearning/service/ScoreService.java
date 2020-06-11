@@ -12,4 +12,6 @@ public interface ScoreService extends Service<Score> {
     List<Score> findScoresByStudentId(int studentId);
 
     boolean saveScore(Score score);
+
+    List<Score> findAllScores();
 }

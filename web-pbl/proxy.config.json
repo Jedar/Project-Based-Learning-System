@@ -187,6 +187,10 @@
     "target": "http://localhost:8080",
     "secure": "false"
   },
+  "/score/getAllScores": {
+    "target": "http://localhost:8080",
+    "secure": "false"
+  },
   "/image/upload":{
     "target": "http://localhost:8080",
     "secure": "false"

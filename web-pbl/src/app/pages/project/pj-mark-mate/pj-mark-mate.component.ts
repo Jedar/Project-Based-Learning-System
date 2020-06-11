@@ -22,6 +22,7 @@ export class PjMarkMateComponent implements OnInit {
   mutEva: number = 0;
   comment: string = "";
 
+
   students: Student[] = [];
   projectId: number;
   studentId: number;
@@ -29,9 +30,9 @@ export class PjMarkMateComponent implements OnInit {
   replyOfStudent:Map<number,number> = new Map<number, number>();
   publishOfStudent:Map<number,number> = new Map<number, number>();
   tasksOfStudent: Map<number, Task[]> = new Map<number, Task[]>();
+  ifHasMulEva:Map<number,boolean> = new Map<number, boolean>();
 
   ifHasSelfEva:boolean = false;
-  ifHasMulEva:boolean = false;
 
   constructor(
     private studentService: StudentService,
@@ -41,7 +42,6 @@ export class PjMarkMateComponent implements OnInit {
     private taskService: TaskService,
     private discussionService: DiscussionService,
     private authService:AuthService,
-    private projectService: ProjectService,
   ) {
     activatedRoute.params.subscribe(params => {
       this.projectId = taskService.getProjectId();
@@ -79,6 +79,7 @@ export class PjMarkMateComponent implements OnInit {
           nzContent: '提交成功',
           nzOnOk: () => {
             this.students = this.students.filter((student: Student) => student.sId != userId);
+            this.init();
           }
         })
       } else {
@@ -90,7 +91,14 @@ export class PjMarkMateComponent implements OnInit {
     })
   }
 
-  ngOnInit(): void {
+  init(){
+
+    this.scoreService.getAllScores().subscribe(res=>{
+      if(res.code == 200)this.scores = res.data;
+      for (let score of this.scores){
+        if(score.userId == this.studentId && score.scoreType == 1)this.ifHasSelfEva = true;
+      }
+    });
     this.studentService.getStudentsOfProject(this.projectId).subscribe(result => {
       this.students = result.data;
       for (let i=0;i<this.students.length;i++){
@@ -110,16 +118,33 @@ export class PjMarkMateComponent implements OnInit {
         this.discussionService.getReplyCount(student.sId).subscribe(res=>{
           if(res.code == 200)this.replyOfStudent.set(student.sId,res.data);
         });
+
+        let flag = false;
+        console.log(this.scores.length);
+        for (let score of this.scores) {
+          console.log(score.userId,score.scoreType,score.scorer_id);
+          if (score.userId == student.sId && score.scoreType == 2 && score.scorer_id == this.studentId) {
+            // console.log(score.userId,score.scoreType,score.scorer_id);
+            this.ifHasMulEva.set(student.sId, true);
+            flag = true;
+            break;
+          }
+        }
+        if(!flag)this.ifHasMulEva.set(student.sId, false);
       }
+      console.log(this.ifHasMulEva);
     });
-    this.scoreService.getScores(this.studentId).subscribe(res=>{
-      if(res.code == 200)this.scores = res.data;
-      for (let score of this.scores){
-        if(score.userId == this.studentId && score.scoreType == 1)this.ifHasSelfEva = true;
-      }
-    });
+
+  }
+  ngOnInit(): void {
+    console.log(this.authService.getUserId());
+    this.studentId = this.authService.getUserId();
+    this.projectId = this.taskService.getProjectId();
+    this.init();
+
     //Todo：判断是否在互评时间内
 
   }
+
 
 }
