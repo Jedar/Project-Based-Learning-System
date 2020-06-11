@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Course} from "../../../share/course.model";
 import {CourseService} from "../../../services/course.service";
 
@@ -17,9 +17,11 @@ export class CourseJoinComponent implements OnInit {
   };
 
   operation = 1;
+
   constructor(
     private courseService: CourseService
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
   }
@@ -27,7 +29,9 @@ export class CourseJoinComponent implements OnInit {
   searchCourses(): void {
     this.courseService.searchCourse(this.searchValue)
       .subscribe(result => {
-        this.searchCoursesResult = result.data;
+        if (result.code === 200) {
+          this.searchCoursesResult = result.data;
+        }
       })
   }
 }

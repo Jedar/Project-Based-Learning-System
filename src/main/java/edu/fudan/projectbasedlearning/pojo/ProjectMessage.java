@@ -7,6 +7,8 @@ public class ProjectMessage {
     int leaderId;
     String startTime;
     String endTime;
+    String scoreStartTime;
+    String scoreEndTime;
     String description;
     double value1;
     double value2;
@@ -92,6 +94,22 @@ public class ProjectMessage {
         this.value3 = value3;
     }
 
+    public String getScoreStartTime() {
+        return scoreStartTime;
+    }
+
+    public void setScoreStartTime(String scoreStartTime) {
+        this.scoreStartTime = scoreStartTime;
+    }
+
+    public String getScoreEndTime() {
+        return scoreEndTime;
+    }
+
+    public void setScoreEndTime(String scoreEndTime) {
+        this.scoreEndTime = scoreEndTime;
+    }
+
     @Override
     public String toString() {
         return "ProjectMessage{" +
@@ -101,6 +119,8 @@ public class ProjectMessage {
                 ", leaderId=" + leaderId +
                 ", startTime='" + startTime + '\'' +
                 ", endTime='" + endTime + '\'' +
+                ", scoreStartTime='" + scoreStartTime + '\'' +
+                ", scoreEndTime='" + scoreEndTime + '\'' +
                 ", description='" + description + '\'' +
                 ", value1=" + value1 +
                 ", value2=" + value2 +

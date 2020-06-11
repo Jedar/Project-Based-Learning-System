@@ -40,7 +40,9 @@ export class ProjectListComponent implements OnInit {
   getAllProjects(): void {
     this.projectService.getAllStudentProjects(this.authService.getUserId(), this.courseId)
       .subscribe(result => {
-        this.projects = result.data;
+        if(result.code === 200){
+          this.projects = result.data;
+        }
       })
   }
 

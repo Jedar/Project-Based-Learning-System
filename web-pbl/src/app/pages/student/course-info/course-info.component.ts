@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Course} from "../../../share/course.model";
 import {CourseService} from "../../../services/course.service";
+import {NzMessageService} from "ng-zorro-antd";
 
 @Component({
   selector: 'app-course-info',
@@ -14,14 +15,16 @@ export class CourseInfoComponent implements OnInit {
   course: Course;
 
   constructor(
-    private courseService: CourseService
+    private courseService: CourseService,
   ) {
   }
 
   getCourseInfo(): void {
     this.courseService.getCourseInfo(this.courseId)
       .subscribe(result => {
-        this.course = result.data;
+        if(result.code === 200){
+          this.course = result.data;
+        }
       })
   }
 

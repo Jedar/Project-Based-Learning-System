@@ -121,7 +121,7 @@ export class ManagerService {
       .set("picture", picture);
     return this.http.post<ResultMessage>("/course/createCourse", params, this.httpOptions).pipe()
   }
-  createProject(courseId, projectName, theme, startTime, endTime, value1, value2, value3):Observable<ResultMessage>{
+  createProject(courseId, projectName, theme, startTime, endTime, scoreStartTime, scoreEndTime, value1, value2, value3):Observable<ResultMessage>{
     this.init();
     var params = new HttpParams()
       .set("courseId", courseId)
@@ -129,6 +129,8 @@ export class ManagerService {
       .set("theme",theme)
       .set("startTime",startTime)
       .set("endTime",endTime)
+      .set("scoreStartTime",scoreStartTime)
+      .set("scoreEndTime",scoreEndTime)
       .set("value1",value1)
       .set("value2",value2)
       .set("value3",value3);

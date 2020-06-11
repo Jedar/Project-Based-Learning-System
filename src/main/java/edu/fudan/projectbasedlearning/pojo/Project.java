@@ -26,6 +26,14 @@ public class Project {
     @Column(name = "end_time")
     private Date endTime;
 
+    @JsonFormat(shape=JsonFormat.Shape.STRING,pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
+    @Column(name = "score_start_time")
+    private Date scoreStartTime;
+
+    @JsonFormat(shape=JsonFormat.Shape.STRING,pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
+    @Column(name = "score_end_time")
+    private Date scoreEndTime;
+
     private String description;
 
     @Column(name = "course_id")
@@ -168,5 +176,21 @@ public class Project {
 
     public void setCourse(Course course) {
         this.course = course;
+    }
+
+    public Date getScoreStartTime() {
+        return scoreStartTime;
+    }
+
+    public void setScoreStartTime(Date scoreStartTime) {
+        this.scoreStartTime = scoreStartTime;
+    }
+
+    public Date getScoreEndTime() {
+        return scoreEndTime;
+    }
+
+    public void setScoreEndTime(Date scoreEndTime) {
+        this.scoreEndTime = scoreEndTime;
     }
 }

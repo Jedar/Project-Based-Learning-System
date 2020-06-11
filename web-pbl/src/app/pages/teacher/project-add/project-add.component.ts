@@ -87,7 +87,7 @@ export class ProjectAddComponent implements OnInit {
       var score_end_time = this.managerService.UTCTODateString(formValue["scoreTimeRange"][1]);
 
       this.managerService.createProject(
-        formValue["course"], formValue["name"], formValue["theme"], start_time, end_time, this.value1, this.value2, this.value3).subscribe(result => {
+        formValue["course"], formValue["name"], formValue["theme"], start_time, end_time,score_start_time,score_end_time, this.value1, this.value2, this.value3).subscribe(result => {
         if (result.message == "SUCCESS") {
           this.modal.success({
             nzTitle: "",
