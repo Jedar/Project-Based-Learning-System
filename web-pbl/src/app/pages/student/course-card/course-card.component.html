@@ -21,7 +21,7 @@
 </nz-card>
 
 <ng-template #coverTemplate>
-  <img alt="example" src="{{course.picture}}"/>
+  <img style="min-width: 150px;min-height: 150px;" alt="example" src="{{course.picture}}"/>
 </ng-template>
 <ng-template #getInto>
   <a (click)="getIntoCourseProject(course.course_id)"><i nz-icon nzType="login"></i> 进入课程</a>
