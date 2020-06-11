@@ -3,6 +3,7 @@ import edu.fudan.projectbasedlearning.annotation.UserLoginToken;
 import edu.fudan.projectbasedlearning.core.Result;
 import edu.fudan.projectbasedlearning.core.ResultGenerator;
 import edu.fudan.projectbasedlearning.core.ResultTypeGenerator;
+import edu.fudan.projectbasedlearning.pojo.Score;
 import edu.fudan.projectbasedlearning.pojo.Task;
 import edu.fudan.projectbasedlearning.pojo.User;
 import edu.fudan.projectbasedlearning.request.EditTaskRequest;
@@ -83,6 +84,7 @@ public class TaskController {
     @ApiOperation(value = "更新任务")
     @PutMapping("/update")
     public Result modify(@RequestBody Task task){
+        System.out.println(task);
         this.taskService.update(task);
         return ResultGenerator.genSuccessResult();
     }
