@@ -26,7 +26,9 @@ export class InfoComponent implements OnInit {
 
     this.studentService.getStudentInfo(this.authService.getUserId())
       .subscribe(result => {
-        this.student = result.data;
+        if(result.code === 200){
+          this.student = result.data;
+        }
       })
   }
 }
