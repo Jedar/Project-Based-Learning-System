@@ -92,7 +92,6 @@ export class PjMarkMateComponent implements OnInit {
   }
 
   init(){
-
     this.scoreService.getAllScores().subscribe(res=>{
       if(res.code == 200)this.scores = res.data;
       for (let score of this.scores){
@@ -120,11 +119,9 @@ export class PjMarkMateComponent implements OnInit {
         });
 
         let flag = false;
-        console.log(this.scores.length);
         for (let score of this.scores) {
-          console.log(score.userId,score.scoreType,score.scorer_id);
-          if (score.userId == student.sId && score.scoreType == 2 && score.scorer_id == this.studentId) {
-            // console.log(score.userId,score.scoreType,score.scorer_id);
+          // console.log(score.userId,score.scoreType,score.scorerId);
+          if (score.userId == student.sId && score.scoreType == 2 && score.scorerId == this.studentId) {
             this.ifHasMulEva.set(student.sId, true);
             flag = true;
             break;
@@ -132,14 +129,10 @@ export class PjMarkMateComponent implements OnInit {
         }
         if(!flag)this.ifHasMulEva.set(student.sId, false);
       }
-      console.log(this.ifHasMulEva);
     });
 
   }
   ngOnInit(): void {
-    console.log(this.authService.getUserId());
-    this.studentId = this.authService.getUserId();
-    this.projectId = this.taskService.getProjectId();
     this.init();
 
     //Todo：判断是否在互评时间内

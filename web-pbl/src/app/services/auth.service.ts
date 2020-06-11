@@ -25,10 +25,17 @@ export class AuthService {
   ) { }
   //登陆
   getUserId(): number{
+    this.userId = Number.parseInt(sessionStorage.getItem("user_id"));
     return this.userId;
   }
   setUserId(userId: number){
-    this.userId = userId;
+    if(userId == null){
+      sessionStorage.removeItem("user_id");
+    }
+    else{
+      sessionStorage.setItem("user_id",userId+"");
+      this.userId = userId;
+    }
   }
   login(username, password, role):Observable<UserMessage>{
     const params = new HttpParams()
@@ -54,7 +61,6 @@ export class AuthService {
   checkCode(checkCode):Observable<ResultMessage>{
     return this.http.get<ResultMessage>("/checkCode/"+checkCode ,httpOptions).pipe()
   }
-
 
   // LocalStorage设置数据
   saveUserIdAndPassword(role: string ,userId: string, password: string){

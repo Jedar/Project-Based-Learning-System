@@ -26,7 +26,8 @@
             </nz-form-item>
             <nz-form-item>
               <nz-form-control [nzOffset]="7" [nzSpan]="8">
-                <button  [disabled]="ifHasSelfEva" (click)="onSubmit(1,studentId)" nz-button nzType="primary">提交</button>
+                <button  *ngIf="ifHasSelfEva == false" (click)="onSubmit(1,studentId)" nz-button nzType="primary">提交</button>
+                <button *ngIf="ifHasSelfEva" disabled="disabled" style="margin-left: 2px" (click)="onSubmit(1,studentId)" nz-button nzType="primary">已提交</button>
               </nz-form-control>
             </nz-form-item>
           </div>

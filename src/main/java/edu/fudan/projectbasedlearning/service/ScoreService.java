@@ -1,4 +1,5 @@
 package edu.fudan.projectbasedlearning.service;
+import edu.fudan.projectbasedlearning.pojo.ProjectScoreDistribute;
 import edu.fudan.projectbasedlearning.pojo.Score;
 import edu.fudan.projectbasedlearning.core.Service;
 

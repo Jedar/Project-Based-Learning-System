@@ -103,7 +103,7 @@
     "target": "http://localhost:8080",
     "secure": "false"
   },
-  "/course/getCourseInfo": {
+  "/course/getCourseInfo/*": {
     "target": "http://localhost:8080",
     "secure": "false"
   },
@@ -254,6 +254,14 @@
   },
 
   "/user/getStudentInfo": {
+    "target": "http://localhost:8080",
+    "secure": "false"
+  },
+  "/project/setProject":{
+    "target": "http://localhost:8080",
+    "secure": "false"
+  },
+  "/project/scoreDistribute/*":{
     "target": "http://localhost:8080",
     "secure": "false"
   }

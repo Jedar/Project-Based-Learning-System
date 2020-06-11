@@ -7,7 +7,7 @@ import {catchError, map, tap} from 'rxjs/operators';
 /* 回调对象 */
 import {Observable, of, ObservableInput} from "rxjs";
 
-import {Project, ProjectListMessage, ProjectMessage} from '../share/project.model';
+import {Project, ProjectListMessage, ProjectMessage, ProjectUpdateInfo, ScoreDistributeMessage} from '../share/project.model';
 
 import {Result, ResultMessage} from '../share/common.model';
 import {TokenHandler} from '../share/Token';
@@ -61,7 +61,7 @@ export class ProjectService {
   getAllProjects(courseId: number): Observable<ProjectListMessage> {
     this.init();
     return this.http.get<ProjectListMessage>(
-      "/project/getAllCourseProjects?&courseId=" + courseId, this.httpGetOptions).pipe();
+      "/project/getAllCourseProjects?courseId=" + courseId, this.httpGetOptions).pipe();
   }
 
   joinProject(studentId: number, projectId: number): Observable<ResultMessage> {
@@ -74,5 +74,17 @@ export class ProjectService {
     this.init();
     return this.http.delete<ResultMessage>("/project/deleteProject?projectId=" + projectId, this.httpGetOptions).pipe()
   }
+
+  updateProject(project: ProjectUpdateInfo): Observable<ResultMessage> {
+    this.init();
+    return this.http.put<ResultMessage>("/project/setProject",project, this.httpOptions).pipe();
+  }
+
+  getScoreDistribute(projectId:number): Observable<ScoreDistributeMessage>{
+    this.init();
+    return this.http.get<ScoreDistributeMessage>("/project/scoreDistribute/"+projectId,this.httpGetOptions).pipe();
+  }
+
+
 
 }

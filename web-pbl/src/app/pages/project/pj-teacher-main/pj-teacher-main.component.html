@@ -77,6 +77,12 @@
                 <i nz-icon nzType="file-text" nzTheme="outline"></i>
                 打分
             </li>
+            <li nz-menu-item
+                [nzSelected]="option=='setting'"
+                [routerLink]="['/','project','teacher','setting']"  [queryParams]="{projectId:projectId}">
+                <i nz-icon nzType="setting" nzTheme="outline"></i>
+                项目设置
+            </li>
           </ul>
         </nz-sider>
         <nz-content class="inner-content">

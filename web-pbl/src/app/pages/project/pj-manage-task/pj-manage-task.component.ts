@@ -126,7 +126,7 @@ export class PjManageTaskComponent implements OnInit {
         this.students=result.data;
       }
       else{
-        window.alert("项目信息请求错误");
+        window.alert("项目信息请求错误:"+result.message);
       }
       
     });

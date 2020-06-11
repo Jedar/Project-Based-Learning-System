@@ -23,17 +23,27 @@
     select project_id as projectId,user_id as userId,score_type as scoreType,scorer_id as scorerId,
      value,time,comment,distribute from score natural join score_distribute
      where user_id = #{studentId} and score.score_type = score_distribute.type
-  </select>
+    </select>
+
+    <select id="findScoreDistribute" parameterType="int" resultType="edu.fudan.projectbasedlearning.pojo.ScoreDistribute">
+        select * from score_distribute where score_distribute.project_id=#{projectId}
+    </select>
+
+    <update id="updateScoreDistribute">
+        update score_distribute set distribute=#{val1} where project_id=#{projectId} and score_distribute.type=1;
+        update score_distribute set distribute=#{val2} where project_id=#{projectId} and score_distribute.type=2;
+        update score_distribute set distribute=#{val3} where project_id=#{projectId} and score_distribute.type=3;
+    </update>
 
     <!--  插入分数-->
     <insert id="insertScore">
     insert into score (project_id,user_id,score_type,scorer_id,value,time,comment) values (
     #{projectId},#{userId},#{scoreType},#{scorerId},#{value},#{time},#{comment}
     )
-  </insert>
+    </insert>
 
     <!--  删除分数-->
     <delete id="deleteScore">
     delete from score where user_id = #{studentId}
-  </delete>
+    </delete>
 </mapper>
