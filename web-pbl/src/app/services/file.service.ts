@@ -12,18 +12,7 @@ import { FileListMessage,FileUpload } from '../share/file.model';
 import { ResultMessage } from '../share/common.model';
 import { TokenHandler } from '../share/Token';
 
-const httpOptions = {
-  headers: new HttpHeaders({
-    'token':new TokenHandler().getToken(),
-  })
-};
 
-const httpPostOptions = {
-  headers: new HttpHeaders({
-    'Content-Type':  'application/json',
-    'token':new TokenHandler().getToken(),
-  })
-};
 
 
 @Injectable({
@@ -37,23 +26,44 @@ export class FileService {
 
   addUrl = "/file/add";
 
+  httpOptions = {};
+  httpPostOptions = {};
+
+  init() {
+    this.httpOptions = {
+      headers: new HttpHeaders({
+        'token':new TokenHandler().getToken(),
+      })
+    };
+    
+    this.httpPostOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'token':new TokenHandler().getToken(),
+      })
+    };
+  }
+
   constructor(private http:HttpClient/* 依赖注入 */) {
 
   }
 
   getFileList(projectId:number):Observable<FileListMessage>{
+    this.init();
     let url = this.fileListUrl+"?projectId="+projectId;
-    return this.http.get<FileListMessage>(url,httpOptions).pipe();
+    return this.http.get<FileListMessage>(url,this.httpOptions).pipe();
   }
 
   deleteFile(fileId:number):Observable<ResultMessage>{
+    this.init();
     let url = this.deleteUrl+fileId;
-    return this.http.delete<ResultMessage>(url,httpOptions).pipe();
+    return this.http.delete<ResultMessage>(url,this.httpOptions).pipe();
     // return this.http.get<Result>("/assets/data/success.json").pipe();
   }
 
   addFile(file:FileUpload):Observable<ResultMessage>{
-    return this.http.post<ResultMessage>(this.addUrl,file,httpPostOptions).pipe();
+    this.init();
+    return this.http.post<ResultMessage>(this.addUrl,file,this.httpPostOptions).pipe();
     // return this.http.get<Result>("/assets/data/success.json").pipe();
   }
 }

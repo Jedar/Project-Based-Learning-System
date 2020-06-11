@@ -2,17 +2,18 @@ package edu.fudan.projectbasedlearning.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import edu.fudan.projectbasedlearning.core.ServiceException;
 import edu.fudan.projectbasedlearning.dao.ProjectMapper;
-import edu.fudan.projectbasedlearning.pojo.Course;
-import edu.fudan.projectbasedlearning.pojo.Project;
-import edu.fudan.projectbasedlearning.pojo.Student;
-import edu.fudan.projectbasedlearning.pojo.User;
+import edu.fudan.projectbasedlearning.dao.ScoreMapper;
+import edu.fudan.projectbasedlearning.pojo.*;
 import edu.fudan.projectbasedlearning.service.ProjectService;
 import edu.fudan.projectbasedlearning.core.AbstractService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -27,6 +28,9 @@ import java.util.List;
 public class ProjectServiceImpl extends AbstractService<Project> implements ProjectService {
     @Resource
     private ProjectMapper projectMapper;
+
+    @Resource
+    private ScoreMapper scoreMapper;
 
     @Override
     public List<Student> findUserListOfProject(int projectId) {
@@ -114,5 +118,49 @@ public class ProjectServiceImpl extends AbstractService<Project> implements Proj
             returnMap.add(map1);
         }
         return returnMap;
+    }
+
+    @Override
+    public ProjectScoreDistribute getDistributeOf(int projectId) {
+        List<ScoreDistribute> list = scoreMapper.findScoreDistribute(projectId);
+        ProjectScoreDistribute distribute = new ProjectScoreDistribute();
+        distribute.setProjectId(projectId);
+        for(ScoreDistribute scoreDistribute: list){
+            if(scoreDistribute.getType() == 1){
+                distribute.setValue1(scoreDistribute.getDistribute());
+            }
+            if(scoreDistribute.getType() == 2){
+                distribute.setValue2(scoreDistribute.getDistribute());
+            }
+            if(scoreDistribute.getType() == 3){
+                distribute.setValue3(scoreDistribute.getDistribute());
+            }
+        }
+        return distribute;
+    }
+
+    @Override
+    public void updateProject(ProjectMessage message) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        Project project = projectMapper.selectByPrimaryKey(message.getProjectId());
+        if(project == null){
+            throw new ServiceException("Project Not Found");
+        }
+        project.setProjectName(message.getProjectName());
+        project.setLeaderId(message.getLeaderId());
+        project.setTheme(message.getTheme());
+        project.setDescription(message.getDescription());
+        try {
+            project.setStartTime(format.parse(message.getStartTime()));
+            project.setEndTime(format.parse(message.getEndTime()));
+        } catch (ParseException e) {
+            throw new ServiceException("时间格式错误");
+        }
+        /* 需要考虑原子性 */
+        projectMapper.updateByPrimaryKey(project);
+        scoreMapper.updateScoreDistribute(project.getProjectId(),
+                message.getValue1(),
+                message.getValue2(),
+                message.getValue3());
     }
 }

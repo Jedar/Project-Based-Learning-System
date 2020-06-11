@@ -1,14 +1,13 @@
 package edu.fudan.projectbasedlearning.controller;
 import com.alibaba.fastjson.JSONObject;
-import edu.fudan.projectbasedlearning.annotation.PassToken;
 import edu.fudan.projectbasedlearning.annotation.UserLoginToken;
 import edu.fudan.projectbasedlearning.core.Result;
 import edu.fudan.projectbasedlearning.core.ResultGenerator;
 import edu.fudan.projectbasedlearning.core.ResultTypeGenerator;
 import edu.fudan.projectbasedlearning.pojo.Project;
+import edu.fudan.projectbasedlearning.pojo.ProjectMessage;
+import edu.fudan.projectbasedlearning.pojo.ProjectScoreDistribute;
 import edu.fudan.projectbasedlearning.service.ProjectService;
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
@@ -16,13 +15,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.List;
-import javax.swing.text.DateFormatter;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 /**
@@ -221,6 +215,24 @@ public class ProjectController {
         ResultTypeGenerator<Project> generator = new ResultTypeGenerator<>();
         Project project = projectService.findById(projectId);
         return generator.genSuccessResult(project);
+    }
+
+    @GetMapping("/scoreDistribute/{projectId}")
+    @ApiOperation(value = "根据项目id返回项目分数分布")
+    @UserLoginToken(roles = {"Teacher"})
+    public Result<ProjectScoreDistribute> getScoreDistributeOf(@PathVariable("projectId") Integer projectId){
+        ResultTypeGenerator<ProjectScoreDistribute> generator = new ResultTypeGenerator<>();
+        ProjectScoreDistribute distribute = projectService.getDistributeOf(projectId);
+        return generator.genSuccessResult(distribute);
+    }
+
+    @PutMapping("/setProject")
+    @ApiOperation(value = "教师更新项目信息")
+    @UserLoginToken(roles = {"Teacher"})
+    public Result<Object> setProject(@RequestBody ProjectMessage message){
+        ResultTypeGenerator<Object> generator = new ResultTypeGenerator<>();
+        projectService.updateProject(message);
+        return generator.genSuccessResult();
     }
 
 }

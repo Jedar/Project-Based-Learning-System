@@ -14,6 +14,7 @@ import { PjMarkScoreComponent } from './pj-mark-score/pj-mark-score.component';
 import { PjMarkMateComponent } from './pj-mark-mate/pj-mark-mate.component';
 import { PjEditTaskComponent } from './pj-edit-task/pj-edit-task.component' ;
 import { PjModifyTaskComponent } from './pj-modify-task/pj-modify-task.component' ;
+import { PjManageInfoComponent } from './pj-manage-info/pj-manage-info.component' ;
 
 
 const routes: Routes = [
@@ -26,6 +27,7 @@ const routes: Routes = [
     {path:'manage_task',component:PjManageTaskComponent},
     {path:'modify_task',component:PjModifyTaskComponent},
     {path:'mark_score',component:PjMarkScoreComponent},
+    {path:'setting', component:PjManageInfoComponent},
     {path:'**',redirectTo:'info'}
   ]},
   {path:'student',component:PjStudentMainComponent,children:[

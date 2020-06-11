@@ -1,8 +1,6 @@
 package edu.fudan.projectbasedlearning.service;
-import edu.fudan.projectbasedlearning.pojo.Project;
+import edu.fudan.projectbasedlearning.pojo.*;
 import edu.fudan.projectbasedlearning.core.Service;
-import edu.fudan.projectbasedlearning.pojo.Student;
-import edu.fudan.projectbasedlearning.pojo.User;
 
 import java.util.HashMap;
 import java.util.List;
@@ -43,4 +41,8 @@ public interface ProjectService extends Service<Project> {
     void createProject(Project project, double value1, double value2, double value3);
 
     List<HashMap<String, Object>> selectStudentNumberOfProjectAndOther();
+
+    ProjectScoreDistribute getDistributeOf(int projectId);
+
+    void updateProject(ProjectMessage message);
 }

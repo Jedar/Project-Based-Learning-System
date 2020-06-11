@@ -28,7 +28,13 @@ export class CourseListComponent implements OnInit {
   getAllCourses(): void {
     this.courseService.getAllStudentCourses(this.authService.getUserId())
       .subscribe(result => {
-        this.courses = result.data;
+        if(result.code === 200){
+          this.courses = result.data;
+        }
+        else{
+          window.alert(result.message);
+        }
+        
       })
   }
 }

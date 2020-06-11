@@ -1,0 +1,122 @@
+<nz-page-header class="site-page-header" nzTitle="项目管理" nzSubtitle="">
+</nz-page-header>
+
+<nz-divider></nz-divider>
+
+<form *ngIf="project" nz-form [nzAutoTips]="autoTips" [formGroup]="validateForm" (ngSubmit)="submitForm(validateForm.value)">
+    <nz-form-item>
+      <nz-form-label [nzSpan]="7" nzRequired>项目名称</nz-form-label>
+      <nz-form-control [nzSpan]="12" nzValidatingTip="Validating...">
+        <input nz-input formControlName="projectName"/>
+      </nz-form-control>
+    </nz-form-item>
+    
+    <nz-form-item>
+        <nz-form-label [nzSpan]="7" nzRequired>项目负责人</nz-form-label>
+        <nz-form-control [nzSpan]="12" nzValidatingTip="Validating...">
+            <nz-select formControlName="leaderId" style="width: 100%;">
+                <nz-option *ngFor="let user of students" [nzValue]="user.sId" [nzLabel]="user.username"></nz-option>
+            </nz-select>
+        </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label [nzSpan]="7" nzRequired>项目主题</nz-form-label>
+      <nz-form-control [nzSpan]="12" nzValidatingTip="Validating...">
+        <nz-input-number formControlName="theme" [nzMax]="5" [nzMin]="1" [nzStep]="1"></nz-input-number>
+        <!-- <input nz-input formControlName="priority"/> -->
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+        <nz-form-label  [nzSpan]="7" nzRequired>项目描述</nz-form-label>
+        <nz-form-control [nzSpan]="12" nzValidatingTip="Validating...">
+            <textarea
+            formControlName="description"
+            nz-input
+            placeholder="项目内容"
+            [nzAutosize]="{ minRows: 6, maxRows: 10 }"
+        ></textarea>
+        </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+        <nz-form-label [nzSpan]="7" nzRequired>项目安排</nz-form-label>
+        <nz-form-control [nzSpan]="12" nzValidatingTip="Validating...">
+            <nz-range-picker 
+              formControlName="rangePicker"></nz-range-picker>
+        </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+        <nz-form-label [nzSpan]="7" nzRequired>评分安排</nz-form-label>
+        <nz-form-control [nzSpan]="12" nzValidatingTip="Validating...">
+            <nz-range-picker 
+              formControlName="rangePickerMark"></nz-range-picker>
+        </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+        <nz-form-label [nzSpan]="7" nzRequired>评分比例分配</nz-form-label>
+        <nz-input-number
+        [(ngModel)]="total"
+        [nzMin]="1"
+        [nzMax]="100"
+        [nzStep]="1"
+        [nzFormatter]="formatterPercent"
+        [nzParser]="parserPercent"
+        [ngModelOptions]="{standalone: true}" disabled
+        ></nz-input-number>
+    </nz-form-item>
+
+    <nz-form-item>
+        <nz-form-label [nzSpan]="7">教师评价</nz-form-label>
+        <nz-input-number
+        [(ngModel)]="val1"
+        [nzMin]="1"
+        [nzMax]="100"
+        [nzStep]="1"
+        [nzFormatter]="formatterPercent"
+        [nzParser]="parserPercent"
+        [ngModelOptions]="{standalone: true}" disabled
+        ></nz-input-number>
+        <button nz-button (click)="increase1()">增加</button>
+        <button nz-button (click)="decrease1()">减少</button>
+    </nz-form-item>
+
+    <nz-form-item>
+        <nz-form-label [nzSpan]="7">学生自评</nz-form-label>
+        <nz-input-number
+        [(ngModel)]="val2"
+        [nzMin]="1"
+        [nzMax]="100"
+        [nzStep]="1"
+        [nzFormatter]="formatterPercent"
+        [nzParser]="parserPercent"
+        [ngModelOptions]="{standalone: true}" disabled
+        ></nz-input-number>
+        <button nz-button (click)="increase2()">增加</button>
+        <button nz-button (click)="decrease2()">减少</button>
+    </nz-form-item>
+
+    <nz-form-item>
+        <nz-form-label [nzSpan]="7">学生互评</nz-form-label>
+        <nz-input-number
+        [(ngModel)]="val3"
+        [nzMin]="1"
+        [nzMax]="100"
+        [nzStep]="1"
+        [nzFormatter]="formatterPercent"
+        [nzParser]="parserPercent"
+        [ngModelOptions]="{standalone: true}" disabled
+        ></nz-input-number>
+        <button nz-button (click)="increase3()">增加</button>
+        <button nz-button (click)="decrease3()">减少</button>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-control [nzOffset]="7" [nzSpan]="12">
+        <button nz-button nzType="primary">提交</button>
+      </nz-form-control>
+    </nz-form-item>
+</form>
