@@ -17,6 +17,8 @@ public interface DiscussionService extends Service<Discussion> {
 
     List<Discussion> findAllChildrenOfDiscussion(int projectId, int parentsId);
 
+    List<Discussion> findMyDiscussion(int projectId,int studentId);
+
     HashMap<String, String> findAuthorById(int studentId);
 
     int getPublishCount(int studentId);

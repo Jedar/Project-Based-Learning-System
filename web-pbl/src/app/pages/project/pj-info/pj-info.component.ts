@@ -30,7 +30,6 @@ export class PjInfoComponent implements OnInit {
     activatedRoute.params.subscribe(params => {
       // this.projectId = params['projectId'];
       this.projectId = taskService.getProjectId();
-      console.log(this.projectId);
     });
   }
 
@@ -40,19 +39,14 @@ export class PjInfoComponent implements OnInit {
         this.project = result.data;
         this.project.startTime = result.data.startTime.substr(0,10);
         this.project.endTime = result.data.endTime.substr(0,10);
-
-        console.log(this.project.startTime);
       } else {
         window.alert("项目信息获取失败");
       }
       this.studentService.getStudentInfo(result.data.leaderId).subscribe(res => {
         if (res.code == 200) {
-          console.log(res.data);
           this.leader = res.data;
         }
-        console.log(res.message);
       });
-
       this.studentService.getStudentsOfProject(this.projectId).subscribe(res => {
         this.students = res.data;
         for (let i=0;i<this.students.length;i++){
@@ -60,7 +54,6 @@ export class PjInfoComponent implements OnInit {
             this.students.splice(i,i+1);
           }
         }
-        console.log(this.students);
       })
     });
 

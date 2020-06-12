@@ -13,6 +13,7 @@ public interface ScoreMapper extends Mapper<Score> {
 
     void deleteScore(int studentId);
 
+    List<Score> getAllScores();
     List<ScoreDistribute> findScoreDistribute(int projectId);
 
     void updateScoreDistribute(int projectId, double val1, double val2, double val3);

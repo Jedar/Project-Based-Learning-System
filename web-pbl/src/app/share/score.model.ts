@@ -5,6 +5,7 @@ export interface Score {
   distribute:number,
   value:number,
   time:string,
+  scorerId:number,
   comment:string,
 }
 

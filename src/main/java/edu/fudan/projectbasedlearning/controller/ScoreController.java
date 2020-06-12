@@ -3,6 +3,7 @@ package edu.fudan.projectbasedlearning.controller;
 import edu.fudan.projectbasedlearning.annotation.UserLoginToken;
 import edu.fudan.projectbasedlearning.core.Result;
 import edu.fudan.projectbasedlearning.core.ResultGenerator;
+import edu.fudan.projectbasedlearning.core.ResultTypeGenerator;
 import edu.fudan.projectbasedlearning.pojo.Score;
 import edu.fudan.projectbasedlearning.service.ScoreService;
 import com.github.pagehelper.PageHelper;
@@ -72,11 +73,21 @@ public class ScoreController {
     }
 
     @UserLoginToken(roles = {"Student", "Teacher"})
-    @ApiOperation(value = "查找学生分数列表")
+    @ApiOperation(value = "根据id查找学生分数列表")
     @GetMapping("/getScores/{studentId}")
-    public Result getScores(@PathVariable Integer studentId) {
+    public Result<List<Score>> getScores(@PathVariable Integer studentId) {
+        ResultTypeGenerator<List<Score>> generator = new ResultTypeGenerator<>();
         List<Score> scores = scoreService.findScoresByStudentId(studentId);
-        return ResultGenerator.genSuccessResult(scores);
+        return generator.genSuccessResult(scores);
+    }
+
+    @UserLoginToken(roles = {"Student", "Teacher"})
+    @ApiOperation(value = "查找所有学生分数列表")
+    @GetMapping("/getAllScores")
+    public Result<List<Score>> getAllScores() {
+        ResultTypeGenerator<List<Score>> generator = new ResultTypeGenerator<>();
+        List<Score> scores = scoreService.findAllScores();
+        return generator.genSuccessResult(scores);
     }
 
     @UserLoginToken(roles = {"Student", "Teacher"})

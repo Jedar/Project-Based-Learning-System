@@ -13,7 +13,7 @@ import {ProjectService} from "../../../services/project.service";
 export class PjStudentMainComponent implements OnInit {
   option:string;
   projectId:number;
-  isManager:boolean = false;;
+  isManager:boolean = false;
   userId:number;
 
   constructor(

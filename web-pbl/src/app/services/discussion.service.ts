@@ -70,5 +70,9 @@ export class DiscussionService {
     return this.http.post<ResultMessage>("/discussion/updateLikes",data,httpFormOptions);
   }
 
+  getMyDiscussion(projectId:number,studentId:number){
+    return this.http.get<DiscussionListMessage>("discussion/getMyDiscussion?projectId="+projectId+"&studentId="+studentId,httpGetOptions);
+  }
+
 
 }

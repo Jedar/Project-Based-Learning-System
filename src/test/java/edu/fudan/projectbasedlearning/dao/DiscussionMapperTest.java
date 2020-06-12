@@ -73,4 +73,12 @@ public class DiscussionMapperTest extends Tester {
         int likes = 3;
         discussionMapper.updateLikes(id,likes);
     }
+
+    @Test
+    public void testMyDiscussion(){
+        int projectId = 1;
+        int studentId = 10023;
+        List<Discussion> discussionList = discussionMapper.getMyDiscussions(projectId,studentId);
+        System.out.println(discussionList.get(0).getDiscussionId());
+    }
 }

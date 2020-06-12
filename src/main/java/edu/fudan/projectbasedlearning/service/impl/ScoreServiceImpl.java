@@ -37,4 +37,9 @@ public class ScoreServiceImpl extends AbstractService<Score> implements ScoreSer
         return true;
 
     }
+
+    @Override
+    public List<Score> findAllScores() {
+        return scoreMapper.getAllScores();
+    }
 }

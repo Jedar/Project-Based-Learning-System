@@ -77,7 +77,9 @@ export class PjManageInfoComponent implements OnInit {
           theme:this.project.theme,
           description: this.project.description,
           rangePicker: [new Date(Date.parse(this.project.startTime)),new Date(Date.parse(this.project.endTime))],
-          rangePickerMark: []
+          rangePickerMark: [
+            new Date(Date.parse(this.project.scoreStartTime)),
+            new Date(Date.parse(this.project.scoreEndTime))]
         });
       }
       else{
@@ -135,6 +137,8 @@ export class PjManageInfoComponent implements OnInit {
         leaderId: data.leaderId,
         startTime: format.default(date0, 'yyyy-MM-dd'),
         endTime: format.default(date1, 'yyyy-MM-dd'),
+        scoreStartTime: format.default(date2, 'yyyy-MM-dd'),
+        scoreEndTime: format.default(date3, 'yyyy-MM-dd'),
         description: data.description,
         value1: this.val1*1.0/100,
         value2: this.val2*1.0/100,

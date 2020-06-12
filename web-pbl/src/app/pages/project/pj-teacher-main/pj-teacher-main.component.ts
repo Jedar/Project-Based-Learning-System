@@ -13,6 +13,7 @@ import {AuthService} from "../../../services/auth.service";
 export class PjTeacherMainComponent implements OnInit {
   option:string;
   projectId:number;
+  userId:number;
 
   constructor(
     private route: ActivatedRoute,
@@ -23,6 +24,7 @@ export class PjTeacherMainComponent implements OnInit {
     // route.params.subscribe(params => {
     //   this.projectId = Number.parseInt(params['projectId']);
     // });
+    this.userId = this.authService.getUserId();
     this.projectId = taskService.getProjectId();
   }
 

@@ -11,6 +11,7 @@ import {HttpParams} from "@angular/common/http";
 import {DiscussionService} from "../../../services/discussion.service";
 import {AuthService} from "../../../services/auth.service";
 import {ProjectService} from "../../../services/project.service";
+import {Project} from "../../../share/project.model";
 
 @Component({
   selector: 'app-pj-mark-mate',
@@ -21,6 +22,8 @@ export class PjMarkMateComponent implements OnInit {
   selfEva: number = 0;
   mutEva: number = 0;
   comment: string = "";
+  project: Project = null;
+
 
   students: Student[] = [];
   projectId: number;
@@ -29,9 +32,10 @@ export class PjMarkMateComponent implements OnInit {
   replyOfStudent:Map<number,number> = new Map<number, number>();
   publishOfStudent:Map<number,number> = new Map<number, number>();
   tasksOfStudent: Map<number, Task[]> = new Map<number, Task[]>();
+  ifHasMulEva:Map<number,boolean> = new Map<number, boolean>();
 
   ifHasSelfEva:boolean = false;
-  ifHasMulEva:boolean = false;
+  timeLimit:boolean = false;
 
   constructor(
     private studentService: StudentService,
@@ -80,7 +84,8 @@ export class PjMarkMateComponent implements OnInit {
           nzOnOk: () => {
             this.students = this.students.filter((student: Student) => student.sId != userId);
           }
-        })
+        });
+        this.init();
       } else {
         this.modal.error({
           nzTitle: '提交失败',
@@ -90,17 +95,30 @@ export class PjMarkMateComponent implements OnInit {
     })
   }
 
-  ngOnInit(): void {
+  init(){
     this.studentService.getStudentsOfProject(this.projectId).subscribe(result => {
-      this.students = result.data;
+      if(result.code == 200)this.students = result.data;
       for (let i=0;i<this.students.length;i++){
         if (this.students[i].sId == this.studentId){
           this.students.splice(i,i+1);
         }
       }
       for (let student of result.data) {
+        this.scoreService.getAllScores().subscribe(res=>{
+          if(res.code == 200)this.scores = res.data;
+          let flag = false;
+          for (let score of this.scores){
+            if(score.userId == this.studentId && score.scoreType == 1)this.ifHasSelfEva = true;
+            if (score.userId == student.sId && score.scoreType == 2 && score.scorerId == this.studentId) {
+              this.ifHasMulEva.set(student.sId, true);
+              flag = true;
+            }
+          }
+          if(!flag)this.ifHasMulEva.set(student.sId, false);
+        });
+
         this.taskService.getTaskListOfUser(this.projectId, student.sId).subscribe(res => {
-          this.tasksOfStudent.set(student.sId, res.data);
+          if(res.code == 200)this.tasksOfStudent.set(student.sId, res.data);
         });
 
         this.discussionService.getPublishCount(student.sId).subscribe(res=>{
@@ -112,14 +130,22 @@ export class PjMarkMateComponent implements OnInit {
         });
       }
     });
-    this.scoreService.getScores(this.studentId).subscribe(res=>{
-      if(res.code == 200)this.scores = res.data;
-      for (let score of this.scores){
-        if(score.userId == this.studentId && score.scoreType == 1)this.ifHasSelfEva = true;
-      }
-    });
-    //Todo：判断是否在互评时间内
 
   }
+  ngOnInit(): void {
+    this.projectService.getProjectOf(this.projectId).subscribe(result => {
+      this.project = result.data;
+      //Todo：判断是否在互评时间内
+      let date = new Date();
+      if(this.project.startTime < date.toDateString() && this.project.endTime > date.toDateString()){
+        this.timeLimit = true;
+      }
+    });
+    this.init();
+
+
+
+  }
+
 
 }

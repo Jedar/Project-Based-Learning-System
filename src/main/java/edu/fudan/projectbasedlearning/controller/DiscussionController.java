@@ -9,6 +9,7 @@ import edu.fudan.projectbasedlearning.pojo.Student;
 import edu.fudan.projectbasedlearning.service.DiscussionService;
 import edu.fudan.projectbasedlearning.service.UserService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
@@ -70,6 +71,7 @@ public class DiscussionController {
 
     @UserLoginToken(roles = {"Student", "Teacher"})
     @ApiOperation(value = "根据id查找讨论")
+    @ApiImplicitParam(name = "id" ,value = "讨论id")
     @PostMapping("/detail")
     public Result<Discussion> detail(@RequestParam Integer id) {
         ResultTypeGenerator<Discussion> generator = new ResultTypeGenerator<>();
@@ -129,5 +131,15 @@ public class DiscussionController {
         ResultTypeGenerator<Integer> generator = new ResultTypeGenerator<>();
         int count = discussionService.getReplyCount(studentId);
         return generator.genSuccessResult(count);
+    }
+
+    @UserLoginToken(roles = {"Student", "Teacher"})
+    @ApiOperation(value = "查找学生讨论")
+    @GetMapping("getMyDiscussion")
+    public Result<List<Discussion>> getMyDiscussion(@RequestParam Integer projectId,@RequestParam Integer studentId){
+        ResultTypeGenerator<List<Discussion>> generator = new ResultTypeGenerator<>();
+        List<Discussion> discussionList = discussionService.findMyDiscussion(projectId,studentId);
+        System.out.println(discussionList);
+        return generator.genSuccessResult(discussionList);
     }
 }
