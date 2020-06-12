@@ -10,7 +10,7 @@ import {
     NzIconModule, NzInputModule,
     NzLayoutModule, NzListModule,
     NzMenuModule, NzPaginationModule, NzSelectModule, NzTabsModule,
-    NzToolTipModule, NzUploadModule, NzTagModule, NzDividerModule
+    NzToolTipModule, NzUploadModule, NzTagModule, NzDividerModule, NzEmptyModule
 } from "ng-zorro-antd";
 import {AppShareModule} from "../../app-share.module";
 import { CourseListComponent } from './course-list/course-list.component';
@@ -52,7 +52,8 @@ import { CourseInfoComponent } from './course-info/course-info.component';
         FormsModule,
         NzTabsModule,
         NzTagModule,
-        NzDividerModule
+        NzDividerModule,
+        NzEmptyModule
     ]
 })
 export class StudentModule { }

@@ -1,4 +1,6 @@
-<div>
+<h2>我加入的课程</h2>
+
+<div *ngIf="courses.length > 0">
   <div class="list-container">
     <div nz-row [nzGutter]="8">
       <div nz-col nzFlex="300px" [nzSpan]="8"
@@ -27,3 +29,6 @@
     </div>
   </div>
 </div>
+
+<div *ngIf="courses.length === 0"><nz-empty></nz-empty></div>
+
