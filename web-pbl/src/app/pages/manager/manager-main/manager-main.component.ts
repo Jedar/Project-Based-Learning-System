@@ -21,13 +21,13 @@ export class ManagerMainComponent implements OnInit {
 
   ngOnInit(): void {
     let res = this.route;
-
     if(!this.authService.getUserId()){
-      this.router.navigate(['/','auth']);
+      this.router.navigate(['/','auth','manager','login']);
     }
+    
     let role = this.authService.getRoleType();
-    if(!role || role != 0){
-      this.router.navigate(['/','auth']);
+    if(role==null || role != 0){
+      this.router.navigate(['/','auth','manager','login']);
     }
 
     this.route.parent.url.subscribe(url => {
