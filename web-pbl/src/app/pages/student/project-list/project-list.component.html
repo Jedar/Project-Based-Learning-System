@@ -1,25 +1,29 @@
-<nz-list>
-  <nz-list-item *ngFor="let project of projects">
-    <ng-container>
-      <nz-list-item-meta
-        nzTitle="{{project.projectName}}"
-        nzDescription="{{project.startTime}} --- {{project.endTime}}">
-      </nz-list-item-meta>
-      项目主题：{{project.theme}}
-      <ul>
-        <a (click)="getIntoProject(project.projectId)"><i nz-icon nzType="login"></i> 进入项目</a>
-      </ul>
+<div *ngIf="projects.length > 0">
+  <nz-list style="min-height: 200px;">
+    <nz-list-item *ngFor="let project of projects">
+      <ng-container>
+        <nz-list-item-meta
+          nzTitle="{{project.projectName}}"
+          nzDescription="{{project.startTime}} --- {{project.endTime}}">
+        </nz-list-item-meta>
+        项目主题：{{project.theme}}
+        <ul>
+          <a (click)="getIntoProject(project.projectId)"><i nz-icon nzType="login"></i> 进入项目</a>
+        </ul>
 
-    </ng-container>
-  </nz-list-item>
-</nz-list>
+      </ng-container>
+    </nz-list-item>
+  </nz-list>
 
-<div nz-row nzJustify="center">
-  <div nz-col nzSpan="8">
-    <nz-pagination
-      [(nzPageIndex)]="pagination.pageIndex"
-      [nzPageSize]="6" [nzTotal]="projects.length"
-      (nzPageIndexChange)="getAllProjects()"></nz-pagination>
+  <div nz-row nzJustify="center">
+    <div nz-col nzSpan="8">
+      <nz-pagination
+        [(nzPageIndex)]="pagination.pageIndex"
+        [nzPageSize]="6" [nzTotal]="projects.length"
+        (nzPageIndexChange)="getAllProjects()"></nz-pagination>
+    </div>
   </div>
 </div>
+
+<div *ngIf="projects.length === 0"><nz-empty></nz-empty></div>
 

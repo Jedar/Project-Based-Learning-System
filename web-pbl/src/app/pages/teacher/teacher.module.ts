@@ -4,25 +4,25 @@ import { CommonModule } from '@angular/common';
 import { TeacherRoutingModule } from './teacher-routing.module';
 import { TeacherMainComponent } from './teacher-main/teacher-main.component';
 import {
-  NzBreadCrumbModule,
-  NzButtonModule,
-  NzCardModule,
-  NzDatePickerModule,
-  NzDescriptionsModule,
-  NzDropDownModule,
-  NzFormModule,
-  NzGridModule,
-  NzIconModule,
-  NzInputModule,
-  NzInputNumberModule,
-  NzLayoutModule,
-  NzListModule,
-  NzMenuModule,
-  NzPaginationModule,
-  NzSelectModule, NzSliderModule, NzSwitchModule,
-  NzTabsModule,
-  NzToolTipModule,
-  NzUploadModule
+    NzBreadCrumbModule,
+    NzButtonModule,
+    NzCardModule,
+    NzDatePickerModule,
+    NzDescriptionsModule,
+    NzDropDownModule, NzEmptyModule,
+    NzFormModule,
+    NzGridModule,
+    NzIconModule,
+    NzInputModule,
+    NzInputNumberModule,
+    NzLayoutModule,
+    NzListModule,
+    NzMenuModule,
+    NzPaginationModule,
+    NzSelectModule, NzSliderModule, NzSwitchModule,
+    NzTabsModule,
+    NzToolTipModule,
+    NzUploadModule
 } from "ng-zorro-antd";
 import {AppShareModule} from "../../app-share.module";
 import { CourseListComponent } from './course-list/course-list.component';
@@ -69,7 +69,8 @@ import {NgxEchartsModule} from "ngx-echarts";
         NzSwitchModule,
         FormsModule,
         NzSliderModule,
-        NgxEchartsModule
+        NgxEchartsModule,
+        NzEmptyModule
     ]
 })
 export class TeacherModule { }

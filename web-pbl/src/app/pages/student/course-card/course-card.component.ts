@@ -65,6 +65,7 @@ export class CourseCardComponent implements OnInit {
             .subscribe(result => {
               if (result.code === 200) {
                 this.message.create('success', '选课成功');
+                this.router.navigate(['student/course_list']);
               } else {
                 this.message.create('error', '选课失败，失败原因：' + result.message);
               }
