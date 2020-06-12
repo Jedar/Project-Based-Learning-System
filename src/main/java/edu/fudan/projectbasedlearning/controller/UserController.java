@@ -144,7 +144,7 @@ public class UserController {
 
     @PostMapping("/modifyStudentInfo")
     @ApiOperation(value = "修改学生信息")
-    @UserLoginToken(roles = {"Student"})
+    @UserLoginToken(roles = {"Student", "Manager"})
     public Result modifyStudentInfo(@RequestParam HashMap<String, String> studentInfo){
         userService.managerUpdateStudentInfo(studentInfo);
         return ResultGenerator.genSuccessResult();
@@ -152,7 +152,7 @@ public class UserController {
 
     @PostMapping("/modifyTeacherInfo")
     @ApiOperation(value = "修改教师信息")
-    @UserLoginToken(roles = {"Teacher"})
+    @UserLoginToken(roles = {"Teacher", "Manager"})
     public Result modifyTeacherInfo(@RequestParam HashMap<String, String> teacherInfo){
         userService.managerUpdateTeacherInfo(teacherInfo);
         return ResultGenerator.genSuccessResult();

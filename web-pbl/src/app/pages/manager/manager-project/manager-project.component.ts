@@ -73,7 +73,7 @@ export class ManagerProjectComponent implements OnInit {
           nzTitle: "",
           nzContent: "删除成功"
         });
-        this.listOfData = this.listOfData.filter(item => item.projectName !== id);
+        this.listOfData = this.listOfData.filter(item => item.projectId !== id);
       }else{
         this.modal.error({
           nzTitle: "删除失败",
@@ -87,7 +87,7 @@ export class ManagerProjectComponent implements OnInit {
   }
 
   cancelEdit(id): void {
-    const index = this.listOfData.findIndex(item => item.projectName === id);
+    const index = this.listOfData.findIndex(item => item.projectId === id);
     this.editCache[id] = {
       data: { ...this.listOfData[index] },
       edit: false
