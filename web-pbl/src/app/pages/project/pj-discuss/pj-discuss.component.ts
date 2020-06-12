@@ -102,13 +102,11 @@ export class PjDiscussComponent implements OnInit {
 
     this.discussionService.getMyDiscussion(this.projectId,this.userId).subscribe(result=>{
       this.myDiscussions = result.data;
-      console.log(this.myDiscussions);
     });
   }
 
   ngOnInit(): void {
    this.init();
-   console.log(this.myDiscussions);
   }
 
 

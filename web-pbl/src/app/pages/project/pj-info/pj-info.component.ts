@@ -30,7 +30,6 @@ export class PjInfoComponent implements OnInit {
     activatedRoute.params.subscribe(params => {
       // this.projectId = params['projectId'];
       this.projectId = taskService.getProjectId();
-      console.log(this.projectId);
     });
   }
 
@@ -43,7 +42,6 @@ export class PjInfoComponent implements OnInit {
       } else {
         window.alert("项目信息获取失败");
       }
-      console.log(this.project);
       this.studentService.getStudentInfo(result.data.leaderId).subscribe(res => {
         if (res.code == 200) {
           this.leader = res.data;

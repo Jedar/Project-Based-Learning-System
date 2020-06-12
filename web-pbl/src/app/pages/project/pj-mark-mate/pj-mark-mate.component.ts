@@ -96,12 +96,6 @@ export class PjMarkMateComponent implements OnInit {
   }
 
   init(){
-    this.scoreService.getAllScores().subscribe(res=>{
-      if(res.code == 200)this.scores = res.data;
-      for (let score of this.scores){
-        if(score.userId == this.studentId && score.scoreType == 1)this.ifHasSelfEva = true;
-      }
-    });
     this.studentService.getStudentsOfProject(this.projectId).subscribe(result => {
       if(result.code == 200)this.students = result.data;
       for (let i=0;i<this.students.length;i++){
@@ -110,6 +104,19 @@ export class PjMarkMateComponent implements OnInit {
         }
       }
       for (let student of result.data) {
+        this.scoreService.getAllScores().subscribe(res=>{
+          if(res.code == 200)this.scores = res.data;
+          let flag = false;
+          for (let score of this.scores){
+            if(score.userId == this.studentId && score.scoreType == 1)this.ifHasSelfEva = true;
+            if (score.userId == student.sId && score.scoreType == 2 && score.scorerId == this.studentId) {
+              this.ifHasMulEva.set(student.sId, true);
+              flag = true;
+            }
+          }
+          if(!flag)this.ifHasMulEva.set(student.sId, false);
+        });
+
         this.taskService.getTaskListOfUser(this.projectId, student.sId).subscribe(res => {
           if(res.code == 200)this.tasksOfStudent.set(student.sId, res.data);
         });
@@ -121,20 +128,8 @@ export class PjMarkMateComponent implements OnInit {
         this.discussionService.getReplyCount(student.sId).subscribe(res=>{
           if(res.code == 200)this.replyOfStudent.set(student.sId,res.data);
         });
-
-        let flag = false;
-        for (let score of this.scores) {
-          console.log(score.userId,score.scoreType,score.scorerId);
-          if (score.userId == student.sId && score.scoreType == 2 && score.scorerId == this.studentId) {
-            this.ifHasMulEva.set(student.sId, true);
-            flag = true;
-            break;
-          }
-        }
-        if(!flag)this.ifHasMulEva.set(student.sId, false);
       }
     });
-    console.log(this.ifHasMulEva);
 
   }
   ngOnInit(): void {

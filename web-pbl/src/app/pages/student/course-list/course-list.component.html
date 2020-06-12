@@ -1,34 +1,29 @@
 <div>
   <div class="list-container">
     <div nz-row [nzGutter]="8">
-    <div nz-col nzFlex="300px" [nzSpan]="8"
-         *ngFor="let course of courses.slice((pagination.pageIndex - 1) * 6,
-         (pagination.pageIndex) * 6 - 3)">
-      <app-course-card [course]="course" [operation]="operation" (getAllCourses)="getAllCourses()"></app-course-card>
+      <div nz-col nzFlex="300px" [nzSpan]="8"
+           *ngFor="let course of courses.slice((pagination.pageIndex - 1) * 6,
+         (pagination.pageIndex) * 6 - 3)" style="margin: 20px;">
+        <app-course-card [course]="course" [operation]="operation" (getAllCourses)="getAllCourses()"></app-course-card>
+      </div>
+    </div>
+    <div nz-row [nzGutter]="8">
+      <div nz-col nzFlex="300px" [nzSpan]="8" *ngFor="let course of courses.slice((pagination.pageIndex) * 6 - 3,
+         (pagination.pageIndex) * 6)" style="margin: 20px;">
+        <app-course-card [course]="course" [operation]="operation" (getAllCourses)="getAllCourses()"></app-course-card>
+      </div>
     </div>
   </div>
-  <div nz-row [nzGutter]="8">
-    <div nz-col nzFlex="300px" [nzSpan]="8" *ngFor="let course of courses.slice((pagination.pageIndex) * 6 - 3,
-         (pagination.pageIndex) * 6)">
-      <app-course-card [course]="course" [operation]="operation" (getAllCourses)="getAllCourses()"></app-course-card>
-    </div>
-  </div>
-  </div>
-  
+
 
   <nz-divider></nz-divider>
 
-  <div nz-row>
-    <div nz-col nzSpan="8"></div>
+  <div nz-row nzJustify="center">
     <div nz-col nzSpan="8">
-      <nz-pagination 
-        [(nzPageIndex)]="pagination.pageIndex" 
-        [nzPageSize]="6" [nzTotal]="courses.length" 
+      <nz-pagination
+        [(nzPageIndex)]="pagination.pageIndex"
+        [nzPageSize]="6" [nzTotal]="courses.length"
         (nzPageIndexChange)="getAllCourses()"></nz-pagination>
     </div>
-    <div nz-col nzSpan="8"></div>
   </div>
-  <nz-content>
-    
-  </nz-content>
 </div>

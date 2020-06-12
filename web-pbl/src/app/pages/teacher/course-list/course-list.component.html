@@ -3,13 +3,13 @@
 <div nz-row [nzGutter]="8">
   <div nz-col nzFlex="300px" [nzSpan]="8"
        *ngFor="let course of courses.slice((pagination.pageIndex - 1) * 6,
-         (pagination.pageIndex) * 6 - 3)">
+         (pagination.pageIndex) * 6 - 3)" style="margin: 20px;">
     <nz-card nzSize="small" [nzCover]="coverTemplate" [nzHoverable]="true" [nzActions]="[getInto, drop]">
       <nz-card-meta nzTitle="{{course.courseName}}"
                     nzDescription="{{course.description}}"></nz-card-meta>
     </nz-card>
     <ng-template #coverTemplate>
-      <img alt="example" src="{{course.picture}}"/>
+      <img alt="example" src="{{course.picture}}" style="min-width: 150px;min-height: 150px; width: 292px; height: 292px" />
     </ng-template>
     <ng-template #getInto>
       <a (click)="getIntoCourseProject(course.courseId)"><i nz-icon nzType="login"></i> 进入课程项目</a>
@@ -22,13 +22,13 @@
 
 <div nz-row [nzGutter]="8">
   <div nz-col nzFlex="300px" [nzSpan]="8" *ngFor="let course of courses.slice((pagination.pageIndex) * 6 - 3,
-         (pagination.pageIndex) * 6)">
+         (pagination.pageIndex) * 6)" style="margin: 20px;">
     <nz-card nzSize="small" [nzCover]="coverTemplate" [nzHoverable]="true" [nzActions]="[getInto, drop]">
       <nz-card-meta nzTitle="{{course.courseName}}"
                     nzDescription="{{course.description}}"></nz-card-meta>
     </nz-card>
     <ng-template #coverTemplate>
-      <img alt="example" src="{{course.picture}}"/>
+      <img alt="example" src="{{course.picture}}" style="min-width: 150px;min-height: 150px; width: 292px; height: 292px"/>
     </ng-template>
     <ng-template #getInto>
       <a (click)="getIntoCourseProject(course.courseId)"><i nz-icon nzType="login"></i> 进入课程项目</a>
@@ -39,7 +39,11 @@
   </div>
 </div>
 
-<nz-pagination [(nzPageIndex)]="pagination.pageIndex" [nzPageSize]="6" [nzTotal]="courses.length"
-               (nzPageIndexChange)="getAllCourses()"></nz-pagination>
+<div nz-row nzJustify="center">
+  <div nz-col nzSpan="8">
+    <nz-pagination [(nzPageIndex)]="pagination.pageIndex" [nzPageSize]="6" [nzTotal]="courses.length"
+                   (nzPageIndexChange)="getAllCourses()"></nz-pagination>
+  </div>
+</div>
 
 
