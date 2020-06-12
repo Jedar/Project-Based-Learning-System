@@ -46,7 +46,7 @@ public class TaskController {
         return generator.genSuccessResult(list);
     }
 
-    @UserLoginToken(roles = {"Student"})
+    @UserLoginToken(roles = {"Student","Teacher"})
     @ApiOperation(value = "根据项目id和学生id返回学生任务列表")
     @GetMapping("/user")
     public Result<List<HashMap<String,Object>>> getTasksOfUser(@RequestParam String projectId, @RequestParam String userId){
