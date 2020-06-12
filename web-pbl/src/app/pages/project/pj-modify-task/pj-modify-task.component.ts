@@ -107,7 +107,9 @@ export class PjModifyTaskComponent implements OnInit {
           this.validateForm.setValue({
             task_name: this.task.task_name,
             user_id:null,
-            rangePicker: [this.task.start_time,this.task.end_time],
+            rangePicker: [
+              new Date(Date.parse(this.task.start_time)),
+              new Date(Date.parse(this.task.end_time))],
             content:this.task.content,
             priority:this.task.priority
           });
