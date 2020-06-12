@@ -44,12 +44,22 @@ export class PjMarkScoreComponent implements OnInit {
   }
 
   init(){
-    this.scoreService.getAllScores().subscribe(res=>{
-      if(res.code == 200)this.scores = res.data;
-    });
     this.studentService.getStudentsOfProject(this.projectId).subscribe(result => {
       this.students = result.data;
       for (let student of result.data) {
+        this.scoreService.getAllScores().subscribe(res=>{
+          if(res.code == 200)this.scores = res.data;
+          let flag = false;
+          for (let score of this.scores){
+
+            if (score.userId == student.sId && score.scoreType == 3 && score.scorerId == this.teacherId) {
+              this.ifHasMulEva.set(student.sId, true);
+              flag = true;
+            }
+          }
+          if(!flag)this.ifHasMulEva.set(student.sId, false);
+        });
+
         this.taskService.getTaskListOfUser(this.projectId, student.sId).subscribe(res => {
           if(res.code == 200)this.tasksOfStudent.set(student.sId, res.data);
         });
