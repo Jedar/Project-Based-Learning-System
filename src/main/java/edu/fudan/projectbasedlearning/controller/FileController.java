@@ -8,6 +8,7 @@ import edu.fudan.projectbasedlearning.pojo.User;
 import edu.fudan.projectbasedlearning.service.FileService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import edu.fudan.projectbasedlearning.utils.JWTTokenUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,15 +29,11 @@ public class FileController {
     @Resource
     private FileService fileService;
 
-    @Autowired
-    private User user;
-
     @UserLoginToken(roles = {"Teacher","Student"})
     @ApiOperation(value = "上传文件")
     @PostMapping("/add")
-    public Result add(@RequestBody File file) {
-        System.out.println(file);
-        file.setUserId(user.getUserId());
+    public Result add(@RequestHeader String token, @RequestBody File file) {
+        file.setUserId(JWTTokenUtil.getId(token));
         file.setTime(new Date());
         if(file.getProjectId() == null || file.getUserId() == null || file.getPath() == null){
             return ResultGenerator.genFailResult("文件信息错误，请重试");
@@ -68,6 +65,7 @@ public class FileController {
     public Result<List<HashMap<String,Object>>> list(@RequestParam Integer projectId) {
         ResultTypeGenerator<List<HashMap<String, Object>>> generator = new ResultTypeGenerator<>();
         List<HashMap<String,Object>> list = fileService.getFileListOf(projectId);
+        System.out.println(list);
         return generator.genSuccessResult(list);
     }
 }

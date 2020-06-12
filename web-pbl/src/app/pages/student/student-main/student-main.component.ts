@@ -20,6 +20,13 @@ export class StudentMainComponent implements OnInit {
 
   ngOnInit(): void {
     let res = this.route;
+    if(!this.authService.getUserId()){
+      this.router.navigate(['/','auth']);
+    }
+    let role = this.authService.getRoleType();
+    if(!role || role != 2){
+      this.router.navigate(['/','auth','student','login']);
+    }
 
     this.route.parent.url.subscribe(url => {
       res.children[0].url.subscribe(u => {

@@ -18,6 +18,6 @@
   </select>
 
   <select id="getFileInfoByProject" parameterType="int" resultType="hashmap">
-    select * from file natural join user where project_id = #{projectId}
+    select * from file inner join user on user.user_id = file.user_id where project_id = #{projectId}
   </select>
 </mapper>

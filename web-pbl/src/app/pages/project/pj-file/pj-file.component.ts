@@ -61,7 +61,13 @@ export class PjFileComponent implements OnInit {
       // this.projectId = Number.parseInt(params['projectId']);
       this.projectId = taskService.getProjectId();
       this.fileService.getFileList(this.projectId).subscribe(result => {
-        this.listOfData = result.data;
+        if(result.code == 200){
+          this.listOfData = result.data;
+        }
+        else{
+          window.alert("文件加载失败："+result.message);
+        }
+        
       });
     });
   }
@@ -112,7 +118,6 @@ export class PjFileComponent implements OnInit {
       path:this.fileList[0].url,
       userId:this.authService.getUserId(),
     }
-    console.log(data);
     this.fileService.addFile(data).subscribe(result => {
       if(result.code === 200){
         this.modal.success({

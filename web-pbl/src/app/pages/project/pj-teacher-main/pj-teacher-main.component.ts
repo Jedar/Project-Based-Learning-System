@@ -29,11 +29,18 @@ export class PjTeacherMainComponent implements OnInit {
   ngOnInit(): void {
     let res = this.route;
 
+    if(!this.authService.getUserId()){
+      this.router.navigate(['/','auth']);
+    }
+    let role = this.authService.getRoleType();
+    if(!role || role != 1){
+      this.router.navigate(['/','auth','teacher','login']);
+    }
+
     this.route.parent.url.subscribe(url => {
       res.children[0].url.subscribe(u => {
         this.option = u[0].path;
       });
-
     });
   }
 

@@ -29,6 +29,16 @@ export class PjStudentMainComponent implements OnInit {
     // });
     this.userId = this.authService.getUserId();
     this.projectId = taskService.getProjectId();
+    if(!this.projectId){
+      this.router.navigate(['/','student']);
+    }
+    if(!this.userId){
+      this.router.navigate(['/','auth']);
+    }
+    let role = this.authService.getRoleType();
+    if(!role || role != 2){
+      this.router.navigate(['/','auth','student','login']);
+    }
     this.projectService.getProjectOf(this.projectId).subscribe(result => {
       if(result.code === 200){
         this.isManager = (this.userId == result.data.leaderId);

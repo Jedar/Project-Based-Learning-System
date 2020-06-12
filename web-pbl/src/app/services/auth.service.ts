@@ -37,11 +37,19 @@ export class AuthService {
       this.userId = userId;
     }
   }
+  getRoleType():number{
+    let role = sessionStorage.getItem("user_role");
+    if(!role){
+      return null;
+    }
+    return Number.parseInt(role);
+  }
   login(username, password, role):Observable<UserMessage>{
     const params = new HttpParams()
       .set("username", username)
       .set("password", password)
       .set("role", role);
+    sessionStorage.setItem("user_role",role);
     return this.http.post<UserMessage>("/user/login", params, httpOptions).pipe();
   }
   //注册时判断用户名是否已存在
