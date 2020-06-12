@@ -15,4 +15,11 @@
   </nz-list-item>
 </nz-list>
 
-<nz-pagination [(nzPageIndex)]="pagination.pageIndex" [nzPageSize]="3" [nzTotal]="allProjects.length" (nzPageIndexChange)="getAllProjects()"></nz-pagination>
+<div nz-row nzJustify="center">
+  <div nz-col nzSpan="8">
+    <nz-pagination
+      [(nzPageIndex)]="pagination.pageIndex"
+      [nzPageSize]="3" [nzTotal]="allProjects.length"
+      (nzPageIndexChange)="getAllProjects()"></nz-pagination>
+  </div>
+</div>
