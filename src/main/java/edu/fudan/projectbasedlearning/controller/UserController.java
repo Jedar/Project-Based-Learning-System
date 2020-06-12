@@ -127,7 +127,7 @@ public class UserController {
 
     @GetMapping("/getStudentInfo/{studentId}")
     @ApiOperation(value = "根据学生id查找学生信息")
-    @UserLoginToken(roles = {"Student"})
+    @UserLoginToken(roles = {"Student","Teacher"})
     public Result getStudentInfo(@PathVariable Integer studentId){
         HashMap<String, Object> student = userService.getStudentInfo(studentId);
         return ResultGenerator.genSuccessResult(student);

@@ -19,6 +19,12 @@
      parents_id as parentsId from discussion where project_id = #{projectId} and parents_id is null
   </select>
 
+    <select id="getMyDiscussions"  parameterType="int" resultType="edu.fudan.projectbasedlearning.pojo.Discussion">
+     select discussion_id as discussionId,project_id as projectId,content,time,user_id as userId,likes,
+     parents_id as parentsId from discussion where project_id = #{projectId} and user_id = #{studentId}
+     and parents_id is null
+    </select>
+
     <select id="getAllDiscussions" parameterType="int" resultType="edu.fudan.projectbasedlearning.pojo.Discussion">
        select discussion_id as discussionId,project_id as projectId,content,time,user_id as userId,likes,
      parents_id as parentsId from discussion where project_id = #{projectId}

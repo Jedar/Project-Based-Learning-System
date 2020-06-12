@@ -28,6 +28,8 @@ export class PjDiscussComponent implements OnInit {
   discussionChildren: Map<number, Discussion[]> = new Map<number, Discussion[]>();
   discussionAuthors: Map<number, string> = new Map<number, string>();
 
+  myDiscussions:Discussion[] = [];
+
   pagination = {
     pageIndex: 1,
   };
@@ -42,18 +44,7 @@ export class PjDiscussComponent implements OnInit {
         .set("likes",like+1);
       this.discussionService.updateLike(params).subscribe(result=>{
         if(result.code == 200){
-          for (let item of this.firstDiscussions) {
-            if (item.discussionId == discussion_id) {
-              item.likes++;
-              break;
-            }
-            for (let child of this.discussionChildren.get(item.discussionId)) {
-              if (child.discussionId == discussion_id) {
-                child.likes++;
-                break;
-              }
-            }
-          }
+         this.init();
         }
       });
   }
@@ -108,10 +99,16 @@ export class PjDiscussComponent implements OnInit {
       this.firstDiscussions = result.data;
       for (let item of this.firstDiscussions)item.time = item.time.substr(0,10);
     });
+
+    this.discussionService.getMyDiscussion(this.projectId,this.userId).subscribe(result=>{
+      this.myDiscussions = result.data;
+      console.log(this.myDiscussions);
+    });
   }
 
   ngOnInit(): void {
    this.init();
+   console.log(this.myDiscussions);
   }
 
 

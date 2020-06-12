@@ -22,4 +22,6 @@ public interface DiscussionMapper extends Mapper<Discussion> {
     int getReplyCount(int userId);
 
     void updateLikes(int discussionId,int likes);
+
+    List<Discussion> getMyDiscussions(int projectId,int studentId);
 }

@@ -132,4 +132,14 @@ public class DiscussionController {
         int count = discussionService.getReplyCount(studentId);
         return generator.genSuccessResult(count);
     }
+
+    @UserLoginToken(roles = {"Student", "Teacher"})
+    @ApiOperation(value = "查找学生讨论")
+    @GetMapping("getMyDiscussion")
+    public Result<List<Discussion>> getMyDiscussion(@RequestParam Integer projectId,@RequestParam Integer studentId){
+        ResultTypeGenerator<List<Discussion>> generator = new ResultTypeGenerator<>();
+        List<Discussion> discussionList = discussionService.findMyDiscussion(projectId,studentId);
+        System.out.println(discussionList);
+        return generator.genSuccessResult(discussionList);
+    }
 }

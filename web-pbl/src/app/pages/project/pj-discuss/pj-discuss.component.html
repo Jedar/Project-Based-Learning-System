@@ -124,7 +124,7 @@
   <nz-tab nzTitle="我的讨论">
     <nz-content>
       <nz-list [nzItemLayout]="'horizontal'">
-        <nz-card *ngFor="let data of firstDiscussions">
+        <nz-card *ngFor="let data of myDiscussions">
           <nz-comment>
             <nz-avatar nz-comment-avatar nzSize="large" nzIcon="user" style="background-color:#87d068;"></nz-avatar>
             <!--            <nz-avatar nzSize="large" nz-comment-avatar nzIcon="user"-->
@@ -137,8 +137,8 @@
             </nz-comment-content>
             <nz-comment-action>
               <span class="action">
-              <i nz-tooltip nzTitle="Like" nz-icon nzType="like" nzTheme="outline"
-              ></i>
+              <i nz-tooltip nzTitle="Like" nz-icon nzType="like" [nzTheme]="data.likes > 0 ? 'twotone' : 'outline'"
+                 (click)="like(data.discussionId)"></i>
               <span class="count like">{{ data.likes }}</span>
               </span>
             </nz-comment-action>

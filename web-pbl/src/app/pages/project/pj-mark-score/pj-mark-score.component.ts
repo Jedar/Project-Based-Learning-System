@@ -25,7 +25,7 @@ export class PjMarkScoreComponent implements OnInit {
   replyOfStudent:Map<number,number> = new Map<number, number>();
   publishOfStudent:Map<number,number> = new Map<number, number>();
   value: number = 0;
-
+  comment:string = "";
   ifHasMulEva:Map<number,boolean> = new Map<number, boolean>();
 
   constructor(
@@ -51,7 +51,7 @@ export class PjMarkScoreComponent implements OnInit {
       this.students = result.data;
       for (let student of result.data) {
         this.taskService.getTaskListOfUser(this.projectId, student.sId).subscribe(res => {
-          this.tasksOfStudent.set(student.sId, res.data);
+          if(res.code == 200)this.tasksOfStudent.set(student.sId, res.data);
         });
 
         this.discussionService.getPublishCount(student.sId).subscribe(res=>{
@@ -64,7 +64,7 @@ export class PjMarkScoreComponent implements OnInit {
 
         let flag = false;
         for (let score of this.scores) {
-          console.log(score.userId,score.scoreType,score.scorerId);
+          // console.log(score.userId,score.scoreType,score.scorerId);
           if (score.userId == student.sId && score.scoreType == 3 && score.scorerId == this.teacherId) {
             this.ifHasMulEva.set(student.sId, true);
             flag = true;
@@ -74,6 +74,7 @@ export class PjMarkScoreComponent implements OnInit {
         if(!flag)this.ifHasMulEva.set(student.sId, false);
       }
     });
+    console.log(this.ifHasMulEva);
 
   }
 
@@ -94,18 +95,19 @@ export class PjMarkScoreComponent implements OnInit {
       .set("userId", String(userId))
       .set("scoreType", String(type))
       .set("scorerId", String(this.teacherId))
-      .set("value", String(this.value));
+      .set("value", String(this.value))
+      .set("comment", this.comment);
 
     this.scoreService.submitScore(params).subscribe(result => {
       if (result.code == 200) {
         this.modal.success({
-          nzTitle: '提交互评',
+          nzTitle: '提交分数',
           nzContent: '提交成功',
           nzOnOk: () => {
             this.students = this.students.filter((student: Student) => student.sId != userId);
-            this.init();
           }
-        })
+        });
+        this.init();
       } else {
         this.modal.error({
           nzTitle: '提交失败',

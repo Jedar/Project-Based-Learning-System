@@ -37,6 +37,11 @@ public class DiscussionServiceImpl extends AbstractService<Discussion> implement
     }
 
     @Override
+    public List<Discussion> findMyDiscussion(int projectId, int studentId) {
+        return discussionMapper.getMyDiscussions(projectId,studentId);
+    }
+
+    @Override
     public HashMap<String, String> findAuthorById(int studentId) {
         return discussionMapper.getDiscussionAuthor(studentId);
     }
