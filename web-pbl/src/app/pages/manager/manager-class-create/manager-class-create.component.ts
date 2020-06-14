@@ -70,7 +70,7 @@ export class ManagerClassCreateComponent implements OnInit {
         .set("maxStudentNumber", formValue["maxStudentNumber"])
         .set("file",this.avatarUrl);
       console.log(params);
-      this.managerService.createClass(formValue["name"],formValue["teacher"],formValue["description"],formValue["maxStudentNumber"], "picture").subscribe(result=>{
+      this.managerService.createClass(formValue["name"],formValue["teacher"],formValue["description"],formValue["maxStudentNumber"], this.avatarUrl).subscribe(result=>{
         if (result.code==200){
           this.modal.success({
             nzTitle: "",
