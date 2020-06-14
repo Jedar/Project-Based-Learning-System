@@ -50,17 +50,17 @@
 
         <!--注意这一行，如果存在评论回复，遍历复用渲染-->
         <ng-container *ngIf="discussionChildren.get(comment.discussionId).length">
-          <nz-collapse style="color: #87d068">
-            <nz-collapse-panel [nzExpandedIcon]="iconRef" nzHeader="展开回复">
+<!--          <nz-collapse>-->
+<!--            <nz-collapse-panel [nzExpandedIcon]="iconRef" nzHeader="展开回复">-->
           <ng-template ngFor let-child [ngForOf]="discussionChildren.get(comment.discussionId)">
             <ng-template [ngTemplateOutlet]="commentTemplateRef" [ngTemplateOutletContext]="{ comment: child }">
             </ng-template>
           </ng-template>
-            </nz-collapse-panel>
-            <ng-template #iconRef>
-            <i nz-icon nzType="caret-down" nzTheme="outline"></i>
-            </ng-template>
-          </nz-collapse>
+<!--            </nz-collapse-panel>-->
+<!--            <ng-template #iconRef>-->
+<!--            <i nz-icon nzType="caret-down" nzTheme="outline"></i>-->
+<!--            </ng-template>-->
+<!--          </nz-collapse>-->
 
         </ng-container>
       </nz-comment>

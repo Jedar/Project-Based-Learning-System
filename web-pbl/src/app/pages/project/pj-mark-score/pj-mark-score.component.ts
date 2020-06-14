@@ -19,7 +19,7 @@ import {AuthService} from "../../../services/auth.service";
 export class PjMarkScoreComponent implements OnInit {
   students: Student[] = [];
   projectId: number;
-  teacherId: number = 10009;
+  teacherId: number;
   scores:Score[] = [];
   tasksOfStudent: Map<number, Task[]> = new Map<number, Task[]>();
   replyOfStudent:Map<number,number> = new Map<number, number>();
@@ -27,6 +27,7 @@ export class PjMarkScoreComponent implements OnInit {
   value: number = 0;
   comment:string = "";
   ifHasMulEva:Map<number,boolean> = new Map<number, boolean>();
+
 
   constructor(
     private studentService: StudentService,
