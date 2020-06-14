@@ -10,7 +10,10 @@ import {HttpParams} from "@angular/common/http";
 import {AuthService} from "../../../services/auth.service";
 import {TaskService} from "../../../services/task.service";
 
-
+// interface listDiscussion{
+//   discussion:Discussion,
+//   children:Discussion[],
+// }
 @Component({
   selector: 'app-pj-discuss',
   templateUrl: './pj-discuss.component.html',
@@ -20,6 +23,7 @@ import {TaskService} from "../../../services/task.service";
 export class PjDiscussComponent implements OnInit {
   projectId: number;
   userId: number;
+  // discussionList:listDiscussion[] = [];
   firstDiscussions: Discussion[] = [];
   discussions: Discussion[] = [];
   isShow: Map<string, boolean> = new Map<string, boolean>();
@@ -29,10 +33,6 @@ export class PjDiscussComponent implements OnInit {
   discussionAuthors: Map<number, string> = new Map<number, string>();
 
   myDiscussions:Discussion[] = [];
-
-  pagination = {
-    pageIndex: 1,
-  };
 
   like(discussion_id: number): void {
     let like;
@@ -82,8 +82,16 @@ export class PjDiscussComponent implements OnInit {
   init(){
     this.discussionService.getAllDiscussionList(this.projectId).subscribe(result => {
       this.discussions = result.data;
+      let count=0;
       for (let discussion of this.discussions) {
+
+        // this.discussionList[count].discussion = discussion;
+        count++;
+
         this.discussionService.getDiscussionChildren(discussion.discussionId,this.projectId).subscribe(res => {
+
+          // this.discussionList[count].children = res.data;
+
           if (res.data != null) this.discussionChildren.set(discussion.discussionId, res.data);
           for (let item of this.discussionChildren.get(discussion.discussionId))item.time = item.time.substr(0,10);
         });
@@ -94,6 +102,7 @@ export class PjDiscussComponent implements OnInit {
         )
       }
     });
+    // console.log(this.discussionList);
 
     this.discussionService.getFirstDiscussionList(this.projectId).subscribe(result => {
       this.firstDiscussions = result.data;
