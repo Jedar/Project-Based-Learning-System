@@ -47,7 +47,7 @@ export class PjMarkScoreComponent implements OnInit {
     this.studentService.getStudentsOfProject(this.projectId).subscribe(result => {
       this.students = result.data;
       for (let student of result.data) {
-        this.scoreService.getAllScores().subscribe(res=>{
+        this.scoreService.getAllScores(this.projectId).subscribe(res=>{
           if(res.code == 200)this.scores = res.data;
           let flag = false;
           for (let score of this.scores){

@@ -104,7 +104,7 @@ export class PjMarkMateComponent implements OnInit {
         }
       }
       for (let student of result.data) {
-        this.scoreService.getAllScores().subscribe(res=>{
+        this.scoreService.getAllScores(this.projectId).subscribe(res=>{
           if(res.code == 200)this.scores = res.data;
           let flag = false;
           for (let score of this.scores){

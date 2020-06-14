@@ -21,9 +21,9 @@ public class ScoreServiceImpl extends AbstractService<Score> implements ScoreSer
     private ScoreMapper scoreMapper;
 
     @Override
-    public List<Score> findScoresByStudentId(int studentId) {
+    public List<Score> findScoresByStudentId(int studentId,int projectId) {
 
-        return scoreMapper.findStudentScores(studentId);
+        return scoreMapper.findStudentScores(studentId,projectId);
     }
 
     @Override
@@ -39,7 +39,7 @@ public class ScoreServiceImpl extends AbstractService<Score> implements ScoreSer
     }
 
     @Override
-    public List<Score> findAllScores() {
-        return scoreMapper.getAllScores();
+    public List<Score> findAllScores(int projectId) {
+        return scoreMapper.getAllScores(projectId);
     }
 }

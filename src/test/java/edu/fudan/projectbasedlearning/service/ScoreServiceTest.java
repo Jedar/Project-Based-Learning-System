@@ -14,7 +14,7 @@ class ScoreServiceTest extends Tester {
 
     @Test
     void findScoresByStudentId() {
-        List<Score> scores = scoreService.findScoresByStudentId(10009);
+        List<Score> scores = scoreService.findScoresByStudentId(10009,1);
         System.out.println(scores.get(0).getValue());
     }
 
