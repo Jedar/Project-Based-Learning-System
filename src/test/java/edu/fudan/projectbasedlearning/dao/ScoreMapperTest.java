@@ -27,7 +27,7 @@ public class ScoreMapperTest extends Tester {
 
     @Test
     public void testFindStudentScores() {
-        List<Score> scores = scoreMapper.findStudentScores(10009);
+        List<Score> scores = scoreMapper.findStudentScores(10009,1);
         System.out.println(scores.size());
         System.out.println(scores.get(0).getValue());
         System.out.println(scores.get(0).getDistribute());

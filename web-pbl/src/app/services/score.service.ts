@@ -28,12 +28,12 @@ export class ScoreService {
   constructor(private http: HttpClient/* 依赖注入 */) {
   }
 
-  getMyScores(studentId: number): Observable<ScoreListMessage> {
-    return this.http.get<ScoreListMessage>( "/score/getScores/"+studentId, httpGetOptions).pipe();
+  getMyScores(studentId: number,projectId:number): Observable<ScoreListMessage> {
+    return this.http.get<ScoreListMessage>( "/score/getScores?studentId="+studentId+"&projectId="+projectId, httpGetOptions).pipe();
   }
 
-  getAllScores():Observable<ScoreListMessage>{
-    return this.http.get<ScoreListMessage>( "/score/getAllScores", httpGetOptions).pipe();
+  getAllScores(projectId:number):Observable<ScoreListMessage>{
+    return this.http.get<ScoreListMessage>( "/score/getAllScores?projectId="+projectId, httpGetOptions).pipe();
   }
 
   submitScore(data): Observable<ResultMessage> {

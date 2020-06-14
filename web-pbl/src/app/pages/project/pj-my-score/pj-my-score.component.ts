@@ -35,7 +35,7 @@ export class PjMyScoreComponent implements OnInit {
     this.projectId = this.taskService.getProjectId();
     this.studentId = this.authService.getUserId();
     console.log(this.studentId);
-    this.scoreService.getMyScores(this.studentId).subscribe(result => {
+    this.scoreService.getMyScores(this.studentId,this.projectId).subscribe(result => {
       this.scores = result.data;
       let count = 0;
       console.log(this.scores);
@@ -57,7 +57,7 @@ export class PjMyScoreComponent implements OnInit {
             break;
         }
       }
-      this.mutEva = this.mutEva / count;
+      if(count !=0 )this.mutEva = this.mutEva / count;
       console.log(this.mutEva,count);
       this.totalScore = this.selfEva + this.teacherEva + this.mutEva;
     });
