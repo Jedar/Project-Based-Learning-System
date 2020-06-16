@@ -1,0 +1,21 @@
+<nz-page-header class="site-page-header" nzTitle="提醒列表" nzSubtitle="">
+</nz-page-header>
+<nz-divider></nz-divider>
+
+<nz-collapse>
+    <nz-collapse-panel *ngFor="let panel of list" 
+    [nzHeader]="(panel.read==1)?panel.projectName+'--已读':panel.projectName+'--未读'" 
+    [nzActive]="false" 
+    [nzDisabled]="false">
+      <p style="margin:0;">
+        同学，您的{{(panel.sendRole==2)?"组长":"老师"}} {{panel.sendName}}提醒您，项目{{panel.projectName}}的任务(ID:{{panel.taskId}})需要尽快完成。
+      </p>
+        <nz-tag nzColor="green">
+            <span *ngIf="panel.read == 1">已阅读</span>
+            <a *ngIf="panel.read == 0" (click)="onRead(panel.memoId)">阅读</a>
+        </nz-tag>
+        <nz-tag nzColor="red">
+            <a (click)="onDelete(panel.memoId)">删除</a>
+        </nz-tag>
+    </nz-collapse-panel>
+  </nz-collapse>

@@ -60,13 +60,13 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
                     failAuth(httpServletRequest,httpServletResponse,"无token，请重新登录");
                     return false;
                 }
-                System.out.println(token);
+//                System.out.println(token);
                 // 获取 token 中的 user id
                 int userId;
                 String role;
                 try {
                     userId = JWTTokenUtil.getId(token);
-                    System.out.println(userId);
+//                    System.out.println(userId);
                     role = getRoleString(JWTTokenUtil.getRole(token));
                 } catch (JWTDecodeException j) {
                     failAuth(httpServletRequest,httpServletResponse,"token错误");

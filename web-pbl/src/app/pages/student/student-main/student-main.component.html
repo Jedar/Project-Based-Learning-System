@@ -3,6 +3,13 @@
     <app-header-logo></app-header-logo>
 
     <div class="header-info">
+      <div class="header-info-item" style="margin-right: 10px;">
+        <a nzType="link" nzTooltipTitle="信息" nzTooltipPlacement="bottom" nzGhost nz-button nz-tooltip [routerLink]="['/','student','memo']">
+          <nz-badge [nzCount]="memoCount">
+              <i nz-icon nzType="notification" nzTheme="outline"></i>
+          </nz-badge>
+        </a>
+      </div>
       <div class="header-info-item">
         <a nzType="link" nzGhost  nzTooltipTitle="搜索" nzTooltipPlacement="bottom" nz-button nz-tooltip>
           <i nz-icon nzType="search" nzTheme="outline"></i>

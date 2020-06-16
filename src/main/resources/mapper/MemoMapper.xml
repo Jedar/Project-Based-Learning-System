@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.fudan.projectbasedlearning.dao.MemoMapper">
+  <resultMap id="BaseResultMap" type="edu.fudan.projectbasedlearning.pojo.Memo">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="memo_id" jdbcType="INTEGER" property="memoId" />
+    <result column="send_id" jdbcType="INTEGER" property="sendId" />
+    <result column="recv_id" jdbcType="INTEGER" property="recvId" />
+    <result column="task_id" jdbcType="INTEGER" property="taskId" />
+    <result column="message" jdbcType="VARCHAR" property="message" />
+    <result column="read_or_not" jdbcType="INTEGER" property="read" />
+  </resultMap>
+
+  <resultMap id="MessageResultMap" type="edu.fudan.projectbasedlearning.pojo.MemoMessage">
+    <id column="memo_id" jdbcType="INTEGER" property="memoId" />
+    <result column="send_id" jdbcType="INTEGER" property="sendId" />
+    <result column="recv_id" jdbcType="INTEGER" property="recvId" />
+    <result column="task_id" jdbcType="INTEGER" property="taskId" />
+    <result column="message" jdbcType="VARCHAR" property="message" />
+    <result column="read_or_not" jdbcType="INTEGER" property="read" />
+    <result column="project_id" jdbcType="INTEGER" property="projectId" />
+    <result column="project_name" jdbcType="VARCHAR" property="projectName" />
+    <result column="send_role" jdbcType="INTEGER" property="sendRole" />
+    <result column="send_name" jdbcType="VARCHAR" property="sendName" />
+  </resultMap>
+
+  <select id="findByRecvId" parameterType="int" resultMap="MessageResultMap">
+    select memo_id,send_id,recv_id,memo.task_id as task_id,message,read_or_not,
+    user.username as send_name,user.role as send_role,
+    task.project_id as project_id,
+    project.project_name as project_name
+    from memo inner join user on memo.send_id = user.user_id
+    inner join task on memo.task_id = task.task_id
+    inner join project on task.project_id = project.project_id
+    where recv_id=#{userId}
+  </select>
+
+  <select id="findActiveByRecvId" parameterType="int" resultMap="MessageResultMap">
+    select memo_id,send_id,recv_id,memo.task_id as task_id,message,read_or_not,
+    user.username as send_name,user.role as send_role,
+    task.project_id as project_id,
+    project.project_name as project_name
+    from memo inner join user on memo.send_id = user.user_id
+    inner join task on memo.task_id = task.task_id
+    inner join project on task.project_id = project.project_id
+    where recv_id=#{userId} and read_or_not=0
+  </select>
+</mapper>

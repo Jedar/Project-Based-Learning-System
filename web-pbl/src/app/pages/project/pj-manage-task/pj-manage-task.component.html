@@ -22,6 +22,9 @@
                     <nz-tag nzColor="green">
                         <a [routerLink]="['../','modify_task']" [queryParams]="{'task_id':data.task_id}">编辑</a>
                     </nz-tag>
+                    <nz-tag nzColor="yellow">
+                      <a (click)="onMemo(data.task_id)">提醒</a>
+                    </nz-tag>
                     <nz-tag nzColor="red">
                         <a (click)="onDelete(data.task_id)">删除</a>
                     </nz-tag>

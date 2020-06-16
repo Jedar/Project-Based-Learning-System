@@ -118,7 +118,7 @@ export class PjManageInfoComponent implements OnInit {
       return;
     }
     if(this.total > 0){
-      this.modal.info({
+      this.modal.error({
         nzTitle: '分数分配错误',
         nzContent: '分数分配错误，请确保分数分配之和为100%',
       });

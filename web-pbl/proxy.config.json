@@ -268,5 +268,25 @@
   "/project/scoreDistribute/*":{
     "target": "http://localhost:8080",
     "secure": "false"
+  },
+  "/memo/*":{
+    "target": "http://localhost:8080",
+    "secure": "false"
+  },
+  "/memo/add":{
+    "target": "http://localhost:8080",
+    "secure": "false"
+  },
+  "/memo/list/*":{
+    "target": "http://localhost:8080",
+    "secure": "false"
+  },
+  "/memo/count/*":{
+    "target": "http://localhost:8080",
+    "secure": "false"
+  },
+  "/memo/read/*":{
+    "target": "http://localhost:8080",
+    "secure": "false"
   }
 }
