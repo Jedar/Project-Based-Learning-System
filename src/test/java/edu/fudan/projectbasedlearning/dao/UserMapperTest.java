@@ -1,14 +1,24 @@
 package edu.fudan.projectbasedlearning.dao;
 
+import edu.fudan.projectbasedlearning.ProjectBasedLearningApplication;
 import edu.fudan.projectbasedlearning.Tester;
 import edu.fudan.projectbasedlearning.pojo.User;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
+import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.List;
 
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = ProjectBasedLearningApplication.class)
+@Transactional
+@Rollback
 public class UserMapperTest extends Tester {
     @Resource
     private UserMapper userMapper;

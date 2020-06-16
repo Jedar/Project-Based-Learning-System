@@ -168,6 +168,7 @@ export class PjManageInfoComponent implements OnInit {
       this.val1+=1;
       this.total-=1;
     }
+    return false;
   }
 
   decrease1(){
@@ -175,6 +176,7 @@ export class PjManageInfoComponent implements OnInit {
       this.val1-=1;
       this.total+=1;
     }
+    return false;
   }
 
   increase2(){
@@ -182,6 +184,7 @@ export class PjManageInfoComponent implements OnInit {
       this.val2+=1;
       this.total-=1;
     }
+    return false;
   }
 
   decrease2(){
@@ -189,6 +192,7 @@ export class PjManageInfoComponent implements OnInit {
       this.val2-=1;
       this.total+=1;
     }
+    return false;
   }
 
   increase3(){
@@ -196,6 +200,7 @@ export class PjManageInfoComponent implements OnInit {
       this.val3+=1;
       this.total-=1;
     }
+    return false;
   }
 
   decrease3(){
@@ -203,6 +208,7 @@ export class PjManageInfoComponent implements OnInit {
       this.val3-=1;
       this.total+=1;
     }
+    return false;
   }
 
 }
