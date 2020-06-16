@@ -143,7 +143,18 @@ export class PjMarkMateComponent implements OnInit {
       this.project = result.data;
       //Todo：判断是否在互评时间内
       let date = new Date();
-      if(this.project.startTime < date.toDateString() && this.project.endTime > date.toDateString()){
+
+      let dateStr = date.getFullYear()+"-";
+      if(date.getMonth()+1<10){
+        dateStr = dateStr +"0" +(date.getMonth()+1);
+      }else {dateStr = dateStr + "-" + (date.getMonth()+1);}
+      if(date.getDate()<10){
+        dateStr = dateStr + "0"+date.getDate();
+      }else {dateStr = dateStr + "-"+date.getDate();}
+
+      // console.log(dateStr);
+      // console.log(this.project.scoreStartTime,this.project.scoreEndTime,this.project.scoreStartTime<dateStr);
+      if(this.project.scoreStartTime.substr(0,10) < dateStr && this.project.scoreEndTime.substr(0,10) > dateStr){
         this.timeLimit = true;
       }
     });
