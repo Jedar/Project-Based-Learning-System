@@ -14,3 +14,19 @@ export interface ScoreListMessage {
   message:string,
   data:Score[],
 }
+
+export interface StudentScore {
+  sId:number,
+  username:string,
+  gender:string,
+  school:string,
+  profile:string,
+  comment:string,
+  value:number,
+}
+
+export interface StudentScoreListMessage {
+  code:number,
+  message:string,
+  data:StudentScore[],
+}

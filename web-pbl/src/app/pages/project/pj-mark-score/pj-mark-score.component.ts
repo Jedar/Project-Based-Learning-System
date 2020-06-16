@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Student} from "../../../share/student.model";
 import {StudentService} from "../../../services/student.service";
 import {ActivatedRoute} from "@angular/router";
-import {Score} from "../../../share/score.model";
+import {Score, StudentScore} from "../../../share/score.model";
 import {ScoreService} from "../../../services/score.service";
 import {NzModalService} from "ng-zorro-antd/modal";
 import {Task} from "../../../share/task.model";
@@ -17,16 +17,15 @@ import {AuthService} from "../../../services/auth.service";
   styleUrls: ['./pj-mark-score.component.css']
 })
 export class PjMarkScoreComponent implements OnInit {
-  students: Student[] = [];
+  studentScore:StudentScore[] = [];
   projectId: number;
-  teacherId: number = 10009;
+  teacherId: number;
   scores:Score[] = [];
   tasksOfStudent: Map<number, Task[]> = new Map<number, Task[]>();
   replyOfStudent:Map<number,number> = new Map<number, number>();
   publishOfStudent:Map<number,number> = new Map<number, number>();
-  value: number = 0;
-  comment:string = "";
   ifHasMulEva:Map<number,boolean> = new Map<number, boolean>();
+
 
   constructor(
     private studentService: StudentService,
@@ -44,10 +43,11 @@ export class PjMarkScoreComponent implements OnInit {
   }
 
   init(){
-    this.studentService.getStudentsOfProject(this.projectId).subscribe(result => {
-      this.students = result.data;
+    this.scoreService.getStudentsOfProject(this.projectId).subscribe(result => {
+      // this.students = result.data;
+      this.studentScore = result.data;
       for (let student of result.data) {
-        this.scoreService.getAllScores().subscribe(res=>{
+        this.scoreService.getAllScores(this.projectId).subscribe(res=>{
           if(res.code == 200)this.scores = res.data;
           let flag = false;
           for (let score of this.scores){
@@ -93,29 +93,36 @@ export class PjMarkScoreComponent implements OnInit {
   }
 
   onSubmit(type: number, userId: number) {
-    if(this.value <0 || this.value>100){
+
+    let value = 0;
+    let comment = "";
+    for (let student of this.studentScore){
+      if(student.sId == userId){
+          value = student.value;
+          comment = student.comment;
+      }
+    }
+    if(value <0 || value>100){
       this.modal.error({
         nzTitle: '提交失败',
         nzContent: "分数应在0~100之间",
       });
       return;
     }
+    if(comment == null)comment="";
     const params = new HttpParams()
       .set("projectId", String(this.projectId))
       .set("userId", String(userId))
       .set("scoreType", String(type))
       .set("scorerId", String(this.teacherId))
-      .set("value", String(this.value))
-      .set("comment", this.comment);
+      .set("value", String(value))
+      .set("comment", comment);
 
     this.scoreService.submitScore(params).subscribe(result => {
       if (result.code == 200) {
         this.modal.success({
           nzTitle: '提交分数',
           nzContent: '提交成功',
-          nzOnOk: () => {
-            this.students = this.students.filter((student: Student) => student.sId != userId);
-          }
         });
         this.init();
       } else {

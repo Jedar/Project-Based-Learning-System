@@ -10,9 +10,9 @@ import java.util.List;
  * Created by CodeGenerator on 2020/05/29.
  */
 public interface ScoreService extends Service<Score> {
-    List<Score> findScoresByStudentId(int studentId);
+    List<Score> findScoresByStudentId(int studentId,int projectId);
 
     boolean saveScore(Score score);
 
-    List<Score> findAllScores();
+    List<Score> findAllScores(int projectId);
 }

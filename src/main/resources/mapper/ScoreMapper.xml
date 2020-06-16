@@ -17,12 +17,12 @@
     <select id="getAllScores" resultType="edu.fudan.projectbasedlearning.pojo.Score">
     select project_id as projectId,user_id as userId,score_type as scoreType,scorer_id as scorerId,
      value,time,comment,distribute from score natural join score_distribute
-     where score.score_type = score_distribute.type</select>
+     where score.score_type = score_distribute.type and project_id=#{projectId}</select>
     <!--查询学生对应的分数-->
     <select id="findStudentScores" parameterType="int" resultType="edu.fudan.projectbasedlearning.pojo.Score">
     select project_id as projectId,user_id as userId,score_type as scoreType,scorer_id as scorerId,
      value,time,comment,distribute from score natural join score_distribute
-     where user_id = #{studentId} and score.score_type = score_distribute.type
+     where user_id = #{studentId} and score.score_type = score_distribute.type and project_id=#{projectId}
     </select>
 
     <select id="findScoreDistribute" parameterType="int" resultType="edu.fudan.projectbasedlearning.pojo.ScoreDistribute">
