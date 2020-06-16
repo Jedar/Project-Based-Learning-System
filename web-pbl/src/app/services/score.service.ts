@@ -1,9 +1,10 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {ScoreListMessage} from "../share/score.model";
+import {ScoreListMessage, StudentScoreListMessage} from "../share/score.model";
 import {ResultMessage} from "../share/common.model";
 import {TokenHandler} from "../share/Token";
+import {StudentListMessage} from "../share/student.model";
 
 const httpGetOptions = {
   headers: new HttpHeaders({
@@ -38,5 +39,11 @@ export class ScoreService {
 
   submitScore(data): Observable<ResultMessage> {
     return this.http.post<ResultMessage>( "/score/add", data, httpFormOptions).pipe();
+  }
+
+  getStudentsOfProject(project_id:number):Observable<StudentScoreListMessage>{
+    let url =  "/student/project?projectId="+project_id;
+    return this.http.get<StudentScoreListMessage>(url,httpGetOptions).pipe();
+    // return this.http.get<Student[]>("/assets/data/students.json").pipe();
   }
 }

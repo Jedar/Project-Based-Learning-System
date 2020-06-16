@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Student} from "../../../share/student.model";
 import {StudentService} from "../../../services/student.service";
 import {ActivatedRoute} from "@angular/router";
-import {Score} from "../../../share/score.model";
+import {Score, StudentScore} from "../../../share/score.model";
 import {ScoreService} from "../../../services/score.service";
 import {NzModalService} from "ng-zorro-antd/modal";
 import {Task} from "../../../share/task.model";
@@ -21,11 +21,11 @@ import {Project} from "../../../share/project.model";
 export class PjMarkMateComponent implements OnInit {
   selfEva: number = 0;
   mutEva: number = 0;
-  comment: string = "";
+  selfComment: string = "";
   project: Project = null;
 
 
-  students: Student[] = [];
+  studentScore:StudentScore[] = [];
   projectId: number;
   studentId: number;
   scores:Score[] = [];
@@ -55,10 +55,19 @@ export class PjMarkMateComponent implements OnInit {
 
   onSubmit(type: number, userId: number) {
     let value = 0;
-    if (type == 1)
+    let comment = "";
+    if (type == 1){
       value = this.selfEva;
-    else
-      value = this.mutEva;
+      comment = this.selfComment;
+    } else{
+      for (let student of this.studentScore){
+        if(student.sId == userId){
+          value = student.value;
+          comment = student.comment;
+        }
+      }
+    }
+    if(comment == null)comment="";
 
     if (value <0 || value>100){
       this.modal.error({
@@ -74,16 +83,13 @@ export class PjMarkMateComponent implements OnInit {
       .set("scoreType", String(type))
       .set("scorerId", String(this.studentId))
       .set("value", String(value))
-      .set("comment", this.comment);
+      .set("comment", comment);
 
     this.scoreService.submitScore(params).subscribe(result => {
       if (result.code == 200) {
         this.modal.success({
           nzTitle: '提交分数',
           nzContent: '提交成功',
-          nzOnOk: () => {
-            this.students = this.students.filter((student: Student) => student.sId != userId);
-          }
         });
         this.init();
       } else {
@@ -96,11 +102,11 @@ export class PjMarkMateComponent implements OnInit {
   }
 
   init(){
-    this.studentService.getStudentsOfProject(this.projectId).subscribe(result => {
-      if(result.code == 200)this.students = result.data;
-      for (let i=0;i<this.students.length;i++){
-        if (this.students[i].sId == this.studentId){
-          this.students.splice(i,i+1);
+    this.scoreService.getStudentsOfProject(this.projectId).subscribe(result => {
+      if(result.code == 200)this.studentScore = result.data;
+      for (let i=0;i<this.studentScore.length;i++){
+        if (this.studentScore[i].sId == this.studentId){
+          this.studentScore.splice(i,i+1);
         }
       }
       for (let student of result.data) {
@@ -142,9 +148,6 @@ export class PjMarkMateComponent implements OnInit {
       }
     });
     this.init();
-
-
-
   }
 
 

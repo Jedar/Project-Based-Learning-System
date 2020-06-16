@@ -4,7 +4,7 @@
 
 <nz-content>
   <nz-card nzTitle="教师评分">
-    <nz-card *ngFor="let data of students" nzType="inner" nzTitle="学生 : {{data.sId}}" [nzExtra]="extraTemplate">
+    <nz-card *ngFor="let data of studentScore" nzType="inner" nzTitle="学生 : {{data.sId}}" [nzExtra]="extraTemplate">
       <nz-collapse>
         <nz-collapse-panel nzHeader="查看任务完成情况">
           <nz-list nzBordered>
@@ -38,10 +38,10 @@
         <nz-list>
           <nz-list-item>
             <span>打分：</span>
-            <span style="margin-right: 2px"><label><input placeholder="0" nz-input [(ngModel)]="value"/></label></span>
+            <span style="margin-right: 2px"><label><input placeholder="0" nz-input [(ngModel)]="data.value"/></label></span>
             <span>评论：</span>
             <span style="margin-right: 2px"><label><input nz-input
-                                                          [(ngModel)]="comment"/></label></span>
+                                                          [(ngModel)]="data.comment"/></label></span>
             <button *ngIf="ifHasMulEva.get(data.sId) == false" style="margin-left: 2px" (click)="onSubmit(3,data.sId)" nz-button nzType="primary">提交</button>
             <button *ngIf="ifHasMulEva.get(data.sId)" disabled="disabled" style="margin-left: 2px" (click)="onSubmit(3,data.sId)" nz-button nzType="primary">已提交</button>
           </nz-list-item>
