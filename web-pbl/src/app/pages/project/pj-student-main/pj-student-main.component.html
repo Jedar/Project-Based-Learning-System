@@ -77,7 +77,7 @@
             <li nz-submenu nzTitle="分数" nzIcon="rocket">
               <ul>
                 <li [nzSelected]="option=='my_score'" nz-menu-item [routerLink]="['/','project','student','my_score']"  [queryParams]="{projectId:projectId}">我的分数</li>
-                <li [nzSelected]="option=='mark_mate'" nz-menu-item [routerLink]="['/','project','student','mark_mate']"  [queryParams]="{projectId:projectId}">打分</li>
+                <li *ngIf="timeLimit" [nzSelected]="option=='mark_mate'" nz-menu-item [routerLink]="['/','project','student','mark_mate']"  [queryParams]="{projectId:projectId}">打分</li>
               </ul>
             </li>
           </ul>
