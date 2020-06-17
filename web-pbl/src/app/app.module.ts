@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NZ_I18N } from 'ng-zorro-antd/i18n';
 import { zh_CN } from 'ng-zorro-antd/i18n';
@@ -23,13 +23,16 @@ import { MemoService } from './services/memo.service';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import {NzMessageService} from "ng-zorro-antd";
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import {MyInterceptor} from "./share/MyInterceptor";
+import { PageUnauthorizedComponent } from './components/page-unauthorized/page-unauthorized.component';
 
 registerLocaleData(zh);
 
 @NgModule({
   declarations: [
     AppComponent,
-    PageErrorComponent
+    PageErrorComponent,
+    PageUnauthorizedComponent
   ],
   imports: [
     BrowserModule,

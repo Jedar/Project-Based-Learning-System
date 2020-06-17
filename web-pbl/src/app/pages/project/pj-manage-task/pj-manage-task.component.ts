@@ -110,14 +110,24 @@ export class PjManageTaskComponent implements OnInit {
     private authService:AuthService,
   ){
     this.projectId = taskService.getProjectId();
+    console.log(this.projectId);
     projectService.getProjectOf(this.projectId).subscribe(result => {
       this.project = result.data;
       this.startDate = new Date(Date.parse(this.project.startTime));
       this.endDate = new Date(Date.parse(this.project.endTime));
+
+      var userId = this.authService.getUserId();
+      var projectLeaderId = this.project.leaderId;
+
+      let role = this.authService.getRoleType();
+      if(!(role === 1 || userId === projectLeaderId)){
+        this.router.navigate(['/','401']);
+      }
     });
   }
 
   ngOnInit(): void {
+
     this.taskService.getTaskList(this.projectId).subscribe(result=>{
       this.tasks = result.data;
     });

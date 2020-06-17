@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { PageErrorComponent } from './components/page-error/page-error.component';
+import {PageUnauthorizedComponent} from "./components/page-unauthorized/page-unauthorized.component";
 
 
 const routes: Routes = [
@@ -12,6 +13,7 @@ const routes: Routes = [
   { path: 'teacher', loadChildren: () => import('./pages/teacher/teacher.module').then(m => m.TeacherModule) },
   { path: 'manager', loadChildren: () => import('./pages/manager/manager.module').then(m => m.ManagerModule) },
   { path: '404', component: PageErrorComponent},
+  { path: '401', component: PageUnauthorizedComponent},
   { path: '**', redirectTo:'404'},
 ];
 
