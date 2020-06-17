@@ -42,8 +42,7 @@ export class ScoreService {
   }
 
   getStudentsOfProject(project_id:number):Observable<StudentScoreListMessage>{
-    let url =  "/student/project?projectId="+project_id;
-    return this.http.get<StudentScoreListMessage>(url,httpGetOptions).pipe();
+    return this.http.get<StudentScoreListMessage>("/student/project?projectId="+project_id,httpGetOptions).pipe();
     // return this.http.get<Student[]>("/assets/data/students.json").pipe();
   }
 }

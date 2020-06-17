@@ -67,6 +67,15 @@ export class PjMarkMateComponent implements OnInit {
         }
       }
     }
+    let n = Number(value);
+
+    if (isNaN(n)) {
+      this.modal.error({
+        nzTitle: '提交失败',
+        nzContent: "分数输入应为0-100的数值",
+      });
+      return;
+    }
     if(comment == null)comment="";
 
     if (value <0 || value>100){
@@ -77,6 +86,7 @@ export class PjMarkMateComponent implements OnInit {
       return;
     }
 
+    value = Math.ceil(value);
     const params = new HttpParams()
       .set("projectId", String(this.projectId))
       .set("userId", String(userId))
@@ -103,13 +113,15 @@ export class PjMarkMateComponent implements OnInit {
 
   init(){
     this.scoreService.getStudentsOfProject(this.projectId).subscribe(result => {
-      if(result.code == 200)this.studentScore = result.data;
+      this.studentScore = result.data;
       for (let i=0;i<this.studentScore.length;i++){
+        // console.log(this.studentScore[i].sId,this.studentId);
         if (this.studentScore[i].sId == this.studentId){
-          this.studentScore.splice(i,i+1);
+          this.studentScore.splice(i,1);
+          break;
         }
       }
-      for (let student of result.data) {
+      for (let student of this.studentScore) {
         this.scoreService.getAllScores(this.projectId).subscribe(res=>{
           if(res.code == 200)this.scores = res.data;
           let flag = false;
@@ -141,7 +153,6 @@ export class PjMarkMateComponent implements OnInit {
   ngOnInit(): void {
     this.projectService.getProjectOf(this.projectId).subscribe(result => {
       this.project = result.data;
-      //Todo：判断是否在互评时间内
       let date = new Date();
 
       let dateStr = date.getFullYear()+"-";
@@ -153,7 +164,7 @@ export class PjMarkMateComponent implements OnInit {
       }else {dateStr = dateStr + "-"+date.getDate();}
 
       // console.log(dateStr);
-      // console.log(this.project.scoreStartTime,this.project.scoreEndTime,this.project.scoreStartTime<dateStr);
+      // console.log(this.project.scoreStartTime,this.project.scoreEndTime,this.project.scoreStartTime<dateStr,this.project.scoreEndTime>dateStr);
       if(this.project.scoreStartTime.substr(0,10) < dateStr && this.project.scoreEndTime.substr(0,10) > dateStr){
         this.timeLimit = true;
       }

@@ -60,6 +60,9 @@ export class PjMyScoreComponent implements OnInit {
       if(count !=0 )this.mutEva = this.mutEva / count;
       console.log(this.mutEva,count);
       this.totalScore = this.selfEva + this.teacherEva + this.mutEva;
+      this.totalScore = Number(this.totalScore.toFixed(2));
+      this.mutEva = Number(this.mutEva.toFixed(2));
+      this.selfEva = Number(this.selfEva.toFixed(2));
     });
   }
 
