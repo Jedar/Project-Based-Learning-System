@@ -24,8 +24,8 @@
   <nz-form-item>
     <nz-form-label [nzSpan]="7" nzRequired>项目主题</nz-form-label>
     <nz-form-control [nzSpan]="12" nzValidatingTip="Validating...">
-      <nz-input-number formControlName="theme" [nzMax]="5" [nzMin]="1" [nzStep]="1"></nz-input-number>
-      <!-- <input nz-input formControlName="priority"/> -->
+      <!-- <nz-input-number formControlName="theme" [nzMax]="5" [nzMin]="1" [nzStep]="1"></nz-input-number> -->
+      <input nz-input formControlName="theme"/>
     </nz-form-control>
   </nz-form-item>
 
@@ -96,7 +96,7 @@
       [nzParser]="parserPercent"
       [ngModelOptions]="{standalone: true}" disabled
     ></nz-input-number>
-    <button nz-button (click)="increase2()">增加</button>
+    <button nzType="" nz-button (click)="increase2()">增加</button>
     <button nz-button (click)="decrease2()">减少</button>
   </nz-form-item>
 
@@ -117,7 +117,7 @@
 
   <nz-form-item>
     <nz-form-control [nzOffset]="7" [nzSpan]="12">
-      <button nz-button nzType="primary">提交</button>
+      <button nz-button [nzType]="'primary'">提交</button>
     </nz-form-control>
   </nz-form-item>
 </form>

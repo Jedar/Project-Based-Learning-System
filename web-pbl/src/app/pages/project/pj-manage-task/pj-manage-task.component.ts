@@ -11,7 +11,10 @@ import { Student } from '../../../share/student.model';
 import { StudentService } from '../../../services/student.service';
 import { Project } from '../../../share/project.model';
 import { ProjectService } from '../../../services/project.service';
+import { AuthService } from '../../../services/auth.service';
 import { NzModalService } from 'ng-zorro-antd/modal';
+import { MemoService } from '../../../services/memo.service';
+import { Memo,MemoMessage } from '../../../share/memo.model';
 
 import endOfMonth from 'date-fns/endOfMonth';
 import { da } from 'date-fns/locale';
@@ -29,6 +32,7 @@ export class PjManageTaskComponent implements OnInit {
 
   isSubmit:boolean;
   isDeleting:boolean;
+  isMemo:boolean;
   /* 临时的项目信息，实际不会使用，仅仅为了防止空指针 */
   project:Project={
     "projectId":0,
@@ -102,6 +106,8 @@ export class PjManageTaskComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private projectService: ProjectService,
     private router:Router,
+    private memoService:MemoService,
+    private authService:AuthService,
   ){
     this.projectId = taskService.getProjectId();
     projectService.getProjectOf(this.projectId).subscribe(result => {
@@ -215,6 +221,32 @@ export class PjManageTaskComponent implements OnInit {
     // Can not select days before today and today
     return differenceInCalendarDays(current, this.endDate) > 0 || differenceInCalendarDays(current,  this.startDate) < 0;
   };
+
+  onMemo(task:number){
+    if(this.isMemo){
+      return;
+    }
+    this.isMemo = true;
+    this.memoService.addMemo({
+      memoId:0,
+      read:0,
+      sendId:this.authService.getUserId(),
+      recvId:0,
+      message:'',
+      taskId:task
+    }).subscribe(result=>{
+      if(result.code == 200){
+        this.modal.success({
+          nzTitle: '提醒',
+          nzContent: '提醒成功',
+        });
+      }
+      else{
+        window.alert(result.message);
+      }
+      this.isMemo =false;
+    })
+  }
 
 
 

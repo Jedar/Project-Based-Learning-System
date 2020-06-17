@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {TokenHandler} from "../../../share/Token";
 import {AuthService} from "../../../services/auth.service";
+import { MemoService } from '../../../services/memo.service';
 
 @Component({
   selector: 'app-student-main',
@@ -12,10 +13,13 @@ export class StudentMainComponent implements OnInit {
 
   option:string;
 
+  memoCount:number = 0;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private memoService: MemoService
   ) { }
 
   ngOnInit(): void {
@@ -33,6 +37,15 @@ export class StudentMainComponent implements OnInit {
         this.option = u[0].path;
       });
     });
+
+    this.memoService.memoCount(this.authService.getUserId()).subscribe(result => {
+      if(result.code == 200){
+        this.memoCount = result.data;
+      }
+      else{
+        window.alert(result.message);
+      }
+    })
   }
   logout(){
     this.authService.setUserId(null);

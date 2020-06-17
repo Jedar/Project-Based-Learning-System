@@ -11,5 +11,5 @@ public @interface UserLoginToken {
     boolean required() default true;
     /* Values: None, Student, Manager, Teacher */
     String[] roles() default {"None"};
-
 }
+

@@ -149,7 +149,6 @@ public class UserServiceImpl extends AbstractService<User> implements UserServic
         return userMapper.findByUserNameAndPassword(user);
     }
 
-
     @Override
     public HashMap<String, Object> getStudentInfo(int studentId) {
         return userMapper.getStudentInfo(studentId);

@@ -19,6 +19,7 @@ import { TaskService } from './services/task.service';
 import { StudentService } from './services/student.service';
 import { ProjectService } from './services/project.service';
 import { FileService } from './services/file.service';
+import { MemoService } from './services/memo.service';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import {NzMessageService} from "ng-zorro-antd";
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
@@ -50,6 +51,7 @@ registerLocaleData(zh);
     NzMessageService,
     ProjectService,
     FileService,
+    MemoService,
   ],
   bootstrap: [AppComponent]
 })

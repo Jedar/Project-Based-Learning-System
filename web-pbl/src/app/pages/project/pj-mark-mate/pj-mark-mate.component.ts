@@ -151,24 +151,6 @@ export class PjMarkMateComponent implements OnInit {
 
   }
   ngOnInit(): void {
-    this.projectService.getProjectOf(this.projectId).subscribe(result => {
-      this.project = result.data;
-      let date = new Date();
-
-      let dateStr = date.getFullYear()+"-";
-      if(date.getMonth()+1<10){
-        dateStr = dateStr +"0" +(date.getMonth()+1);
-      }else {dateStr = dateStr + "-" + (date.getMonth()+1);}
-      if(date.getDate()<10){
-        dateStr = dateStr + "0"+date.getDate();
-      }else {dateStr = dateStr + "-"+date.getDate();}
-
-      // console.log(dateStr);
-      // console.log(this.project.scoreStartTime,this.project.scoreEndTime,this.project.scoreStartTime<dateStr,this.project.scoreEndTime>dateStr);
-      if(this.project.scoreStartTime.substr(0,10) < dateStr && this.project.scoreEndTime.substr(0,10) > dateStr){
-        this.timeLimit = true;
-      }
-    });
     this.init();
   }
 

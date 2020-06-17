@@ -63,6 +63,7 @@ export class PjMyScoreComponent implements OnInit {
       this.totalScore = Number(this.totalScore.toFixed(2));
       this.mutEva = Number(this.mutEva.toFixed(2));
       this.selfEva = Number(this.selfEva.toFixed(2));
+      this.teacherEva = Number(this.teacherEva.toFixed(2));
     });
   }
 
