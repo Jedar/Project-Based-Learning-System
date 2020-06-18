@@ -139,7 +139,6 @@ public class DiscussionController {
     public Result<List<Discussion>> getMyDiscussion(@RequestParam Integer projectId,@RequestParam Integer studentId){
         ResultTypeGenerator<List<Discussion>> generator = new ResultTypeGenerator<>();
         List<Discussion> discussionList = discussionService.findMyDiscussion(projectId,studentId);
-        System.out.println(discussionList);
         return generator.genSuccessResult(discussionList);
     }
 }

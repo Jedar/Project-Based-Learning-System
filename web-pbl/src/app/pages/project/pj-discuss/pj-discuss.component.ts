@@ -84,6 +84,9 @@ export class PjDiscussComponent implements OnInit {
   }
 
   init(){
+    this.discussionService.getAuthorOfDiscussion(this.userId).subscribe(result=>{
+        this.discussionProfiles.set(this.userId,result.data.profile);
+    });
     this.discussionService.getAllDiscussionList(this.projectId).subscribe(result => {
       this.discussions = result.data;
       let count=0;

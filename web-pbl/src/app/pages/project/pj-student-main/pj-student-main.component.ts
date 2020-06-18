@@ -72,7 +72,7 @@ export class PjStudentMainComponent implements OnInit {
 
       // console.log(dateStr);
       // console.log(this.project.scoreStartTime,this.project.scoreEndTime,this.project.scoreStartTime<dateStr,this.project.scoreEndTime>dateStr);
-      if(this.project.scoreStartTime.substr(0,10) < dateStr && this.project.scoreEndTime.substr(0,10) > dateStr){
+      if(this.project.scoreStartTime.substr(0,10) <= dateStr && this.project.scoreEndTime.substr(0,10) >= dateStr){
         this.timeLimit = true;
       }
     });
