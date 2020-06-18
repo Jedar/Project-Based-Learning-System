@@ -102,7 +102,7 @@ export class PjDiscussComponent implements OnInit {
 
         this.discussionService.getAuthorOfDiscussion(discussion.userId).subscribe(author => {
             this.discussionAuthors.set(discussion.userId, author.data.username);
-            this.discussionProfiles.set(discussion.discussionId,author.data.profile);
+            this.discussionProfiles.set(discussion.userId,author.data.profile);
         }
         )
       }

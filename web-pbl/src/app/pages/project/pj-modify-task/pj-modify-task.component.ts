@@ -13,6 +13,7 @@ import { StudentService } from '../../../services/student.service';
 import { Project } from '../../../share/project.model';
 import { ProjectService } from '../../../services/project.service';
 import { NzModalService } from 'ng-zorro-antd/modal';
+import {AuthService} from "../../../services/auth.service";
 
 @Component({
   selector: 'app-pj-modify-task',
@@ -74,6 +75,7 @@ export class PjModifyTaskComponent implements OnInit {
     private studentService: StudentService,
     private activatedRoute: ActivatedRoute,
     private projectService: ProjectService,
+    private authService:AuthService,
   ) {
     const { required, maxLength, minLength,min,max } = CommonValidators;
     this.validateForm = this.fb.group({
@@ -92,6 +94,17 @@ export class PjModifyTaskComponent implements OnInit {
           this.project = result.data;
           this.startDate = new Date(Date.parse(this.project.startTime));
           this.endDate = new Date(Date.parse(this.project.endTime));
+
+          var userId = this.authService.getUserId();
+          var projectLeaderId = this.project.leaderId;
+
+          console.log(userId);
+          console.log(projectLeaderId);
+
+          let role = this.authService.getRoleType();
+          if(!(role === 1 || userId === projectLeaderId)){
+            this.router.navigate(['/','401']);
+          }
         }
         else{
           window.alert("项目信息获取失败");
@@ -126,7 +139,6 @@ export class PjModifyTaskComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
   }
 
   onBack(){

@@ -6,7 +6,7 @@
   <nz-tab nzTitle="全部讨论">
     <ng-template #commentTemplateRef let-comment="comment">
       <nz-comment>
-        <nz-avatar nz-comment-avatar nzIcon="user" [nzSrc]="getProfile(comment.discussionId)"></nz-avatar>
+        <nz-avatar *ngIf="getProfile(comment.userId)" nz-comment-avatar nzIcon="user" [nzSrc]="getProfile(comment.userId)"></nz-avatar>
 <!--        <nz-avatar *ngIf="getProfile(comment.discussionId) == null" nz-comment-avatar nzSize="large" nzIcon="user" style="background-color:#87d068;"></nz-avatar>-->
         <nz-comment-content>
           <div class="ant-comment-content-author-name">
@@ -32,7 +32,7 @@
         </nz-comment-action>
         <div class="ReplyController{{comment.discussionId}}" style="display: none">
           <nz-comment>
-            <nz-avatar nz-comment-avatar nzIcon="user" [nzSrc]="getProfile(comment.discussionId)"></nz-avatar> <!--              <nz-avatar nz-comment-avatar nzIcon="user"-->
+            <nz-avatar *ngIf="getProfile(comment.userId)" nz-comment-avatar nzIcon="user" [nzSrc]="getProfile(comment.userId)"></nz-avatar>
             <!--                         nzSrc="//zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"></nz-avatar>-->
             <nz-comment-content>
               <nz-form-item>
@@ -71,7 +71,8 @@
     </ng-container>
     <nz-card>
       <nz-comment>
-        <nz-avatar nz-comment-avatar nzSize="large" nzIcon="user" style="background-color:#87d068;"></nz-avatar>
+        <nz-avatar *ngIf="getProfile(userId)" nz-comment-avatar nzIcon="user" [nzSrc]="getProfile(userId)"></nz-avatar>
+<!--        <nz-avatar  nz-comment-avatar nzSize="large" nzIcon="user" style="background-color:#87d068;"></nz-avatar>-->
         <!--            <nz-avatar nz-comment-avatar nzIcon="user"-->
         <!--                       nzSrc="//zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"></nz-avatar>-->
         <nz-comment-content>
@@ -91,7 +92,7 @@
     <ng-template #commentTemplateRef let-comment="comment">
       <nz-comment>
         <!--    <nz-avatar nz-comment-avatar nzIcon="user" [nzSrc]="comment?.avatar || 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png'"></nz-avatar>-->
-        <nz-avatar nz-comment-avatar nzIcon="user" [nzSrc]="getProfile(comment.discussionId)"></nz-avatar>
+        <nz-avatar *ngIf="getProfile(comment.userId)" nz-comment-avatar nzIcon="user" [nzSrc]="getProfile(comment.userId)"></nz-avatar>
         <nz-comment-content>
           <div class="ant-comment-content-author-name">
             {{getAuthor(comment.userId)}}
@@ -116,7 +117,7 @@
         </nz-comment-action>
         <div class="ReplyController{{comment.discussionId}}" style="display: none">
           <nz-comment>
-            <nz-avatar nz-comment-avatar nzIcon="user" [nzSrc]="getProfile(comment.discussionId)"></nz-avatar>
+            <nz-avatar *ngIf="getProfile(comment.userId)" nz-comment-avatar nzIcon="user" [nzSrc]="getProfile(comment.userId)"></nz-avatar>
             <!--              <nz-avatar nz-comment-avatar nzIcon="user"-->
             <!--                         nzSrc="//zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"></nz-avatar>-->
             <nz-comment-content>
