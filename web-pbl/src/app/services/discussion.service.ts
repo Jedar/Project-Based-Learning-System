@@ -5,9 +5,9 @@ import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 /* 回调对象 */
 import {Observable} from "rxjs";
 
-import {DiscussionCountMessage, DiscussionListMessage} from "../share/dicussion.model";
+import {AuthorMessage, DiscussionCountMessage, DiscussionListMessage} from "../share/dicussion.model";
 import {StudentMessage} from "../share/student.model";
-import {ResultMessage} from "../share/common.model";
+import {ResultMessage, User, UserMessage} from "../share/common.model";
 import {TokenHandler} from "../share/Token";
 
 const httpGetOptions = {
@@ -49,8 +49,8 @@ export class DiscussionService {
     return this.http.post<ResultMessage>( "/discussion/add", data, httpFormOptions).pipe();
   }
 
-  getAuthorOfDiscussion(user_id: number): Observable<StudentMessage> {
-    return this.http.get<StudentMessage>("/discussion/getDiscussionAuthor/"+user_id, httpGetOptions).pipe();
+  getAuthorOfDiscussion(user_id: number): Observable<AuthorMessage> {
+    return this.http.get<AuthorMessage>("/discussion/getDiscussionAuthor/"+user_id, httpGetOptions).pipe();
 
   }
 

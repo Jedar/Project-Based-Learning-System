@@ -37,7 +37,8 @@
   </select>
 
     <select id="getDiscussionAuthor" parameterType="int" resultType="hashmap">
-     select user_id as sId, username, gender, school, profile from user inner join student on user.user_id = student.s_id where s_id = #{studentId}
+     select user_id as userId, username, gender,profile from user inner join student on user.user_id = student.s_id WHERE user_id = #{studentId}
+    union select user_id as userId, username, gender,profile from user inner join teacher on user.user_id = teacher.t_id WHERE user_id = #{studentId}
   </select>
 
     <select id="getPublishCount" parameterType="int" resultType="int">

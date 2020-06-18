@@ -43,7 +43,7 @@ public class DiscussionMapperTest extends Tester {
 
     @Test
     public void testGetAuthor() {
-        HashMap<String, String> studentInfo = discussionMapper.getDiscussionAuthor(10009);
+        HashMap<String, String> studentInfo = discussionMapper.getDiscussionAuthor(10059);
         System.out.println(studentInfo);
     }
 

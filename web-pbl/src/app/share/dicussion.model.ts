@@ -19,3 +19,15 @@ export interface DiscussionCountMessage {
   message:string,
   data:number,
 }
+
+export interface Author {
+  userId:number,
+  username:string,
+  gender:string,
+  profile:string,
+}
+export interface AuthorMessage {
+  code:number,
+  message:string,
+  data:Author,
+}

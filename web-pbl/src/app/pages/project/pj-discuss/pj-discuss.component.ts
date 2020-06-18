@@ -31,7 +31,7 @@ export class PjDiscussComponent implements OnInit {
   replyContent: string;
   discussionChildren: Map<number, Discussion[]> = new Map<number, Discussion[]>();
   discussionAuthors: Map<number, string> = new Map<number, string>();
-
+  discussionProfiles:Map<number, string> = new Map<number, string>();
   myDiscussions:Discussion[] = [];
 
   like(discussion_id: number): void {
@@ -62,6 +62,10 @@ export class PjDiscussComponent implements OnInit {
 
   getAuthor(author_id: number): string {
     return this.discussionAuthors.get(author_id);
+  }
+
+  getProfile(author_id:number):string{
+    return this.discussionProfiles.get(author_id);
   }
 
   constructor(
@@ -98,7 +102,8 @@ export class PjDiscussComponent implements OnInit {
 
         this.discussionService.getAuthorOfDiscussion(discussion.userId).subscribe(author => {
             this.discussionAuthors.set(discussion.userId, author.data.username);
-          }
+            this.discussionProfiles.set(discussion.discussionId,author.data.profile);
+        }
         )
       }
     });
