@@ -43,6 +43,7 @@ public class TaskController {
             return generator.genFailResult("Get参数错误");
         }
         List<HashMap<String,Object>> list = taskService.getAllTaskListByProject(id);
+        System.out.println(list);
         return generator.genSuccessResult(list);
     }
 
