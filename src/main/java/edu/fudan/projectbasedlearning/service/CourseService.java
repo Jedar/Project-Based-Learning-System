@@ -19,15 +19,19 @@ public interface CourseService extends Service<Course> {
     //得到课程信息
     HashMap<String,Object> getCourseInfo(int courseId);
 
+    //获取一门课程的学生列表
     List<Student> findUserListOfCourse(int courseId);
+
     // 查询所有的课程
     List<HashMap<String,Object>> selectAllCourses();
 
     //删除课程以及项目
     void deleteCourse(int courseId);
 
+    // 创建课程
     void createCourse(Course course, String teacherName);
 
+    // 创建课程
     void createCourse(Course course, int teacherId);
 
     //查询某个学生已选的所有课程

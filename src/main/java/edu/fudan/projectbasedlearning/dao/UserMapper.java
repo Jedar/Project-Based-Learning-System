@@ -10,8 +10,10 @@ import java.util.List;
 
 public interface UserMapper extends Mapper<User> {
 
+    //登录时进行用户名和密码的判断
     User findByUserNameAndPassword(User user);
 
+    //保存学生信息
     int insertUser(User user);
 
     //得到学生
@@ -32,8 +34,9 @@ public interface UserMapper extends Mapper<User> {
     //教师修改个人信息
     void modifyTeacherInfo(HashMap<String, Object> param);
 
+    //得到学生列表
     List<HashMap<String, Object>> getStudentList();
-
+    //得到教师列表
     List<HashMap<String, Object>> getTeacherList();
 
 }
