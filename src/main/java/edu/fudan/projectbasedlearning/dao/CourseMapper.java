@@ -20,17 +20,20 @@ public interface CourseMapper extends Mapper<Course> {
     //得到课程信息
     HashMap<String,Object> getCourseInfo(int courseId);
 
+    //返回指定课程的选课学生人数
     int findStudentNumberOfCourse(int courseId);
 
+    //找到指定课程的学生列表
     List<Student> findStudentListOfCourse(int courseId);
 
     // 查询所有的课程
     List<HashMap<String,Object>> selectAllCourses();
 
+    //找到指定课程的项目列表
     List<Project> findProjectListOfCourse(int courseId);
     //删除课程
     void deleteCourse(int courseId);
-
+    //保存课程
     void insertCourse(Course course);
     //插入teach表中
     void insertTeach(int teacherId, int courseId);

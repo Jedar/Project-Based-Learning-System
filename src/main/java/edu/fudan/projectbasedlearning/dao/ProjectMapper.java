@@ -16,6 +16,7 @@ public interface ProjectMapper extends Mapper<Project> {
     //插入评分规则
     void insertScoreDistribute(int projectId, int type, double distribute);
 
+    //保存项目信息
     void insertProject(Project project);
 
     // 删除项目
