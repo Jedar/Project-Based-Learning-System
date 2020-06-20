@@ -84,7 +84,6 @@ public class TaskController {
     @ApiOperation(value = "更新任务")
     @PutMapping("/update")
     public Result modify(@RequestBody Task task){
-        System.out.println(task);
         this.taskService.update(task);
         return ResultGenerator.genSuccessResult();
     }
