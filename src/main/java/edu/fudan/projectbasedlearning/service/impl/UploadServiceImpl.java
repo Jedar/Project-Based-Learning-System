@@ -61,16 +61,9 @@ public class UploadServiceImpl implements IUploadService {
         }
         String path = realBasePath+newFileName;
         try {
-//            BufferedInputStream read = new BufferedInputStream(file.getInputStream());
-//            BufferedImage read = ImageIO.read(file.getInputStream());
-//            if (read == null) {
-//                logger.info("文件内容不合法:{}", newFileName);
-//                return null;
-//            }
-
             File dest = new File(path,"");
             System.out.println(dest.getParentFile());
-            //判断文件父目录是否存在
+            // 判断文件父目录是否存在
             if(!dest.getParentFile().exists()){
                 dest.getParentFile().mkdir();
             }
@@ -79,8 +72,7 @@ public class UploadServiceImpl implements IUploadService {
         } catch (IOException e) {
             logger.error("服务器内部错误->:{}", newFileName);
             e.printStackTrace();
-        }//返回图片路径
-
+        }
         return accessPath+newFileName;
     }
 }

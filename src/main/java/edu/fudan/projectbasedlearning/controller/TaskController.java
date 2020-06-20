@@ -43,7 +43,6 @@ public class TaskController {
             return generator.genFailResult("Get参数错误");
         }
         List<HashMap<String,Object>> list = taskService.getAllTaskListByProject(id);
-        System.out.println(list);
         return generator.genSuccessResult(list);
     }
 
@@ -85,7 +84,6 @@ public class TaskController {
     @ApiOperation(value = "更新任务")
     @PutMapping("/update")
     public Result modify(@RequestBody Task task){
-        System.out.println(task);
         this.taskService.update(task);
         return ResultGenerator.genSuccessResult();
     }
